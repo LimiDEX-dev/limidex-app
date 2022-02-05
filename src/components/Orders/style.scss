@@ -19,6 +19,9 @@
         line-height: 14px;
 
         .tab {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
             color: rgba(255, 249, 249, 0.5);
 
             &.active {
@@ -130,7 +133,12 @@
                     font-family: 'Roboto Mono';
                 }
 
-                .change > div > span {
+                .change > button {
+                    background-color: transparent;
+                    border: none;
+                }
+
+                .change > button > span {
                     display: block;
                     font-weight: 500;
                     font-size: 9px;
