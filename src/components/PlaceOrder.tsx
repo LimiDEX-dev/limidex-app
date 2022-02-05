@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './PlaceOrder.scss';
 
 export function PlaceOrder(props: any) {
+  const [activeTab, setActiveTab] = useState<0 | 1>(0);
+
   return (
     <div className="PlaceOrder">
       <div className="title">Place order</div>
       <div className="tab-switch">
-        <div className="active">Limit</div>
-        <div>Market Order</div>
+        <button
+          type="button"
+          className={activeTab === 0 ? 'active' : ''}
+          onClick={() => setActiveTab(0)}
+        >
+          Limit
+        </button>
+        <button
+          type="button"
+          className={activeTab === 1 ? 'active' : ''}
+          onClick={() => setActiveTab(1)}
+        >
+          Market Order
+        </button>
       </div>
 
       <div className="valute-swap">
@@ -70,12 +84,20 @@ export function PlaceOrder(props: any) {
 
       <div className="routes-container">
         <div className="routes-title">Routing</div>
-        <div className="radio active" />
-        <div className="radio-label">Self route</div>
-        <div className="radio-title">Your order will be executed at the best opportunity at the time of the trade</div>
-        <div className="radio" />
-        <div className="radio-label">Pancakeswap</div>
-        <div className="radio-title">Slippage  0.5%  </div>
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+        <label>
+          <input type="radio" name="routing" className="radio-input visually-hidden" defaultChecked />
+          <div className="radio active" />
+          <div className="radio-label">Self route</div>
+          <div className="radio-title">Your order will be executed at the best opportunity at the time of the trade</div>
+        </label>
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+        <label>
+          <input type="radio" name="routing" className="radio-input visually-hidden" />
+          <div className="radio" />
+          <div className="radio-label">Pancakeswap</div>
+          <div className="radio-title">Slippage  0.5%  </div>
+        </label>
       </div>
 
       <div className="more">
@@ -87,9 +109,9 @@ export function PlaceOrder(props: any) {
         Target price – 0.001 WBNB. Network fee: slow
       </div>
 
-      <div className="btn">
+      <button type="button" className="btn">
         Give permission to use WNBN
-      </div>
+      </button>
     </div>
   );
 }
