@@ -1,0 +1,8 @@
+@use '/src/styles/index.scss';
+
+.Chart {
+    @extend .dialog;
+
+    width: 100%;
+    height: 100%;
+}

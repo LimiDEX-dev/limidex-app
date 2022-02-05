@@ -1,0 +1,138 @@
+@use '/src/styles/index.scss';
+
+.ExchangesRates {
+    @extend .dialog;
+
+    display: flex;
+    flex-direction: column;
+    width: 310px;
+    height: 100%;
+    padding: 0;
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+        padding: 24px 20px 0;
+
+        .title {
+            font-size: 12px;
+            line-height: 14px;
+            color: rgba(255, 249, 249, 0.5);
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            border: 1px solid #55647D;
+            border-radius: 4px;
+            padding: 3px 7px;
+
+            > span:nth-child(1) {
+                font-weight: 300;
+                font-size: 9px;
+                line-height: 11px;
+                color: rgba(255, 249, 249, 0.5);
+                margin-right: 12px;
+            }
+
+            > span:nth-child(2) {
+                font-weight: 300;
+                font-size: 9px;
+                line-height: 11px;
+                color: rgba(255, 249, 249, 0.5);
+                margin-right: 4px;
+            }
+
+            > span:nth-child(3) {
+                font-family: 'Roboto Mono';
+                font-weight: 300;
+                font-size: 12px;
+                line-height: 10px;
+                color: #FFF9F9;
+            }
+        }
+    }
+
+    .content {
+        height: 100%;
+        padding: 0 20px;
+
+        table {
+            width: 100%;
+        }
+
+        .price {
+            padding-right: 29px;
+        }
+
+        .min {
+            padding-right: 17px;
+        }
+
+        thead td {
+            font-weight: 300;
+            font-size: 9px;
+            line-height: 11px;
+            color: #55647D;
+            padding: 13px 0;
+        }
+
+        tbody {
+            font-weight: 300;
+            font-size: 9px;
+            line-height: 13px;
+            font-family: 'Roboto Mono';
+
+            .amount, .min, .max {
+                color: rgba(255, 249, 249, 0.5);
+            }
+        }
+
+        .red-rate {
+            .price {
+                color: #B0685D;
+            }
+        }
+
+        .green-rate {
+            .price {
+                color: #9AC073;
+            }
+        }
+    }
+
+    .bottom {
+        border-top: 1px solid #3BD795;
+        padding: 14px 20px 24px;
+
+        .title {
+            font-size: 12px;
+            line-height: 14px;
+            color: rgba(255, 249, 249, 0.5);
+        }
+
+        .lines {
+            margin: 7px 0 0;
+
+            .line {
+                display: flex;
+                justify-content: space-between;
+
+                > span:nth-child(1) {
+                    font-weight: 300;
+                    font-size: 9px;
+                    line-height: 14px;
+                    color: rgba(255, 249, 249, 0.5);
+                }
+
+                > span:nth-child(2) {
+                    font-family: 'Roboto Mono';
+                    font-weight: 300;
+                    font-size: 9px;
+                    line-height: 14px;
+                    color: #FFF9F9;
+                }
+            }
+        }
+    }
+}

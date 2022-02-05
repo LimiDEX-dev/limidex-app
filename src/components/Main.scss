@@ -1,0 +1,40 @@
+@use '/src/styles/index.scss';
+
+.Main {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    .left {
+        padding-right: 10px;
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-left: 10px;
+    }
+
+    .right-top {
+        display: flex;
+        width: 100%;
+        height: 60%;
+        padding-bottom: 10px;
+    }
+
+    .right-bottom {
+        padding-top: 10px;
+        height: 40%;
+    }
+
+    .chart-container {
+        width: 100%;
+        padding-right: 10px;
+    }
+
+    .exchanges-rates-container {
+        padding-left: 10px;
+    }
+}
