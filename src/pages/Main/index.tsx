@@ -1,11 +1,11 @@
 import React from 'react';
 
-import './Main.scss';
+import './style.scss';
 
-import { PlaceOrder } from './PlaceOrder';
-import { ExchangesRates } from './ExchangesRates';
-import { Orders } from './Orders';
-import { Chart } from './Chart';
+import { PlaceOrder } from '../../components/PlaceOrder';
+import { ExchangesRates } from '../../components/ExchangesRates';
+import { Orders } from '../../components/Orders';
+import { Chart } from '../../components/Chart';
 
 export function Main(props: any) {
   return (

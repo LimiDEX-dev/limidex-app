@@ -1,4 +1,4 @@
-@use '/src/styles/index.scss';
+@use '/src/styles/index';
 
 .PlaceOrder {
     @extend .dialog;
@@ -104,7 +104,7 @@
                 .dropdown {
                     margin-left: auto;
                     margin-right: 10px;
-                    background-image: url(../assets/dropdown.svg);
+                    background-image: url(../../assets/dropdown.svg);
                     background-position: center;
                     background-repeat: no-repeat;
                     background-size: contain;
@@ -157,7 +157,7 @@
         background-size: contain;
         display: block;
         margin: 10px;
-        background: url(../assets/swap.svg);
+        background: url(../../assets/swap.svg);
     }
 
     .valute-toggle-container {
@@ -254,7 +254,7 @@
             background-repeat: no-repeat;
             background-size: contain;
             display: block;
-            background: url(../assets/question.svg);
+            background: url(../../assets/question.svg);
         }
 
         > span:nth-child(3) {
@@ -301,7 +301,7 @@
             background-repeat: no-repeat;
             background-size: contain;
             display: block;
-            background: url(../assets/question.svg);
+            background: url(../../assets/question.svg);
         }
 
         > span:nth-child(3) {
@@ -409,7 +409,7 @@
             display: inline-block;
             top: 4px;
             right: -19.5px;
-            background-image: url(../assets/dropdown.svg);
+            background-image: url(../../assets/dropdown.svg);
             background-position: center;
             background-repeat: no-repeat;
             background-size: contain;

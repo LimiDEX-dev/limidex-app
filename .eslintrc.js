@@ -36,5 +36,6 @@ module.exports = {
     '@typescript-eslint/no-shadow': 1,
     'no-mixed-operators': 1,
     'import/no-unresolved': 0,
+    'react/function-component-definition': 0,
   },
 };

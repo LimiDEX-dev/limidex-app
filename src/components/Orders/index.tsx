@@ -1,5 +1,5 @@
 import React from 'react';
-import './Orders.scss';
+import './style.scss';
 
 export function Orders(props: any) {
   return (

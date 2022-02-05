@@ -1,5 +1,5 @@
 import React from 'react';
-import './ExchangesRates.scss';
+import './style.scss';
 
 export function ExchangesRates(props: any) {
   return (

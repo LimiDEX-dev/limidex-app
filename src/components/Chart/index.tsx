@@ -1,6 +1,6 @@
 import React from 'react';
-import { CandleStickChart } from './CandleStickChart';
-import './Chart.scss';
+import { CandleStickChart } from '../CandleStickChart';
+import './style.scss';
 
 export function Chart(props: any) {
   return (

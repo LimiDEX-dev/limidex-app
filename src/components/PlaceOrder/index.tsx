@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './PlaceOrder.scss';
+import './style.scss';
 
 export function PlaceOrder(props: any) {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);

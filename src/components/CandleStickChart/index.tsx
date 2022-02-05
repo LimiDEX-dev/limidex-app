@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 import * as d3 from 'd3';
-import './CandleStickChart.scss';
+import './style.scss';
 
 export function CandleStickChart(props: any) {
   const [width, setWidth] = useState(0);
