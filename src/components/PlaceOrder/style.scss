@@ -158,177 +158,66 @@
         display: block;
         margin: 10px;
         background: url(../../assets/swap.svg);
+        border: none;
+        cursor: pointer;
     }
 
     .valute-toggle-container {
-        margin: 19px 0 0;
+        margin: 24px 0 0;
         display: flex;
 
         .valute-toggle {
             display: flex;
             height: 24px;
 
-            > div {
+            > button {
                 border: 1px solid #55647D;
                 font-weight: 500;
                 font-size: 9px;
                 line-height: 11px;
                 padding: 5px;
                 color: rgba(255, 249, 249, 0.5);
+                cursor: pointer;
+                background-color: transparent;
+
+                transition: 0.2s ease;
             }
 
-            > div.active {
+            > button.active {
                 background: #3BD795;
                 border-color: #3BD795;
                 color: #202734;
             }
 
-            > div:first-child {
+            > button:first-child {
                 border-top-left-radius: 4px;
                 border-bottom-left-radius: 4px;
             }
 
-            > div:last-child {
+            > button:last-child {
                 border-top-right-radius: 4px;
                 border-bottom-right-radius: 4px;
                 border-left: none;
             }
         }
 
-        .valute-costs {
-            display: flex;
-            border: 1px solid #55647D;
-            margin-left: auto;
-            font-weight: 300;
+        .input__container {
             width: 170px;
-            font-size: 9px;
-            line-height: 11px;
-            color: rgba(255, 249, 249, 0.5);
-            border-radius: 4px;
-            padding: 0 10px;
-            height: 24px;
-            align-items: center;
-
-            > span:nth-child(2) {
-                margin-left: auto;
-                margin-right: 4px;
-            }
-
-            input {
-                background: transparent;
-                border: none;
-                outline: none;
-                margin-right: 10px;
-                width: 35px;
-                text-align: right;
-
-                font-family: 'Roboto Mono';
-                font-style: normal;
-                font-weight: 300;
-                font-size: 12px;
-                line-height: 10px;
-                color: rgba(255, 249, 249, 0.5);
-            }
+            margin-left: auto;
         }
     }
 
     .valute-tolerance {
-        margin: 30px 0 0;
-        display: flex;
-        border: 1px solid #55647D;
-        font-weight: 300;
-        width: 100%;
-        font-size: 9px;
-        line-height: 11px;
-        color: rgba(255, 249, 249, 0.5);
-        border-radius: 4px;
-        padding: 0 10px;
-        height: 24px;
-        align-items: center;
-
-        > span:nth-child(2) {
-            margin-left: 5px;
-            width: 9.5px;
-            height: 9.5px;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: contain;
-            display: block;
-            background: url(../../assets/question.svg);
-        }
-
-        > span:nth-child(3) {
-            margin-left: auto;
-            margin-right: 4px;
-        }
-
-        input {
-            background: transparent;
-            border: none;
-            outline: none;
-            margin-right: 10px;
-            width: 35px;
-            text-align: right;
-
-            font-family: 'Roboto Mono';
-            font-style: normal;
-            font-weight: 300;
-            font-size: 12px;
-            line-height: 10px;
-            color: rgba(255, 249, 249, 0.5);
-        }
+        margin: 24px 0 0;
     }
 
     .valute-impact {
-        margin: 30px 0 0;
-        display: flex;
-        border: 1px solid #55647D;
-        font-weight: 300;
-        width: 100%;
-        font-size: 9px;
-        line-height: 11px;
-        color: rgba(255, 249, 249, 0.5);
-        border-radius: 4px;
-        padding: 0 10px;
-        height: 24px;
-        align-items: center;
-
-        > span:nth-child(2) {
-            margin-left: 5px;
-            width: 9.5px;
-            height: 9.5px;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: contain;
-            display: block;
-            background: url(../../assets/question.svg);
-        }
-
-        > span:nth-child(3) {
-            margin-left: auto;
-            margin-right: 4px;
-        }
-
-        input {
-            background: transparent;
-            border: none;
-            outline: none;
-            margin-right: 10px;
-            width: 35px;
-            text-align: right;
-
-            font-family: 'Roboto Mono';
-            font-style: normal;
-            font-weight: 300;
-            font-size: 12px;
-            line-height: 10px;
-            color: rgba(255, 249, 249, 0.5);
-        }
+        margin: 24px 0 0;
     }
 
     .routes-container {
         position: relative;
-        margin: 35px 0 0;
+        margin: 24px 0 0;
         padding: 10px;
         
         border: 1px solid #55647D;
@@ -396,31 +285,65 @@
     }
 
     .more {
+        display: flex;
+        align-items: center;
+
         position: relative;
-        display: inline-block;
-        margin: 20px 0 0;
+
+        margin: 24px 0 0;
+
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        font-family: 'Roboto', sans-serif;
         font-size: 12px;
         line-height: 14px;
         color: rgba(255, 249, 249, 0.5);
 
-        &:after {
-            position: absolute;
-            content: '';
-            display: inline-block;
-            top: 4px;
-            right: -19.5px;
-            background-image: url(../../assets/dropdown.svg);
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: contain;
-            display: block;
-            width: 7.5px;
-            height: 4.5px;
+        & > svg {
+            margin-left: 8px;
+
+            transition: 0.2s ease;
+        }
+
+        &--opened {
+            & > svg {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    .advanced-fields {
+        margin-top: 14px;
+
+        &__inputs {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+
+            & > .input__container {
+                width: calc(50% - 5px);
+                margin-bottom: 24px;
+
+                &:not(:nth-child(2n)) {
+                    margin-right: 10px;
+                }
+
+                & input {
+                    width: 30px;
+                }
+            }
+        }
+
+        &__submit {
+            display: flex;
+            justify-content: flex-end;
         }
     }
 
     .info {
-        margin: 40px 0 0;
+        margin: 40px 0 16px;
         font-weight: 300;
         font-size: 9px;
         line-height: 11px;

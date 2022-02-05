@@ -1,0 +1,19 @@
+.button {
+  width: 100%;
+  padding: 12px 24px;
+
+  background-color: #3BD795;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+
+  font-family: 'Roboto', sans-serif;
+  color: #202734;
+  font-size: 12px;
+  line-height: 14px;
+
+  &--small {
+    width: fit-content;
+    padding: 5px 16px;
+  }
+}

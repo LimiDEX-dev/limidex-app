@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import { SettingsIcon } from '../../lib/icons/settings';
+import { SettingsIcon, MainnetIcon, DropdownArrowIcon } from '../../lib/icons';
 import './style.scss';
-import { MainnetIcon } from '../../lib/icons/mainnet';
-import { DropdownIcon } from '../../lib/icons/dropdown-icon';
 
 export const Header: FC = () => (
   <header className="header">
@@ -39,7 +37,7 @@ export const Header: FC = () => (
       <button type="button" className="user-nav__mainnet">
         <MainnetIcon />
         <span>DCS Mainnet</span>
-        <DropdownIcon />
+        <DropdownArrowIcon />
       </button>
       <div className="user-nav__balance">
         <span className="user-nav__balance__icon" />

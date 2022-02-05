@@ -1,0 +1,50 @@
+.popup {
+  position: relative;
+
+  &__trigger {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__content {
+    position: absolute;
+    z-index: 12;
+    bottom: 100%;
+    left: -74px;
+
+    &__wrapper {
+      position: relative;
+
+      width: 160px;
+      padding: 10px;
+      margin-bottom: 7px;
+
+      background: #111721;
+      box-shadow: 0px 0px 4px rgba(59, 215, 149, 0.4);
+      border-radius: 4px;
+
+      font-family: 'Roboto', sans-serif;
+      color: #FFF9F9;
+      font-size: 9px;
+      font-weight: 300;
+      line-height: 11px;
+
+      &::after {
+        content: '';
+
+        position: absolute;
+        bottom: -7px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        width: 0;
+        height: 0;
+
+        border-style: solid;
+        border-width: 8px 8px 0 8px;
+        border-color: #111721 transparent transparent transparent;
+      }
+    }
+  }
+}
