@@ -1,8 +1,118 @@
 @use '/src/styles/index';
 
 .Chart {
-    @extend .dialog;
+  @extend .dialog;
 
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.chart {
+  &__header {
+    &__flex-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin-bottom: 16px;
+    }
+
+    &__title {
+      font-family: 'Roboto', sans-serif;
+      color: rgba(255, 249, 249, 0.5);
+      font-size: 12px;
+      line-height: 14px;
+    }
+
+    &__timeframe {
+      display: flex;
+      align-items: center;
+
+      padding: 5px 8px;
+
+      border: 1px solid #55647D;
+      border-radius: 4px;
+
+      &__text {
+        font-family: 'Roboto', sans-serif;
+        color: rgba(255, 249, 249, 0.5);
+        font-size: 9px;
+        font-weight: 300;
+        line-height: 11px;
+      }
+
+      &__wrapper {
+        display: flex;
+        align-items: center;
+
+        margin-left: 12px;
+      }
+
+      &__minutes {
+        display: block;
+
+        margin-left: 4px;
+
+        font-family: 'Roboto Mono', sans-serif;
+        color: #FFF9F9;
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 10px;
+      }
+    }
+
+    &__current {
+      display: flex;
+      align-items: flex-end;
+
+      &__text {
+        display: block;
+
+        margin-right: 6px;
+
+        font-family: 'Roboto Mono', sans-serif;
+        color: rgba(255, 249, 249, 0.5);
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 24px;
+      }
+
+      &__change {
+        position: relative;
+        bottom: 4px;
+
+        font-family: 'Roboto Mono', sans-serif;
+        color: #9AC073;
+        font-size: 9px;
+        font-weight: 300;
+        line-height: 10px;
+      }
+    }
+
+    &__valute {
+      display: flex;
+      align-items: center;
+
+      margin-right: 40px;
+
+      &__icon {
+        display: block;
+
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+
+        background-color: #C4C4C4;
+        border-radius: 100%;
+      }
+
+      &__text {
+        font-family: 'Roboto', sans-serif;
+        color: rgba(255, 249, 249, 0.5);
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 21px;
+      }
+    }
+  }
 }
