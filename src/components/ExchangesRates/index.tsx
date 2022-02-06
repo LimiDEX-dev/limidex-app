@@ -1,5 +1,7 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import './style.scss';
+import classnames from 'classnames';
 
 export function ExchangesRates(props: any) {
   return (
@@ -23,17 +25,31 @@ export function ExchangesRates(props: any) {
           </thead>
           <tbody>
             {mockData.redRates.map((rate, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <tr className="red-rate" key={`${rate.price}-${index}`}>
+              <tr
+                className={classnames('red-rate', {
+                  'red-rate--big': rate.isBig,
+                })}
+                key={`${rate.price}-${index}`}
+              >
                 <td className="price">{rate.price}</td>
-                <td className="amount">{rate.amount}</td>
+                <td className="amount">
+                  {rate.amount}
+                  <div className="progress" style={{ width: `${rate.progress}%` }} />
+                </td>
               </tr>
             ))}
-            {mockData.redRates.map((rate, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <tr className="green-rate" key={`${rate.price}-${index}`}>
+            {mockData.greenRates.map((rate, index) => (
+              <tr
+                className={classnames('green-rate', {
+                  'green-rate--big': rate.isBig,
+                })}
+                key={`${rate.price}-${index}`}
+              >
                 <td className="price">{rate.price}</td>
-                <td className="amount">{rate.amount}</td>
+                <td className="amount">
+                  {rate.amount}
+                  <div className="progress" style={{ width: `${rate.progress}%` }} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -50,54 +66,64 @@ const mockData = {
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 25,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 50,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 25,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 10,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 100,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 25,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 25,
+      isBig: true,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 75,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 25,
     },
   ],
   greenRates: [
@@ -106,66 +132,78 @@ const mockData = {
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 25,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 0,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 10,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 25,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 25,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 75,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 100,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 15,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 25,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 50,
     },
     {
       price: '48 099',
       amount: '1 099.0990',
       min: '0.0001',
       max: '0.0009',
+      progress: 25,
+      isBig: true,
     },
   ],
 };

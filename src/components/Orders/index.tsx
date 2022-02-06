@@ -5,6 +5,8 @@ import { orders } from '../../lib/mock/orders';
 export const Orders: FC = () => {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [activeOrders, setActiveOrders] = useState(orders.active);
+  const [historyOrders, setHistoryOrders] = useState(orders.history);
 
   const pagesCount = Math.ceil(orders.history.length / 10);
 
@@ -27,6 +29,10 @@ export const Orders: FC = () => {
     }
 
     return Array.from({ length: pagesCount }, (_, i) => i + 1);
+  };
+
+  const handleDeleteActiveOrder = (index) => {
+    setActiveOrders((prevState) => [...prevState.slice(0, index), ...prevState.slice(index + 1)]);
   };
 
   return (
@@ -55,7 +61,7 @@ export const Orders: FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {orders.history
+                {historyOrders
                   .slice((currentPage - 1) * 10, currentPage * 10)
                   .map((order, index) => (
                   // eslint-disable-next-line react/no-array-index-key
@@ -98,7 +104,7 @@ export const Orders: FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {orders.active.map((order, index) => (
+                {activeOrders.map((order, index) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <tr key={`${order.name}-${index}`}>
                     <td className="name">
@@ -116,7 +122,11 @@ export const Orders: FC = () => {
                     <td className="routing"><div><span>{order.routing}</span></div></td>
                     <td className="routing2"><div><span>{order.routing2}</span></div></td>
                     <td className="change"><button type="button"><span>Change</span></button></td>
-                    <td className="delete"><div><span /></div></td>
+                    <td className="delete">
+                      <button type="button" onClick={() => handleDeleteActiveOrder(index)} aria-label="Delete order">
+                        <span />
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

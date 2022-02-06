@@ -1,0 +1,45 @@
+.checkbox {
+  &__container {
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+  }
+
+  &__label {
+    font-family: 'Roboto', sans-serif;
+    color: rgba(255, 249, 249, 0.5);
+    font-size: 9px;
+    font-weight: 300;
+    line-height: 14px;
+  }
+
+  &__styled {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+
+    background-color: transparent;
+    border: 1px solid #55647D;
+    border-radius: 4px;
+
+    transition: 0.2s ease;
+
+    & > svg {
+      display: none;
+    }
+  }
+
+  &:checked ~ &__styled {
+    background-color: #3BD795;
+    border-color: #3BD795;
+
+    & > svg {
+      display: block;
+    }
+  }
+}

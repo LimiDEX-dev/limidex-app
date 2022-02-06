@@ -3,9 +3,11 @@ import './style.scss';
 import { Dropdown, DropdownItem } from '../Dropdown';
 import { valutes } from '../../lib/mock/valutes';
 import { Input } from '../Input';
-import { DropdownArrowIcon, HelpIcon } from '../../lib/icons';
+import { DropdownArrowIcon, HelpIcon, SearchIcon } from '../../lib/icons';
 import { Popup } from '../Popup';
 import { Button } from '../Button';
+import { Modal } from '../Modal';
+import { Checkbox } from '../Checkbox';
 
 export function PlaceOrder(props: any) {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
@@ -21,6 +23,9 @@ export function PlaceOrder(props: any) {
   const [takeProfit, setTakeProfit] = useState<string>('0.1');
   const [stopLoss, setStopLoss] = useState<string>('0.1');
   const [trailingSL, setTrailingSL] = useState<string>('0.1');
+  const [isAddCustomTokenVisible, setIsAddCustomTokenVisible] = useState<boolean>(false);
+  const [customToken, setCustomToken] = useState<string>('');
+  const [isUnderstandChecked, setIsUnderstandChecked] = useState<boolean>(false);
 
   const onSelectSellValute = (valute: DropdownItem) => {
     setSelectedSellValute(valute);
@@ -35,8 +40,37 @@ export function PlaceOrder(props: any) {
     setSelectedBuyValute(selectedSellValute);
   };
 
+  const handleAddToken = () => {
+    setIsAddCustomTokenVisible(false);
+    setIsUnderstandChecked(false);
+    setCustomToken('');
+  };
+
   return (
     <div className="PlaceOrder">
+      <Modal
+        isVisible={isAddCustomTokenVisible}
+        handleClose={() => setIsAddCustomTokenVisible(false)}
+        title="Add custom token"
+      >
+        <Input value={customToken} onChange={setCustomToken} icon={<SearchIcon />} />
+        <div className="PlaceOrder__modal-text">
+          <span className="PlaceOrder__modal-text__title">
+            Trade at your own risk
+          </span>
+          <span className="PlaceOrder__modal-text__description">
+            Curabitur rhoncus facilisis lacus, sit amet luctus tortor consectetur a.
+            Nullam vitae dapibus leo, ac elementum elit. Donec congue turpis id orci vulputate,
+            sit amet faucibus velit pellentesque.
+          </span>
+        </div>
+        <Checkbox checked={isUnderstandChecked} onChange={setIsUnderstandChecked}>
+          I understand
+        </Checkbox>
+        <Button disabled={!isUnderstandChecked || !customToken} onClick={handleAddToken}>
+          Add token
+        </Button>
+      </Modal>
       <div className="title">Place order</div>
       <div className="tab-switch">
         <button
@@ -64,6 +98,7 @@ export function PlaceOrder(props: any) {
             isAddCustomVisible
             notRightBorderRadius
             width={100}
+            handleAddCustom={() => setIsAddCustomTokenVisible(true)}
           />
           <Input
             value={toSell}
@@ -82,6 +117,7 @@ export function PlaceOrder(props: any) {
             isAddCustomVisible
             notRightBorderRadius
             width={100}
+            handleAddCustom={() => setIsAddCustomTokenVisible(true)}
           />
           <Input
             value={toBuy}

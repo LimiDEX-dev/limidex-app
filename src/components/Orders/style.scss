@@ -130,7 +130,7 @@
                 }
 
                 .volume, .orderFee, .networkFee, .slipPage {
-                    font-family: 'Roboto Mono';
+                    font-family: 'Roboto Mono', sans-serif;
                 }
 
                 .change > button {
@@ -154,14 +154,18 @@
                     line-height: 16px;
                     cursor: pointer;
                 }
-                .delete > div > span {
+                .delete > button {
+                    background-color: transparent;
+                    border: none;
+                    cursor: pointer;
+                }
+                .delete > button > span {
                     display: block;
                     width: 9.33px;
                     height: 9.33px;
                     background-image: url('/assets/delete.svg');
                     background-repeat: no-repeat;
                     background-position: center;
-                    cursor: pointer;
                 }
             }
         }

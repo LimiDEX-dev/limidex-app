@@ -44,7 +44,7 @@
             }
 
             > span:nth-child(3) {
-                font-family: 'Roboto Mono';
+                font-family: 'Roboto Mono', sans-serif;
                 font-weight: 300;
                 font-size: 12px;
                 line-height: 10px;
@@ -64,6 +64,7 @@
             thead {
                 td {
                     position: sticky;
+                    z-index: 1;
                     top: 0;
 
                     background-color: #111721;
@@ -92,18 +93,40 @@
             }
         }
 
+        table {
+            position: relative;
+        }
+
         tbody {
             font-weight: 300;
             font-size: 9px;
             line-height: 13px;
-            font-family: 'Roboto Mono';
+            font-family: 'Roboto Mono', sans-serif;
 
-            .amount, .min, .max {
+            tr {
+                height: 14px;
+            }
+
+            .amount, .price {
+                font-family: 'Roboto Mono', sans-serif;
+            }
+
+            .amount {
                 color: rgba(255, 249, 249, 0.5);
             }
 
             .amount {
                 text-align: right;
+            }
+
+            .progress {
+                position: absolute;
+                z-index: 0;
+                right: 0;
+
+                height: 14px;
+
+                transform: translateY(-14px);
             }
         }
 
@@ -111,11 +134,45 @@
             .price {
                 color: #B0685D;
             }
+
+            .progress {
+                background-color: rgba(160, 58, 51, 0.3);
+            }
+
+            &--big {
+                & .progress {
+                    display: none;
+                }
+
+                & .price {
+                    color: rgba(255, 249, 249, 0.5);
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 18px;
+                }
+            }
         }
 
         .green-rate {
             .price {
                 color: #9AC073;
+            }
+
+            .progress {
+                background-color: rgba(77, 124, 73, 0.3);
+            }
+
+            &--big {
+                & .progress {
+                    display: none;
+                }
+
+                & .price {
+                    color: rgba(255, 249, 249, 0.5);
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 18px;
+                }
             }
         }
     }
@@ -145,7 +202,7 @@
                 }
 
                 > span:nth-child(2) {
-                    font-family: 'Roboto Mono';
+                    font-family: 'Roboto Mono', sans-serif;
                     font-weight: 300;
                     font-size: 9px;
                     line-height: 14px;
