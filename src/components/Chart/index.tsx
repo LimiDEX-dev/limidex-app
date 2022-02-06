@@ -1,8 +1,49 @@
-import React from 'react';
-import { CandleStickChart } from '../CandleStickChart';
+import React, { useLayoutEffect, useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
 import './style.scss';
+import { ApexOptions } from 'apexcharts';
+import { chart } from '../../lib/mock/chart';
+
+const chartOptions: ApexOptions = {
+  chart: {
+    type: 'candlestick',
+  },
+  xaxis: {
+    type: 'datetime',
+  },
+  yaxis: {
+    tooltip: {
+      enabled: true,
+    },
+  },
+  grid: {
+    show: false,
+  },
+};
 
 export function Chart(props: any) {
+  const [width, setWidth] = useState<number>(0);
+  const [height, setHeight] = useState<number>(0);
+
+  useLayoutEffect(() => {
+    function update() {
+      const $node = document.querySelector('#chart') as HTMLElement;
+      const rect = $node.getBoundingClientRect();
+      setWidth(rect.width);
+      setHeight(rect.height - 40);
+      console.log(width, height);
+    }
+
+    setTimeout(() => {
+      update();
+    });
+
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('resize', update);
+    };
+  }, []);
+
   return (
     <div className="Chart">
       <div className="chart__header">
@@ -40,7 +81,10 @@ export function Chart(props: any) {
           </span>
         </div>
       </div>
-      <CandleStickChart />
+      {/* <CandleStickChart /> */}
+      <div id="chart">
+        <ReactApexChart type="candlestick" series={chart.series} options={chartOptions} width={width} height={height} />
+      </div>
     </div>
   );
 }
