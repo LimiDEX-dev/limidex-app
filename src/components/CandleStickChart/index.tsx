@@ -43,7 +43,7 @@ export function CandleStickChart(props: any) {
   }, []);
 
   useLayoutEffect(() => {
-    buildChart(data);
+    // buildChart(data);
   }, [width, height]);
 
   return <div id="chart" />;
