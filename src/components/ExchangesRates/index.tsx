@@ -3,7 +3,7 @@ import React from 'react';
 import './style.scss';
 import classnames from 'classnames';
 
-export function ExchangesRates(props: any) {
+export function ExchangesRates() {
   return (
     <div className="ExchangesRates">
       <div className="top">

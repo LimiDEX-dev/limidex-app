@@ -21,7 +21,7 @@ const chartOptions: ApexOptions = {
   },
 };
 
-export function Chart(props: any) {
+export function Chart() {
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
 
@@ -31,7 +31,6 @@ export function Chart(props: any) {
       const rect = $node.getBoundingClientRect();
       setWidth(rect.width);
       setHeight(rect.height - 40);
-      console.log(width, height);
     }
 
     setTimeout(() => {
