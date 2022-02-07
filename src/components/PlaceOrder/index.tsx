@@ -8,6 +8,7 @@ import { Popup } from '../Popup';
 import { Button } from '../Button';
 import { Modal } from '../Modal';
 import { Checkbox } from '../Checkbox';
+import { ethereumAddressRegexp } from '../../lib/constants';
 
 export function PlaceOrder() {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
@@ -25,6 +26,7 @@ export function PlaceOrder() {
   const [trailingSL, setTrailingSL] = useState<string>('0.1');
   const [isAddCustomTokenVisible, setIsAddCustomTokenVisible] = useState<boolean>(false);
   const [customToken, setCustomToken] = useState<string>('');
+  const [isAddressValid, setIsAddressValid] = useState<boolean>(true);
   const [isUnderstandChecked, setIsUnderstandChecked] = useState<boolean>(false);
 
   const onSelectSellValute = (valute: DropdownItem) => {
@@ -48,6 +50,15 @@ export function PlaceOrder() {
     setCustomToken('');
   };
 
+  const handleBlurCustomToken = (value: string) => {
+    if (ethereumAddressRegexp.test(value)) {
+      setIsAddressValid(true);
+      return;
+    }
+
+    setIsAddressValid(false);
+  };
+
   return (
     <div className="PlaceOrder">
       <Modal
@@ -55,7 +66,17 @@ export function PlaceOrder() {
         handleClose={() => setIsAddCustomTokenVisible(false)}
         title="Add custom token"
       >
-        <Input value={customToken} onChange={setCustomToken} icon={<SearchIcon />} />
+        <Input
+          value={customToken}
+          onChange={setCustomToken}
+          onBlur={handleBlurCustomToken}
+          icon={<SearchIcon />}
+        />
+        {!isAddressValid && (
+          <span className="PlaceOrder__modal__error">
+            Invalid token address
+          </span>
+        )}
         <div className="PlaceOrder__modal-text">
           <span className="PlaceOrder__modal-text__title">
             Trade at your own risk
@@ -69,7 +90,10 @@ export function PlaceOrder() {
         <Checkbox checked={isUnderstandChecked} onChange={setIsUnderstandChecked}>
           I understand
         </Checkbox>
-        <Button disabled={!isUnderstandChecked || !customToken} onClick={handleAddToken}>
+        <Button
+          disabled={!isUnderstandChecked || !customToken || !isAddressValid}
+          onClick={handleAddToken}
+        >
           Add token
         </Button>
       </Modal>
@@ -154,7 +178,14 @@ export function PlaceOrder() {
       )}
 
       <div className="valute-tolerance">
-        <Input value={burnToken} onChange={setBurnToken} label="Burn Token" currency="LMX" />
+        <Input
+          value={burnToken}
+          onChange={setBurnToken}
+          type="number"
+          max={100}
+          label="Burn Token"
+          currency="LMX"
+        />
       </div>
 
       <div className="valute-impact">
@@ -213,8 +244,7 @@ export function PlaceOrder() {
                     <HelpIcon />
                   </Popup>
                 </span>
-            )}
-              currency="%"
+              )}
             />
             <Input
               value={stopLoss}
@@ -226,8 +256,7 @@ export function PlaceOrder() {
                     <HelpIcon />
                   </Popup>
                 </span>
-            )}
-              currency="%"
+              )}
             />
             <Input
               value={trailingSL}
@@ -239,7 +268,7 @@ export function PlaceOrder() {
                     <HelpIcon />
                   </Popup>
                 </span>
-            )}
+              )}
               currency="%"
             />
           </div>
