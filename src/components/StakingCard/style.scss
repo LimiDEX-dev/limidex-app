@@ -51,8 +51,11 @@
 
       padding: 8px 12px;
 
-      border-top: 1px solid #55647D;
       border-bottom: 1px solid #55647D;
+
+      &:first-child {
+        border-top: 1px solid #55647D;
+      }
     }
 
     &__title,

@@ -6,3 +6,5 @@ export { HelpIcon } from './help';
 export { CloseIcon } from './close';
 export { CheckIcon } from './check';
 export { SearchIcon } from './search';
+export { SortArrowIcon } from './sort-arrow';
+export { SortWordIcon } from './sort-word';

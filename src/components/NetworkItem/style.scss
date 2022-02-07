@@ -1,0 +1,43 @@
+.network-item {
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+
+    padding: 8px 12px;
+
+    background-color: #202734;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    &--active {
+      background-color: #3BD795;
+
+      & .network-item {
+        &__title {
+          color: #202734;
+        }
+      }
+    }
+  }
+
+  &__title {
+    font-size: 12px;
+    color: rgba(255, 249, 249, 0.5);
+    line-height: 14px;
+
+    transition: 0.2s ease;
+  }
+
+  &__icon {
+    display: block;
+
+    margin-right: 10px;
+  }
+}

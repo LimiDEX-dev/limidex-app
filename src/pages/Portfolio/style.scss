@@ -1,0 +1,17 @@
+.portfolio {
+  height: 100%;
+  padding-bottom: 70px;
+
+  &__networks {
+    &__list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin: 0 0 32px;
+      padding: 0;
+
+      list-style: none;
+    }
+  }
+}
