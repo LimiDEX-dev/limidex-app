@@ -16,7 +16,7 @@ export function PlaceOrder(props: any) {
   const [selectedBuyValute, setSelectedBuyValute] = useState<DropdownItem>(valutes[1]);
   const [toSell, setToSell] = useState<string>('10.00');
   const [toBuy, setToBuy] = useState<string>('10.00');
-  const [valueCosts, setValueCosts] = useState<string>('520.00');
+  const [valuteCosts, setValuteCosts] = useState<string>('520.00');
   const [burnToken, setBurnToken] = useState<string>('100.00');
   const [priceImpact, setPriceImpact] = useState<string>('0.1');
   const [isAdvancedOpened, setIsAdvancedOpened] = useState<boolean>(false);
@@ -38,6 +38,8 @@ export function PlaceOrder(props: any) {
   const handleSwapValutes = () => {
     setSelectedSellValute(selectedBuyValute);
     setSelectedBuyValute(selectedSellValute);
+    setToSell(toBuy);
+    setToBuy(toSell);
   };
 
   const handleAddToken = () => {
@@ -147,7 +149,7 @@ export function PlaceOrder(props: any) {
               Sell
             </button>
           </div>
-          <Input value={valueCosts} onChange={setValueCosts} label="1 WNBN costs" currency="$" />
+          <Input value={valuteCosts} onChange={setValuteCosts} label="1 WNBN costs" currency="$" />
         </div>
       )}
 
@@ -254,7 +256,20 @@ export function PlaceOrder(props: any) {
         Target price – 0.001 WBNB. Network fee: slow
       </div>
 
-      <Button>
+      <Button
+        disabled={
+          !toSell
+          || !toBuy
+          || !selectedSellValute
+          || !selectedBuyValute
+          || !priceImpact
+          || !burnToken
+          || (activeTab === 0 && !valuteCosts)
+          || !takeProfit
+          || !stopLoss
+          || !trailingSL
+        }
+      >
         Give permission to use WNBN
       </Button>
     </div>
