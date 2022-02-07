@@ -7,7 +7,7 @@ import { ExchangesRates } from '../../components/ExchangesRates';
 import { Orders } from '../../components/Orders';
 import { Chart } from '../../components/Chart';
 
-export function Main(props: any) {
+export function Main() {
   return (
     <div className="Main">
       <div className="left">

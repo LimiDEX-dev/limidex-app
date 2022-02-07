@@ -1,7 +1,6 @@
 import React, { FC, useRef } from 'react';
 import './style.scss';
 import { CloseIcon } from '../../lib/icons';
-import { useOutsideAlerter } from '../../lib/hooks';
 
 type ModalProps = {
   isVisible: boolean;

@@ -4,12 +4,15 @@ import { orders } from '../../lib/mock/orders';
 
 export const Orders: FC = () => {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [activeOrders, setActiveOrders] = useState(orders.active);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [historyOrders, setHistoryOrders] = useState(orders.history);
 
   const pagesCount = Math.ceil(orders.history.length / 10);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const getFormattedPages = () => {
     if (pagesCount > 5) {
       if (currentPage === 1 || currentPage === 2) {

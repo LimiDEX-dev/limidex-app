@@ -9,7 +9,7 @@ import { Button } from '../Button';
 import { Modal } from '../Modal';
 import { Checkbox } from '../Checkbox';
 
-export function PlaceOrder(props: any) {
+export function PlaceOrder() {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
   const [activeBuyTab, setActiveBuyTab] = useState<0 | 1>(0);
   const [selectedSellValute, setSelectedSellValute] = useState<DropdownItem>(valutes[0]);

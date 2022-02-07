@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import './style.scss';
 
 type PopupProps = {
