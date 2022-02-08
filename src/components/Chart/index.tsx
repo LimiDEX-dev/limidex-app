@@ -3,10 +3,19 @@ import ReactApexChart from 'react-apexcharts';
 import './style.scss';
 import { ApexOptions } from 'apexcharts';
 import { chart } from '../../lib/mock/chart';
+import { Dropdown } from '../Dropdown';
 
 const chartOptions: ApexOptions = {
   chart: {
     type: 'candlestick',
+    toolbar: {
+      tools: {
+        download: false,
+        zoomin: false,
+        zoomout: false,
+        pan: false,
+      },
+    },
   },
   xaxis: {
     type: 'datetime',
@@ -21,9 +30,49 @@ const chartOptions: ApexOptions = {
   },
 };
 
+const timeframeOptions = [
+  {
+    label: 'seconds',
+    value: '60',
+  },
+  {
+    label: 'minutes',
+    value: '10',
+  },
+  {
+    label: 'minutes',
+    value: '30',
+  },
+  {
+    label: 'minutes',
+    value: '60',
+  },
+  {
+    label: 'hours',
+    value: '6 ',
+  },
+  {
+    label: 'hours',
+    value: '24',
+  },
+  {
+    label: 'days',
+    value: '2 ',
+  },
+  {
+    label: 'weeks',
+    value: '1 ',
+  },
+  {
+    label: 'month',
+    value: '1 ',
+  },
+];
+
 export function Chart() {
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
+  const [selectedTimeframe, setSelectedTimeframe] = useState(timeframeOptions[0]);
 
   useLayoutEffect(() => {
     function update() {
@@ -50,19 +99,19 @@ export function Chart() {
           <span className="chart__header__title">
             Rates
           </span>
-          <div className="chart__header__timeframe">
+          <Dropdown items={timeframeOptions} onSelect={setSelectedTimeframe} textAlign="right" arrowHidden>
             <span className="chart__header__timeframe__text">
               Timeframe
             </span>
             <span className="chart__header__timeframe__wrapper">
               <span className="chart__header__timeframe__text">
-                m
+                {selectedTimeframe.label[0]}
               </span>
               <span className="chart__header__timeframe__minutes">
-                10
+                {selectedTimeframe.value}
               </span>
             </span>
-          </div>
+          </Dropdown>
         </div>
         <div className="chart__header__current">
           <div className="chart__header__valute">

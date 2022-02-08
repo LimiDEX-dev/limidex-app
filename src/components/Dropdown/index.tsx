@@ -1,6 +1,11 @@
+/* eslint-disable react/no-array-index-key */
 import React, {
-  FC, ReactElement, useRef, useState,
+  FC,
+  ReactElement,
+  useRef,
+  useState,
 } from 'react';
+import classnames from 'classnames';
 import { BorderedPlusIcon, DropdownArrowIcon } from '../../lib/icons';
 import { useOutsideAlerter } from '../../lib/hooks';
 import './style.scss';
@@ -16,9 +21,11 @@ type DropdownProps = {
   onSelect: (item: DropdownItem) => void;
   handleAddCustom?: () => void;
   isAddCustomVisible?: boolean;
-  selectedValue: DropdownItem;
+  selectedValue?: DropdownItem;
   notRightBorderRadius?: boolean;
   width?: number;
+  textAlign?: 'right' | 'left';
+  arrowHidden?: boolean;
 }
 
 export const Dropdown: FC<DropdownProps> = ({
@@ -29,6 +36,9 @@ export const Dropdown: FC<DropdownProps> = ({
   selectedValue,
   notRightBorderRadius,
   width,
+  textAlign,
+  arrowHidden,
+  children,
 }) => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -50,16 +60,26 @@ export const Dropdown: FC<DropdownProps> = ({
   };
 
   return (
-    <div className={`dropdown${isOpened ? ' dropdown--opened' : ''}`} ref={dropdownRef}>
+    <div
+      className={classnames('dropdown', {
+        'dropdown--opened': isOpened,
+        'dropdown--right': textAlign === 'right',
+      })}
+      ref={dropdownRef}
+    >
       <button
         type="button"
         className={`dropdown__trigger${notRightBorderRadius ? ' dropdown__trigger--not-radius' : ''}`}
         onClick={() => setIsOpened((prevState) => !prevState)}
         style={{ width }}
       >
-        {selectedValue.icon}
-        <span className="dropdown__trigger__label">{selectedValue.label}</span>
-        <DropdownArrowIcon />
+        {selectedValue ? (
+          <>
+            {selectedValue.icon}
+            <span className="dropdown__trigger__label">{selectedValue.label}</span>
+          </>
+        ) : children}
+        {!arrowHidden && <DropdownArrowIcon />}
       </button>
       {isOpened && (
         <ul className="dropdown__list">
@@ -74,7 +94,6 @@ export const Dropdown: FC<DropdownProps> = ({
             </li>
           )}
           {items.map((item, index) => (
-            // eslint-disable-next-line react/no-array-index-key
             <li className="dropdown__item" key={`${item.value}-${index}`}>
               <button type="button" onClick={() => handleClickItem(item)} className="dropdown__item__trigger">
                 {item.icon && (
@@ -82,7 +101,14 @@ export const Dropdown: FC<DropdownProps> = ({
                     {item.icon}
                   </span>
                 )}
-                <span className="dropdown__item__label">{item.label}</span>
+                {textAlign === 'right' ? (
+                  <>
+                    <span className="dropdown__item__label">{item.label}</span>
+                    <span className="dropdown__item__label dropdown__item__label--value">{item.value}</span>
+                  </>
+                ) : (
+                  <span className="dropdown__item__label">{item.label}</span>
+                )}
               </button>
             </li>
           ))}

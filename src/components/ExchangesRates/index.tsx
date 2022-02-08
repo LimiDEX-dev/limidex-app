@@ -1,18 +1,42 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
+import React, { useState } from 'react';
 import './style.scss';
 import classnames from 'classnames';
+import { Dropdown } from '../Dropdown';
 
-export function ExchangesRates() {
+const stepOptions = [
+  {
+    label: '$',
+    value: '1 ',
+  },
+  {
+    label: '$',
+    value: '5 ',
+  },
+  {
+    label: '$',
+    value: '10',
+  },
+  {
+    label: '$',
+    value: '50',
+  },
+];
+
+export const ExchangesRates = () => {
+  const [selectedStep, setSelectedStep] = useState(stepOptions[0]);
+
   return (
     <div className="ExchangesRates">
       <div className="top">
         <div className="title">Orderbook</div>
-        <div className="step">
-          <span>Step</span>
-          <span>$</span>
-          <span>10</span>
-        </div>
+        <Dropdown items={stepOptions} onSelect={setSelectedStep} arrowHidden textAlign="right">
+          <div className="step">
+            <span>Step</span>
+            <span>$</span>
+            <span>{selectedStep.value}</span>
+          </div>
+        </Dropdown>
       </div>
 
       <div className="content">
@@ -57,7 +81,7 @@ export function ExchangesRates() {
       </div>
     </div>
   );
-}
+};
 
 const mockData = {
   redRates: [
