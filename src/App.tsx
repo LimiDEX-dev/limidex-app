@@ -6,6 +6,7 @@ import { Header } from './components/Header';
 
 function App({ children }) {
   const [provider, setProvider] = useState(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [signer, setSigner] = useState(null);
 
   useEffect(() => {
@@ -13,11 +14,13 @@ function App({ children }) {
       process.env.REACT_APP_SOCKET_ENDPOINT,
     );
     setProvider(newProvider);
+    // eslint-disable-next-line no-console
     console.log(newProvider);
   }, []);
 
   useEffect(() => {
     if (provider) {
+      // eslint-disable-next-line no-console
       console.log(provider.getSigner());
     }
   }, [provider]);
