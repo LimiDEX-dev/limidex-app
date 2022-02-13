@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import './styles/index.scss';
+import { ethers } from 'ethers';
 import { Header } from './components/Header';
 
 function App({ children }) {
+  const [provider, setProvider] = useState(null);
+  const [signer, setSigner] = useState(null);
+
+  useEffect(() => {
+    const newProvider = new ethers.providers.WebSocketProvider(
+      process.env.REACT_APP_SOCKET_ENDPOINT,
+    );
+    setProvider(newProvider);
+    console.log(newProvider);
+  }, []);
+
+  useEffect(() => {
+    if (provider) {
+      console.log(provider.getSigner());
+    }
+  }, [provider]);
+
   return (
     <div className="App">
       <link rel="preconnect" href="https://fonts.googleapis.com" />
