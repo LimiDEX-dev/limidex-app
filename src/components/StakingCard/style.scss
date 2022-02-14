@@ -1,3 +1,5 @@
+@import "../../lib/scss/functions";
+
 .staking {
   &__card {
     max-width: 310px;
@@ -31,7 +33,7 @@
 
       &__title {
         color: rgba(255, 249, 249, 0.5);
-        font-size: 18px;
+        font-size: vw(18px);
         font-weight: 500;
         line-height: 21px;
       }
@@ -61,7 +63,7 @@
     &__title,
     &__currency {
       color: rgba(255, 249, 249, 0.5);
-      font-size: 12px;
+      font-size: vw(12px);
       line-height: 14px;
     }
 
@@ -72,7 +74,7 @@
 
       font-family: 'Roboto Mono', sans-serif;
       color: #FFF9F9;
-      font-size: 14px;
+      font-size: vw(14px);
       font-weight: 500;
       line-height: 18px;
     }

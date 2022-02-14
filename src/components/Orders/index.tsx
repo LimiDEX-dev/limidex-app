@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './style.scss';
 import { orders } from '../../lib/mock/orders';
 
@@ -9,6 +9,12 @@ export const Orders: FC = () => {
   const [activeOrders, setActiveOrders] = useState(orders.active);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [historyOrders, setHistoryOrders] = useState(orders.history);
+
+  useEffect(() => {
+    // THERE IS FUNCTION THAT SET ORDERS DATA
+    // setActiveOrders(someData);
+    // setHistoryOrders(someData);
+  }, []);
 
   const pagesCount = Math.ceil(orders.history.length / 10);
 
@@ -101,8 +107,7 @@ export const Orders: FC = () => {
                   <td className="networkFee">Network fee</td>
                   <td className="slipPage">Slippage</td>
                   <td className="routing">Routing</td>
-                  <td className="routing2" />
-                  <td className="change">TP / LP</td>
+                  <td className="change">TP / LS</td>
                   <td className="delete">Delete</td>
                 </tr>
               </thead>
@@ -123,7 +128,6 @@ export const Orders: FC = () => {
                     <td className="networkFee"><div><span>{order.networkFee}</span></div></td>
                     <td className="slipPage"><div><span>{order.slipPage}</span></div></td>
                     <td className="routing"><div><span>{order.routing}</span></div></td>
-                    <td className="routing2"><div><span>{order.routing2}</span></div></td>
                     <td className="change"><button type="button"><span>Change</span></button></td>
                     <td className="delete">
                       <button type="button" onClick={() => handleDeleteActiveOrder(index)} aria-label="Delete order">

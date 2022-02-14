@@ -1,3 +1,5 @@
+@import "../../lib/scss/functions";
+
 .portfolio-table {
   height: calc(100% - 70px);
   padding: 0 20px 16px;
@@ -49,7 +51,7 @@
 
   &__text {
     color: rgba(255, 249, 249, 0.5);
-    font-size: 12px;
+    font-size: vw(12px);
     line-height: 14px;
 
     &--mono {

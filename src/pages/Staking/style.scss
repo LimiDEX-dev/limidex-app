@@ -1,3 +1,5 @@
+@import "../../lib/scss/functions";
+
 .staking {
   display: flex;
   align-items: flex-start;
@@ -10,14 +12,14 @@
     margin-bottom: 50px;
 
     color: #FFF9F9;
-    font-size: 48px;
-    line-height: 56px;
+    font-size: vw(48px);
+    line-height: vw(56px);
   }
 
   &__description {
     color: #FFF9F9;
-    font-size: 18px;
-    line-height: 21px;
+    font-size: vw(18px);
+    line-height: vw(21px);
   }
 
   &__wrapper {

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './style.scss';
 import { portfolio } from '../../lib/mock/portfolio';
 import { NetworkItem } from '../../components/NetworkItem';
@@ -8,12 +8,23 @@ import { SortType } from '../../components/Sort';
 
 export const Portfolio: FC = () => {
   const [activeNetwork, setActiveNetwork] = useState<number>(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [networks, setNetworks] = useState(portfolio.networks);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [list, setList] = useState(portfolio.data);
   const [sort, setSort] = useState<{ field: PortfolioTableFields; by: SortType }>({ field: 'network', by: 'no' });
+
+  useEffect(() => {
+    // THERE IS FUNCTION THAT SET NETWORKS DATA
+    // setNetworks(someData);
+    // AND PORTFOLIO TABLE DATA
+    // setList(someData);
+  }, []);
 
   return (
     <div className="portfolio">
       <ul className="portfolio__networks__list">
-        {portfolio.networks.map((item, index) => (
+        {networks.map((item, index) => (
           <NetworkItem
             title={item.title}
             icon={index !== 0 && (
@@ -28,7 +39,7 @@ export const Portfolio: FC = () => {
           />
         ))}
       </ul>
-      <PortfolioTable sort={sort} handleChangeSort={setSort} data={portfolio.data} />
+      <PortfolioTable sort={sort} handleChangeSort={setSort} data={list} />
     </div>
   );
 };

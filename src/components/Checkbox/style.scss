@@ -1,3 +1,5 @@
+@import "../../lib/scss/functions";
+
 .checkbox {
   &__container {
     display: flex;
@@ -9,7 +11,7 @@
   &__label {
     font-family: 'Roboto', sans-serif;
     color: rgba(255, 249, 249, 0.5);
-    font-size: 9px;
+    font-size: vw(9px);
     font-weight: 300;
     line-height: 14px;
   }

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.scss';
+import classnames from 'classnames';
 import { Dropdown, DropdownItem } from '../Dropdown';
-import { valutes } from '../../lib/mock/valutes';
+import { valutes as mockValutes } from '../../lib/mock/valutes';
 import { Input } from '../Input';
 import { DropdownArrowIcon, HelpIcon, SearchIcon } from '../../lib/icons';
 import { Popup } from '../Popup';
@@ -13,8 +14,8 @@ import { ethereumAddressRegexp } from '../../lib/constants';
 export function PlaceOrder() {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
   const [activeBuyTab, setActiveBuyTab] = useState<0 | 1>(0);
-  const [selectedSellValute, setSelectedSellValute] = useState<DropdownItem>(valutes[0]);
-  const [selectedBuyValute, setSelectedBuyValute] = useState<DropdownItem>(valutes[1]);
+  const [selectedSellValute, setSelectedSellValute] = useState<DropdownItem>(mockValutes[0]);
+  const [selectedBuyValute, setSelectedBuyValute] = useState<DropdownItem>(mockValutes[1]);
   const [toSell, setToSell] = useState<string>('10.00');
   const [toBuy, setToBuy] = useState<string>('10.00');
   const [valuteCosts, setValuteCosts] = useState<string>('520.00');
@@ -28,6 +29,13 @@ export function PlaceOrder() {
   const [customToken, setCustomToken] = useState<string>('');
   const [isAddressValid, setIsAddressValid] = useState<boolean>(true);
   const [isUnderstandChecked, setIsUnderstandChecked] = useState<boolean>(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [valutes, setValutes] = useState(mockValutes);
+
+  useEffect(() => {
+    // THERE IS FUNCTION THAT SET VALUTES (TOKENS) IN PLACE ORDER DROPDOWN
+    // setValutes(someData);
+  }, []);
 
   const onSelectSellValute = (valute: DropdownItem) => {
     setSelectedSellValute(valute);
@@ -57,6 +65,22 @@ export function PlaceOrder() {
     }
 
     setIsAddressValid(false);
+  };
+
+  const isSubmitDisabled = (): boolean => !toSell
+    || !toBuy
+    || !selectedSellValute
+    || !selectedBuyValute
+    || !priceImpact
+    || !burnToken
+    || (activeTab === 0 && !valuteCosts)
+    || !takeProfit
+    || !stopLoss
+    || !trailingSL;
+
+  const handleSubmit = () => {
+    // PLACE ORDER SUBMIT FUNCTION
+    alert('PlaceOrder submit alert');
   };
 
   return (
@@ -224,7 +248,9 @@ export function PlaceOrder() {
 
       <button
         type="button"
-        className={`more${isAdvancedOpened ? ' more--opened' : ''}`}
+        className={classnames('more', {
+          'more--opened': isAdvancedOpened,
+        })}
         onClick={() => setIsAdvancedOpened((prevState) => !prevState)}
       >
         Advanced
@@ -285,20 +311,8 @@ export function PlaceOrder() {
         Target price – 0.001 WBNB. Network fee: slow
       </div>
 
-      <Button
-        disabled={
-          !toSell
-          || !toBuy
-          || !selectedSellValute
-          || !selectedBuyValute
-          || !priceImpact
-          || !burnToken
-          || (activeTab === 0 && !valuteCosts)
-          || !takeProfit
-          || !stopLoss
-          || !trailingSL
-        }
-      >
+      {/* PLACE ORDER SUBMIT BUTTON */}
+      <Button disabled={isSubmitDisabled()} onClick={handleSubmit}>
         Give permission to use WNBN
       </Button>
     </div>

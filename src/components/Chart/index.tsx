@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import './style.scss';
 import { ApexOptions } from 'apexcharts';
-import { chart } from '../../lib/mock/chart';
+import { chart as mockChart } from '../../lib/mock/chart';
 import { Dropdown } from '../Dropdown';
 
 const chartOptions: ApexOptions = {
@@ -11,8 +11,6 @@ const chartOptions: ApexOptions = {
     toolbar: {
       tools: {
         download: false,
-        zoomin: false,
-        zoomout: false,
         pan: false,
       },
     },
@@ -70,15 +68,18 @@ const timeframeOptions = [
 ];
 
 export function Chart() {
-  const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
   const [selectedTimeframe, setSelectedTimeframe] = useState(timeframeOptions[0]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [chart, setChart] = useState(mockChart);
 
   useLayoutEffect(() => {
+    // THERE IS FUNCTION THAT SET CHART DATA
+    // setChart(someData);
+
     function update() {
       const $node = document.querySelector('#chart') as HTMLElement;
       const rect = $node.getBoundingClientRect();
-      setWidth(rect.width);
       setHeight(rect.height - 40);
     }
 
@@ -131,7 +132,7 @@ export function Chart() {
       </div>
       {/* <CandleStickChart /> */}
       <div id="chart">
-        <ReactApexChart type="candlestick" series={chart.series} options={chartOptions} width={width} height={height} />
+        <ReactApexChart type="candlestick" series={chart.series} options={chartOptions} height={height} />
       </div>
     </div>
   );

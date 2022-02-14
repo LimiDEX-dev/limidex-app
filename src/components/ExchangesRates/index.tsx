@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.scss';
 import classnames from 'classnames';
 import { Dropdown } from '../Dropdown';
@@ -24,7 +24,20 @@ const stepOptions = [
 ];
 
 export const ExchangesRates = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [redDates, setRedDates] = useState(mockData.redRates);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [greenDates, setGreenDates] = useState(mockData.greenRates);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [currentPrice, setCurrentPrice] = useState(mockData.currentPrice);
   const [selectedStep, setSelectedStep] = useState(stepOptions[0]);
+
+  useEffect(() => {
+    // THERE IS FUNCTIONS THAT SET RATES DATA
+    // setRedDates()
+    // setGreenDates()
+    // setCurrentPrice()
+  }, []);
 
   return (
     <div className="ExchangesRates">
@@ -48,11 +61,9 @@ export const ExchangesRates = () => {
             </tr>
           </thead>
           <tbody>
-            {mockData.redRates.map((rate, index) => (
+            {redDates.map((rate, index) => (
               <tr
-                className={classnames('red-rate', {
-                  'red-rate--big': rate.isBig,
-                })}
+                className="red-rate"
                 key={`${rate.price}-${index}`}
               >
                 <td className="price">{rate.price}</td>
@@ -62,11 +73,19 @@ export const ExchangesRates = () => {
                 </td>
               </tr>
             ))}
-            {mockData.greenRates.map((rate, index) => (
+            <tr
+              className="red-rate red-rate--big"
+              key="date-current-price"
+            >
+              <td className="price">{currentPrice.price}</td>
+              <td className="amount">
+                {currentPrice.amount}
+                <div className="progress" style={{ width: `${currentPrice.progress}%` }} />
+              </td>
+            </tr>
+            {greenDates.map((rate, index) => (
               <tr
-                className={classnames('green-rate', {
-                  'green-rate--big': rate.isBig,
-                })}
+                className="green-rate"
                 key={`${rate.price}-${index}`}
               >
                 <td className="price">{rate.price}</td>
@@ -84,6 +103,13 @@ export const ExchangesRates = () => {
 };
 
 const mockData = {
+  currentPrice: {
+    price: '48 099',
+    amount: '1 099.0990',
+    min: '0.0001',
+    max: '0.0009',
+    progress: 25,
+  },
   redRates: [
     {
       price: '48 099',
@@ -133,7 +159,6 @@ const mockData = {
       min: '0.0001',
       max: '0.0009',
       progress: 25,
-      isBig: true,
     },
     {
       price: '48 099',
@@ -141,13 +166,6 @@ const mockData = {
       min: '0.0001',
       max: '0.0009',
       progress: 75,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 25,
     },
   ],
   greenRates: [
@@ -220,14 +238,6 @@ const mockData = {
       min: '0.0001',
       max: '0.0009',
       progress: 50,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 25,
-      isBig: true,
     },
   ],
 };

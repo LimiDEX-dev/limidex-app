@@ -1,3 +1,5 @@
+@import "../../lib/scss/functions";
+
 .button {
   width: 100%;
   padding: 12px 24px;
@@ -9,7 +11,7 @@
 
   font-family: 'Roboto', sans-serif;
   color: #202734;
-  font-size: 12px;
+  font-size: vw(12px);
   line-height: 14px;
 
   transition: 0.2s ease;
