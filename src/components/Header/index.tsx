@@ -6,8 +6,7 @@ import './style.scss';
 export const Header: FC = () => (
   <header className="header">
     <div className="header__logo">
-      <img src="/assets/logo.png" alt="" />
-      <img src="/assets/logo-text.png" alt="" />
+      <img src="/assets/logo.png" alt="" width={220} />
     </div>
     <nav className="header__nav nav">
       <ul className="nav__list">
