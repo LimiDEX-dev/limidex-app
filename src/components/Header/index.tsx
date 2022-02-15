@@ -21,8 +21,8 @@ export const Header: FC = () => (
           </NavLink>
         </li>
         <li className="nav__item">
-          <NavLink to="/bridges">
-            Bridges
+          <NavLink to="/lmx">
+            Lock LMX
           </NavLink>
         </li>
         <li className="nav__item">

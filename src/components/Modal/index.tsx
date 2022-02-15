@@ -1,11 +1,12 @@
 import React, { FC, useRef } from 'react';
 import './style.scss';
+import classnames from 'classnames';
 import { CloseIcon } from '../../lib/icons';
 
 type ModalProps = {
   isVisible: boolean;
   handleClose: () => void;
-  title: string;
+  title?: string;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -19,7 +20,10 @@ export const Modal: FC<ModalProps> = ({
   // useOutsideAlerter(wrapperRef, handleClose);
 
   return (
-    <div className={`modal${isVisible ? ' modal--visible' : ''}`}>
+    <div className={classnames('modal', {
+      'modal--visible': isVisible,
+    })}
+    >
       <div className="modal__wrapper" ref={wrapperRef}>
         <div className="modal__header">
           <span className="modal__title">

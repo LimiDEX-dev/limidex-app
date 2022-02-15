@@ -3,9 +3,10 @@ import './style.scss';
 
 type PopupProps = {
   content: string;
+  width?: number;
 }
 
-export const Popup: FC<PopupProps> = ({ content, children }) => {
+export const Popup: FC<PopupProps> = ({ content, children, width }) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   return (
@@ -23,8 +24,12 @@ export const Popup: FC<PopupProps> = ({ content, children }) => {
           className="popup__content"
           onMouseEnter={() => setIsVisible(true)}
           onMouseLeave={() => setIsVisible(false)}
+          style={{ left: width ? `calc(50% - ${width / 2}px)` : undefined }}
         >
-          <div className="popup__content__wrapper">
+          <div
+            className="popup__content__wrapper"
+            style={{ width }}
+          >
             {content}
           </div>
         </div>

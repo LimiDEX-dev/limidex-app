@@ -66,8 +66,13 @@
     line-height: 11px;
   }
 
+  &__label {
+    margin-left: 14px;
+  }
+
   &__label,
-  &__currency {
+  &__currency,
+  &__flex-label {
     font-family: 'Roboto', sans-serif;
     color: rgba(255, 249, 249, 0.5);
     font-size: vw(11px);

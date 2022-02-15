@@ -10,9 +10,10 @@ type StakingCardProps = {
     currency: string;
     descr: string;
   }[];
+  description?: string;
 }
 
-export const StakingCard: FC<StakingCardProps> = ({ title, list }) => (
+export const StakingCard: FC<StakingCardProps> = ({ title, list, description }) => (
   <div className="staking__card">
     <div className="staking__card__header">
       <span className="staking__card__header__photo" />
@@ -31,18 +32,15 @@ export const StakingCard: FC<StakingCardProps> = ({ title, list }) => (
         </li>
       ))}
     </ul>
+    <span className="staking__card__description">
+      {description}
+    </span>
     <div className="staking__card__actions">
       <Button>
         Deposit
       </Button>
       <Button disabled>
         Withdraw
-      </Button>
-      <Button disabled>
-        Claim
-      </Button>
-      <Button disabled>
-        Exit
       </Button>
     </div>
   </div>

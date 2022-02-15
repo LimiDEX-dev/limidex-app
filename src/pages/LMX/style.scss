@@ -1,0 +1,43 @@
+.lmx {
+  display: flex;
+  justify-content: space-between;
+
+  height: calc(100% - 150px);
+  margin-top: 40px;
+
+  &__wrapper {
+    &:first-child {
+      width: 40%;
+    }
+
+    &:last-child {
+      display: flex;
+      justify-content: flex-end;
+
+      width: 60%;
+    }
+  }
+
+  &__description {
+    display: flex;
+    align-items: flex-start;
+
+    margin-top: 20px;
+
+    &__wrapper {
+      width: 50%;
+    }
+
+    &__title {
+      display: block;
+
+      margin-bottom: 20px;
+
+      font-weight: bold;
+    }
+
+    &__content {
+      white-space: pre-wrap;
+    }
+  }
+}

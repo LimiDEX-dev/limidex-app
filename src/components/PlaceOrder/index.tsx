@@ -10,6 +10,7 @@ import { Button } from '../Button';
 import { Modal } from '../Modal';
 import { Checkbox } from '../Checkbox';
 import { ethereumAddressRegexp } from '../../lib/constants';
+import { Coin, CoinDescription } from '../CoinDescription';
 
 export function PlaceOrder() {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
@@ -31,6 +32,9 @@ export function PlaceOrder() {
   const [isUnderstandChecked, setIsUnderstandChecked] = useState<boolean>(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [valutes, setValutes] = useState(mockValutes);
+  const [tokenInfo, setTokenInfo] = useState<Coin | null>(null);
+  const [isTokenInfoVisible, setIsTokenInfoVisible] = useState<boolean>(false);
+  const [lastViewedToken, setLastViewedToken] = useState<string>('');
 
   useEffect(() => {
     // THERE IS FUNCTION THAT SET VALUTES (TOKENS) IN PLACE ORDER DROPDOWN
@@ -61,10 +65,27 @@ export function PlaceOrder() {
   const handleBlurCustomToken = (value: string) => {
     if (ethereumAddressRegexp.test(value)) {
       setIsAddressValid(true);
+
+      if (lastViewedToken !== value) {
+        setTokenInfo({
+          title: 'DOGI Coin',
+          pot: 'example value',
+          fee: 'example value',
+          proxyContract: 'example value',
+          verifiedContract: 'example value',
+          holders: 'example value',
+          supply: 'example value',
+        });
+        setIsTokenInfoVisible(true);
+
+        setLastViewedToken(value);
+      }
+
       return;
     }
 
     setIsAddressValid(false);
+    setLastViewedToken('');
   };
 
   const isSubmitDisabled = (): boolean => !toSell
@@ -90,6 +111,11 @@ export function PlaceOrder() {
         handleClose={() => setIsAddCustomTokenVisible(false)}
         title="Add custom token"
       >
+        <CoinDescription
+          coin={tokenInfo}
+          handleClose={() => setIsTokenInfoVisible(false)}
+          isVisible={isTokenInfoVisible}
+        />
         <Input
           value={customToken}
           onChange={setCustomToken}
@@ -217,12 +243,11 @@ export function PlaceOrder() {
           value={priceImpact}
           onChange={setPriceImpact}
           label={(
-            <span className="input__flex-label">
-              Price impact
-              <Popup content="Curabitur rhoncus facilisis lacus, sit amet luctus tortor consectetur a. Nullam vitae dapibus leo, ac elementum elit. Donec congue turpis id orci vulputate, sit amet faucibus velit pellentesque.">
-                <HelpIcon />
-              </Popup>
-            </span>
+            <Popup content="Curabitur rhoncus facilisis lacus, sit amet luctus tortor consectetur a. Nullam vitae dapibus leo, ac elementum elit. Donec congue turpis id orci vulputate, sit amet faucibus velit pellentesque.">
+              <span className="input__flex-label">
+                Price impact
+              </span>
+            </Popup>
         )}
           currency="%"
         />
@@ -264,36 +289,33 @@ export function PlaceOrder() {
               value={takeProfit}
               onChange={setTakeProfit}
               label={(
-                <span className="input__flex-label">
-                  Take profit
-                  <Popup content="Lorem ipsum dolor sit amet">
-                    <HelpIcon />
-                  </Popup>
-                </span>
+                <Popup content="Lorem ipsum dolor sit amet" width={100}>
+                  <span className="input__flex-label">
+                    Take profit
+                  </span>
+                </Popup>
               )}
             />
             <Input
               value={stopLoss}
               onChange={setStopLoss}
               label={(
-                <span className="input__flex-label">
-                  Stop loss
-                  <Popup content="Lorem ipsum dolor sit amet">
-                    <HelpIcon />
-                  </Popup>
-                </span>
+                <Popup content="Lorem ipsum dolor sit amet" width={100}>
+                  <span className="input__flex-label">
+                    Stop loss
+                  </span>
+                </Popup>
               )}
             />
             <Input
               value={trailingSL}
               onChange={setTrailingSL}
               label={(
-                <span className="input__flex-label">
-                  Trailing SL
-                  <Popup content="Lorem ipsum dolor sit amet">
-                    <HelpIcon />
-                  </Popup>
-                </span>
+                <Popup content="Lorem ipsum dolor sit amet" width={100}>
+                  <span className="input__flex-label">
+                    Trailing SL
+                  </span>
+                </Popup>
               )}
               currency="%"
             />

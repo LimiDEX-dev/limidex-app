@@ -2,25 +2,10 @@
 
 .staking {
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
 
+  height: calc(100% - 150px);
   margin-top: 40px;
-
-  &__title {
-    margin-top: 0;
-    margin-bottom: 50px;
-
-    color: #FFF9F9;
-    font-size: vw(48px);
-    line-height: vw(56px);
-  }
-
-  &__description {
-    color: #FFF9F9;
-    font-size: vw(18px);
-    line-height: vw(21px);
-  }
 
   &__wrapper {
     &:first-child {
