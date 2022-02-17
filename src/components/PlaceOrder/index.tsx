@@ -115,6 +115,7 @@ export function PlaceOrder() {
 
   const handleSubmit = () => {
     // PLACE ORDER SUBMIT FUNCTION
+    // eslint-disable-next-line no-alert
     alert('PlaceOrder submit alert');
   };
 

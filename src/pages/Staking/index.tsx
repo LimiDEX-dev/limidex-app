@@ -10,7 +10,6 @@ import { Description } from '../../components/Description';
 import { Modal } from '../../components/Modal';
 import { Input } from '../../components/Input';
 import { Popup } from '../../components/Popup';
-import { Dropdown } from '../../components/Dropdown';
 import { Button } from '../../components/Button';
 
 export const Staking: FC = () => {

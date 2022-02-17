@@ -1,7 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react';
 import './style.scss';
-import classnames from 'classnames';
 import { Dropdown } from '../Dropdown';
 
 const stepOptions = [
