@@ -12,9 +12,12 @@ type StakingCardProps = {
     descr: string;
   }[];
   description?: string;
+  handleDeposit?: () => void;
 }
 
-export const StakingCard: FC<StakingCardProps> = ({ title, list, description }) => {
+export const StakingCard: FC<StakingCardProps> = ({
+  title, list, description, handleDeposit,
+}) => {
   const swiper = useSwiper();
 
   useEffect(() => {
@@ -70,7 +73,7 @@ export const StakingCard: FC<StakingCardProps> = ({ title, list, description }) 
         {description}
       </span>
       <div className="staking__card__actions">
-        <Button>
+        <Button onClick={handleDeposit}>
           Deposit
         </Button>
         <Button disabled>

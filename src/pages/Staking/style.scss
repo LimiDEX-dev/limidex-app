@@ -113,3 +113,9 @@
     }
   }
 }
+
+.staking-modal {
+  & .staking__card__list {
+    margin-top: 6px;
+  }
+}

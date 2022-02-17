@@ -73,3 +73,20 @@
     }
   }
 }
+
+.lmx-modal {
+  & .dropdown__trigger {
+    padding: 0;
+    border-color: transparent;
+
+    font-family: 'Roboto Mono', sans-serif;
+    color: #FFF9F9;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+  }
+
+  & .staking__card__list {
+    margin-top: 6px;
+  }
+}
