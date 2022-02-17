@@ -7,7 +7,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -17,7 +17,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -27,7 +27,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -37,7 +37,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -47,7 +47,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -57,7 +57,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -67,7 +67,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -77,7 +77,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -87,7 +87,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -97,7 +97,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -107,7 +107,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -117,7 +117,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -127,7 +127,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -137,7 +137,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -147,7 +147,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -157,7 +157,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -167,7 +167,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
     {
@@ -177,7 +177,7 @@ export const orders = {
       orderFee: '0.0990',
       networkFee: '0.0990',
       slipPage: '0.0990',
-      routing: 'WBNB > WBNB > WBNB > WBNB',
+      routing: 'WBNB',
       routing2: 'Pancakeswap V2 > Apeswap',
     },
   ],

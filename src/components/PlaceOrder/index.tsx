@@ -195,7 +195,7 @@ export function PlaceOrder() {
               selectedValue={selectedSellValute}
               isAddCustomVisible
               notRightBorderRadius
-              width={100}
+              width={110}
               handleAddCustom={() => setIsAddCustomTokenVisible(true)}
             />
             <Input
@@ -214,7 +214,7 @@ export function PlaceOrder() {
               selectedValue={selectedBuyValute}
               isAddCustomVisible
               notRightBorderRadius
-              width={100}
+              width={110}
               handleAddCustom={() => setIsAddCustomTokenVisible(true)}
             />
             <Input

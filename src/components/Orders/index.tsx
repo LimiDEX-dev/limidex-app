@@ -64,7 +64,7 @@ export const Orders: FC = () => {
                   <td className="orderType">Order type</td>
                   <td className="volume">Volume</td>
                   <td className="fee">Fee</td>
-                  <td className="rebase">Rebase</td>
+                  <td className="rebase">Reward</td>
                   <td className="status">Status</td>
                   <td className="change">Review</td>
                 </tr>
@@ -82,11 +82,41 @@ export const Orders: FC = () => {
                           <span>{order.name}</span>
                         </div>
                       </td>
-                      <td className="orderType"><div><span>{order.type}</span></div></td>
-                      <td className="volume"><div><span>{order.volume}</span></div></td>
-                      <td className="fee"><div><span>{order.fee}</span></div></td>
-                      <td className="rebase"><div><span>{order.rebase}</span></div></td>
-                      <td className="status"><div><span>{order.status}</span></div></td>
+                      <td className="orderType">
+                        <div>
+                          <span>
+                            {order.type}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="volume">
+                        <div>
+                          <span>
+                            {order.volume}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="fee">
+                        <div>
+                          <span>
+                            {order.fee}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="rebase">
+                        <div>
+                          <span>
+                            {order.rebase}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="status">
+                        <div>
+                          <span>
+                            {order.status}
+                          </span>
+                        </div>
+                      </td>
                       <td className="change">
                         <button type="button">
                           <span>Full info</span>
@@ -103,9 +133,7 @@ export const Orders: FC = () => {
                   <td className="name">Name</td>
                   <td className="orderType">Order type</td>
                   <td className="volume">Volume</td>
-                  <td className="orderFee">Order fee</td>
-                  <td className="networkFee">Network fee</td>
-                  <td className="slipPage">Slippage</td>
+                  <td className="orderFee">Price</td>
                   <td className="routing">Routing</td>
                   <td className="change">TP / LS</td>
                   <td className="delete">Delete</td>
@@ -122,13 +150,41 @@ export const Orders: FC = () => {
                         <span>{order.name}</span>
                       </div>
                     </td>
-                    <td className="orderType"><div><span>{order.type}</span></div></td>
-                    <td className="volume"><div><span>{order.volume}</span></div></td>
-                    <td className="orderFee"><div><span>{order.orderFee}</span></div></td>
-                    <td className="networkFee"><div><span>{order.networkFee}</span></div></td>
-                    <td className="slipPage"><div><span>{order.slipPage}</span></div></td>
-                    <td className="routing"><div><span>{order.routing}</span></div></td>
-                    <td className="change"><button type="button"><span>Change</span></button></td>
+                    <td className="orderType">
+                      <div>
+                        <span>
+                          {order.type}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="volume">
+                      <div>
+                        <span>
+                          {order.volume}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="orderFee">
+                      <div>
+                        <span>
+                          {order.orderFee}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="routing">
+                      <div>
+                        <span>
+                          {order.routing}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="orderFee">
+                      <div>
+                        <span>
+                          150/234
+                        </span>
+                      </div>
+                    </td>
                     <td className="delete">
                       <button type="button" onClick={() => handleDeleteActiveOrder(index)} aria-label="Delete order">
                         <span />
