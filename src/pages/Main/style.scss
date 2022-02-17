@@ -1,40 +1,138 @@
 @use '/src/styles/index';
 
 .Main {
+    display: flex;
+    flex-direction: column;
+
     width: 100%;
     height: calc(100% - 110px);
 
-    display: flex;
+    @media (min-width: 1200px) {
+        flex-direction: row;
+    }
+
+    & > .Orders {
+        order: 5;
+
+        @media (min-width: 1200px) {
+            display: none;
+        }
+    }
 
     .left {
-        padding-right: 10px;
+        order: 3;
+
+        @media (min-width: 1200px) {
+            padding-right: 10px;
+        }
     }
 
     .right {
         display: flex;
         flex-direction: column;
-        width: 100%;
-        padding-left: 10px;
+        order: 1;
+        height: 300px;
+        overflow: hidden;
+        margin: 0 -32px;
+        padding: 0 32px;
+
+        border-top: 1px solid #3BD795;
+        border-bottom: 1px solid #3BD795;
+
+        @media (min-width: 1200px) {
+            order: 4;
+
+            height: auto;
+            margin: 0;
+            padding: 0;
+
+            border: none;
+        }
     }
 
     .right-top {
-        display: flex;
         width: 100%;
-        height: 60%;
-        padding-bottom: 10px;
+        height: 100%;
+
+        & > .chart-container,
+        & > .exchanges-rates-container {
+            display: none;
+        }
+
+        &[data-active-tab="0"] {
+            & > .chart-container {
+                display: block;
+            }
+        }
+
+        &[data-active-tab="1"] {
+            & > .exchanges-rates-container {
+                display: block;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            display: flex;
+
+            height: 60%;
+            padding-left: 10px;
+            padding-bottom: 10px;
+
+            & > .chart-container,
+            & > .exchanges-rates-container {
+                display: block;
+            }
+        }
+    }
+
+    .actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        order: 2;
+
+        margin-top: 8px;
+
+        & > button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+
+            &:not(:last-child) {
+                margin-right: 20px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            display: none;
+        }
     }
 
     .right-bottom {
+        display: none;
+
         padding-top: 10px;
         height: 40%;
+
+        @media (min-width: 1200px) {
+            display: block;
+        }
     }
 
     .chart-container {
         width: 100%;
-        padding-right: 10px;
+        height: 100%;
+
+        @media (min-width: 1200px) {
+            padding-right: 10px;
+        }
     }
 
     .exchanges-rates-container {
-        padding-left: 10px;
+        height: 100%;
+
+        @media (min-width: 1200px) {
+            padding-left: 10px;
+        }
     }
 }

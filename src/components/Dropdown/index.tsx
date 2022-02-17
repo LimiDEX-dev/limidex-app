@@ -79,7 +79,7 @@ export const Dropdown: FC<DropdownProps> = ({
             <span className="dropdown__trigger__label">{selectedValue.label}</span>
           </>
         ) : children}
-        {!arrowHidden && <DropdownArrowIcon />}
+        {!arrowHidden && <span className="dropdown__trigger__icon"><DropdownArrowIcon /></span>}
       </button>
       {isOpened && (
         <ul className="dropdown__list">

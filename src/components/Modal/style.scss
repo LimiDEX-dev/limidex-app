@@ -1,5 +1,3 @@
-@import "../../lib/scss/functions";
-
 .modal {
   display: none;
   align-items: center;
@@ -37,7 +35,7 @@
   &__title {
     font-family: 'Roboto', sans-serif;
     color: rgba(255, 249, 249, 0.5);
-    font-size: vw(12px);
+    font-size: 12px;
     line-height: 14px;
   }
 

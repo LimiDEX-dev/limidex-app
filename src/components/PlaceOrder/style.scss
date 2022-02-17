@@ -1,21 +1,46 @@
 @use '/src/styles/index';
-@import "../../lib/scss/functions";
 
 .PlaceOrder {
     @extend .dialog;
 
-    width: 310px;
     height: 100%;
-    background: #202734;
     overflow: auto;
     font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: normal;
 
+    @media (min-width: 1200px) {
+        width: 310px;
+
+        background-color: #202734;
+    }
+
+    @media (max-width: 1200px) {
+        border: none;
+
+        .input__top-label {
+            display: none;
+        }
+    }
+
+    &__content {
+        @extend .dialog;
+
+        @media (min-width: 1200px) {
+            border: none;
+        }
+    }
+
     .title {
-        font-size: vw(12px);
+        margin-bottom: 0;
+
+        font-size: 12px;
         line-height: 14px;
         color: rgba(255, 249, 249, 0.5);
+
+        @media (max-width: 1200px) {
+            display: none;
+        }
     }
 
     .tab-switch {
@@ -27,9 +52,10 @@
 
         > button {
             position: relative;
-            font-size: vw(18px);
+            font-size: 18px;
             line-height: 21px;
             color: rgba(255, 249, 249, 0.5);
+            font-weight: 500;
             background-color: transparent;
             border: none;
             cursor: pointer;
@@ -48,13 +74,50 @@
                     content: '';
                     width: 100%;
                     height: 2px;
-                    background: #3BD795;
+                    background-color: #3BD795;
+                }
+            }
+        }
+
+        @media (max-width: 1200px) {
+            justify-content: center;
+
+            margin-top: 0;
+            margin-bottom: 12px;
+
+            border-bottom: none;
+
+            & > button {
+                &.active {
+                    &::after {
+                        background-color: transparent;
+                    }
                 }
             }
         }
 
         > div + div {
             margin-left: 11px;
+        }
+    }
+
+    .chain {
+        margin-top: 24px;
+
+        &__title {
+            display: block;
+
+            margin-bottom: 24px;
+
+            font-family: 'Roboto Mono', sans-serif;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 10px;
+        }
+
+        & .dropdown__trigger {
+            border-color: #F2EE93;
         }
     }
 
@@ -70,7 +133,7 @@
                 top: -15px;
                 text-align: right;
                 font-weight: 300;
-                font-size: vw(11px);
+                font-size: 11px;
                 line-height: 11px;
                 color: #55647D;
             }
@@ -87,7 +150,7 @@
                 min-width: 100px;
                 max-width: 100px;
 
-                font-size: vw(12px);
+                font-size: 12px;
                 line-height: 14px;
                 color: rgba(255, 249, 249, 0.5);
                 height: 24px;
@@ -120,7 +183,7 @@
                 align-items: center;
                 width: 100%;
                 font-weight: 300;
-                font-size: vw(11px);
+                font-size: 11px;
                 line-height: 11px;
                 color: rgba(255, 249, 249, 0.5);
                 padding-left: 10px;
@@ -142,7 +205,7 @@
                     font-family: 'Roboto Mono', sans-serif;
                     font-style: normal;
                     font-weight: 300;
-                    font-size: vw(12px);
+                    font-size: 12px;
                     line-height: 10px;
                     color: rgba(255, 249, 249, 0.5);
                 }
@@ -166,6 +229,7 @@
     .valute-toggle-container {
         margin: 24px 0 0;
         display: flex;
+        justify-content: space-between;
 
         .valute-toggle {
             display: flex;
@@ -173,7 +237,7 @@
             > button {
                 border: 1px solid #55647D;
                 font-weight: 500;
-                font-size: vw(11px);
+                font-size: 11px;
                 line-height: 11px;
                 padding: 5px 10px;
                 color: rgba(255, 249, 249, 0.5);
@@ -202,8 +266,8 @@
         }
 
         .input__container {
-            width: 170px;
-            margin-left: auto;
+            width: 100%;
+            margin-left: 20px;
         }
     }
 
@@ -229,7 +293,7 @@
             top: -15px;
             text-align: right;
             font-weight: 300;
-            font-size: vw(11px);
+            font-size: 11px;
             line-height: 11px;
             color: #55647D;
         }
@@ -273,14 +337,14 @@
         .radio-label {
             display: inline-block;
             margin-left: 9px;
-            font-size: vw(13px);
+            font-size: 13px;
             line-height: 14px;
             color: rgba(255, 249, 249, 0.5);
         }
 
         .radio-title {
             font-weight: 300;
-            font-size: vw(11px);
+            font-size: 11px;
             line-height: 11px;
             color: rgba(255, 249, 249, 0.5);
             margin-left: 19px;
@@ -301,7 +365,7 @@
         cursor: pointer;
 
         font-family: 'Roboto', sans-serif;
-        font-size: vw(12px);
+        font-size: 12px;
         line-height: 14px;
         color: rgba(255, 249, 249, 0.5);
 
@@ -349,11 +413,10 @@
     .info {
         margin: 40px 0 16px;
         font-weight: 300;
-        font-size: vw(11px);
+        font-size: 11px;
         line-height: 14px;
         text-align: center;
         color: rgba(255, 249, 249, 0.5);
-        max-width: 270px;
     }
 
     .btn {
@@ -361,7 +424,7 @@
         justify-content: center;
         align-items: center;
         margin: 16px 0 0;
-        font-size: vw(12px);
+        font-size: 12px;
         line-height: 14px;
         color: #202734;
         width: 100%;
@@ -380,7 +443,7 @@
 
             font-family: 'Roboto', sans-serif;
             color: #B0685D;
-            font-size: vw(12px);
+            font-size: 12px;
             line-height: 14px;
         }
     }
@@ -395,14 +458,14 @@
 
             font-family: 'Roboto', sans-serif;
             color: #B0685D;
-            font-size: vw(12px);
+            font-size: 12px;
             line-height: 14px;
         }
 
         &__description {
             font-family: 'Roboto', sans-serif;
             color: rgba(255, 249, 249, 0.5);
-            font-size: vw(12px);
+            font-size: 12px;
             line-height: 14px;
         }
     }

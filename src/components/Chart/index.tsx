@@ -122,12 +122,14 @@ export function Chart() {
               WNBN / WNBN
             </span>
           </div>
-          <span className="chart__header__current__text">
-            556.7373732987
-          </span>
-          <span className="chart__header__current__change">
-            +0.00018
-          </span>
+          <div className="chart__header__current__wrapper">
+            <span className="chart__header__current__text">
+              556.7373732987
+            </span>
+            <span className="chart__header__current__change">
+              +0.00018
+            </span>
+          </div>
         </div>
       </div>
       {/* <CandleStickChart /> */}

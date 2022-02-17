@@ -39,6 +39,9 @@ export const Portfolio: FC = () => {
           />
         ))}
       </ul>
+      <span className="portfolio__title">
+        All assets - 12453$
+      </span>
       <PortfolioTable sort={sort} handleChangeSort={setSort} data={list} />
     </div>
   );

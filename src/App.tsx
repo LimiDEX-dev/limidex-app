@@ -3,6 +3,8 @@ import './App.scss';
 import './styles/index.scss';
 import { ethers } from 'ethers';
 import { Header } from './components/Header';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 function App({ children }) {
   const [provider, setProvider] = useState(null);

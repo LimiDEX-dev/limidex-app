@@ -2,6 +2,22 @@
   height: 100%;
   padding-bottom: 70px;
 
+  &__title {
+    display: block;
+
+    margin-bottom: 20px;
+
+    font-family: 'Roboto Mono', sans-serif;
+    color: #FFF9F9;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+
+    @media (min-width: 1200px) {
+      display: none;
+    }
+  }
+
   &__networks {
     &__list {
       display: flex;
@@ -12,6 +28,23 @@
       padding: 0;
 
       list-style: none;
+      overflow-x: auto;
+
+      @media (max-width: 1200px) {
+        justify-content: flex-start;
+
+        margin: 0 -32px 20px;
+
+        & > .network-item {
+          &:first-child {
+            margin-left: 32px;
+          }
+
+          &:last-child {
+            margin-right: 32px;
+          }
+        }
+      }
     }
   }
 }

@@ -1,22 +1,31 @@
 @use '/src/styles/index';
-@import "../../lib/scss/functions";
 
 .ExchangesRates {
     @extend .dialog;
 
     display: flex;
     flex-direction: column;
-    width: 310px;
     height: 100%;
     padding: 0;
+
+    @media (min-width: 1200px) {
+        width: 310px;
+    }
+
+    @media (max-width: 1200px) {
+        border: none;
+    }
 
     .top {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+
         padding: 24px 20px 0;
 
         .title {
-            font-size: vw(12px);
+            margin-bottom: 0;
+            font-size: 12px;
             line-height: 14px;
             color: rgba(255, 249, 249, 0.5);
         }
@@ -27,7 +36,7 @@
 
             > span:nth-child(1) {
                 font-weight: 300;
-                font-size: vw(11px);
+                font-size: 11px;
                 line-height: 11px;
                 color: rgba(255, 249, 249, 0.5);
                 margin-right: 12px;
@@ -35,7 +44,7 @@
 
             > span:nth-child(2) {
                 font-weight: 300;
-                font-size: vw(11px);
+                font-size: 11px;
                 line-height: 11px;
                 color: rgba(255, 249, 249, 0.5);
                 margin-right: 4px;
@@ -44,7 +53,7 @@
             > span:nth-child(3) {
                 font-family: 'Roboto Mono', sans-serif;
                 font-weight: 300;
-                font-size: vw(12px);
+                font-size: 12px;
                 line-height: 10px;
                 color: #FFF9F9;
             }
@@ -94,13 +103,13 @@
             position: relative;
 
             td {
-                font-size: vw(11px);
+                font-size: 11px;
             }
         }
 
         tbody {
             font-weight: 300;
-            font-size: vw(11px);
+            font-size: 11px;
             line-height: 13px;
             font-family: 'Roboto Mono', sans-serif;
 
@@ -147,7 +156,7 @@
 
                 & .price {
                     color: rgba(255, 249, 249, 0.5);
-                    font-size: vw(14px);
+                    font-size: 14px;
                     font-weight: 500;
                     line-height: 18px;
                 }
@@ -170,7 +179,7 @@
 
                 & .price {
                     color: rgba(255, 249, 249, 0.5);
-                    font-size: vw(14px);
+                    font-size: 14px;
                     font-weight: 500;
                     line-height: 18px;
                 }
@@ -183,7 +192,7 @@
         padding: 14px 20px 24px;
 
         .title {
-            font-size: vw(12px);
+            font-size: 12px;
             line-height: 14px;
             color: rgba(255, 249, 249, 0.5);
         }
@@ -197,7 +206,7 @@
 
                 > span:nth-child(1) {
                     font-weight: 300;
-                    font-size: vw(11px);
+                    font-size: 11px;
                     line-height: 14px;
                     color: rgba(255, 249, 249, 0.5);
                 }
@@ -205,7 +214,7 @@
                 > span:nth-child(2) {
                     font-family: 'Roboto Mono', sans-serif;
                     font-weight: 300;
-                    font-size: vw(11px);
+                    font-size: 11px;
                     line-height: 14px;
                     color: #FFF9F9;
                 }

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './style.scss';
 import classnames from 'classnames';
 import { Dropdown, DropdownItem } from '../Dropdown';
-import { valutes as mockValutes } from '../../lib/mock/valutes';
+import { valutes as mockValutes, chains as mockChains } from '../../lib/mock/valutes';
 import { Input } from '../Input';
-import { DropdownArrowIcon, HelpIcon, SearchIcon } from '../../lib/icons';
+import { DropdownArrowIcon, SearchIcon } from '../../lib/icons';
 import { Popup } from '../Popup';
 import { Button } from '../Button';
 import { Modal } from '../Modal';
@@ -13,7 +13,7 @@ import { ethereumAddressRegexp } from '../../lib/constants';
 import { Coin, CoinDescription } from '../CoinDescription';
 
 export function PlaceOrder() {
-  const [activeTab, setActiveTab] = useState<0 | 1>(0);
+  const [activeTab, setActiveTab] = useState<0 | 1 | 2>(0);
   const [activeBuyTab, setActiveBuyTab] = useState<0 | 1>(0);
   const [selectedSellValute, setSelectedSellValute] = useState<DropdownItem>(mockValutes[0]);
   const [selectedBuyValute, setSelectedBuyValute] = useState<DropdownItem>(mockValutes[1]);
@@ -32,6 +32,9 @@ export function PlaceOrder() {
   const [isUnderstandChecked, setIsUnderstandChecked] = useState<boolean>(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [valutes, setValutes] = useState(mockValutes);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [chains, setChains] = useState(mockChains);
+  const [selectedChain, setSelectedChain] = useState<DropdownItem>(mockChains[0]);
   const [tokenInfo, setTokenInfo] = useState<Coin | null>(null);
   const [isTokenInfoVisible, setIsTokenInfoVisible] = useState<boolean>(false);
   const [lastViewedToken, setLastViewedToken] = useState<string>('');
@@ -88,16 +91,27 @@ export function PlaceOrder() {
     setLastViewedToken('');
   };
 
-  const isSubmitDisabled = (): boolean => !toSell
-    || !toBuy
-    || !selectedSellValute
-    || !selectedBuyValute
-    || !priceImpact
-    || !burnToken
-    || (activeTab === 0 && !valuteCosts)
-    || !takeProfit
-    || !stopLoss
-    || !trailingSL;
+  const isSubmitDisabled = (): boolean => {
+    if (activeTab === 0 || activeTab === 1) {
+      return !toSell
+        || !toBuy
+        || !selectedSellValute
+        || !selectedBuyValute
+        || !priceImpact
+        || !burnToken
+        || (activeTab === 0 && !valuteCosts)
+        || !takeProfit
+        || !stopLoss
+        || !trailingSL;
+    }
+
+    return !toSell
+      || !toBuy
+      || !selectedSellValute
+      || !selectedBuyValute
+      || !selectedChain
+      || !burnToken;
+  };
 
   const handleSubmit = () => {
     // PLACE ORDER SUBMIT FUNCTION
@@ -163,180 +177,209 @@ export function PlaceOrder() {
         >
           Swap
         </button>
+        <button
+          type="button"
+          className={activeTab === 2 ? 'active' : ''}
+          onClick={() => setActiveTab(2)}
+        >
+          Cross-chain
+        </button>
       </div>
 
-      <div className="valute-swap">
-        <div className="valute-converter">
-          <Dropdown
-            items={valutes}
-            onSelect={onSelectSellValute}
-            selectedValue={selectedSellValute}
-            isAddCustomVisible
-            notRightBorderRadius
-            width={100}
-            handleAddCustom={() => setIsAddCustomTokenVisible(true)}
-          />
-          <Input
-            value={toSell}
-            onChange={setToSell}
-            topLabel="Balance 12 WNBM"
-            label="To sell"
-            notLeftBorder
-          />
-        </div>
-        <button type="button" className="swap-icon" onClick={handleSwapValutes} aria-label="swap currencies" />
-        <div className="valute-converter">
-          <Dropdown
-            items={valutes}
-            onSelect={onSelectBuyValute}
-            selectedValue={selectedBuyValute}
-            isAddCustomVisible
-            notRightBorderRadius
-            width={100}
-            handleAddCustom={() => setIsAddCustomTokenVisible(true)}
-          />
-          <Input
-            value={toBuy}
-            onChange={setToBuy}
-            topLabel="-1000$"
-            label="To buy"
-            notLeftBorder
-          />
-        </div>
-      </div>
-
-      {activeTab === 0 && (
-        <div className="valute-toggle-container">
-          <div className="valute-toggle">
-            <button
-              type="button"
-              className={activeBuyTab === 0 ? 'active' : ''}
-              onClick={() => setActiveBuyTab(0)}
-            >
-              Buy
-            </button>
-            <button
-              type="button"
-              className={activeBuyTab === 1 ? 'active' : ''}
-              onClick={() => setActiveBuyTab(1)}
-            >
-              Sell
-            </button>
+      <div className="PlaceOrder__content">
+        <div className="valute-swap">
+          <div className="valute-converter">
+            <Dropdown
+              items={valutes}
+              onSelect={onSelectSellValute}
+              selectedValue={selectedSellValute}
+              isAddCustomVisible
+              notRightBorderRadius
+              width={100}
+              handleAddCustom={() => setIsAddCustomTokenVisible(true)}
+            />
+            <Input
+              value={toSell}
+              onChange={setToSell}
+              topLabel="Balance 12 WNBM"
+              label="To sell"
+              notLeftBorder
+            />
           </div>
-          <Input value={valuteCosts} onChange={setValuteCosts} label="1 WNBN costs" currency="$" />
+          <button type="button" className="swap-icon" onClick={handleSwapValutes} aria-label="swap currencies" />
+          <div className="valute-converter">
+            <Dropdown
+              items={valutes}
+              onSelect={onSelectBuyValute}
+              selectedValue={selectedBuyValute}
+              isAddCustomVisible
+              notRightBorderRadius
+              width={100}
+              handleAddCustom={() => setIsAddCustomTokenVisible(true)}
+            />
+            <Input
+              value={toBuy}
+              onChange={setToBuy}
+              topLabel="-1000$"
+              label="To buy"
+              notLeftBorder
+            />
+          </div>
         </div>
-      )}
 
-      <div className="valute-tolerance">
-        <Input
-          value={burnToken}
-          onChange={setBurnToken}
-          type="number"
-          max={100}
-          label="Burn Token"
-          currency="LMX"
-        />
-      </div>
-
-      <div className="valute-impact">
-        <Input
-          value={priceImpact}
-          onChange={setPriceImpact}
-          label={(
-            <Popup content="Curabitur rhoncus facilisis lacus, sit amet luctus tortor consectetur a. Nullam vitae dapibus leo, ac elementum elit. Donec congue turpis id orci vulputate, sit amet faucibus velit pellentesque.">
-              <span className="input__flex-label">
-                Price impact
-              </span>
-            </Popup>
+        {activeTab === 0 && (
+          <div className="valute-toggle-container">
+            <div className="valute-toggle">
+              <button
+                type="button"
+                className={activeBuyTab === 0 ? 'active' : ''}
+                onClick={() => setActiveBuyTab(0)}
+              >
+                Buy
+              </button>
+              <button
+                type="button"
+                className={activeBuyTab === 1 ? 'active' : ''}
+                onClick={() => setActiveBuyTab(1)}
+              >
+                Sell
+              </button>
+            </div>
+            <Input value={valuteCosts} onChange={setValuteCosts} label="1 WNBN costs" currency="$" />
+          </div>
         )}
-          currency="%"
-        />
-      </div>
 
-      <div className="routes-container">
-        <div className="routes-title">Routing</div>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label>
-          <input type="radio" name="routing" className="radio-input visually-hidden" defaultChecked />
-          <div className="radio active" />
-          <div className="radio-label">Self route</div>
-          <div className="radio-title">Your order will be executed at the best opportunity at the time of the trade</div>
-        </label>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label>
-          <input type="radio" name="routing" className="radio-input visually-hidden" />
-          <div className="radio" />
-          <div className="radio-label">Pancakeswap</div>
-          <div className="radio-title">Slippage  0.5%  </div>
-        </label>
-      </div>
+        {activeTab === 2 && (
+          <div className="chain">
+            <span className="chain__title">
+              Destination Chain:
+            </span>
+            <Dropdown items={chains} onSelect={setSelectedChain}>
+              {selectedChain.icon}
+              {selectedChain.label}
+            </Dropdown>
+          </div>
+        )}
 
-      <button
-        type="button"
-        className={classnames('more', {
-          'more--opened': isAdvancedOpened,
-        })}
-        onClick={() => setIsAdvancedOpened((prevState) => !prevState)}
-      >
-        Advanced
-        <DropdownArrowIcon />
-      </button>
+        <div className="valute-tolerance">
+          <Input
+            value={burnToken}
+            onChange={setBurnToken}
+            type="number"
+            max={100}
+            label="Burn Token"
+            currency="LMX"
+          />
+        </div>
 
-      {isAdvancedOpened && (
-        <div className="advanced-fields">
-          <div className="advanced-fields__inputs">
+        {activeTab !== 2 && (
+          <div className="valute-impact">
             <Input
-              value={takeProfit}
-              onChange={setTakeProfit}
+              value={priceImpact}
+              onChange={setPriceImpact}
               label={(
-                <Popup content="Lorem ipsum dolor sit amet" width={100}>
+                <Popup content="Curabitur rhoncus facilisis lacus, sit amet luctus tortor consectetur a. Nullam vitae dapibus leo, ac elementum elit. Donec congue turpis id orci vulputate, sit amet faucibus velit pellentesque.">
                   <span className="input__flex-label">
-                    Take profit
+                    Price impact
                   </span>
                 </Popup>
-              )}
-            />
-            <Input
-              value={stopLoss}
-              onChange={setStopLoss}
-              label={(
-                <Popup content="Lorem ipsum dolor sit amet" width={100}>
-                  <span className="input__flex-label">
-                    Stop loss
-                  </span>
-                </Popup>
-              )}
-            />
-            <Input
-              value={trailingSL}
-              onChange={setTrailingSL}
-              label={(
-                <Popup content="Lorem ipsum dolor sit amet" width={100}>
-                  <span className="input__flex-label">
-                    Trailing SL
-                  </span>
-                </Popup>
-              )}
+          )}
               currency="%"
             />
           </div>
-          <div className="advanced-fields__submit">
-            <Button size="small" onClick={() => setIsAdvancedOpened(false)}>
-              Ok
-            </Button>
-          </div>
+        )}
+
+        {activeTab !== 2 && (
+          <>
+            <div className="routes-container">
+              <div className="routes-title">Routing</div>
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label>
+                <input type="radio" name="routing" className="radio-input visually-hidden" defaultChecked />
+                <div className="radio active" />
+                <div className="radio-label">Self route</div>
+                <div className="radio-title">Your order will be executed at the best opportunity at the time of the trade</div>
+              </label>
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label>
+                <input type="radio" name="routing" className="radio-input visually-hidden" />
+                <div className="radio" />
+                <div className="radio-label">Pancakeswap</div>
+                <div className="radio-title">Slippage  0.5%  </div>
+              </label>
+            </div>
+
+            <button
+              type="button"
+              className={classnames('more', {
+                'more--opened': isAdvancedOpened,
+              })}
+              onClick={() => setIsAdvancedOpened((prevState) => !prevState)}
+            >
+              Advanced
+              <DropdownArrowIcon />
+            </button>
+
+            {isAdvancedOpened && (
+            <div className="advanced-fields">
+              <div className="advanced-fields__inputs">
+                <Input
+                  value={takeProfit}
+                  onChange={setTakeProfit}
+                  label={(
+                    <Popup content="Lorem ipsum dolor sit amet" width={100}>
+                      <span className="input__flex-label">
+                        Take profit
+                      </span>
+                    </Popup>
+              )}
+                />
+                <Input
+                  value={stopLoss}
+                  onChange={setStopLoss}
+                  label={(
+                    <Popup content="Lorem ipsum dolor sit amet" width={100}>
+                      <span className="input__flex-label">
+                        Stop loss
+                      </span>
+                    </Popup>
+              )}
+                />
+                <Input
+                  value={trailingSL}
+                  onChange={setTrailingSL}
+                  label={(
+                    <Popup content="Lorem ipsum dolor sit amet" width={100}>
+                      <span className="input__flex-label">
+                        Trailing SL
+                      </span>
+                    </Popup>
+              )}
+                  currency="%"
+                />
+              </div>
+              <div className="advanced-fields__submit">
+                <Button size="small" onClick={() => setIsAdvancedOpened(false)}>
+                  Ok
+                </Button>
+              </div>
+            </div>
+            )}
+          </>
+        )}
+
+        <div className="info">
+          You will buy WBNB for USDT
+          {' '}
+          <br />
+          Target price – 0.001 WBNB. Network fee: slow
         </div>
-      )}
 
-      <div className="info">
-        You will buy WBNB for USDT
-        Target price – 0.001 WBNB. Network fee: slow
+        {/* PLACE ORDER SUBMIT BUTTON */}
+        <Button disabled={isSubmitDisabled()} onClick={handleSubmit}>
+          Give permission to use WNBN
+        </Button>
       </div>
-
-      {/* PLACE ORDER SUBMIT BUTTON */}
-      <Button disabled={isSubmitDisabled()} onClick={handleSubmit}>
-        Give permission to use WNBN
-      </Button>
     </div>
   );
 }

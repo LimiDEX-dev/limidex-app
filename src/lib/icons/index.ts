@@ -8,3 +8,5 @@ export { CheckIcon } from './check';
 export { SearchIcon } from './search';
 export { SortArrowIcon } from './sort-arrow';
 export { SortWordIcon } from './sort-word';
+export { ChartIcon } from './chart';
+export { RatesIcon } from './rates';

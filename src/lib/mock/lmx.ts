@@ -24,8 +24,7 @@ export const lmx = {
           descr: '12/4800',
         },
       ],
-      description: `Your Boost: 1.32x
-      Your tokens will be unlocked till 19.02.2023-19.02.2024`,
+      description: 'Your Boost: 1.32x\nYour tokens will be unlocked till 19.02.2023-19.02.2024',
     },
   ],
 };
