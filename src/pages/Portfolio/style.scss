@@ -33,7 +33,8 @@
       @media (max-width: 1200px) {
         justify-content: flex-start;
 
-        margin: 0 -32px 20px;
+        margin: 0 -32px 10px;
+        padding-bottom: 10px;
 
         & > .network-item {
           &:first-child {
