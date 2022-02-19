@@ -11,9 +11,13 @@ import {
   TwitterIcon,
 } from '../../lib/icons/social';
 import { useOutsideAlerter } from '../../lib/hooks';
+import { chains as mockChains } from '../../lib/mock/valutes';
+import { Dropdown } from '../Dropdown';
 
 export const Header: FC = () => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
+  const [chains, setChains] = useState(mockChains);
+  const [selectedChain, setSelectedChain] = useState(mockChains[0]);
   const headerRef = useRef(null);
 
   const handleOpen = () => {
@@ -89,11 +93,10 @@ export const Header: FC = () => {
             aria-label="close navigation"
           />
           <div className="header__user-nav user-nav">
-            <button type="button" className="user-nav__mainnet">
-              <MainnetIcon />
-              <span>DCS Mainnet</span>
-              <DropdownArrowIcon />
-            </button>
+            <Dropdown items={chains} onSelect={setSelectedChain}>
+              {selectedChain.icon}
+              {selectedChain.label}
+            </Dropdown>
             <div className="user-nav__balance">
               <span className="user-nav__balance__icon" />
               0

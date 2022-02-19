@@ -40,6 +40,10 @@
     position: absolute;
     top: 10px;
     left: 10px;
+
+    @media (min-width: 1200px) {
+      display: none;
+    }
   }
 
   & .nav {
@@ -218,31 +222,10 @@
       display: none;
     }
 
-    &__mainnet {
-      display: flex;
-      align-items: center;
-
-      padding: 4px 8px;
+    & .dropdown__trigger {
       margin-right: 8px;
 
-      background-color: transparent;
       border: 1px solid #F2EE93;
-      border-radius: 4px;
-      box-sizing: border-box;
-      cursor: pointer;
-
-      & > span {
-        display: block;
-
-        margin: 0 8px;
-
-        font-family: 'Roboto', sans-serif;
-        font-style: normal;
-        font-weight: 300;
-        font-size: 12px;
-        line-height: 12px;
-        color: rgba(255, 249, 249, 0.5);
-      }
     }
 
     &__balance {
