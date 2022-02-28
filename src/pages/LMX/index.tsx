@@ -13,6 +13,7 @@ import { Input } from '../../components/Input';
 import { Dropdown } from '../../components/Dropdown';
 import { Button } from '../../components/Button';
 import { Popup } from '../../components/Popup';
+import { Rewards } from '../../components/Rewards';
 
 const lockPeriodes = [
   {
@@ -80,36 +81,6 @@ export const LMX: FC = () => {
     </Description>
   );
 
-  const getRewards = () => (
-    <div className="lmx__rewards">
-      <span className="lmx__rewards__title">Rewards list</span>
-      <div className="lmx__rewards__table__wrapper">
-        <table className="lmx__rewards__table">
-          <thead>
-            <tr>
-              <th>Network</th>
-              <th>Token</th>
-              <th>Reward</th>
-              <th>Claim</th>
-            </tr>
-          </thead>
-          <tbody>
-            {lmx.rewards.map((item, index) => (
-              <tr key={`${item.reward}-${index}`}>
-                <td>{item.network}</td>
-                <td>{item.token}</td>
-                <td>{item.reward}</td>
-                <td>
-                  <button type="button">Reward</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-
   return (
     <>
       <div className="lmx-modal">
@@ -165,7 +136,7 @@ export const LMX: FC = () => {
             Lock LMX to be an Ambassador
           </Title>
           {getDescription()}
-          {getRewards()}
+          <Rewards data={lmx.rewards} />
         </div>
         <div className="lmx__wrapper">
           <Swiper
@@ -200,7 +171,7 @@ export const LMX: FC = () => {
         </div>
         <div className="lmx__description__main-wrapper">
           {getFirstDescription()}
-          {getRewards()}
+          <Rewards data={lmx.rewards} />
           {getRewardsDescription()}
         </div>
       </div>

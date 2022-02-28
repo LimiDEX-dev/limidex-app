@@ -1,0 +1,87 @@
+.lmx {
+  &__rewards {
+    max-height: 200px;
+    padding: 8px 20px;
+    margin: 30px 0;
+
+    border: 1px solid #3BD795;
+    border-radius: 12px;
+    backdrop-filter: blur(40px);
+
+    @media (min-width: 1200px) {
+      margin-top: 100px;
+      margin-bottom: 0;
+    }
+
+    &__title {
+      display: block;
+
+      margin-bottom: 10px;
+
+      font-size: 18px;
+      color: #FFF9F9;
+      font-weight: 500;
+      line-height: 21px;
+    }
+
+    &__table {
+      width: 100%;
+
+      &__wrapper {
+        max-height: 150px;
+
+        overflow-y: auto;
+      }
+
+      & td,
+      & th {
+        padding: 4px 8px;
+
+        text-align: left;
+      }
+
+      & thead th {
+        border-top: 1px solid #202734;
+        border-bottom: 1px solid #202734;
+      }
+
+      & tbody tr {
+        &:not(:last-child) {
+          border-bottom: 1px solid #202734;
+        }
+      }
+
+      & thead th {
+        position: sticky;
+        top: 0;
+
+        background-color: #111721;
+
+        font-size: 15px;
+        color: #55647D;
+        font-weight: bold;
+        line-height: 18px;
+      }
+
+      & tbody td {
+        font-size: 13px;
+        color: #88888D;
+        line-height: 15px;
+
+        & button {
+          padding: 2px 6px;
+
+          background: rgba(255, 249, 249, 0.5);
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+
+          font-size: 12px;
+          color: #202734;
+          font-weight: 500;
+          line-height: 14px;
+        }
+      }
+    }
+  }
+}

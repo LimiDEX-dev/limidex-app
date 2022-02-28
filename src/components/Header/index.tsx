@@ -62,6 +62,11 @@ export const Header: FC = () => {
                   Trade
                 </NavLink>
               </li>
+              <li className="nav__item">
+                <NavLink to="/ambassador" onClick={handleOpen}>
+                  Ambassador
+                </NavLink>
+              </li>
             </ul>
           </nav>
           <ul className="header__social__list">

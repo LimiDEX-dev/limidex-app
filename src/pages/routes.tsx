@@ -4,6 +4,7 @@ import { Main } from './Main';
 import { Staking } from './Staking';
 import { Portfolio } from './Portfolio';
 import { LMX } from './LMX';
+import { Ambassador } from './Ambassador';
 
 export const Routes: FC = () => (
   <ReactRoutes>
@@ -11,5 +12,6 @@ export const Routes: FC = () => (
     <Route path="/staking" element={<Staking />} />
     <Route path="/portfolio" element={<Portfolio />} />
     <Route path="/lmx" element={<LMX />} />
+    <Route path="/ambassador" element={<Ambassador />} />
   </ReactRoutes>
 );
