@@ -11,12 +11,18 @@ type StakingCardProps = {
     currency: string;
     descr: string;
   }[];
-  description?: string;
+  tokens?: {
+    date: string;
+    lmx: string;
+  }[];
   handleDeposit?: () => void;
 }
 
 export const StakingCard: FC<StakingCardProps> = ({
-  title, list, description, handleDeposit,
+  title,
+  list,
+  tokens,
+  handleDeposit,
 }) => {
   const swiper = useSwiper();
 
@@ -69,9 +75,26 @@ export const StakingCard: FC<StakingCardProps> = ({
           </li>
         ))}
       </ul>
-      <span className="staking__card__description">
-        {description}
-      </span>
+      {tokens && (
+        <>
+          <span className="staking__card__tokens__title">
+            Your tokens will be unlocked
+          </span>
+          <ul className="staking__card__tokens">
+            {tokens.map((item, index) => (
+              <li className="staking__card__tokens__item" key={`${item.date}-${index}`}>
+                <span className="staking__card__tokens__bullet" />
+                <span className="staking__card__tokens__text">
+                  {item.date}
+                </span>
+                <span className="staking__card__tokens__text">
+                  {item.lmx}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
       <div className="staking__card__actions">
         <Button onClick={handleDeposit}>
           Deposit

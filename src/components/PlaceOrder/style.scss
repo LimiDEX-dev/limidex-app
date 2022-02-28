@@ -15,7 +15,7 @@
         background-color: #202734;
     }
 
-    @media (max-width: 1200px) {
+    @media (max-width: 1199px) {
         border: none;
         padding: 0;
         margin-top: 24px;
@@ -42,7 +42,7 @@
         line-height: 14px;
         color: rgba(255, 249, 249, 0.5);
 
-        @media (max-width: 1200px) {
+        @media (max-width: 1199px) {
             display: none;
         }
     }
@@ -83,7 +83,7 @@
             }
         }
 
-        @media (max-width: 1200px) {
+        @media (max-width: 1199px) {
             justify-content: center;
 
             margin-top: 0;

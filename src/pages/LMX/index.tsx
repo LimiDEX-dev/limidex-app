@@ -1,4 +1,8 @@
+/* eslint-disable react/no-array-index-key */
 import React, { FC, useState } from 'react';
+import { Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
 import { Title } from '../../components/Title';
 import { Description } from '../../components/Description';
 import './style.scss';
@@ -34,49 +38,76 @@ export const LMX: FC = () => {
   const [lockLMX, setLockLMX] = useState<string>('100.00');
   const [selectedPeriod, setSelectedPeriod] = useState(lockPeriodes[0]);
 
-  const getDescription = () => (
+  const getFirstDescription = () => (
     <Description>
       Each participant must lock LMX tokens for a specified period of time,
       for which he receives a unique link for the invitation and the right
       to receive part of the profits of the protocol
       <br />
       <br />
-      Use multipliers to increase rewards:
-      <span className="lmx__description">
-        <span className="lmx__description__wrapper">
-          <span className="lmx__description__title">Time Lock</span>
-          <span className="lmx__description__content">
-            3 Month - 0.1
-            {' '}
-            <br />
-            1 Year - 0.5
-            {' '}
-            <br />
-            2 Year - 0.75
-            {' '}
-            <br />
-            3 Year - 1
-          </span>
-        </span>
-        <span className="lmx__description__wrapper">
-          <span className="lmx__description__title">Rewards per Year</span>
-          <span className="lmx__description__content">
-            100-1 000$ - 0.1
-            {' '}
-            <br />
-            1 000-10 00$ - 0.5
-            {' '}
-            <br />
-            100 000-500 000$ - 0.75
-            {' '}
-            <br />
-            {'>'}
-            {' '}
-            500 000$ - 1
-          </span>
-        </span>
-      </span>
     </Description>
+  );
+
+  const getRewardsDescription = () => (
+    <span className="lmx__rewards-description">
+      <Description>
+        Use multipliers to increase rewards:
+        <span className="lmx__description">
+          <span className="lmx__description__wrapper">
+            <span className="lmx__description__title">Time Lock</span>
+            <span className="lmx__description__content">
+              3 Month - 0.1
+              {' '}
+              <br />
+              1 Year - 0.5
+              {' '}
+              <br />
+              2 Year - 0.75
+              {' '}
+              <br />
+              3 Year - 1
+            </span>
+          </span>
+        </span>
+      </Description>
+    </span>
+  );
+
+  const getDescription = () => (
+    <Description>
+      {getFirstDescription()}
+      {getRewardsDescription()}
+    </Description>
+  );
+
+  const getRewards = () => (
+    <div className="lmx__rewards">
+      <span className="lmx__rewards__title">Rewards list</span>
+      <div className="lmx__rewards__table__wrapper">
+        <table className="lmx__rewards__table">
+          <thead>
+            <tr>
+              <th>Network</th>
+              <th>Token</th>
+              <th>Reward</th>
+              <th>Claim</th>
+            </tr>
+          </thead>
+          <tbody>
+            {lmx.rewards.map((item, index) => (
+              <tr key={`${item.reward}-${index}`}>
+                <td>{item.network}</td>
+                <td>{item.token}</td>
+                <td>{item.reward}</td>
+                <td>
+                  <button type="button">Reward</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 
   return (
@@ -134,19 +165,43 @@ export const LMX: FC = () => {
             Lock LMX to be an Ambassador
           </Title>
           {getDescription()}
+          {getRewards()}
         </div>
         <div className="lmx__wrapper">
-          {lmx.cards.map((card) => (
-            <StakingCard
-              title={card.title}
-              list={card.list}
-              description={card.description}
-              handleDeposit={() => setIsModal(true)}
-            />
-          ))}
+          <Swiper
+            modules={[Pagination]}
+            slidesPerView={1}
+            spaceBetween={0}
+            pagination={{
+              clickable: true,
+              el: '.staking__pagination',
+              renderBullet: (index, className) => `
+              <span class="${className}">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="8" cy="8" r="2" fill="currentColor" />
+                  <circle cx="8" cy="8" r="4.5" stroke="currentColor" />
+                </svg>
+              </span>
+            `,
+            }}
+          >
+            {lmx.cards.map((card, index) => (
+              <SwiperSlide key={`${card.title}-${index}`}>
+                <StakingCard
+                  title={card.title}
+                  list={card.list}
+                  handleDeposit={() => setIsModal(true)}
+                  tokens={card.tokens}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <div className="staking__pagination" />
         </div>
         <div className="lmx__description__main-wrapper">
-          {getDescription()}
+          {getFirstDescription()}
+          {getRewards()}
+          {getRewardsDescription()}
         </div>
       </div>
     </>
