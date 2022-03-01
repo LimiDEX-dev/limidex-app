@@ -29,7 +29,8 @@ export const Header: FC = () => {
   return (
     <>
       <div className="header__mobile-logo">
-        <img src="/assets/logo.png" alt="" width={100} />
+        <img src="/assets/logo.png" alt="" width={40} />
+        <span className="header__logo__title">Limex</span>
       </div>
       <div ref={headerRef}>
         <header
@@ -38,7 +39,8 @@ export const Header: FC = () => {
           })}
         >
           <div className="header__logo">
-            <img src="/assets/logo.png" alt="" width={220} />
+            <img src="/assets/logo.png" alt="" width={60} />
+            <span className="header__logo__title">Limex</span>
           </div>
           <nav className="header__nav nav">
             <ul className="nav__list">

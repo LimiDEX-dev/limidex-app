@@ -88,6 +88,16 @@
     url("../public/assets/fonts/Roboto Mono/roboto-mono-v13-latin_cyrillic-700.woff") format("woff");
 }
 
+@font-face {
+  font-weight: 400;
+  font-family: "Righteous";
+  font-style: normal;
+  font-display: swap;
+
+  src: url("../public/assets/fonts/righteous/regular/righteous-400.woff2") format("woff2"),
+    url("../public/assets/fonts/righteous/regular/righteous-400.woff2") format("woff");
+}
+
 * {
   margin: 0;
   padding: 0;

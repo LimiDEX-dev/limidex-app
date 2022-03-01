@@ -31,12 +31,29 @@
     display: flex;
     align-items: center;
 
+    &__title {
+      display: block;
+
+      margin-left: 10px;
+
+      font-family: 'Righteous', sans-serif;
+      font-size: 18px;
+      color: #FFF9F9;
+
+      @media (min-width: 1200px) {
+        font-size: 30px;
+      }
+    }
+
     @media (max-width: 1199px) {
       display: none;
     }
   }
 
   &__mobile-logo {
+    display: flex;
+    align-items: center;
+
     position: absolute;
     top: 10px;
     left: 10px;
