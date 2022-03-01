@@ -59,15 +59,16 @@
             justify-content: flex-end;
             flex-wrap: wrap;
 
+            max-width: 660px;
+
             transform: none !important;
           }
 
           &-slide {
             flex-shrink: 1;
 
-            width: 100% !important;
+            width: calc(50% - 32px) !important;
             height: auto;
-            max-width: 310px;
             margin-bottom: 32px;
 
             &:not(:nth-child(2n)) {

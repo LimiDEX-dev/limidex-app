@@ -57,16 +57,19 @@ export const LMX: FC = () => {
           <span className="lmx__description__wrapper">
             <span className="lmx__description__title">Time Lock</span>
             <span className="lmx__description__content">
-              3 Month - 0.1
+              3 Months - 0.1
+              {' '}
+              <br />
+              6 Months - 0.25
               {' '}
               <br />
               1 Year - 0.5
               {' '}
               <br />
-              2 Year - 0.75
+              2 Years - 0.75
               {' '}
               <br />
-              3 Year - 1
+              3 Years - 1
             </span>
           </span>
         </span>

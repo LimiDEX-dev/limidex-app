@@ -2,6 +2,8 @@
   @media (min-width: 1200px) {
     display: flex;
     align-items: flex-start;
+
+    margin-top: 40px;
   }
 
   &__wrapper {
@@ -80,6 +82,7 @@
       margin-left: 5px;
 
       font-family: 'Roboto', sans-serif;
+      font-weight: 500;
       color: #3BD795;
     }
 
@@ -113,6 +116,7 @@
 
       & > a {
         font-size: 22px;
+        font-weight: 700;
         line-height: 26px;
       }
 

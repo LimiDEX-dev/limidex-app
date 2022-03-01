@@ -4,6 +4,11 @@ export const staking = {
       title: 'WNBN',
       list: [
         {
+          title: 'Network',
+          currency: '',
+          descr: 'Polygon',
+        },
+        {
           title: 'TVL',
           currency: '$',
           descr: '520.00',
@@ -29,6 +34,11 @@ export const staking = {
       title: 'DAI',
       list: [
         {
+          title: 'Network',
+          currency: '',
+          descr: 'Polygon',
+        },
+        {
           title: 'TVL',
           currency: '$',
           descr: '520.00',
@@ -54,6 +64,11 @@ export const staking = {
       title: 'DAI',
       list: [
         {
+          title: 'Network',
+          currency: '',
+          descr: 'Polygon',
+        },
+        {
           title: 'TVL',
           currency: '$',
           descr: '520.00',
@@ -78,6 +93,11 @@ export const staking = {
     {
       title: 'DAI',
       list: [
+        {
+          title: 'Network',
+          currency: '',
+          descr: 'Polygon',
+        },
         {
           title: 'TVL',
           currency: '$',
