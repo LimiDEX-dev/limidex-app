@@ -2,7 +2,7 @@
 import React, { FC, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
-import { SettingsIcon, MainnetIcon, DropdownArrowIcon } from '../../lib/icons';
+import { SettingsIcon } from '../../lib/icons';
 import './style.scss';
 import {
   GithubIcon,
@@ -13,11 +13,41 @@ import {
 import { useOutsideAlerter } from '../../lib/hooks';
 import { chains as mockChains } from '../../lib/mock/valutes';
 import { Dropdown } from '../Dropdown';
+import { Modal } from '../Modal';
+import { Input } from '../Input';
+import { Button } from '../Button';
+
+const SocialList = () => (
+  <ul className="header__social__list">
+    <li className="header__social__item">
+      <a href="#" className="header__social__link">
+        <TwitterIcon />
+      </a>
+    </li>
+    <li className="header__social__item">
+      <a href="#" className="header__social__link">
+        <TelegramIcon />
+      </a>
+    </li>
+    <li className="header__social__item">
+      <a href="#" className="header__social__link">
+        <MDownIcon />
+      </a>
+    </li>
+    <li className="header__social__item">
+      <a href="#" className="header__social__link">
+        <GithubIcon />
+      </a>
+    </li>
+  </ul>
+);
 
 export const Header: FC = () => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const [chains, setChains] = useState(mockChains);
   const [selectedChain, setSelectedChain] = useState(mockChains[0]);
+  const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
+  const [slippageTolerance, setSlippageTolerance] = useState<string>('0.5');
   const headerRef = useRef(null);
 
   const handleOpen = () => {
@@ -28,9 +58,40 @@ export const Header: FC = () => {
 
   return (
     <>
-      <div className="header__mobile-logo">
-        <img src="/assets/logo.png" alt="" width={40} />
-        <span className="header__logo__title">Limex</span>
+      <Modal isVisible={isSettingsOpened} handleClose={() => setIsSettingsOpened(false)}>
+        <div className="header__settings">
+          <Input
+            value={slippageTolerance}
+            onChange={setSlippageTolerance}
+            min={0}
+            max={100}
+            type="number"
+            label="Slippage Tolerance"
+            currency="%"
+          />
+          <Button>Change</Button>
+          <SocialList />
+        </div>
+      </Modal>
+      <div className="header__mobile">
+        <div className="header__mobile__logo">
+          <img src="/assets/logo.png" alt="" width={40} />
+          <span className="header__logo__title">Limex</span>
+        </div>
+        <Dropdown items={chains} onSelect={setSelectedChain} borderColor={selectedChain.color}>
+          {selectedChain.icon}
+          {selectedChain.label}
+        </Dropdown>
+        <span className="user-nav__wallet">
+          0x039e...6e37
+        </span>
+        <button className="user-nav__settings" type="button" onClick={() => setIsSettingsOpened(true)}>
+          <SettingsIcon />
+        </button>
+        {/* if no wallet connected */}
+        {/* <Button size="small"> */}
+        {/*  Connect wallet */}
+        {/* </Button> */}
       </div>
       <div ref={headerRef}>
         <header
@@ -71,28 +132,22 @@ export const Header: FC = () => {
               </li>
             </ul>
           </nav>
-          <ul className="header__social__list">
-            <li className="header__social__item">
-              <a href="#" className="header__social__link">
-                <TwitterIcon />
-              </a>
-            </li>
-            <li className="header__social__item">
-              <a href="#" className="header__social__link">
-                <TelegramIcon />
-              </a>
-            </li>
-            <li className="header__social__item">
-              <a href="#" className="header__social__link">
-                <MDownIcon />
-              </a>
-            </li>
-            <li className="header__social__item">
-              <a href="#" className="header__social__link">
-                <GithubIcon />
-              </a>
-            </li>
-          </ul>
+          <div className="header__info">
+            <div className="header__info__card">
+              Your balance
+              <br />
+              {' '}
+              <br />
+              <span>123 LMX</span>
+            </div>
+            <div className="header__info__card">
+              Cashback
+              <br />
+              <br />
+              <span>123 LMX</span>
+            </div>
+          </div>
+          <SocialList />
           <button
             className="header__close"
             type="button"
@@ -100,7 +155,7 @@ export const Header: FC = () => {
             aria-label="close navigation"
           />
           <div className="header__user-nav user-nav">
-            <Dropdown items={chains} onSelect={setSelectedChain}>
+            <Dropdown items={chains} onSelect={setSelectedChain} borderColor={selectedChain.color}>
               {selectedChain.icon}
               {selectedChain.label}
             </Dropdown>
@@ -115,7 +170,11 @@ export const Header: FC = () => {
             <span className="user-nav__wallet">
               0x039e...6e37
             </span>
-            <button className="user-nav__settings" type="button">
+            {/* if no wallet connected */}
+            {/* <Button size="small"> */}
+            {/*  Connect wallet */}
+            {/* </Button> */}
+            <button className="user-nav__settings" type="button" onClick={() => setIsSettingsOpened(true)}>
               <SettingsIcon />
             </button>
           </div>

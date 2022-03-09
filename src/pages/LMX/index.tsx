@@ -42,8 +42,7 @@ export const LMX: FC = () => {
   const getFirstDescription = () => (
     <Description>
       Each participant must lock LMX tokens for a specified period of time,
-      for which he receives a unique link for the invitation and the right
-      to receive part of the profits of the protocol
+      to get right to receive part of the protocol profit in all networks
       <br />
       <br />
     </Description>
@@ -136,7 +135,7 @@ export const LMX: FC = () => {
       <div className="lmx">
         <div className="lmx__wrapper">
           <Title>
-            Lock LMX to be an Ambassador
+            Lock LMX to Earn protocol profits
           </Title>
           {getDescription()}
           <Rewards data={lmx.rewards} />

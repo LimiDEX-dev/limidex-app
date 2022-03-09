@@ -14,6 +14,7 @@ export type DropdownItem = {
   label: string;
   value: string;
   icon?: ReactElement;
+  [key: string]: any;
 };
 
 type DropdownProps = {
@@ -26,6 +27,7 @@ type DropdownProps = {
   width?: number;
   textAlign?: 'right' | 'left';
   arrowHidden?: boolean;
+  borderColor?: string;
 }
 
 export const Dropdown: FC<DropdownProps> = ({
@@ -38,6 +40,7 @@ export const Dropdown: FC<DropdownProps> = ({
   width,
   textAlign,
   arrowHidden,
+  borderColor,
   children,
 }) => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
@@ -71,7 +74,7 @@ export const Dropdown: FC<DropdownProps> = ({
         type="button"
         className={`dropdown__trigger${notRightBorderRadius ? ' dropdown__trigger--not-radius' : ''}`}
         onClick={() => setIsOpened((prevState) => !prevState)}
-        style={{ width }}
+        style={{ width, borderColor: borderColor || undefined }}
       >
         {selectedValue ? (
           <>

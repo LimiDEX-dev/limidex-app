@@ -1,6 +1,12 @@
 import React from 'react';
 import { DropdownItem } from '../../components/Dropdown';
-import { MainnetIcon } from '../icons';
+import {
+  ArbitrumIcon,
+  EthereumIcon,
+  MainnetIcon,
+  PolygonIcon,
+  AvalancheIcon,
+} from '../icons/tokens';
 
 export const valutes: DropdownItem[] = [
   {
@@ -167,18 +173,33 @@ export const valutes: DropdownItem[] = [
 
 export const chains: DropdownItem[] = [
   {
-    value: 'bcs',
-    label: 'BCS Mainnet',
-    icon: <MainnetIcon />,
+    value: 'ethereum',
+    label: 'Ethereum',
+    icon: <EthereumIcon />,
+    color: 'rgb(68, 113, 244)',
   },
   {
     value: 'bcs',
     label: 'BCS Mainnet',
     icon: <MainnetIcon />,
+    color: '#F2EE93',
   },
   {
-    value: 'bcs',
-    label: 'BCS Mainnet',
-    icon: <MainnetIcon />,
+    value: 'polygon',
+    label: 'Polygon',
+    icon: <PolygonIcon />,
+    color: 'rgb(113, 55, 210)',
+  },
+  {
+    value: 'avalanche',
+    label: 'Avalanche',
+    icon: <AvalancheIcon />,
+    color: 'rgb(214, 60, 54)',
+  },
+  {
+    value: 'arbitrum',
+    label: 'Arbitrum',
+    icon: <ArbitrumIcon />,
+    color: 'rgb(22, 139, 217)',
   },
 ];
