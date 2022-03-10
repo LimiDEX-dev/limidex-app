@@ -1,4 +1,6 @@
-import React, { FC, useRef } from 'react';
+import React, {
+  FC, forwardRef, PropsWithChildren, useRef,
+} from 'react';
 import './style.scss';
 import classnames from 'classnames';
 import { CloseIcon } from '../../lib/icons';
@@ -9,20 +11,22 @@ type ModalProps = {
   title?: string;
 }
 
-export const Modal: FC<ModalProps> = ({
+export const Modal = forwardRef<HTMLDivElement, PropsWithChildren<ModalProps>>(({
   isVisible,
   handleClose,
   title,
   children,
-}) => {
+}, ref) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   // useOutsideAlerter(wrapperRef, handleClose);
 
   return (
-    <div className={classnames('modal', {
-      'modal--visible': isVisible,
-    })}
+    <div
+      className={classnames('modal', {
+        'modal--visible': isVisible,
+      })}
+      ref={ref}
     >
       <div className="modal__wrapper" ref={wrapperRef}>
         <div className="modal__header">
@@ -39,4 +43,4 @@ export const Modal: FC<ModalProps> = ({
       </div>
     </div>
   );
-};
+});

@@ -49,16 +49,30 @@ export const Header: FC = () => {
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
   const [slippageTolerance, setSlippageTolerance] = useState<string>('0.5');
   const headerRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleOpen = () => {
     setIsOpened((prevState) => !prevState);
   };
 
-  useOutsideAlerter(headerRef, () => setIsOpened(false));
+  useOutsideAlerter(
+    headerRef,
+    (event) => {
+      const target = event.target as Element;
+
+      if (!modalRef.current.contains(target)) {
+        setIsOpened(false);
+      }
+    },
+  );
 
   return (
     <>
-      <Modal isVisible={isSettingsOpened} handleClose={() => setIsSettingsOpened(false)}>
+      <Modal
+        ref={modalRef}
+        isVisible={isSettingsOpened}
+        handleClose={() => setIsSettingsOpened(false)}
+      >
         <div className="header__settings">
           <Input
             value={slippageTolerance}
@@ -85,9 +99,6 @@ export const Header: FC = () => {
         <span className="user-nav__wallet">
           0x039e...6e37
         </span>
-        <button className="user-nav__settings" type="button" onClick={() => setIsSettingsOpened(true)}>
-          <SettingsIcon />
-        </button>
         {/* if no wallet connected */}
         {/* <Button size="small"> */}
         {/*  Connect wallet */}

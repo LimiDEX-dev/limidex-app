@@ -255,7 +255,7 @@ export function PlaceOrder() {
             <span className="chain__title">
               Destination Chain:
             </span>
-            <Dropdown items={chains} onSelect={setSelectedChain}>
+            <Dropdown items={chains} onSelect={setSelectedChain} borderColor={selectedChain.color}>
               {selectedChain.icon}
               {selectedChain.label}
             </Dropdown>

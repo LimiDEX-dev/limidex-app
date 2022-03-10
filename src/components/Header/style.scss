@@ -77,12 +77,6 @@
       color: rgba(255, 249, 249, 0.5);
     }
 
-    & .user-nav__settings {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-    }
-
     @media (min-width: 1200px) {
       display: none;
     }
@@ -260,14 +254,16 @@
     display: flex;
     align-items: center;
 
-    @media (max-width: 1199px) {
-      display: none;
-    }
+    & .dropdown {
+      @media (max-width: 1199px) {
+        display: none;
+      }
 
-    & .dropdown__trigger {
-      margin-right: 8px;
+      &__trigger {
+        margin-right: 8px;
 
-      border: 1px solid #F2EE93;
+        border: 1px solid #F2EE93;
+      }
     }
 
     &__balance {
@@ -283,6 +279,10 @@
       font-size: 14px;
       line-height: 14px;
       color: rgba(255, 249, 249, 0.5);
+
+      @media (max-width: 1199px) {
+        display: none;
+      }
 
       &__icon {
         display: block;
@@ -307,12 +307,24 @@
       font-size: 14px;
       line-height: 14px;
       color: rgba(255, 249, 249, 0.5);
+
+      @media (max-width: 1199px) {
+        display: none;
+      }
     }
 
     &__settings {
+      position: absolute;
+      top: 40px;
+      right: 10px;
+
       background-color: transparent;
       border: none;
       cursor: pointer;
+
+      @media (min-width: 1200px) {
+        position: relative;
+      }
     }
   }
 
