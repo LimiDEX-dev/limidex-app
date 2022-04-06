@@ -21,8 +21,10 @@ export const Staking: FC = () => {
 
   const getDescription = () => (
     <Description>
-      Pool is used to provide liquidity for flash loans and arbitrage transactions,
-      the income from which is distributed between the protocol and stakers
+      Native assets are used by the protocol for flashloans and arbitrage deals.
+      You can stake these coins to provide liquidity and make money from it,
+      essentially a new tool for staking native network coins
+      The protocol distributes 10% of arbitrage and 60% of flashloan profits to LP&apos;s
     </Description>
   );
 

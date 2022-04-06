@@ -128,7 +128,7 @@ export const Header: FC = () => {
               </li>
               <li className="nav__item">
                 <NavLink to="/lmx" onClick={handleOpen}>
-                  Lock LMX
+                  arbLMX
                 </NavLink>
               </li>
               <li className="nav__item">
@@ -137,8 +137,8 @@ export const Header: FC = () => {
                 </NavLink>
               </li>
               <li className="nav__item">
-                <NavLink to="/ambassador" onClick={handleOpen}>
-                  Ambassador
+                <NavLink to="/referral" onClick={handleOpen}>
+                  Referral
                 </NavLink>
               </li>
             </ul>

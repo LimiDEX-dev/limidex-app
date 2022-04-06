@@ -41,8 +41,7 @@ export const LMX: FC = () => {
 
   const getFirstDescription = () => (
     <Description>
-      Each participant must lock LMX tokens for a specified period of time,
-      to get right to receive part of the protocol profit in all networks
+      Lock LMX to earn all native network coins simultaneously
       <br />
       <br />
     </Description>
@@ -51,24 +50,27 @@ export const LMX: FC = () => {
   const getRewardsDescription = () => (
     <span className="lmx__rewards-description">
       <Description>
-        Use multipliers to increase rewards:
+        Holders can lock $LMX for a certain period of time to get $arbLMX,
+        which allows them right to receive a share of the profits on each network
         <span className="lmx__description">
           <span className="lmx__description__wrapper">
             <span className="lmx__description__title">Time Lock</span>
             <span className="lmx__description__content">
-              3 Months - 0.1
+              1 Month: 1 LMX = 0.1 arbLMX
               {' '}
               <br />
-              6 Months - 0.25
+              3 Months: 1 LMX = 0.25 arbLMX
               {' '}
               <br />
-              1 Year - 0.5
+              6 Months: 1 LMX = 0.5 arbLMX
               {' '}
               <br />
-              2 Years - 0.75
-              {' '}
+              1 Year: 1 LMX = 1 arbLMX
               <br />
-              3 Years - 1
+              <br />
+              The protocol allocates 1% of the total protocol profit in each network
+              and distributes it to arbLMX holders
+              Lock LMX and get rewards in WETH/WBNB/WMATIC/WFTM/WAVAX/WETH(arbitrum)
             </span>
           </span>
         </span>

@@ -281,6 +281,10 @@
 
     .valute-impact {
         margin: 24px 0 0;
+
+        & > .input__container {
+            border-color: transparent;
+        }
     }
 
     .routes-container {

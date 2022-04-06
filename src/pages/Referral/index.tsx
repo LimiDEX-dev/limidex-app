@@ -9,7 +9,7 @@ import { Rewards } from '../../components/Rewards';
 import { lmx } from '../../lib/mock/lmx';
 import { ambassador } from '../../lib/mock/ambassador';
 
-export const Ambassador: FC = () => {
+export const Referral: FC = () => {
   const linkRef = useRef<HTMLAnchorElement>(null);
 
   const handleCopy = () => {
@@ -20,12 +20,11 @@ export const Ambassador: FC = () => {
     <div className="ambassador">
       <div className="ambassador__wrapper">
         <Title>
-          Join the Ambassador Program
+          Join the Referral Program
         </Title>
         <Description>
           <span>
-            Share link with your friends, whenever they trade
-            on other networks, you get rewards
+            Share link with your friends and get rewards in native network coins for their trading
           </span>
 
           <span className="ambassador__link">

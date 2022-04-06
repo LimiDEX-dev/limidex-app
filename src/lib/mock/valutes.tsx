@@ -6,7 +6,6 @@ import {
   MainnetIcon,
   PolygonIcon,
   AvalancheIcon,
-  FantomIcon,
 } from '../icons/tokens';
 
 export const valutes: DropdownItem[] = [
@@ -206,7 +205,7 @@ export const chains: DropdownItem[] = [
   {
     value: 'fantom',
     label: 'Fantom',
-    icon: <FantomIcon />,
+    icon: <img src="/assets/fantom-logo.png" alt="" width={16} />,
     color: 'rgb(25, 105, 255)',
   },
 ];
