@@ -13,7 +13,7 @@ export const valutes: DropdownItem[] = [
     value: 'WNBN',
     label: 'WNBN',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -21,7 +21,7 @@ export const valutes: DropdownItem[] = [
     value: 'BUSD',
     label: 'BUSD',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -29,7 +29,7 @@ export const valutes: DropdownItem[] = [
     value: 'WNBN',
     label: 'WNBN',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -37,7 +37,7 @@ export const valutes: DropdownItem[] = [
     value: 'BUSD',
     label: 'BUSD',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -45,7 +45,7 @@ export const valutes: DropdownItem[] = [
     value: 'BUSD',
     label: 'BUSD',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -53,7 +53,7 @@ export const valutes: DropdownItem[] = [
     value: 'BUSD',
     label: 'BUSD',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -61,7 +61,7 @@ export const valutes: DropdownItem[] = [
     value: 'WNBN',
     label: 'WNBN',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -69,7 +69,7 @@ export const valutes: DropdownItem[] = [
     value: 'WNBN',
     label: 'WNBN',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -77,7 +77,7 @@ export const valutes: DropdownItem[] = [
     value: 'WNBN',
     label: 'WNBN',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -85,7 +85,7 @@ export const valutes: DropdownItem[] = [
     value: 'BUSD',
     label: 'BUSD',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -93,7 +93,7 @@ export const valutes: DropdownItem[] = [
     value: 'WNBN',
     label: 'WNBN',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -101,7 +101,7 @@ export const valutes: DropdownItem[] = [
     value: 'WNBN',
     label: 'WNBN',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -109,7 +109,7 @@ export const valutes: DropdownItem[] = [
     value: 'WNBN',
     label: 'WNBN',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -117,7 +117,7 @@ export const valutes: DropdownItem[] = [
     value: 'WNBN',
     label: 'WNBN',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -125,7 +125,7 @@ export const valutes: DropdownItem[] = [
     value: 'BUSD',
     label: 'BUSD',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -133,7 +133,7 @@ export const valutes: DropdownItem[] = [
     value: 'BUSD',
     label: 'BUSD',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -141,7 +141,7 @@ export const valutes: DropdownItem[] = [
     value: 'WNBN',
     label: 'WNBN',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -149,7 +149,7 @@ export const valutes: DropdownItem[] = [
     value: 'WNBN',
     label: 'WNBN',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -157,7 +157,7 @@ export const valutes: DropdownItem[] = [
     value: 'WNBN',
     label: 'WNBN',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },
@@ -165,7 +165,7 @@ export const valutes: DropdownItem[] = [
     value: 'WNBN',
     label: 'WNBN',
     icon: <span style={{
-      width: 12, height: 12, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+      width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
     }}
     />,
   },

@@ -14,13 +14,17 @@
     & > .Orders {
         order: 5;
 
+        display: none;
+
         @media (min-width: 1200px) {
-            display: none;
+            display: none !important;
         }
     }
 
     .left {
         order: 3;
+
+        margin: 0 auto;
 
         @media (min-width: 1200px) {
             padding-right: 10px;
@@ -28,7 +32,7 @@
     }
 
     .right {
-        display: flex;
+        display: none;
         flex-direction: column;
         order: 1;
         height: 300px;
@@ -84,7 +88,7 @@
     }
 
     .actions {
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
         order: 2;
@@ -102,7 +106,7 @@
         }
 
         @media (min-width: 1200px) {
-            display: none;
+            display: none !important;
         }
     }
 
@@ -132,6 +136,24 @@
 
         @media (min-width: 1200px) {
             padding-left: 10px;
+        }
+    }
+
+    &--expert {
+        & .Orders {
+            display: block;
+        }
+
+        & .right {
+            display: flex;
+        }
+
+        & .left {
+            margin: 0;
+        }
+
+        & .actions {
+            display: flex;
         }
     }
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classnames from 'classnames';
 
 import './style.scss';
 
@@ -9,12 +10,22 @@ import { Chart } from '../../components/Chart';
 import { ChartIcon, RatesIcon } from '../../lib/icons';
 
 export const Main = () => {
+  const [activeOrderTab, setActiveOrderTab] = useState<0 | 1 | 2>(0);
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
+  const [isExpertMode, setIsExpertMode] = useState(false);
 
   return (
-    <div className="Main">
+    <div className={classnames('Main', {
+      'Main--expert': (isExpertMode && activeOrderTab === 1) || activeOrderTab === 0,
+    })}
+    >
       <div className="left">
-        <PlaceOrder />
+        <PlaceOrder
+          isExpertMode={isExpertMode}
+          setIsExpertMode={setIsExpertMode}
+          activeTab={activeOrderTab}
+          setActiveTab={setActiveOrderTab}
+        />
       </div>
 
       <div className="right">

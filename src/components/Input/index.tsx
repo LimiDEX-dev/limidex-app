@@ -11,7 +11,7 @@ type InputProps = {
   onChange: (value: string) => void;
   onBlur?: (value: string) => void;
   label?: string | ReactElement;
-  topLabel?: string;
+  topLabel?: string | ReactElement;
   currency?: string;
   notLeftBorder?: boolean;
   icon?: ReactElement;

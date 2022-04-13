@@ -5,6 +5,7 @@
 
     height: 100%;
     overflow: auto;
+    border-radius: 0;
     font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -13,6 +14,7 @@
         width: 310px;
 
         background-color: #202734;
+        border-radius: 12px;
     }
 
     @media (max-width: 1199px) {
@@ -42,8 +44,10 @@
         line-height: 14px;
         color: rgba(255, 249, 249, 0.5);
 
-        @media (max-width: 1199px) {
-            display: none;
+        &__wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
     }
 
@@ -105,19 +109,33 @@
         }
     }
 
+    .burn-lmx {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+
+
+        & > .info {
+            margin-top: 0;
+        }
+    }
+
     .chain {
-        margin-top: 24px;
+        display: flex;
+
+        position: relative;
 
         &__title {
             display: block;
 
-            margin-bottom: 24px;
+            position: absolute;
+            bottom: calc(100% + 2px);
+            left: 2px;
 
-            font-family: 'Roboto Mono', sans-serif;
-            color: #FFFFFF;
-            font-size: 12px;
-            font-weight: 300;
-            line-height: 10px;
+            color: #8F9096;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 13px;
         }
 
         & .dropdown__trigger {
@@ -128,8 +146,78 @@
     .valute-swap {
         .valute-converter {
             position: relative;
-            display: flex;
             width: 100%;
+            margin-bottom: 24px;
+
+            border: 1px solid #55647D;
+            border-radius: 13px;
+
+            &__label {
+                display: block;
+
+                color: #8F9096;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 13px;
+
+                &__wrapper {
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: space-between;
+
+                    margin-bottom: 10px;
+                }
+            }
+
+            &__header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                padding: 4px 12px 0;
+                margin-bottom: 10px;
+
+                &__item {
+                    color: #526078;
+                    font-size: 12px;
+                    font-weight: 300;
+                    line-height: 14px;
+                }
+            }
+
+            &__content {
+                display: flex;
+
+                padding: 0 12px 4px 0;
+            }
+
+            .custom-input {
+                display: block;
+
+                width: 100%;
+
+                background-color: transparent;
+                border: none;
+                outline: none;
+
+                color: #FFFFFF;
+                text-align: right;
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 23px;
+
+                &__top-label {
+                    display: block;
+
+                    margin-bottom: 2px;
+
+                    color: #8F9096;
+                    font-size: 10px;
+                    font-weight: 700;
+                    text-align: right;
+                    line-height: 12px;
+                }
+            }
 
             .balance {
                 position: absolute;
@@ -140,6 +228,19 @@
                 font-size: 11px;
                 line-height: 11px;
                 color: #55647D;
+            }
+
+            .dropdown__trigger {
+                border-color: transparent;
+
+                &__label {
+                    color: #FFFFFF;
+                    font-weight: 700;
+                }
+            }
+
+            .input__container {
+                border-color: transparent;
             }
 
             .valute-dropdown {
@@ -218,20 +319,68 @@
     }
 
     .swap-icon {
-        width: 11.5px;
-        height: 11.5px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
+        width: 18px;
+        height: 18px;
         display: block;
+        flex-shrink: 0;
         margin: 10px;
-        background: url(../../assets/swap.svg);
+        background-image: url('/assets/swap.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        background-color: transparent;
         border: none;
         cursor: pointer;
     }
 
+    .swap__wrapper {
+        display: flex;
+        justify-content: space-between;
+
+        margin-bottom: 10px;
+
+        &--no-inputs {
+            justify-content: center;
+
+            margin: -10px 0;
+
+            & > .swap-icon {
+                margin: 0;
+            }
+        }
+    }
+
+    .swap__wrapper,
+    .input__container--custom {
+        .input {
+            order: 1;
+
+            width: 60px;
+
+            color: #FFFFFF;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: left;
+            line-height: 18px;
+
+            &__currency {
+                order: 2;
+            }
+
+            &__top-label,
+            &__flex-label {
+                right: auto;
+                left: 2px;
+
+                color: #8F9096;
+                font-size: 11px;
+                font-weight: 700;
+                line-height: 13px;
+            }
+        }
+    }
+
     .valute-toggle-container {
-        margin: 24px 0 0;
         display: flex;
         justify-content: space-between;
 
@@ -419,12 +568,20 @@
     }
 
     .info {
-        margin: 40px 0 16px;
-        font-weight: 300;
-        font-size: 11px;
+        margin-top: 24px;
+
+        color: #55647D;
+        font-size: 12px;
+        font-weight: 700;
         line-height: 14px;
-        text-align: center;
-        color: rgba(255, 249, 249, 0.5);
+
+        & > span {
+            color: rgba(255, 249, 249, 0.5);
+        }
+    }
+
+    .button {
+        margin-top: 40px;
     }
 
     .btn {

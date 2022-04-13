@@ -24,6 +24,8 @@ export const Staking: FC = () => {
       Native assets are used by the protocol for flashloans and arbitrage deals.
       You can stake these coins to provide liquidity and make money from it,
       essentially a new tool for staking native network coins
+      <br />
+      <br />
       The protocol distributes 10% of arbitrage and 60% of flashloan profits to LP&apos;s
     </Description>
   );

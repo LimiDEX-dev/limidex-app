@@ -70,6 +70,8 @@ export const LMX: FC = () => {
               <br />
               The protocol allocates 1% of the total protocol profit in each network
               and distributes it to arbLMX holders
+              <br />
+              <br />
               Lock LMX and get rewards in WETH/WBNB/WMATIC/WFTM/WAVAX/WETH(arbitrum)
             </span>
           </span>
