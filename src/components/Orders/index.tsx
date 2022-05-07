@@ -178,7 +178,7 @@ export const Orders: FC = () => {
                         </span>
                       </div>
                     </td>
-                    <td className="orderFee">
+                    <td className="tp-ls">
                       <div>
                         <span>
                           150/234

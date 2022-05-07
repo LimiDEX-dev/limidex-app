@@ -1,5 +1,8 @@
+@import "src/styles/variables";
+
 .dialog {
-    border: 1px solid #3BD795;
-    border-radius: 12px;
     padding: 24px 20px;
+
+    background-color: $section;
+    border-radius: 8px;
 }

@@ -14,6 +14,7 @@ const chartOptions: ApexOptions = {
         pan: false,
       },
     },
+    foreColor: '#E5E5E5',
   },
   xaxis: {
     type: 'datetime',
@@ -25,6 +26,9 @@ const chartOptions: ApexOptions = {
   },
   grid: {
     show: false,
+  },
+  tooltip: {
+    style: {},
   },
 };
 

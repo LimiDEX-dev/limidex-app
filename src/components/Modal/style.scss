@@ -1,3 +1,5 @@
+@use "src/styles/index";
+
 .modal {
   display: none;
   align-items: center;
@@ -22,10 +24,10 @@
     width: 300px;
     padding: 20px 20px 32px;
 
-    background-color: #111721;
-    border: 1px solid #3BD795;
+    border: 1px solid index.$accent;
+    background-color: index.$section;
     border-radius: 12px;
-    box-shadow: 0 0 4px rgba(59, 215, 149, 0.4);
+    box-shadow: 0 0 4px rgba(242, 146, 18, 0.4);
   }
 
   &__header {
@@ -34,7 +36,7 @@
 
   &__title {
     font-family: 'Roboto', sans-serif;
-    color: rgba(255, 249, 249, 0.5);
+    color: index.$gray;
     font-size: 12px;
     line-height: 14px;
   }

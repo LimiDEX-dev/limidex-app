@@ -1,4 +1,5 @@
 @use '/src/styles/index';
+@import "src/styles/variables";
 
 .Chart {
   @extend .dialog;
@@ -9,6 +10,8 @@
   @media (max-width: 1199px) {
     border: none;
     padding: 0;
+
+    background-color: transparent;
   }
 }
 
@@ -30,11 +33,20 @@
       align-items: center;
 
       margin-bottom: 16px;
+
+      & .dropdown {
+        &__trigger {
+          padding: 4px 8px;
+
+          border-color: index.$gray;
+          border-radius: 4px;
+        }
+      }
     }
 
     &__title {
       font-family: 'Roboto', sans-serif;
-      color: rgba(255, 249, 249, 0.5);
+      color: index.$text;
       font-size: 14px;
       line-height: 16px;
     }
@@ -45,14 +57,14 @@
 
       padding: 5px 8px;
 
-      border: 1px solid #55647D;
+      border: 1px solid $text;
       border-radius: 4px;
 
       &__text {
         font-family: 'Roboto', sans-serif;
-        color: rgba(255, 249, 249, 0.5);
+        color: index.$text;
         font-size: 11px;
-        font-weight: 300;
+        font-weight: 700;
         line-height: 11px;
       }
 
@@ -69,10 +81,10 @@
         margin-left: 4px;
 
         font-family: 'Roboto Mono', sans-serif;
-        color: #FFF9F9;
-        font-size: 12px;
+        color: index.$text;
+        font-size: 11px;
         font-weight: 300;
-        line-height: 10px;
+        line-height: 15px;
       }
     }
 
@@ -91,7 +103,7 @@
         margin-right: 6px;
 
         font-family: 'Roboto Mono', sans-serif;
-        color: rgba(255, 249, 249, 0.5);
+        color: index.$text;
         font-size: 18px;
         font-weight: 500;
         line-height: 24px;
@@ -99,7 +111,7 @@
 
       &__change {
         font-family: 'Roboto Mono', sans-serif;
-        color: #9AC073;
+        color: index.$green;
         font-size: 11px;
         font-weight: 300;
         line-height: 10px;
@@ -107,7 +119,7 @@
 
       &__wrapper {
         display: flex;
-        align-items: center;
+        align-items: flex-end;
       }
     }
 
@@ -136,7 +148,7 @@
 
       &__text {
         font-family: 'Roboto', sans-serif;
-        color: rgba(255, 249, 249, 0.5);
+        color: index.$text;
         font-size: 18px;
         font-weight: 500;
         line-height: 21px;

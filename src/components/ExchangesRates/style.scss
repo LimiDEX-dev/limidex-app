@@ -1,4 +1,5 @@
 @use '/src/styles/index';
+@import "src/styles/variables";
 
 .ExchangesRates {
     @extend .dialog;
@@ -27,7 +28,16 @@
             margin-bottom: 0;
             font-size: 14px;
             line-height: 16px;
-            color: rgba(255, 249, 249, 0.5);
+            color: index.$text;
+        }
+
+        & .dropdown {
+            &__trigger {
+                padding: 4px 8px;
+
+                border-color: index.$gray;
+                border-radius: 4px;
+            }
         }
 
         .step {
@@ -35,18 +45,18 @@
             align-items: center;
 
             > span:nth-child(1) {
-                font-weight: 300;
+                font-weight: 700;
                 font-size: 11px;
                 line-height: 11px;
-                color: rgba(255, 249, 249, 0.5);
+                color: index.$text;
                 margin-right: 12px;
             }
 
             > span:nth-child(2) {
-                font-weight: 300;
+                font-weight: 700;
                 font-size: 11px;
                 line-height: 11px;
-                color: rgba(255, 249, 249, 0.5);
+                color: index.$text;
                 margin-right: 4px;
             }
 
@@ -55,7 +65,7 @@
                 font-weight: 300;
                 font-size: 12px;
                 line-height: 10px;
-                color: #FFF9F9;
+                color: index.$text;
             }
         }
     }
@@ -71,10 +81,13 @@
             thead {
                 td {
                     position: sticky;
-                    z-index: 1;
+                    z-index: 2;
                     top: 0;
 
-                    background-color: #111721;
+                    background-color: index.$section;
+
+                    color: index.$text;
+                    font-weight: 500;
                 }
             }
         }
@@ -90,7 +103,7 @@
         thead td {
             font-weight: 300;
             line-height: 11px;
-            color: #55647D;
+            color: $text;
             padding: 13px 0;
 
             &.amount {
@@ -122,10 +135,6 @@
             }
 
             .amount {
-                color: rgba(255, 249, 249, 0.5);
-            }
-
-            .amount {
                 text-align: right;
             }
 
@@ -142,59 +151,63 @@
 
         .red-rate {
             .price {
-                color: #B0685D;
+                color: index.$red;
             }
 
             .progress {
-                background-color: rgba(160, 58, 51, 0.3);
+                background-color: rgba(255, 65, 36, 0.3);
+            }
+
+            .amount {
+                & > span {
+                    position: relative;
+                    z-index: 1;
+
+                    color: index.$red;
+                }
             }
 
             &--big {
                 & .progress {
                     display: none;
-                }
-
-                & .price {
-                    color: rgba(255, 249, 249, 0.5);
-                    font-size: 14px;
-                    font-weight: 500;
-                    line-height: 18px;
                 }
             }
         }
 
         .green-rate {
             .price {
-                color: #9AC073;
+                color: index.$green;
             }
 
             .progress {
-                background-color: rgba(77, 124, 73, 0.3);
+                background-color: rgba(90, 189, 19, 0.3);
+            }
+
+            .amount {
+                & > span {
+                    position: relative;
+                    z-index: 1;
+
+                    color: index.$green;
+                }
             }
 
             &--big {
                 & .progress {
                     display: none;
                 }
-
-                & .price {
-                    color: rgba(255, 249, 249, 0.5);
-                    font-size: 14px;
-                    font-weight: 500;
-                    line-height: 18px;
-                }
             }
         }
     }
 
     .bottom {
-        border-top: 1px solid #3BD795;
+        border-top: 1px solid $accent;
         padding: 14px 20px 24px;
 
         .title {
             font-size: 12px;
             line-height: 14px;
-            color: rgba(255, 249, 249, 0.5);
+            color: $gray;
         }
 
         .lines {
@@ -208,7 +221,7 @@
                     font-weight: 300;
                     font-size: 11px;
                     line-height: 14px;
-                    color: rgba(255, 249, 249, 0.5);
+                    color: $gray;
                 }
 
                 > span:nth-child(2) {

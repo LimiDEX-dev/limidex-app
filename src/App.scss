@@ -1,3 +1,5 @@
+@import "./styles/variables";
+
 @font-face {
   font-weight: 300;
   font-family: "Roboto";
@@ -105,7 +107,9 @@
 }
 
 body {
-  background: #111721;
+  background: $background;
+
+  color: $text;
 }
 
 html, body {
@@ -118,6 +122,10 @@ html, body {
 
 body {
   font-family: 'Roboto', sans-serif;
+}
+
+.apexcharts-tooltip {
+  color: $section;
 }
 
 #root {

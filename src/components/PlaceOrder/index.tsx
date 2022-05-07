@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { Dropdown, DropdownItem } from '../Dropdown';
 import { valutes as mockValutes, chains as mockChains } from '../../lib/mock/valutes';
 import { Input } from '../Input';
-import { DropdownArrowIcon, SearchIcon } from '../../lib/icons';
+import { DropdownArrowIcon, SearchIcon, SwapIcon } from '../../lib/icons';
 import { Popup } from '../Popup';
 import { Button } from '../Button';
 import { Modal } from '../Modal';
@@ -15,8 +15,8 @@ import { Coin, CoinDescription } from '../CoinDescription';
 type PlaceOrderProps = {
   isExpertMode: boolean;
   setIsExpertMode: (value: boolean) => void;
-  activeTab: number;
-  setActiveTab: (value: 0 | 1 | 2) => void;
+  activeTab: 'limit' | 'swap' | 'cross';
+  setActiveTab: (value: 'limit' | 'swap' | 'cross') => void;
 }
 
 export const PlaceOrder: FC<PlaceOrderProps> = ({
@@ -100,14 +100,14 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
   };
 
   const isSubmitDisabled = (): boolean => {
-    if (activeTab === 0 || activeTab === 1) {
+    if (activeTab === 'limit' || activeTab === 'swap') {
       return !toSell
         || !toBuy
         || !selectedSellValute
         || !selectedBuyValute
         || !priceImpact
         || !burnToken
-        || (activeTab === 0 && !valuteCosts)
+        || (activeTab === 'limit' && !valuteCosts)
         || !takeProfit
         || !stopLoss
         || !trailingSL;
@@ -172,7 +172,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
       </Modal>
       <div className="title__wrapper">
         <span className="title">Place order</span>
-        {activeTab === 1 && (
+        {activeTab === 'swap' && (
           <Checkbox checked={isExpertMode} onChange={setIsExpertMode} type="switch">
             Expert Mode
           </Checkbox>
@@ -181,22 +181,22 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
       <div className="tab-switch">
         <button
           type="button"
-          className={activeTab === 0 ? 'active' : ''}
-          onClick={() => setActiveTab(0)}
-        >
-          Limit
-        </button>
-        <button
-          type="button"
-          className={activeTab === 1 ? 'active' : ''}
-          onClick={() => setActiveTab(1)}
+          className={activeTab === 'swap' ? 'active' : ''}
+          onClick={() => setActiveTab('swap')}
         >
           Swap
         </button>
         <button
           type="button"
-          className={activeTab === 2 ? 'active' : ''}
-          onClick={() => setActiveTab(2)}
+          className={activeTab === 'limit' ? 'active' : ''}
+          onClick={() => setActiveTab('limit')}
+        >
+          Limit
+        </button>
+        <button
+          type="button"
+          className={activeTab === 'cross' ? 'active' : ''}
+          onClick={() => setActiveTab('cross')}
         >
           Cross-chain
         </button>
@@ -205,8 +205,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
       <div className="PlaceOrder__content">
         <div className="valute-swap">
           <div className="valute-converter__label__wrapper">
-            <span className="valute-converter__label">You Pay</span>
-            {activeTab === 0 && (
+            {activeTab === 'limit' && (
               <div className="valute-toggle-container">
                 <div className="valute-toggle">
                   <button
@@ -229,7 +228,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
           </div>
           <div className="valute-converter">
             <div className="valute-converter__header">
-              <span className="valute-converter__header__item">Wrapped BNB</span>
+              <span className="valute-converter__header__item valute-converter__header__item--title">You Pay</span>
               <span className="valute-converter__header__item">
                 Balance: 12
               </span>
@@ -238,12 +237,18 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
               <Dropdown
                 items={valutes}
                 onSelect={onSelectSellValute}
-                selectedValue={selectedSellValute}
                 isAddCustomVisible
                 notRightBorderRadius
                 width={110}
                 handleAddCustom={() => setIsAddCustomTokenVisible(true)}
-              />
+              >
+                {selectedSellValute.icon}
+                <span className="dropdown__trigger__label">
+                  {selectedSellValute.label}
+                  <br />
+                  <span>Wrapped BNB</span>
+                </span>
+              </Dropdown>
               <div>
                 <span className="custom-input__top-label">~$4,227</span>
                 <input
@@ -256,10 +261,10 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
             </div>
           </div>
           <div className={classnames('swap__wrapper', {
-            'swap__wrapper--no-inputs': activeTab === 1,
+            'swap__wrapper--no-inputs': activeTab === 'swap',
           })}
           >
-            {activeTab === 0 && (
+            {activeTab === 'limit' && (
               <Input
                 value={priceImpact}
                 onChange={setPriceImpact}
@@ -268,19 +273,25 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
               />
             )}
 
-            {activeTab === 2 && (
+            {activeTab === 'cross' && (
               <div className="chain">
                 <span className="chain__title">
                   Destination Chain:
                 </span>
-                <Dropdown items={chains} onSelect={setSelectedChain} borderColor={selectedChain.color}>
+                <Dropdown
+                  items={chains}
+                  onSelect={setSelectedChain}
+                  borderColor={selectedChain.color}
+                >
                   {selectedChain.icon}
                   {selectedChain.label}
                 </Dropdown>
               </div>
             )}
-            <button type="button" className="swap-icon" onClick={handleSwapValutes} aria-label="swap currencies" />
-            {(activeTab === 0 || activeTab === 2) && (
+            <button type="button" className="swap-icon" onClick={handleSwapValutes} aria-label="swap currencies">
+              <SwapIcon />
+            </button>
+            {(activeTab === 'limit' || activeTab === 'cross') && (
               <Input
                 value={burnToken}
                 onChange={setBurnToken}
@@ -297,12 +308,9 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
               />
             )}
           </div>
-          <div className="valute-converter__label__wrapper">
-            <span className="valute-converter__label">You Recieve</span>
-          </div>
           <div className="valute-converter">
             <div className="valute-converter__header">
-              <span className="valute-converter__header__item">Wrapped BNB</span>
+              <span className="valute-converter__header__item valute-converter__header__item--title">You Recieve</span>
               <span className="valute-converter__header__item">
                 Balance: 12
               </span>
@@ -311,12 +319,18 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
               <Dropdown
                 items={valutes}
                 onSelect={onSelectBuyValute}
-                selectedValue={selectedBuyValute}
                 isAddCustomVisible
                 notRightBorderRadius
                 width={110}
                 handleAddCustom={() => setIsAddCustomTokenVisible(true)}
-              />
+              >
+                {selectedBuyValute.icon}
+                <span className="dropdown__trigger__label">
+                  {selectedBuyValute.label}
+                  <br />
+                  <span>Wrapped BNB</span>
+                </span>
+              </Dropdown>
               <div>
                 <span className="custom-input__top-label">~$4,227</span>
                 <input
@@ -330,7 +344,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
           </div>
         </div>
 
-        {activeTab === 1 && (
+        {activeTab === 'swap' && (
           <div className="burn-lmx">
             <div className="info">
               Price slippage:
@@ -356,7 +370,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
           </div>
         )}
 
-        {activeTab !== 2 && (
+        {activeTab !== 'cross' && (
           <>
             <button
               type="button"
@@ -416,7 +430,6 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
             )}
 
             <div className="routes-container">
-              <div className="routes-title">Routing</div>
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label>
                 <input type="radio" name="routing" className="radio-input visually-hidden" defaultChecked />
@@ -435,7 +448,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
           </>
         )}
 
-        {activeTab === 0 && (
+        {activeTab === 'limit' && (
           <div className="info">
             You will buy:
             {' '}

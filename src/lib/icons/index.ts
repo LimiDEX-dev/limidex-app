@@ -10,3 +10,4 @@ export { SortWordIcon } from './sort-word';
 export { ChartIcon } from './chart';
 export { RatesIcon } from './rates';
 export { CopyIcon } from './copy';
+export { SwapIcon } from './swap';

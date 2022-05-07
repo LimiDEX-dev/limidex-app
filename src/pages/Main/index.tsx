@@ -10,13 +10,13 @@ import { Chart } from '../../components/Chart';
 import { ChartIcon, RatesIcon } from '../../lib/icons';
 
 export const Main = () => {
-  const [activeOrderTab, setActiveOrderTab] = useState<0 | 1 | 2>(0);
+  const [activeOrderTab, setActiveOrderTab] = useState<'limit' | 'swap' | 'cross'>('limit');
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
   const [isExpertMode, setIsExpertMode] = useState(false);
 
   return (
     <div className={classnames('Main', {
-      'Main--expert': (isExpertMode && activeOrderTab === 1) || activeOrderTab === 0,
+      'Main--expert': (isExpertMode && activeOrderTab === 'swap') || activeOrderTab === 'limit',
     })}
     >
       <div className="left">
@@ -30,11 +30,11 @@ export const Main = () => {
 
       <div className="right">
         <div className="right-top" data-active-tab={activeTab}>
-          <div className="chart-container">
-            <Chart />
-          </div>
           <div className="exchanges-rates-container">
             <ExchangesRates />
+          </div>
+          <div className="chart-container">
+            <Chart />
           </div>
         </div>
 

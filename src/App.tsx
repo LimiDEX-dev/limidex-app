@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './App.scss';
 import './styles/index.scss';
+import './App.scss';
 import { ethers } from 'ethers';
 import { Header } from './components/Header';
 import 'swiper/css';

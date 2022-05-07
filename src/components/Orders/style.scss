@@ -1,4 +1,4 @@
-@use '/src/styles/index';
+@use "/src/styles/index";
 
 .Orders {
     @extend .dialog;
@@ -31,7 +31,7 @@
             background-color: transparent;
             border: none;
             cursor: pointer;
-            color: rgba(255, 249, 249, 0.5);
+            color: index.$gray;
             font-weight: 500;
             font-size: 18px;
             line-height: 21px;
@@ -66,12 +66,12 @@
                     position: sticky;
                     top: 0;
 
-                    background-color: #111721;
+                    background-color: index.$section;
 
                     font-weight: 300;
                     font-size: 13px;
                     line-height: 15px;
-                    color: #55647D;
+                    color: index.$text;
                     padding-bottom: 4px;
                 }
             }
@@ -89,8 +89,19 @@
             .volume {
                 padding-right: 40px;
             }
-            .orderFee {
+            .orderFee,
+            .tp-ls {
                 padding-right: 35px;
+            }
+            .tp-ls {
+                & span {
+                    display: block;
+
+                    padding: 2px 6px;
+
+                    background-color: index.$gray;
+                    border-radius: 8px;
+                }
             }
             .networkFee {
                 padding-right: 20px;
@@ -121,7 +132,7 @@
                         line-height: 15px;
                     }
 
-                    color: rgba(255, 249, 249, 0.5);
+                    color: index.$text;
                     vertical-align: middle;
                 }
 
@@ -146,7 +157,6 @@
                     > span:nth-child(3) {
                         font-weight: 300;
                         line-height: 11px;
-                        color: rgba(255, 249, 249, 0.5);
                         margin-left: 8px;
                         white-space: nowrap;
                     }
@@ -168,18 +178,15 @@
                 }
 
                 .change > button > span {
-                    display: block;
                     font-weight: 500;
                     font-size: 11px;
-                    line-height: 11px;
                     display: flex;
                     align-items: center;
                     text-align: center;
-                    color: #202734;
-                    padding: 0 6px;
-                    background: #55647D;
+                    color: index.$text;
+                    padding: 2px 6px;
+                    background: index.$gray;
                     border-radius: 8px;
-                    height: 16px;
                     line-height: 16px;
                     cursor: pointer;
                     white-space: nowrap;

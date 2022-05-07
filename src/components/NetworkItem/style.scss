@@ -1,3 +1,5 @@
+@import "src/styles/variables";
+
 .network-item {
   flex-shrink: 0;
 
@@ -19,11 +21,11 @@
     transition: 0.2s ease;
 
     &--active {
-      background-color: #3BD795;
+      background-color: $accent;
 
       & .network-item {
         &__title {
-          color: #202734;
+          color: $text;
         }
       }
     }
@@ -31,7 +33,7 @@
 
   &__title {
     font-size: 12px;
-    color: rgba(255, 249, 249, 0.5);
+    color: $gray;
     line-height: 14px;
 
     transition: 0.2s ease;

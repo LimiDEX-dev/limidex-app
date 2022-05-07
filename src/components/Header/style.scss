@@ -1,3 +1,5 @@
+@import "src/styles/variables";
+
 .header {
   display: flex;
   align-items: center;
@@ -17,10 +19,9 @@
     height: auto;
     padding: 26px 10px 2px;
 
-    background: #111721;
-    border: 1px solid #3BD795;
+    border: 1px solid $accent;
     border-radius: 12px;
-    box-shadow: 0 0 4px rgba(59, 215, 149, 0.4);
+    box-shadow: 0 0 4px rgba(242, 146, 18, 0.4);
 
     &--opened {
       display: block;
@@ -82,7 +83,7 @@
       font-weight: 300;
       font-size: 11px;
       line-height: 14px;
-      color: rgba(255, 249, 249, 0.5);
+      color: $gray;
     }
 
     & > .dropdown {
@@ -125,15 +126,19 @@
       }
 
       & > a {
-        font-style: normal;
-        font-weight: 500;
+        opacity: 0.4;
+
         font-size: 18px;
+        font-weight: 500;
+        font-style: normal;
         line-height: 21px;
         text-decoration: none;
-        color: rgba(255, 249, 249, 0.5);
+        color: $text;
+
+        transition: 0.2s ease;
 
         &.active {
-          color: #FFF9F9;
+          opacity: 1;
         }
       }
 
@@ -199,7 +204,7 @@
 
       height: 1px;
 
-      background-color: rgba(255, 249, 249, 0.5);
+      background-color: $gray;
       border-radius: 10px;
     }
 
@@ -297,7 +302,7 @@
       font-weight: 300;
       font-size: 14px;
       line-height: 14px;
-      color: rgba(255, 249, 249, 0.5);
+      color: $text;
 
       @media (max-width: 1199px) {
         display: none;
@@ -311,21 +316,25 @@
         height: 16px;
         margin-right: 8px;
 
-        background-color: rgba(255, 249, 249, 0.5);
+        background-color: $gray;
         border-radius: 100%;
       }
     }
 
     &__wallet {
       margin-right: 8px;
-      padding: 0 8px;
+      padding: 6px 8px;
+
+      background: $blocks;
+      border: 1px solid $gray;
+      border-radius: 100px;
 
       font-family: 'Roboto', sans-serif;
       font-style: normal;
       font-weight: 300;
       font-size: 14px;
       line-height: 14px;
-      color: rgba(255, 249, 249, 0.5);
+      color: $text;
 
       @media (max-width: 1199px) {
         display: none;
@@ -368,8 +377,7 @@
       text-align: center;
       line-height: 14px;
 
-      background: #111721;
-      box-shadow: 0 0 4px rgba(59, 215, 149, 0.4);
+      box-shadow: 0 0 4px rgba(242, 146, 18, 0.4);
       border-radius: 4px;
 
       & > span {

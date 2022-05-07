@@ -67,7 +67,7 @@ export const ExchangesRates = () => {
               >
                 <td className="price">{rate.price}</td>
                 <td className="amount">
-                  {rate.amount}
+                  <span>{rate.amount}</span>
                   <div className="progress" style={{ width: `${rate.progress}%` }} />
                 </td>
               </tr>
@@ -78,7 +78,7 @@ export const ExchangesRates = () => {
             >
               <td className="price">{currentPrice.price}</td>
               <td className="amount">
-                {currentPrice.amount}
+                <span>{currentPrice.amount}</span>
                 <div className="progress" style={{ width: `${currentPrice.progress}%` }} />
               </td>
             </tr>
@@ -89,7 +89,7 @@ export const ExchangesRates = () => {
               >
                 <td className="price">{rate.price}</td>
                 <td className="amount">
-                  {rate.amount}
+                  <span>{rate.amount}</span>
                   <div className="progress" style={{ width: `${rate.progress}%` }} />
                 </td>
               </tr>
