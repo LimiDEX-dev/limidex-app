@@ -10,7 +10,7 @@ import { Chart } from '../../components/Chart';
 import { ChartIcon, RatesIcon } from '../../lib/icons';
 
 export const Main = () => {
-  const [activeOrderTab, setActiveOrderTab] = useState<'limit' | 'swap' | 'cross'>('limit');
+  const [activeOrderTab, setActiveOrderTab] = useState<'limit' | 'swap' | 'cross'>('swap');
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
   const [isExpertMode, setIsExpertMode] = useState(false);
 

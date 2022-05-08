@@ -22,6 +22,7 @@
     }
 
     .left {
+        align-self: flex-start;
         order: 4;
 
         margin: 0 auto;
@@ -149,11 +150,19 @@
         }
 
         & .left {
+            align-self: stretch;
+
             margin: 0;
         }
 
         & .actions {
             display: flex;
+        }
+
+        & .PlaceOrder {
+            @media (min-width: 1200px) {
+                width: 310px;
+            }
         }
     }
 }
