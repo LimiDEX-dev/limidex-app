@@ -3,12 +3,14 @@ import './style.scss';
 import { orders } from '../../lib/mock/orders';
 
 export const Orders: FC = () => {
-  const [activeTab, setActiveTab] = useState<0 | 1>(0);
+  const [activeTab, setActiveTab] = useState<0 | 1 | 2>(0);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [activeOrders, setActiveOrders] = useState(orders.active);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [historyOrders, setHistoryOrders] = useState(orders.history);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [crossOrders, setCrossOrders] = useState(orders.cross);
 
   useEffect(() => {
     // THERE IS FUNCTION THAT SET ORDERS DATA
@@ -44,6 +46,232 @@ export const Orders: FC = () => {
     setActiveOrders((prevState) => [...prevState.slice(0, index), ...prevState.slice(index + 1)]);
   };
 
+  const getTable = () => {
+    if (activeTab === 0) {
+      return (
+        <table>
+          <thead>
+            <tr>
+              <td className="name">Name</td>
+              <td className="orderType">Order type</td>
+              <td className="volume">Volume</td>
+              <td className="orderFee">Price</td>
+              <td className="routing">Network</td>
+              <td className="change">TP / LS</td>
+              <td className="delete">Delete</td>
+            </tr>
+          </thead>
+          <tbody>
+            {activeOrders.map((order, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+              <tr key={`${order.name}-${index}`}>
+                <td className="name">
+                  <div>
+                    <span />
+                    <span />
+                    <span>{order.name}</span>
+                  </div>
+                </td>
+                <td className="orderType">
+                  <div>
+                    <span>
+                      {order.type}
+                    </span>
+                  </div>
+                </td>
+                <td className="volume">
+                  <div>
+                    <span>
+                      {order.volume}
+                    </span>
+                  </div>
+                </td>
+                <td className="orderFee">
+                  <div>
+                    <span>
+                      {order.orderFee}
+                    </span>
+                  </div>
+                </td>
+                <td className="routing">
+                  <div>
+                    <span>
+                      {order.routing}
+                    </span>
+                  </div>
+                </td>
+                <td className="tp-ls">
+                  <div>
+                    <span>
+                      150/234
+                    </span>
+                  </div>
+                </td>
+                <td className="delete">
+                  <button type="button" onClick={() => handleDeleteActiveOrder(index)} aria-label="Delete order">
+                    <span />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    }
+
+    if (activeTab === 1) {
+      return (
+        <table>
+          <thead>
+            <tr>
+              <td className="name">Name</td>
+              <td className="orderType">Order type</td>
+              <td className="volume">Volume</td>
+              <td className="fee">Fee</td>
+              <td className="rebase">Reward</td>
+              <td className="status">Status</td>
+              <td className="change">Review</td>
+            </tr>
+          </thead>
+          <tbody>
+            {historyOrders
+              .slice((currentPage - 1) * 10, currentPage * 10)
+              .map((order, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+                <tr key={`${order.name}-${index}`}>
+                  <td className="name">
+                    <div>
+                      <span />
+                      <span />
+                      <span>{order.name}</span>
+                    </div>
+                  </td>
+                  <td className="orderType">
+                    <div>
+                      <span>
+                        {order.type}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="volume">
+                    <div>
+                      <span>
+                        {order.volume}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="fee">
+                    <div>
+                      <span>
+                        {order.fee}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="rebase">
+                    <div>
+                      <span>
+                        {order.rebase}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="status">
+                    <div>
+                      <span>
+                        {order.status}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="change">
+                    <button type="button">
+                      <span>Full info</span>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      );
+    }
+
+    return (
+      <table>
+        <thead>
+          <tr>
+            <td className="name">From Asset</td>
+            <td className="orderType">Volume</td>
+            <td className="volume">Destination</td>
+            <td className="fee">Amount out</td>
+            <td className="rebase">Status</td>
+            <td className="status">Rewards</td>
+            <td className="change">1-tx</td>
+            <td className="change">2-tx</td>
+          </tr>
+        </thead>
+        <tbody>
+          {crossOrders
+            .slice((currentPage - 1) * 10, currentPage * 10)
+            .map((order, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+              <tr key={`${order.asset}-${index}`}>
+                <td className="name">
+                  <div>
+                    <span />
+                    <span />
+                    <span>{order.asset}</span>
+                  </div>
+                </td>
+                <td className="orderType">
+                  <div>
+                    <span>
+                      {order.volume}
+                    </span>
+                  </div>
+                </td>
+                <td className="volume">
+                  <div>
+                    <span>
+                      {order.destination}
+                    </span>
+                  </div>
+                </td>
+                <td className="fee">
+                  <div>
+                    <span>
+                      {order.amount}
+                    </span>
+                  </div>
+                </td>
+                <td className="rebase">
+                  <div>
+                    <span>
+                      {order.status}
+                    </span>
+                  </div>
+                </td>
+                <td className="status">
+                  <div>
+                    <span>
+                      {order.rewards}
+                    </span>
+                  </div>
+                </td>
+                <td className="change">
+                  <button type="button">
+                    <span>Full info</span>
+                  </button>
+                </td>
+                <td className="change">
+                  <button type="button">
+                    <span>Full info</span>
+                  </button>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    );
+  };
+
   return (
     <div className="Orders">
       <div className="container">
@@ -54,147 +282,12 @@ export const Orders: FC = () => {
           <button type="button" className={`tab${activeTab === 1 ? ' active' : ''}`} onClick={() => setActiveTab(1)}>
             Order history
           </button>
+          <button type="button" className={`tab${activeTab === 2 ? ' active' : ''}`} onClick={() => setActiveTab(2)}>
+            Cross-chain history
+          </button>
         </div>
         <div className="content">
-          {activeTab === 1 ? (
-            <table>
-              <thead>
-                <tr>
-                  <td className="name">Name</td>
-                  <td className="orderType">Order type</td>
-                  <td className="volume">Volume</td>
-                  <td className="fee">Fee</td>
-                  <td className="rebase">Reward</td>
-                  <td className="status">Status</td>
-                  <td className="change">Review</td>
-                </tr>
-              </thead>
-              <tbody>
-                {historyOrders
-                  .slice((currentPage - 1) * 10, currentPage * 10)
-                  .map((order, index) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                    <tr key={`${order.name}-${index}`}>
-                      <td className="name">
-                        <div>
-                          <span />
-                          <span />
-                          <span>{order.name}</span>
-                        </div>
-                      </td>
-                      <td className="orderType">
-                        <div>
-                          <span>
-                            {order.type}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="volume">
-                        <div>
-                          <span>
-                            {order.volume}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="fee">
-                        <div>
-                          <span>
-                            {order.fee}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="rebase">
-                        <div>
-                          <span>
-                            {order.rebase}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="status">
-                        <div>
-                          <span>
-                            {order.status}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="change">
-                        <button type="button">
-                          <span>Full info</span>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          ) : (
-            <table>
-              <thead>
-                <tr>
-                  <td className="name">Name</td>
-                  <td className="orderType">Order type</td>
-                  <td className="volume">Volume</td>
-                  <td className="orderFee">Price</td>
-                  <td className="routing">Routing</td>
-                  <td className="change">TP / LS</td>
-                  <td className="delete">Delete</td>
-                </tr>
-              </thead>
-              <tbody>
-                {activeOrders.map((order, index) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <tr key={`${order.name}-${index}`}>
-                    <td className="name">
-                      <div>
-                        <span />
-                        <span />
-                        <span>{order.name}</span>
-                      </div>
-                    </td>
-                    <td className="orderType">
-                      <div>
-                        <span>
-                          {order.type}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="volume">
-                      <div>
-                        <span>
-                          {order.volume}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="orderFee">
-                      <div>
-                        <span>
-                          {order.orderFee}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="routing">
-                      <div>
-                        <span>
-                          {order.routing}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="tp-ls">
-                      <div>
-                        <span>
-                          150/234
-                        </span>
-                      </div>
-                    </td>
-                    <td className="delete">
-                      <button type="button" onClick={() => handleDeleteActiveOrder(index)} aria-label="Delete order">
-                        <span />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+          {getTable()}
         </div>
       </div>
     </div>

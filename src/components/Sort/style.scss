@@ -13,10 +13,11 @@
 
     margin-left: 6px;
 
-    color: $text;
-    font-size: 11px;
+    font-family: 'Roboto Mono', sans-serif;
+    color: #55647D;
+    font-size: 12px;
     font-weight: 300;
-    line-height: 11px;
+    line-height: 10px;
   }
 
   &__icons {
@@ -24,7 +25,7 @@
     align-items: center;
 
     & > svg {
-      color: $text;
+      color: #55647D;
 
       transition: color 0.2s ease;
 

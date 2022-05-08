@@ -4,7 +4,7 @@ import './style.scss';
 
 type ButtonProps = {
   onClick?: () => void;
-  size?: 'small' | 'large';
+  size?: 'small' | 'middle' | 'large';
   disabled?: boolean;
 }
 
@@ -17,6 +17,7 @@ export const Button: FC<ButtonProps> = ({
   <button
     className={classnames('button', {
       'button--small': size === 'small',
+      'button--middle': size === 'middle',
       'button--large': size === 'large',
     })}
     type="button"

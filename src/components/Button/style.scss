@@ -17,6 +17,11 @@
 
   transition: 0.2s ease;
 
+  &--middle {
+    width: fit-content;
+    padding: 8px 12px;
+  }
+
   &--small {
     width: fit-content;
     padding: 5px 16px;

@@ -1,4 +1,4 @@
-@import "src/styles/variables";
+@use "src/styles/index";
 
 .network-item {
   flex-shrink: 0;
@@ -13,7 +13,7 @@
 
     padding: 8px 12px;
 
-    background-color: #202734;
+    background-color: index.$blocks;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -21,19 +21,23 @@
     transition: 0.2s ease;
 
     &--active {
-      background-color: $accent;
+      background-color: index.$accent;
 
       & .network-item {
         &__title {
-          color: $text;
+          opacity: 1;
+
+          color: #202734;
         }
       }
     }
   }
 
   &__title {
+    opacity: 0.5;
+
     font-size: 12px;
-    color: $gray;
+    color: index.$text;
     line-height: 14px;
 
     transition: 0.2s ease;

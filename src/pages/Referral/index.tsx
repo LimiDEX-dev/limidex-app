@@ -8,6 +8,7 @@ import { CopyIcon } from '../../lib/icons';
 import { Rewards } from '../../components/Rewards';
 import { lmx } from '../../lib/mock/lmx';
 import { ambassador } from '../../lib/mock/ambassador';
+import { Button } from '../../components/Button';
 
 export const Referral: FC = () => {
   const linkRef = useRef<HTMLAnchorElement>(null);
@@ -44,6 +45,9 @@ export const Referral: FC = () => {
         <div className="ambassador__stats">
           <span className="ambassador__stats__title">
             Refferal stats
+            <Button size="small">
+              Claim all rewards
+            </Button>
           </span>
           <div className="ambassador__stats__table__wrapper">
             <table className="ambassador__stats__table">

@@ -10,7 +10,7 @@ export const Routes: FC = () => (
   <ReactRoutes>
     <Route path="/" element={<Main />} />
     <Route path="/staking" element={<Staking />} />
-    <Route path="/portfolio" element={<Portfolio />} />
+    <Route path="/terminal" element={<Portfolio />} />
     <Route path="/lmx" element={<LMX />} />
     <Route path="/referral" element={<Referral />} />
   </ReactRoutes>

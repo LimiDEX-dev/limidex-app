@@ -122,8 +122,8 @@ export const Header: FC = () => {
                 </NavLink>
               </li>
               <li className="nav__item">
-                <NavLink to="/portfolio" onClick={handleOpen}>
-                  Portfolio
+                <NavLink to="/terminal" onClick={handleOpen}>
+                  Terminal
                 </NavLink>
               </li>
               <li className="nav__item">

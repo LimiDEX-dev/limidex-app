@@ -1,11 +1,11 @@
-@import "src/styles/variables";
+@use "src/styles/index";
 
 .portfolio-table {
   height: calc(100% - 70px);
   padding: 0 20px 16px;
   overflow: auto;
 
-  border: 1px solid $accent;
+  background-color: index.$section;
   border-radius: 12px;
 
   @media (max-width: 1199px) {
@@ -25,11 +25,14 @@
     }
 
     & > thead > .portfolio-table__row > td {
-      padding-top: 26px;
+      padding-top: 16px;
+      padding-bottom: 6px;
 
       position: sticky;
       top: 0;
 
+      background-color: index.$section;
+      border-bottom: 1px solid #202734;
 
       white-space: nowrap;
 
@@ -45,6 +48,14 @@
     align-items: center;
 
     padding: 10px 0;
+
+    & > button {
+      width: auto;
+
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
   }
 
   &__icon {
@@ -59,24 +70,16 @@
   }
 
   &__text {
-    color: $gray;
+    font-family: 'Roboto Mono', sans-serif;
+    color: rgba(255, 249, 249, 0.5);
     font-size: 14px;
     font-weight: 500;
     line-height: 14px;
     white-space: nowrap;
 
-    &--mono {
-      font-family: 'Roboto Mono', sans-serif;
-      line-height: 10px;
-    }
-
     &--underline {
       font-weight: 500;
       text-decoration: underline;
     }
-  }
-
-  &__row {
-    border-bottom: 1px solid #202734;
   }
 }

@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React, { FC } from 'react';
 import './style.scss';
+import { Button } from '../Button';
 
 type RewardsProps = {
   data: {
@@ -12,7 +13,12 @@ type RewardsProps = {
 
 export const Rewards: FC<RewardsProps> = ({ data }) => (
   <div className="lmx__rewards">
-    <span className="lmx__rewards__title">Rewards list</span>
+    <span className="lmx__rewards__title">
+      Rewards list
+      <Button size="small">
+        Claim all rewards
+      </Button>
+    </span>
     <div className="lmx__rewards__table__wrapper">
       <table className="lmx__rewards__table">
         <thead>

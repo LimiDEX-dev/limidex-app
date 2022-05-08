@@ -1,4 +1,4 @@
-@import "src/styles/variables";
+@use "src/styles/index";
 
 .lmx {
   &__rewards {
@@ -6,7 +6,7 @@
     padding: 8px 20px;
     margin: 30px 0;
 
-    border: 1px solid $accent;
+    border: 1px solid index.$accent;
     border-radius: 12px;
     backdrop-filter: blur(40px);
 
@@ -16,7 +16,8 @@
     }
 
     &__title {
-      display: block;
+      display: flex;
+      align-items: center;
 
       margin-bottom: 10px;
 
@@ -24,6 +25,10 @@
       color: #FFF9F9;
       font-weight: 500;
       line-height: 21px;
+
+      & > button {
+        margin-left: 16px;
+      }
     }
 
     &__table {
@@ -57,27 +62,29 @@
         position: sticky;
         top: 0;
 
+        background-color: index.$background;
+
         font-size: 15px;
-        color: $text;
+        color: index.$text;
         font-weight: 300;
         line-height: 18px;
       }
 
       & tbody td {
         font-size: 13px;
-        color: $text;
+        color: index.$text;
         line-height: 15px;
 
         & button {
           padding: 2px 6px;
 
-          background: $gray;
+          background: index.$gray;
           border: none;
           border-radius: 8px;
           cursor: pointer;
 
           font-size: 12px;
-          color: $text;
+          color: index.$text;
           font-weight: 500;
           line-height: 14px;
         }
