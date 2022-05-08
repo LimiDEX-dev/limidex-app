@@ -89,8 +89,7 @@ export const Header: FC = () => {
       </Modal>
       <div className="header__mobile">
         <div className="header__mobile__logo">
-          <img src="/assets/logo.png" alt="" width={40} />
-          <span className="header__logo__title">Limex</span>
+          <img src="/assets/logo-mobile.png" alt="" width={60} />
         </div>
         <Dropdown items={chains} onSelect={setSelectedChain} borderColor={selectedChain.color}>
           {selectedChain.icon}
@@ -111,8 +110,7 @@ export const Header: FC = () => {
           })}
         >
           <div className="header__logo">
-            <img src="/assets/logo.png" alt="" width={60} />
-            <span className="header__logo__title">Limex</span>
+            <img src="/assets/logo.png" alt="" width={180} />
           </div>
           <nav className="header__nav nav">
             <ul className="nav__list">

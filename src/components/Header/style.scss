@@ -77,14 +77,18 @@
 
     & .user-nav__wallet {
       margin-right: 8px;
-      padding: 0 8px;
+      padding: 6px 8px;
+
+      background: $blocks;
+      border: 1px solid $gray;
+      border-radius: 100px;
 
       font-family: 'Roboto', sans-serif;
       font-style: normal;
       font-weight: 300;
       font-size: 11px;
       line-height: 14px;
-      color: $gray;
+      color: $text;
     }
 
     & > .dropdown {
