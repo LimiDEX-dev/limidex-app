@@ -52,9 +52,9 @@ export const Orders: FC = () => {
         <table>
           <thead>
             <tr>
-              <td className="name">Name</td>
-              <td className="orderType">Order type</td>
-              <td className="volume">Volume</td>
+              <td className="name">From asset</td>
+              <td className="orderType">Volume</td>
+              <td className="volume">Destination</td>
               <td className="orderFee">Price</td>
               <td className="routing">Network</td>
               <td className="change">TP / LS</td>
@@ -64,18 +64,14 @@ export const Orders: FC = () => {
           <tbody>
             {activeOrders.map((order, index) => (
             // eslint-disable-next-line react/no-array-index-key
-              <tr key={`${order.name}-${index}`}>
+              <tr key={`${order.asset.name}-${index}`}>
                 <td className="name">
                   <div>
-                    <span />
-                    <span />
-                    <span>{order.name}</span>
-                  </div>
-                </td>
-                <td className="orderType">
-                  <div>
                     <span>
-                      {order.type}
+                      <span className="bold">{order.asset.name}</span>
+                      (
+                      {order.asset.descr}
+                      )
                     </span>
                   </div>
                 </td>
@@ -89,21 +85,33 @@ export const Orders: FC = () => {
                 <td className="orderFee">
                   <div>
                     <span>
-                      {order.orderFee}
+                      <span>
+                        <span className="bold">{order.destination.name}</span>
+                        (
+                        {order.destination.descr}
+                        )
+                      </span>
                     </span>
                   </div>
                 </td>
                 <td className="routing">
                   <div>
                     <span>
-                      {order.routing}
+                      {order.price}
+                    </span>
+                  </div>
+                </td>
+                <td className="routing">
+                  <div>
+                    <span>
+                      {order.network}
                     </span>
                   </div>
                 </td>
                 <td className="tp-ls">
                   <div>
                     <span>
-                      150/234
+                      {order.tpSl}
                     </span>
                   </div>
                 </td>
@@ -124,12 +132,14 @@ export const Orders: FC = () => {
         <table>
           <thead>
             <tr>
-              <td className="name">Name</td>
-              <td className="orderType">Order type</td>
-              <td className="volume">Volume</td>
-              <td className="fee">Fee</td>
-              <td className="rebase">Reward</td>
-              <td className="status">Status</td>
+              <td className="name">From asset</td>
+              <td className="orderType">Volume</td>
+              <td className="volume">Destination</td>
+              <td className="fee">Amount out</td>
+              <td className="rebase">Network</td>
+              <td className="status">Order Type</td>
+              <td className="change">Reward</td>
+              <td className="change">Status</td>
               <td className="change">Review</td>
             </tr>
           </thead>
@@ -138,39 +148,59 @@ export const Orders: FC = () => {
               .slice((currentPage - 1) * 10, currentPage * 10)
               .map((order, index) => (
               // eslint-disable-next-line react/no-array-index-key
-                <tr key={`${order.name}-${index}`}>
+                <tr key={`${order.asset.name}-${index}`}>
                   <td className="name">
                     <div>
-                      <span />
-                      <span />
-                      <span>{order.name}</span>
-                    </div>
-                  </td>
-                  <td className="orderType">
-                    <div>
                       <span>
-                        {order.type}
+                        <span className="bold">{order.asset.name}</span>
+                        (
+                        {order.asset.descr}
+                        )
                       </span>
                     </div>
                   </td>
-                  <td className="volume">
+                  <td className="orderType">
                     <div>
                       <span>
                         {order.volume}
                       </span>
                     </div>
                   </td>
+                  <td className="volume">
+                    <div>
+                      <span>
+                        <span className="bold">{order.destination.name}</span>
+                        (
+                        {order.destination.descr}
+                        )
+                      </span>
+                    </div>
+                  </td>
                   <td className="fee">
                     <div>
                       <span>
-                        {order.fee}
+                        {order.amount}
                       </span>
                     </div>
                   </td>
                   <td className="rebase">
                     <div>
                       <span>
-                        {order.rebase}
+                        {order.network}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="status">
+                    <div>
+                      <span>
+                        {order.type}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="status">
+                    <div>
+                      <span>
+                        {order.reward}
                       </span>
                     </div>
                   </td>
@@ -212,12 +242,15 @@ export const Orders: FC = () => {
             .slice((currentPage - 1) * 10, currentPage * 10)
             .map((order, index) => (
             // eslint-disable-next-line react/no-array-index-key
-              <tr key={`${order.asset}-${index}`}>
+              <tr key={`${order.asset.name}-${index}`}>
                 <td className="name">
                   <div>
-                    <span />
-                    <span />
-                    <span>{order.asset}</span>
+                    <span className="bold">
+                      {order.asset.name}
+                    </span>
+                    (
+                    {order.asset.descr}
+                    )
                   </div>
                 </td>
                 <td className="orderType">
@@ -229,9 +262,10 @@ export const Orders: FC = () => {
                 </td>
                 <td className="volume">
                   <div>
-                    <span>
-                      {order.destination}
-                    </span>
+                    <span className="bold">{order.destination.name}</span>
+                    (
+                    {order.destination.descr}
+                    )
                   </div>
                 </td>
                 <td className="fee">
