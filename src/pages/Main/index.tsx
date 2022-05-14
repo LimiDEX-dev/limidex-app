@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import classnames from 'classnames';
 
 import './style.scss';
@@ -13,6 +13,27 @@ export const Main = () => {
   const [activeOrderTab, setActiveOrderTab] = useState<'limit' | 'swap' | 'cross'>('swap');
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
   const [isExpertMode, setIsExpertMode] = useState(false);
+  const [height, setHeight] = useState<number>(0);
+
+  useLayoutEffect(() => {
+    // THERE IS FUNCTION THAT SET CHART DATA
+    // setChart(someData);
+
+    function update() {
+      const $node = document.querySelector('#chart') as HTMLElement;
+      const rect = $node.getBoundingClientRect();
+      setHeight(rect.height - 40);
+    }
+
+    setTimeout(() => {
+      update();
+    });
+
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('resize', update);
+    };
+  }, [isExpertMode, activeOrderTab]);
 
   return (
     <div className={classnames('Main', {
@@ -34,7 +55,7 @@ export const Main = () => {
             <ExchangesRates />
           </div>
           <div className="chart-container">
-            <Chart />
+            <Chart height={height} setHeight={setHeight} />
           </div>
         </div>
 

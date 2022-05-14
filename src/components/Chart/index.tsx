@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { FC, useLayoutEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import './style.scss';
 import { ApexOptions } from 'apexcharts';
@@ -71,31 +71,15 @@ const timeframeOptions = [
   },
 ];
 
-export function Chart() {
-  const [height, setHeight] = useState<number>(0);
+type ChartProps = {
+  height: number;
+  setHeight: (height: number) => void;
+}
+
+export const Chart: FC<ChartProps> = ({ height, setHeight }) => {
   const [selectedTimeframe, setSelectedTimeframe] = useState(timeframeOptions[0]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [chart, setChart] = useState(mockChart);
-
-  useLayoutEffect(() => {
-    // THERE IS FUNCTION THAT SET CHART DATA
-    // setChart(someData);
-
-    function update() {
-      const $node = document.querySelector('#chart') as HTMLElement;
-      const rect = $node.getBoundingClientRect();
-      setHeight(rect.height - 40);
-    }
-
-    setTimeout(() => {
-      update();
-    });
-
-    window.addEventListener('resize', update);
-    return () => {
-      window.removeEventListener('resize', update);
-    };
-  }, []);
 
   return (
     <div className="Chart">
@@ -142,4 +126,4 @@ export function Chart() {
       </div>
     </div>
   );
-}
+};
