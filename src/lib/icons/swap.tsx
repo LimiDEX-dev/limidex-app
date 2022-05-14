@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 export const SwapIcon: FC = () => (
-  <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="18" height="18" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M4.74997 0.666668L8.8753 4.79083L8.0493 5.61683L5.3333 2.89967L5.3333 18.1667L4.16663 18.1667L4.16663 2.89967L1.45063 5.61683L0.624633 4.79083L4.74997 0.666668ZM15.8333 3L17 3L17 18.267L19.716 15.5498L20.5408 16.3747L16.4166 20.5L12.2913 16.3747L13.1173 15.5498L15.8333 18.267L15.8333 3Z" fill="#E5E5E5" />
   </svg>
 );
