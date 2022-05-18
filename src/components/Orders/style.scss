@@ -83,19 +83,15 @@
             .name {
                 padding-right: 40px;
             }
+            & > div {
+                display: flex;
+                align-items: center;
+            }
+            & .bold {
+                display: block;
+                margin-right: 4px;
 
-            .name,
-            .volume {
-                & > div {
-                    display: flex;
-                    align-items: center;
-                }
-                & .bold {
-                    display: block;
-                    margin-right: 4px;
-
-                    font-weight: 700;
-                }
+                font-weight: 700;
             }
             .orderType {
                 padding-right: 30px;

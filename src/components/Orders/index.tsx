@@ -55,6 +55,7 @@ export const Orders: FC = () => {
               <td className="name">From asset</td>
               <td className="orderType">Volume</td>
               <td className="volume">Destination</td>
+              <td className="volume">Order type</td>
               <td className="orderFee">Price</td>
               <td className="routing">Network</td>
               <td className="change">TP / LS</td>
@@ -91,6 +92,13 @@ export const Orders: FC = () => {
                         {order.destination.descr}
                         )
                       </span>
+                    </span>
+                  </div>
+                </td>
+                <td className="volume">
+                  <div>
+                    <span>
+                      {order.type}
                     </span>
                   </div>
                 </td>

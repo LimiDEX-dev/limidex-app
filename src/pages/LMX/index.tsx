@@ -41,7 +41,7 @@ export const LMX: FC = () => {
 
   const getFirstDescription = () => (
     <Description>
-      Lock LMX to earn all native network coins simultaneously
+      Lock SPLX to Earn all native network coins simultaneously
       <br />
       <br />
     </Description>
@@ -50,29 +50,29 @@ export const LMX: FC = () => {
   const getRewardsDescription = () => (
     <span className="lmx__rewards-description">
       <Description>
-        Holders can lock $LMX for a certain period of time to get $arbLMX,
+        Holders can lock SPLX for a certain period of time to get veSPLX,
         which allows them right to receive a share of the profits on each network
         <span className="lmx__description">
           <span className="lmx__description__wrapper">
             <span className="lmx__description__title">Time Lock</span>
             <span className="lmx__description__content">
-              1 Month: 1 LMX = 0.1 arbLMX
+              1 Month: 1 SPLX = 0.1 veSPLX
               {' '}
               <br />
-              3 Months: 1 LMX = 0.25 arbLMX
+              3 Months: 1 SPLX = 0.25 veSPLX
               {' '}
               <br />
-              6 Months: 1 LMX = 0.5 arbLMX
+              6 Months: 1 SPLX = 0.5 veSPLX
               {' '}
               <br />
-              1 Year: 1 LMX = 1 arbLMX
+              1 Year: 1 SPLX = 1 veSPLX
               <br />
               <br />
-              The protocol allocates 1% of the total protocol profit in each network
-              and distributes it to arbLMX holders
+              The protocol allocates 1% of the total protocol profit
+              in each network and distributes it to veSPLX holders
               <br />
               <br />
-              Lock LMX and get rewards in WETH/WBNB/WMATIC/WFTM/WAVAX/WETH(arbitrum)
+              Lock SPLX and get rewards in WETH, WBNB, WMATIC, WFTM, WAVAX, arbitrum WETH
             </span>
           </span>
         </span>

@@ -89,7 +89,7 @@ export const Header: FC = () => {
       </Modal>
       <div className="header__mobile">
         <div className="header__mobile__logo">
-          <img src="/assets/logo-mobile.png" alt="" width={60} />
+          <img src="/assets/logo-mobile.png" alt="" width={50} />
         </div>
         <Dropdown items={chains} onSelect={setSelectedChain} borderColor={selectedChain.color}>
           {selectedChain.icon}
@@ -120,13 +120,13 @@ export const Header: FC = () => {
                 </NavLink>
               </li>
               <li className="nav__item">
-                <NavLink to="/terminal" onClick={handleOpen}>
-                  Terminal
+                <NavLink to="/trading" onClick={handleOpen}>
+                  Trading tools
                 </NavLink>
               </li>
               <li className="nav__item">
                 <NavLink to="/lmx" onClick={handleOpen}>
-                  arbLMX
+                  veSPLX
                 </NavLink>
               </li>
               <li className="nav__item">

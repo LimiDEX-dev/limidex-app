@@ -153,12 +153,9 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
               </Sort>
             </td>
             <td>
-              <Sort
-                sort={sort.field === 'approve' ? sort.by : 'no'}
-                onChange={(by) => handleChangeSort({ field: 'approve', by })}
-              >
+              <Button size="small">
                 Approve
-              </Sort>
+              </Button>
             </td>
           </tr>
         )}
