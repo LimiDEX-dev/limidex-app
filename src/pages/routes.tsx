@@ -12,6 +12,6 @@ export const Routes: FC = () => (
     <Route path="/staking" element={<Staking />} />
     <Route path="/trading" element={<Portfolio />} />
     <Route path="/lmx" element={<LMX />} />
-    <Route path="/referral" element={<Referral />} />
+    <Route path="/rewards" element={<Referral />} />
   </ReactRoutes>
 );

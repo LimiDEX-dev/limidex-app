@@ -68,7 +68,7 @@ export const LMX: FC = () => {
               1 Year: 1 SPLX = 1 veSPLX
               <br />
               <br />
-              The protocol allocates 1% of the total protocol profit
+              The protocol allocates 2% of the total protocol profit
               in each network and distributes it to veSPLX holders
               <br />
               <br />
@@ -139,10 +139,9 @@ export const LMX: FC = () => {
       <div className="lmx">
         <div className="lmx__wrapper">
           <Title>
-            Lock LMX to Earn protocol profits
+            Lock SPLX to Earn protocol profits
           </Title>
           {getDescription()}
-          <Rewards data={lmx.rewards} />
         </div>
         <div className="lmx__wrapper">
           <Swiper
@@ -177,7 +176,6 @@ export const LMX: FC = () => {
         </div>
         <div className="lmx__description__main-wrapper">
           {getFirstDescription()}
-          <Rewards data={lmx.rewards} />
           {getRewardsDescription()}
         </div>
       </div>

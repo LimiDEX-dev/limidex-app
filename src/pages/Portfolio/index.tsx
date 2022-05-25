@@ -99,9 +99,6 @@ export const Portfolio: FC = () => {
             <span className="portfolio__info__rewards__title">
               Rewards: $12,357,554
             </span>
-            <Button size="middle">
-              Claim
-            </Button>
           </div>
         </div>
         <div className="portfolio__info__wrapper">

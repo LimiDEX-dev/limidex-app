@@ -135,8 +135,8 @@ export const Header: FC = () => {
                 </NavLink>
               </li>
               <li className="nav__item">
-                <NavLink to="/referral" onClick={handleOpen}>
-                  Referral
+                <NavLink to="/rewards" onClick={handleOpen}>
+                  Rewards
                 </NavLink>
               </li>
             </ul>
@@ -171,10 +171,6 @@ export const Header: FC = () => {
             <div className="user-nav__balance">
               <span className="user-nav__balance__icon" />
               0
-            </div>
-            <div className="user-nav__balance">
-              <span className="user-nav__balance__icon" />
-              0.0137 BNB
             </div>
             <span className="user-nav__wallet">
               0x039e...6e37
