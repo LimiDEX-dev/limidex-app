@@ -70,7 +70,7 @@ export const Referral: FC = () => {
       </div>
       <div className="ambassador__stats">
         <span className="ambassador__stats__title">
-          Refferal stats
+          Reward list
         </span>
         <div className="ambassador__stats__table__wrapper">
           <table className="ambassador__stats__table">
@@ -102,7 +102,7 @@ export const Referral: FC = () => {
                   <td>{item.available}</td>
                   <td>
                     <Button size="small">
-                      Reward
+                      Claim
                     </Button>
                   </td>
                 </tr>
