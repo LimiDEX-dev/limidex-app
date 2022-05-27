@@ -449,23 +449,21 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
           </>
         )}
 
-        {activeTab === 'swap' && (
-          <div className="trade">
-            <Popup content="Сhoose in which coin you want to receive arbitrage cashbacks">
-              Trade Reward
-            </Popup>
-            <Dropdown
-              items={[selectedBuyValute, selectedSellValute]}
-              onSelect={(item) => setTrade(item)}
-            >
-              <span className="dropdown__trigger__label">
-                <span>{trade.label}</span>
-                <br />
-                Wrapped BNB
-              </span>
-            </Dropdown>
-          </div>
-        )}
+        <div className="trade">
+          <Popup content="Сhoose in which coin you want to receive arbitrage cashbacks">
+            Trade Reward
+          </Popup>
+          <Dropdown
+            items={[selectedBuyValute, selectedSellValute]}
+            onSelect={(item) => setTrade(item)}
+          >
+            <span className="dropdown__trigger__label">
+              <span>{trade.label}</span>
+              <br />
+              Wrapped BNB
+            </span>
+          </Dropdown>
+        </div>
 
         {activeTab === 'limit' && (
           <div className="info">
