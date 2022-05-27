@@ -46,6 +46,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
   const [tokenInfo, setTokenInfo] = useState<Coin | null>(null);
   const [isTokenInfoVisible, setIsTokenInfoVisible] = useState<boolean>(false);
   const [lastViewedToken, setLastViewedToken] = useState<string>('');
+  const [trade, setTrade] = useState<DropdownItem>(selectedSellValute);
 
   useEffect(() => {
     // THERE IS FUNCTION THAT SET VALUTES (TOKENS) IN PLACE ORDER DROPDOWN
@@ -446,6 +447,24 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
               </label>
             </div>
           </>
+        )}
+
+        {activeTab === 'swap' && (
+          <div className="trade">
+            <Popup content="Сhoose in which coin you want to receive arbitrage cashbacks">
+              Trade Reward
+            </Popup>
+            <Dropdown
+              items={[selectedBuyValute, selectedSellValute]}
+              onSelect={(item) => setTrade(item)}
+            >
+              <span className="dropdown__trigger__label">
+                <span>{trade.label}</span>
+                <br />
+                Wrapped BNB
+              </span>
+            </Dropdown>
+          </div>
         )}
 
         {activeTab === 'limit' && (

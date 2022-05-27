@@ -185,6 +185,10 @@
 
                 padding: 0 10px 8px 0;
 
+                & > .dropdown {
+                    width: 100%;
+                }
+
                 & .dropdown__trigger__label {
                     text-align: left;
 
@@ -378,6 +382,44 @@
                 font-size: 11px;
                 font-weight: 700;
                 line-height: 13px;
+            }
+        }
+    }
+
+    .trade {
+        display: flex;
+        align-items: center;
+
+        padding-left: 20px;
+        margin-top: 24px;
+
+        & > .popup {
+            flex-shrink: 0;
+
+            margin-right: 20px;
+
+            & > .popup__trigger {
+                color: index.$text;
+                font-size: 11px;
+                font-weight: 700;
+                line-height: 13px;
+            }
+        }
+
+        & > .dropdown {
+            width: 100%;
+
+            & > .dropdown__trigger {
+                width: 100%;
+            }
+
+            & .dropdown__trigger__label {
+                color: index.$text;
+                text-align: left;
+
+                & > span {
+                    font-weight: 700;
+                }
             }
         }
     }

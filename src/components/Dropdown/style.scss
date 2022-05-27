@@ -85,14 +85,50 @@
   &__item {
     &--add-custom {
       position: sticky;
-      top: 0;
+      bottom: 0;
+      z-index: 1;
 
-      border-bottom: 1px solid index.$text;
+      border-top: 1px solid index.$stroke;
+      border-radius: 0 0 4px 4px;
       background-color: index.$section;
 
       & > .dropdown__item__trigger {
         &:hover {
           background-color: transparent;
+        }
+      }
+    }
+
+    &--search {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+
+      padding: 4px 8px;
+
+      border-bottom: 1px solid index.$stroke;
+      border-radius: 4px 4px 0 0;
+      background-color: index.$section;
+
+      & > label {
+        display: flex;
+        align-items: center;
+
+        & > input {
+          width: 100%;
+          margin-left: 6px;
+
+          background-color: transparent;
+          border: none;
+          outline: none;
+
+          color: index.$text;
+          font-size: 12px;
+          line-height: 14px;
+        }
+
+        & > svg {
+          flex-shrink: 0;
         }
       }
     }

@@ -283,6 +283,16 @@
     display: flex;
     align-items: center;
 
+    & > .button {
+      margin: 10px auto 10px;
+
+      font-weight: 700;
+
+      @media (min-width: 1200px) {
+        margin: 0 10px;
+      }
+    }
+
     & .dropdown {
       @media (max-width: 1199px) {
         display: none;

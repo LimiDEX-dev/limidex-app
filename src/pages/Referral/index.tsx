@@ -35,9 +35,8 @@ export const Referral: FC = () => {
               </li>
               <li>
                 If you have followers who copy
-                your trades you will recieved 2-5% from their arb profits
+                your trades you will recieved 5% from their arb profits
               </li>
-              <li>Run Split Relayer to get 2-5% from executing arb tx’s</li>
             </ul>
 
             <span className="ambassador__link">
@@ -68,47 +67,65 @@ export const Referral: FC = () => {
           <Button size="large">Claim all</Button>
         </div>
       </div>
-      <div className="ambassador__stats">
-        <span className="ambassador__stats__title">
-          Reward list
+      <div className="ambassador__stats__wrapper">
+        <Title>Claim rewards</Title>
+        <span className="ambassador__link">
+          Your referral link:
+          {' '}
+          <a href="http://limidex.io/ref/tradex123" ref={linkRef}>
+            limidex.io/ref/tradex123
+          </a>
+          <button type="button" onClick={handleCopy}>
+            <CopyIcon />
+          </button>
         </span>
-        <div className="ambassador__stats__table__wrapper">
-          <table className="ambassador__stats__table">
-            <thead>
-              <tr>
-                <th>Network</th>
-                <th>veSPLX</th>
-                <th>Cashback</th>
-                <th>Ref 1lvl (12)</th>
-                <th>Ref 2lvl (34) </th>
-                <th>Followers (3)</th>
-                <th>Worker relay</th>
-                <th>Total</th>
-                <th>Available to claim</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {ambassador.stats.map((item, index) => (
-                <tr key={`${item.network}-${index}`}>
-                  <td>{item.network}</td>
-                  <td>{item.veSPLX}</td>
-                  <td>{item.cashback}</td>
-                  <td>{item.ref1}</td>
-                  <td>{item.ref2}</td>
-                  <td>{item.followers}</td>
-                  <td>{item.workerRelay}</td>
-                  <td>{item.total}</td>
-                  <td>{item.available}</td>
-                  <td>
-                    <Button size="small">
-                      Claim
-                    </Button>
-                  </td>
+
+        <div className="ambassador__stats">
+          <span className="ambassador__stats__title">
+            Reward list
+          </span>
+          <div className="ambassador__stats__table__wrapper">
+            <table className="ambassador__stats__table">
+              <thead>
+                <tr>
+                  <th>Network</th>
+                  <th>veSPLX</th>
+                  <th>Cashback</th>
+                  <th>Ref 1lvl (12)</th>
+                  <th>Ref 2lvl (34) </th>
+                  <th>Followers (3)</th>
+                  <th>Worker relay</th>
+                  <th>Total</th>
+                  <th>
+                    Available
+                    {' '}
+                    <span>to claim</span>
+                  </th>
+                  <th />
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {ambassador.stats.map((item, index) => (
+                  <tr key={`${item.network}-${index}`}>
+                    <td>{item.network}</td>
+                    <td>{item.veSPLX}</td>
+                    <td>{item.cashback}</td>
+                    <td>{item.ref1}</td>
+                    <td>{item.ref2}</td>
+                    <td>{item.followers}</td>
+                    <td>{item.workerRelay}</td>
+                    <td>{item.total}</td>
+                    <td>{item.available}</td>
+                    <td>
+                      <Button size="small">
+                        Claim
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

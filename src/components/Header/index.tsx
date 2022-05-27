@@ -164,6 +164,9 @@ export const Header: FC = () => {
             aria-label="close navigation"
           />
           <div className="header__user-nav user-nav">
+            <Button size="small">
+              Split RPC
+            </Button>
             <Dropdown items={chains} onSelect={setSelectedChain} borderColor={selectedChain.color}>
               {selectedChain.icon}
               {selectedChain.label}
