@@ -94,13 +94,8 @@ export const Referral: FC = () => {
                   <th>Ref 1lvl (12)</th>
                   <th>Ref 2lvl (34) </th>
                   <th>Followers (3)</th>
-                  <th>Worker relay</th>
                   <th>Total</th>
-                  <th>
-                    Available
-                    {' '}
-                    <span>to claim</span>
-                  </th>
+                  <th>Available</th>
                   <th />
                 </tr>
               </thead>
@@ -113,7 +108,6 @@ export const Referral: FC = () => {
                     <td>{item.ref1}</td>
                     <td>{item.ref2}</td>
                     <td>{item.followers}</td>
-                    <td>{item.workerRelay}</td>
                     <td>{item.total}</td>
                     <td>{item.available}</td>
                     <td>

@@ -143,13 +143,6 @@ export const Header: FC = () => {
           </nav>
           <div className="header__info">
             <div className="header__info__card">
-              Your balance
-              <br />
-              {' '}
-              <br />
-              <span>123 LMX</span>
-            </div>
-            <div className="header__info__card">
               Cashback
               <br />
               <br />
