@@ -4,7 +4,9 @@ import classnames from 'classnames';
 import { Dropdown, DropdownItem } from '../Dropdown';
 import { valutes as mockValutes, chains as mockChains } from '../../lib/mock/valutes';
 import { Input } from '../Input';
-import { DropdownArrowIcon, SearchIcon, SwapIcon } from '../../lib/icons';
+import {
+  DropdownArrowIcon, HelpIcon, SearchIcon, SwapIcon,
+} from '../../lib/icons';
 import { Popup } from '../Popup';
 import { Button } from '../Button';
 import { Modal } from '../Modal';
@@ -171,14 +173,13 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
           Add token
         </Button>
       </Modal>
+      {activeTab === 'swap' && (
       <div className="title__wrapper">
-        <span className="title">Place order</span>
-        {activeTab === 'swap' && (
-          <Checkbox checked={isExpertMode} onChange={setIsExpertMode} type="switch">
-            Expert Mode
-          </Checkbox>
-        )}
+        <Checkbox checked={isExpertMode} onChange={setIsExpertMode} type="switch">
+          Expert Mode
+        </Checkbox>
       </div>
+      )}
       <div className="tab-switch">
         <button
           type="button"
@@ -299,9 +300,12 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                 type="number"
                 max={100}
                 topLabel={(
-                  <Popup content="Lorem ipsum dolor sit amet" width={100}>
+                  <Popup content="Increase arbitrage rewards by up to 10% when you burn 100 SPLX tokens" width={100}>
                     <span className="input__flex-label">
-                      Burn LMX
+                      Burn SPLX
+                      <div>
+                        <HelpIcon />
+                      </div>
                     </span>
                   </Popup>
                   )}
@@ -359,9 +363,12 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                 type="number"
                 max={100}
                 topLabel={(
-                  <Popup content="Lorem ipsum dolor sit amet" width={100}>
+                  <Popup content="Increase arbitrage rewards by up to 10% when you burn 100 SPLX tokens" width={100}>
                     <span className="input__flex-label">
-                      Burn LMX
+                      Burn SPLX
+                      <div>
+                        <HelpIcon />
+                      </div>
                     </span>
                   </Popup>
                   )}
@@ -451,12 +458,21 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
 
         <div className="trade">
           <Popup content="Сhoose in which coin you want to receive arbitrage cashbacks">
-            Trade Reward
+            <span className="input__flex-label">
+              Trade Reward
+              <div>
+                <HelpIcon />
+              </div>
+            </span>
           </Popup>
           <Dropdown
             items={[selectedBuyValute, selectedSellValute]}
             onSelect={(item) => setTrade(item)}
           >
+            <span style={{
+              width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
+            }}
+            />
             <span className="dropdown__trigger__label">
               <span>{trade.label}</span>
               <br />

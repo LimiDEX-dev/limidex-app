@@ -149,7 +149,6 @@ export const Header: FC = () => {
               <span>123 LMX</span>
             </div>
           </div>
-          <SocialList />
           <button
             className="header__close"
             type="button"
