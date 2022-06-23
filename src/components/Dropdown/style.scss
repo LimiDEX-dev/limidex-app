@@ -2,6 +2,7 @@
 
 .dropdown {
   display: flex;
+    flex-shrink: 0;
 
   position: relative;
 
