@@ -73,6 +73,10 @@
                     line-height: 15px;
                     color: index.$text;
                     padding-bottom: 4px;
+
+                    &.text-center {
+                        text-align: center;
+                    }
                 }
             }
 
@@ -124,11 +128,15 @@
                     font-weight: 300;
 
                     > div {
-                        display: inline-flex;
+                        display: flex;
                         align-items: center;
                         height: 30px;
                         font-size: 13px;
                         line-height: 15px;
+                    }
+
+                    &.text-center > div {
+                        justify-content: center;
                     }
 
                     color: index.$text;
