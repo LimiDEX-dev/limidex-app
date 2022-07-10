@@ -1,16 +1,18 @@
-import React, { useLayoutEffect, useState } from 'react';
-import classnames from 'classnames';
+import React, { useLayoutEffect, useState } from "react";
+import classnames from "classnames";
 
-import './style.scss';
+import "./style.scss";
 
-import { PlaceOrder } from '../../components/PlaceOrder';
-import { ExchangesRates } from '../../components/ExchangesRates';
-import { Orders } from '../../components/Orders';
-import { Chart } from '../../components/Chart';
-import { ChartIcon, RatesIcon } from '../../lib/icons';
+import { PlaceOrder } from "../../components/PlaceOrder";
+import { ExchangesRates } from "../../components/ExchangesRates";
+import { Orders } from "../../components/Orders";
+import { Chart } from "../../components/Chart";
+import { ChartIcon, RatesIcon } from "../../lib/icons";
 
 export const Main = () => {
-  const [activeOrderTab, setActiveOrderTab] = useState<'limit' | 'swap' | 'cross'>('swap');
+  const [activeOrderTab, setActiveOrderTab] = useState<
+    "limit" | "swap" | "cross"
+  >("swap");
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
   const [isExpertMode, setIsExpertMode] = useState(false);
   const [height, setHeight] = useState<number>(0);
@@ -20,7 +22,7 @@ export const Main = () => {
     // setChart(someData);
 
     function update() {
-      const $node = document.querySelector('#chart') as HTMLElement;
+      const $node = document.querySelector("#chart") as HTMLElement;
       const rect = $node.getBoundingClientRect();
       setHeight(rect.height - 40);
     }
@@ -29,16 +31,19 @@ export const Main = () => {
       update();
     });
 
-    window.addEventListener('resize', update);
+    window.addEventListener("resize", update);
     return () => {
-      window.removeEventListener('resize', update);
+      window.removeEventListener("resize", update);
     };
   }, [isExpertMode, activeOrderTab]);
 
   return (
-    <div className={classnames('Main', {
-      'Main--expert': (isExpertMode && activeOrderTab === 'swap') || activeOrderTab === 'limit',
-    })}
+    <div
+      className={classnames("Main", {
+        "Main--expert":
+          (isExpertMode && activeOrderTab === "swap") ||
+          activeOrderTab === "limit",
+      })}
     >
       <div className="left">
         <PlaceOrder

@@ -1,21 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { FC, useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import classnames from 'classnames';
-import { SettingsIcon } from '../../lib/icons';
-import './style.scss';
+import React, { FC, useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
+import classnames from "classnames";
+import { LoadingSmallIcon, SettingsIcon } from "../../lib/icons";
+import "./style.scss";
 import {
   GithubIcon,
   MDownIcon,
   TelegramIcon,
   TwitterIcon,
-} from '../../lib/icons/social';
-import { useOutsideAlerter } from '../../lib/hooks';
-import { chains as mockChains } from '../../lib/mock/valutes';
-import { Dropdown } from '../Dropdown';
-import { Modal } from '../Modal';
-import { Input } from '../Input';
-import { Button } from '../Button';
+} from "../../lib/icons/social";
+import { useOutsideAlerter } from "../../lib/hooks";
+import { chains as mockChains } from "../../lib/mock/valutes";
+import { Dropdown } from "../Dropdown";
+import { Modal } from "../Modal";
+import { Input } from "../Input";
+import { Button } from "../Button";
+import { useUser } from "../../store";
 
 const SocialList = () => (
   <ul className="header__social__list">
@@ -47,24 +48,24 @@ export const Header: FC = () => {
   const [chains, setChains] = useState(mockChains);
   const [selectedChain, setSelectedChain] = useState(mockChains[0]);
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
-  const [slippageTolerance, setSlippageTolerance] = useState<string>('0.5');
+  const [slippageTolerance, setSlippageTolerance] = useState<string>("0.5");
+
   const headerRef = useRef(null);
   const modalRef = useRef<HTMLDivElement>(null);
+
+  const { data: user } = useUser();
 
   const handleOpen = () => {
     setIsOpened((prevState) => !prevState);
   };
 
-  useOutsideAlerter(
-    headerRef,
-    (event) => {
-      const target = event.target as Element;
+  useOutsideAlerter(headerRef, (event) => {
+    const target = event.target as Element;
 
-      if (!modalRef.current.contains(target)) {
-        setIsOpened(false);
-      }
-    },
-  );
+    if (!modalRef.current.contains(target)) {
+      setIsOpened(false);
+    }
+  });
 
   return (
     <>
@@ -91,13 +92,15 @@ export const Header: FC = () => {
         <div className="header__mobile__logo">
           <img src="/assets/logo-mobile.png" alt="" width={50} />
         </div>
-        <Dropdown items={chains} onSelect={setSelectedChain} borderColor={selectedChain.color}>
+        <Dropdown
+          items={chains}
+          onSelect={setSelectedChain}
+          borderColor={selectedChain.color}
+        >
           {selectedChain.icon}
           {selectedChain.label}
         </Dropdown>
-        <span className="user-nav__wallet">
-          0x039e...6e37
-        </span>
+        <span className="user-nav__wallet">0x039e...6e37</span>
         {/* if no wallet connected */}
         {/* <Button size="small"> */}
         {/*  Connect wallet */}
@@ -105,8 +108,8 @@ export const Header: FC = () => {
       </div>
       <div ref={headerRef}>
         <header
-          className={classnames('header', {
-            'header--opened': isOpened,
+          className={classnames("header", {
+            "header--opened": isOpened,
           })}
         >
           <div className="header__logo">
@@ -121,7 +124,7 @@ export const Header: FC = () => {
               </li>
               <li className="nav__item">
                 <NavLink to="/trading" onClick={handleOpen}>
-                  Trading tools
+                  Copy trade
                 </NavLink>
               </li>
               <li className="nav__item">
@@ -156,25 +159,35 @@ export const Header: FC = () => {
             aria-label="close navigation"
           />
           <div className="header__user-nav user-nav">
-            <Button size="small">
-              Split RPC
-            </Button>
-            <Dropdown items={chains} onSelect={setSelectedChain} borderColor={selectedChain.color}>
+            <Button size="small">Split RPC</Button>
+            <Dropdown
+              items={chains}
+              onSelect={setSelectedChain}
+              borderColor={selectedChain.color}
+            >
               {selectedChain.icon}
               {selectedChain.label}
             </Dropdown>
             <div className="user-nav__balance">
-              <span className="user-nav__balance__icon" />
-              0
+              <span className="user-nav__balance__icon" />0
             </div>
             <span className="user-nav__wallet">
               0x039e...6e37
+              {user.transactionsPending > 0 && (
+                <span className="user-nav__wallet__pending-status">
+                  <LoadingSmallIcon /> {user.transactionsPending} Pending
+                </span>
+              )}
             </span>
             {/* if no wallet connected */}
             {/* <Button size="small"> */}
             {/*  Connect wallet */}
             {/* </Button> */}
-            <button className="user-nav__settings" type="button" onClick={() => setIsSettingsOpened(true)}>
+            <button
+              className="user-nav__settings"
+              type="button"
+              onClick={() => setIsSettingsOpened(true)}
+            >
               <SettingsIcon />
             </button>
           </div>
@@ -183,7 +196,7 @@ export const Header: FC = () => {
           className="header__burger"
           type="button"
           onClick={handleOpen}
-          aria-label={isOpened ? 'close navigation' : 'open navigation'}
+          aria-label={isOpened ? "close navigation" : "open navigation"}
         >
           <span />
         </button>

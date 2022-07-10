@@ -58,7 +58,6 @@ export const Orders: FC = () => {
               <td className="volume">Order type</td>
               <td className="orderFee">Price</td>
               <td className="routing">Network</td>
-              <td className="change">TP / LS</td>
               <td className="delete">Delete</td>
             </tr>
           </thead>
@@ -113,13 +112,6 @@ export const Orders: FC = () => {
                   <div>
                     <span>
                       {order.network}
-                    </span>
-                  </div>
-                </td>
-                <td className="tp-ls">
-                  <div>
-                    <span>
-                      {order.tpSl}
                     </span>
                   </div>
                 </td>

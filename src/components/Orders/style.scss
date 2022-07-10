@@ -99,19 +99,8 @@
             .volume {
                 padding-right: 40px;
             }
-            .orderFee,
-            .tp-ls {
+            .orderFee {
                 padding-right: 35px;
-            }
-            .tp-ls {
-                & span {
-                    display: block;
-
-                    padding: 2px 6px;
-
-                    background-color: index.$gray;
-                    border-radius: 8px;
-                }
             }
             .networkFee {
                 padding-right: 20px;
@@ -195,8 +184,13 @@
                     white-space: nowrap;
                 }
                 .delete > button {
-                    background-color: transparent;
+                    display: block;
+
+                    padding: 4px 14px;
+
+                    background-color: index.$gray;
                     border: none;
+                    border-radius: 8px;
                     cursor: pointer;
                 }
                 .delete > button > span {

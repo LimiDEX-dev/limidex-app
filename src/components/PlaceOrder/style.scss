@@ -596,10 +596,10 @@
 
             & > .input__container {
                 width: calc(50% - 5px);
-                margin-bottom: 24px;
+                margin-bottom: 8px;
 
                 &:not(:nth-child(2n)) {
-                    margin-right: 10px;
+                    margin-right: 8px;
                 }
 
                 & input {
@@ -611,6 +611,10 @@
         &__submit {
             display: flex;
             justify-content: flex-end;
+
+            & > button {
+                margin-top: 0;
+            }
         }
     }
 

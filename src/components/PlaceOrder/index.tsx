@@ -1,54 +1,82 @@
-import React, { FC, useEffect, useState } from 'react';
-import './style.scss';
-import classnames from 'classnames';
-import { Dropdown, DropdownItem } from '../Dropdown';
-import { valutes as mockValutes, chains as mockChains } from '../../lib/mock/valutes';
-import { Input } from '../Input';
+import React, { FC, useEffect, useState } from "react";
+import "./style.scss";
+import classnames from "classnames";
+import { Dropdown, DropdownItem } from "../Dropdown";
 import {
-  DropdownArrowIcon, HelpIcon, SearchIcon, SwapIcon,
-} from '../../lib/icons';
-import { Popup } from '../Popup';
-import { Button } from '../Button';
-import { Modal } from '../Modal';
-import { Checkbox } from '../Checkbox';
-import { ethereumAddressRegexp } from '../../lib/constants';
-import { Coin, CoinDescription } from '../CoinDescription';
+  valutes as mockValutes,
+  chains as mockChains,
+} from "../../lib/mock/valutes";
+import { Input } from "../Input";
+import {
+  DropdownArrowIcon,
+  HelpIcon,
+  SearchIcon,
+  SwapIcon,
+} from "../../lib/icons";
+import { Popup } from "../Popup";
+import { Button } from "../Button";
+import { Modal } from "../Modal";
+import { Checkbox } from "../Checkbox";
+import { ethereumAddressRegexp } from "../../lib/constants";
+import { Coin, CoinDescription } from "../CoinDescription";
+import { useNotifications, useUser } from "../../store";
 
 type PlaceOrderProps = {
   isExpertMode: boolean;
   setIsExpertMode: (value: boolean) => void;
-  activeTab: 'limit' | 'swap' | 'cross';
-  setActiveTab: (value: 'limit' | 'swap' | 'cross') => void;
-}
+  activeTab: "limit" | "swap" | "cross";
+  setActiveTab: (value: "limit" | "swap" | "cross") => void;
+};
 
 export const PlaceOrder: FC<PlaceOrderProps> = ({
-  isExpertMode, setIsExpertMode, activeTab, setActiveTab,
+  isExpertMode,
+  setIsExpertMode,
+  activeTab,
+  setActiveTab,
 }) => {
   const [activeBuyTab, setActiveBuyTab] = useState<0 | 1>(0);
-  const [selectedSellValute, setSelectedSellValute] = useState<DropdownItem>(mockValutes[0]);
-  const [selectedBuyValute, setSelectedBuyValute] = useState<DropdownItem>(mockValutes[1]);
-  const [toSell, setToSell] = useState<string>('10.00');
-  const [toBuy, setToBuy] = useState<string>('10.00');
-  const [valuteCosts, setValuteCosts] = useState<string>('520.00');
-  const [burnToken, setBurnToken] = useState<string>('100.00');
-  const [priceImpact, setPriceImpact] = useState<string>('422.77');
+  const [selectedSellValute, setSelectedSellValute] = useState<DropdownItem>(
+    mockValutes[0],
+  );
+  const [selectedBuyValute, setSelectedBuyValute] = useState<DropdownItem>(
+    mockValutes[1],
+  );
+  const [toSell, setToSell] = useState<string>("10.00");
+  const [toBuy, setToBuy] = useState<string>("10.00");
+  const [valuteCosts, setValuteCosts] = useState<string>("520.00");
+  const [burnToken, setBurnToken] = useState<string>("100.00");
+  const [priceImpact, setPriceImpact] = useState<string>("422.77");
   const [isAdvancedOpened, setIsAdvancedOpened] = useState<boolean>(false);
-  const [takeProfit, setTakeProfit] = useState<string>('0.1');
-  const [stopLoss, setStopLoss] = useState<string>('0.1');
-  const [trailingSL, setTrailingSL] = useState<string>('0.1');
-  const [isAddCustomTokenVisible, setIsAddCustomTokenVisible] = useState<boolean>(false);
-  const [customToken, setCustomToken] = useState<string>('');
+  const [takeProfit, setTakeProfit] = useState<string>("0.1");
+  const [stopLoss, setStopLoss] = useState<string>("0.1");
+  const [trailingSL, setTrailingSL] = useState<string>("0.1");
+  const [isAddCustomTokenVisible, setIsAddCustomTokenVisible] =
+    useState<boolean>(false);
+  const [customToken, setCustomToken] = useState<string>("");
   const [isAddressValid, setIsAddressValid] = useState<boolean>(true);
-  const [isUnderstandChecked, setIsUnderstandChecked] = useState<boolean>(false);
+  const [isUnderstandChecked, setIsUnderstandChecked] =
+    useState<boolean>(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [valutes, setValutes] = useState(mockValutes);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [chains, setChains] = useState(mockChains);
-  const [selectedChain, setSelectedChain] = useState<DropdownItem>(mockChains[0]);
+  const [selectedChain, setSelectedChain] = useState<DropdownItem>(
+    mockChains[0],
+  );
   const [tokenInfo, setTokenInfo] = useState<Coin | null>(null);
   const [isTokenInfoVisible, setIsTokenInfoVisible] = useState<boolean>(false);
-  const [lastViewedToken, setLastViewedToken] = useState<string>('');
+  const [lastViewedToken, setLastViewedToken] = useState<string>("");
   const [trade, setTrade] = useState<DropdownItem>(selectedSellValute);
+
+  const {
+    data: notifications,
+    actions: { createNotification },
+  } = useNotifications();
+
+  const {
+    data: { transactionsPending },
+    actions: { setTransactionsPending },
+  } = useUser();
 
   useEffect(() => {
     // THERE IS FUNCTION THAT SET VALUTES (TOKENS) IN PLACE ORDER DROPDOWN
@@ -73,7 +101,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
   const handleAddToken = () => {
     setIsAddCustomTokenVisible(false);
     setIsUnderstandChecked(false);
-    setCustomToken('');
+    setCustomToken("");
   };
 
   const handleBlurCustomToken = (value: string) => {
@@ -82,13 +110,13 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
 
       if (lastViewedToken !== value) {
         setTokenInfo({
-          title: 'DOGI Coin',
-          pot: 'example value',
-          fee: 'example value',
-          proxyContract: 'example value',
-          verifiedContract: 'example value',
-          holders: 'example value',
-          supply: 'example value',
+          title: "DOGI Coin",
+          pot: "example value",
+          fee: "example value",
+          proxyContract: "example value",
+          verifiedContract: "example value",
+          holders: "example value",
+          supply: "example value",
         });
         setIsTokenInfoVisible(true);
 
@@ -99,35 +127,64 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
     }
 
     setIsAddressValid(false);
-    setLastViewedToken('');
+    setLastViewedToken("");
   };
 
   const isSubmitDisabled = (): boolean => {
-    if (activeTab === 'limit' || activeTab === 'swap') {
-      return !toSell
-        || !toBuy
-        || !selectedSellValute
-        || !selectedBuyValute
-        || !priceImpact
-        || !burnToken
-        || (activeTab === 'limit' && !valuteCosts)
-        || !takeProfit
-        || !stopLoss
-        || !trailingSL;
+    if (activeTab === "limit" || activeTab === "swap") {
+      return (
+        !toSell ||
+        !toBuy ||
+        !selectedSellValute ||
+        !selectedBuyValute ||
+        !priceImpact ||
+        !burnToken ||
+        (activeTab === "limit" && !valuteCosts) ||
+        !takeProfit ||
+        !stopLoss ||
+        !trailingSL ||
+        transactionsPending > 0 ||
+        notifications.length > 0
+      );
     }
 
-    return !toSell
-      || !toBuy
-      || !selectedSellValute
-      || !selectedBuyValute
-      || !selectedChain
-      || !burnToken;
+    return (
+      !toSell ||
+      !toBuy ||
+      !selectedSellValute ||
+      !selectedBuyValute ||
+      !selectedChain ||
+      !burnToken ||
+      transactionsPending > 0 ||
+      notifications.length > 0
+    );
   };
 
   const handleSubmit = () => {
-    // PLACE ORDER SUBMIT FUNCTION
-    // eslint-disable-next-line no-alert
-    alert('PlaceOrder submit alert');
+    setTransactionsPending(1);
+
+    const timeoutId = setTimeout(() => {
+      setTransactionsPending(0);
+
+      const status = Math.random() > 0.5 ? "success" : "error";
+
+      createNotification({
+        status,
+        title: status === "success" ? "Success" : "Failed",
+        content: (
+          <>
+            <span>Approve BUSD</span>
+            <br />
+            <br />
+            <a href="https://bscscan.com/" target="_blank" rel="noreferrer">
+              View on BscScan{" "}
+            </a>
+          </>
+        ),
+      });
+
+      clearTimeout(timeoutId);
+    }, 2000);
   };
 
   return (
@@ -158,12 +215,16 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
             Trade at your own risk
           </span>
           <span className="PlaceOrder__modal-text__description">
-            Curabitur rhoncus facilisis lacus, sit amet luctus tortor consectetur a.
-            Nullam vitae dapibus leo, ac elementum elit. Donec congue turpis id orci vulputate,
-            sit amet faucibus velit pellentesque.
+            Curabitur rhoncus facilisis lacus, sit amet luctus tortor
+            consectetur a. Nullam vitae dapibus leo, ac elementum elit. Donec
+            congue turpis id orci vulputate, sit amet faucibus velit
+            pellentesque.
           </span>
         </div>
-        <Checkbox checked={isUnderstandChecked} onChange={setIsUnderstandChecked}>
+        <Checkbox
+          checked={isUnderstandChecked}
+          onChange={setIsUnderstandChecked}
+        >
           I understand
         </Checkbox>
         <Button
@@ -173,32 +234,36 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
           Add token
         </Button>
       </Modal>
-      {activeTab === 'swap' && (
-      <div className="title__wrapper">
-        <Checkbox checked={isExpertMode} onChange={setIsExpertMode} type="switch">
-          Expert Mode
-        </Checkbox>
-      </div>
+      {activeTab === "swap" && (
+        <div className="title__wrapper">
+          <Checkbox
+            checked={isExpertMode}
+            onChange={setIsExpertMode}
+            type="switch"
+          >
+            Expert Mode
+          </Checkbox>
+        </div>
       )}
       <div className="tab-switch">
         <button
           type="button"
-          className={activeTab === 'swap' ? 'active' : ''}
-          onClick={() => setActiveTab('swap')}
+          className={activeTab === "swap" ? "active" : ""}
+          onClick={() => setActiveTab("swap")}
         >
           Swap
         </button>
         <button
           type="button"
-          className={activeTab === 'limit' ? 'active' : ''}
-          onClick={() => setActiveTab('limit')}
+          className={activeTab === "limit" ? "active" : ""}
+          onClick={() => setActiveTab("limit")}
         >
           Limit
         </button>
         <button
           type="button"
-          className={activeTab === 'cross' ? 'active' : ''}
-          onClick={() => setActiveTab('cross')}
+          className={activeTab === "cross" ? "active" : ""}
+          onClick={() => setActiveTab("cross")}
         >
           Cross-chain
         </button>
@@ -207,19 +272,19 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
       <div className="PlaceOrder__content">
         <div className="valute-swap">
           <div className="valute-converter__label__wrapper">
-            {activeTab === 'limit' && (
+            {activeTab === "limit" && (
               <div className="valute-toggle-container">
                 <div className="valute-toggle">
                   <button
                     type="button"
-                    className={activeBuyTab === 0 ? 'active' : ''}
+                    className={activeBuyTab === 0 ? "active" : ""}
                     onClick={() => setActiveBuyTab(0)}
                   >
                     Buy
                   </button>
                   <button
                     type="button"
-                    className={activeBuyTab === 1 ? 'active' : ''}
+                    className={activeBuyTab === 1 ? "active" : ""}
                     onClick={() => setActiveBuyTab(1)}
                   >
                     Sell
@@ -230,7 +295,9 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
           </div>
           <div className="valute-converter">
             <div className="valute-converter__header">
-              <span className="valute-converter__header__item valute-converter__header__item--title">You Pay</span>
+              <span className="valute-converter__header__item valute-converter__header__item--title">
+                You Pay
+              </span>
               <span className="valute-converter__header__item">
                 Balance: 12
               </span>
@@ -262,11 +329,12 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
               </div>
             </div>
           </div>
-          <div className={classnames('swap__wrapper', {
-            'swap__wrapper--no-inputs': activeTab === 'swap',
-          })}
+          <div
+            className={classnames("swap__wrapper", {
+              "swap__wrapper--no-inputs": activeTab === "swap",
+            })}
           >
-            {activeTab === 'limit' && (
+            {activeTab === "limit" && (
               <Input
                 value={priceImpact}
                 onChange={setPriceImpact}
@@ -275,11 +343,9 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
               />
             )}
 
-            {activeTab === 'cross' && (
+            {activeTab === "cross" && (
               <div className="chain">
-                <span className="chain__title">
-                  Destination Chain:
-                </span>
+                <span className="chain__title">Destination Chain:</span>
                 <Dropdown
                   items={chains}
                   onSelect={setSelectedChain}
@@ -290,17 +356,25 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                 </Dropdown>
               </div>
             )}
-            <button type="button" className="swap-icon" onClick={handleSwapValutes} aria-label="swap currencies">
+            <button
+              type="button"
+              className="swap-icon"
+              onClick={handleSwapValutes}
+              aria-label="swap currencies"
+            >
               <SwapIcon />
             </button>
-            {(activeTab === 'limit' || activeTab === 'cross') && (
+            {(activeTab === "limit" || activeTab === "cross") && (
               <Input
                 value={burnToken}
                 onChange={setBurnToken}
                 type="number"
                 max={100}
-                topLabel={(
-                  <Popup content="Increase arbitrage rewards by up to 10% when you burn 100 SPLX tokens" width={100}>
+                topLabel={
+                  <Popup
+                    content="Increase arbitrage rewards by up to 10% when you burn 100 SPLX tokens"
+                    width={100}
+                  >
                     <span className="input__flex-label">
                       Burn SPLX
                       <div>
@@ -308,14 +382,16 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                       </div>
                     </span>
                   </Popup>
-                  )}
+                }
                 currency="LMX"
               />
             )}
           </div>
           <div className="valute-converter">
             <div className="valute-converter__header">
-              <span className="valute-converter__header__item valute-converter__header__item--title">You Recieve</span>
+              <span className="valute-converter__header__item valute-converter__header__item--title">
+                You Recieve
+              </span>
               <span className="valute-converter__header__item">
                 Balance: 12
               </span>
@@ -349,12 +425,10 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
           </div>
         </div>
 
-        {activeTab === 'swap' && (
+        {activeTab === "swap" && (
           <div className="burn-lmx">
             <div className="info">
-              Price slippage:
-              {' '}
-              <span>0.03%</span>
+              Price slippage: <span>0.03%</span>
             </div>
             <div className="input__container--custom">
               <Input
@@ -362,8 +436,11 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                 onChange={setBurnToken}
                 type="number"
                 max={100}
-                topLabel={(
-                  <Popup content="Increase arbitrage rewards by up to 10% when you burn 100 SPLX tokens" width={100}>
+                topLabel={
+                  <Popup
+                    content="Increase arbitrage rewards by up to 10% when you burn 100 SPLX tokens"
+                    width={100}
+                  >
                     <span className="input__flex-label">
                       Burn SPLX
                       <div>
@@ -371,19 +448,19 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                       </div>
                     </span>
                   </Popup>
-                  )}
+                }
                 currency="LMX"
               />
             </div>
           </div>
         )}
 
-        {activeTab !== 'cross' && (
+        {activeTab !== "cross" && (
           <>
             <button
               type="button"
-              className={classnames('more', {
-                'more--opened': isAdvancedOpened,
+              className={classnames("more", {
+                "more--opened": isAdvancedOpened,
               })}
               onClick={() => setIsAdvancedOpened((prevState) => !prevState)}
             >
@@ -397,41 +474,38 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                   <Input
                     value={takeProfit}
                     onChange={setTakeProfit}
-                    label={(
+                    label={
                       <Popup content="Lorem ipsum dolor sit amet" width={100}>
-                        <span className="input__flex-label">
-                          Take profit
-                        </span>
+                        <span className="input__flex-label">Take profit</span>
                       </Popup>
-                    )}
+                    }
                   />
                   <Input
                     value={stopLoss}
                     onChange={setStopLoss}
-                    label={(
+                    label={
                       <Popup content="Lorem ipsum dolor sit amet" width={100}>
-                        <span className="input__flex-label">
-                          Stop loss
-                        </span>
+                        <span className="input__flex-label">Stop loss</span>
                       </Popup>
-                    )}
+                    }
                   />
                   <Input
                     value={trailingSL}
                     onChange={setTrailingSL}
-                    label={(
+                    label={
                       <Popup content="Lorem ipsum dolor sit amet" width={100}>
-                        <span className="input__flex-label">
-                          Trailing SL
-                        </span>
+                        <span className="input__flex-label">Trailing SL</span>
                       </Popup>
-                    )}
+                    }
                     currency="%"
                   />
                 </div>
                 <div className="advanced-fields__submit">
-                  <Button size="small" onClick={() => setIsAdvancedOpened(false)}>
-                    Ok
+                  <Button
+                    size="small"
+                    onClick={() => setIsAdvancedOpened(false)}
+                  >
+                    OK
                   </Button>
                 </div>
               </div>
@@ -440,17 +514,29 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
             <div className="routes-container">
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label>
-                <input type="radio" name="routing" className="radio-input visually-hidden" defaultChecked />
+                <input
+                  type="radio"
+                  name="routing"
+                  className="radio-input visually-hidden"
+                  defaultChecked
+                />
                 <div className="radio active" />
                 <div className="radio-label">Self route</div>
-                <div className="radio-title">Your order will be executed at the best opportunity at the time of the trade</div>
+                <div className="radio-title">
+                  Your order will be executed at the best opportunity at the
+                  time of the trade
+                </div>
               </label>
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label>
-                <input type="radio" name="routing" className="radio-input visually-hidden" />
+                <input
+                  type="radio"
+                  name="routing"
+                  className="radio-input visually-hidden"
+                />
                 <div className="radio" />
                 <div className="radio-label">Pancakeswap</div>
-                <div className="radio-title">Slippage  0.5%  </div>
+                <div className="radio-title">Slippage 0.5% </div>
               </label>
             </div>
           </>
@@ -469,9 +555,13 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
             items={[selectedBuyValute, selectedSellValute]}
             onSelect={(item) => setTrade(item)}
           >
-            <span style={{
-              width: 25, height: 25, background: 'rgba(255, 249, 249, 0.5)', borderRadius: '100%',
-            }}
+            <span
+              style={{
+                width: 25,
+                height: 25,
+                background: "rgba(255, 249, 249, 0.5)",
+                borderRadius: "100%",
+              }}
             />
             <span className="dropdown__trigger__label">
               <span>{trade.label}</span>
@@ -481,20 +571,14 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
           </Dropdown>
         </div>
 
-        {activeTab === 'limit' && (
+        {activeTab === "limit" && (
           <div className="info">
-            You will buy:
-            {' '}
-            <span>10 WBNB for 4270 USDT</span>
+            You will buy: <span>10 WBNB for 4270 USDT</span>
             <br />
-            Target price:
-            {' '}
-            <span>0.001 WBNB  for 1 USDT</span>
+            Target price: <span>0.001 WBNB for 1 USDT</span>
             <br />
             <br />
-            Price slippage:
-            {' '}
-            <span>0.03%</span>
+            Price slippage: <span>0.03%</span>
           </div>
         )}
 

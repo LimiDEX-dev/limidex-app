@@ -337,6 +337,8 @@
     }
 
     &__wallet {
+      position: relative;
+
       margin-right: 8px;
       padding: 6px 8px;
 
@@ -353,6 +355,22 @@
 
       @media (max-width: 1199px) {
         display: none;
+      }
+
+      &__pending-status {
+        display: flex;
+        align-items: center;
+
+        position: absolute;
+        top: 32px;
+        right: 0;
+        left: 0;
+
+        height: 24px;
+
+        background: $accent;
+        border: 1px solid $gray;
+        border-radius: 100px;
       }
     }
 

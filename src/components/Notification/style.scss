@@ -1,0 +1,90 @@
+@use "/src/styles/index";
+
+@keyframes notification-in {
+  0% {
+    right: -260px;
+  }
+
+  100% {
+    right: 66px;
+  }
+}
+
+@keyframes notification-out {
+  0% {
+    right: 66px;
+  }
+
+  100% {
+    right: -260px;
+  }
+}
+
+.notification {
+  display: flex;
+
+  position: fixed;
+  top: 110px;
+  right: 66px;
+
+  padding: 12px 120px 26px 14px;
+
+  background-color: index.$section;
+  backdrop-filter: blur(40px);
+  border-radius: 8px;
+
+  animation: notification-in 0.2s ease-in-out;
+
+  &--closed {
+    animation: notification-out 0.2s ease-in-out;
+  }
+
+  &__wrapper {
+    &:first-child {
+      margin-right: 8px;
+    }
+  }
+
+  &__title {
+    display: block;
+
+    margin-top: 6px;
+    margin-bottom: 18px;
+
+    color: index.$lightGreen;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 18px;
+  }
+
+  &--error {
+    & .notification__title {
+      color: index.$red;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    & > svg > path {
+      fill-opacity: 1;
+    }
+  }
+
+  &__content {
+    font-size: 13px;
+    line-height: 15px;
+
+    & a {
+      color: inherit;
+      font-weight: 700;
+      text-decoration: none;
+    }
+  }
+}

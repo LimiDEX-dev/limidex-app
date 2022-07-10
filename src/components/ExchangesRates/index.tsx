@@ -166,6 +166,20 @@ const mockData = {
       max: '0.0009',
       progress: 75,
     },
+    {
+      price: '48 099',
+      amount: '1 099.0990',
+      min: '0.0001',
+      max: '0.0009',
+      progress: 75,
+    },
+    {
+      price: '48 099',
+      amount: '1 099.0990',
+      min: '0.0001',
+      max: '0.0009',
+      progress: 75,
+    },
   ],
   greenRates: [
     {
