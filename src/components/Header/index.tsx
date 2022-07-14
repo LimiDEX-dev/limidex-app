@@ -17,6 +17,7 @@ import { Modal } from "../Modal";
 import { Input } from "../Input";
 import { Button } from "../Button";
 import { useUser } from "../../store";
+import { useIsOpened } from "src/store/ui";
 
 const SocialList = () => (
   <ul className="header__social__list">
@@ -44,7 +45,7 @@ const SocialList = () => (
 );
 
 export const Header: FC = () => {
-  const [isOpened, setIsOpened] = useState<boolean>(false);
+  // const [isOpened, setIsOpened] = useState<boolean>(false);
   const [chains, setChains] = useState(mockChains);
   const [selectedChain, setSelectedChain] = useState(mockChains[0]);
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
@@ -54,16 +55,22 @@ export const Header: FC = () => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { data: user } = useUser();
+  const { data: isOpened } = useIsOpened();
+  const {
+    data: { transactionsPending },
+    actions: { setTransactionsPending },
+  } = useIsOpened();
+
 
   const handleOpen = () => {
-    setIsOpened((prevState) => !prevState);
+    setTransactionsPending((prevState) => !prevState);
   };
 
   useOutsideAlerter(headerRef, (event) => {
     const target = event.target as Element;
 
     if (!modalRef.current.contains(target)) {
-      setIsOpened(false);
+      setTransactionsPending(false)
     }
   });
 
