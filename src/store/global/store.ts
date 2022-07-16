@@ -5,4 +5,7 @@ export const initialStore: StoreObject = {
   user: {
     transactionsPending: 0,
   },
+  ui: {
+    isOpened: false,
+  },
 };

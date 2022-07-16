@@ -16,5 +16,9 @@ export const useUser = selector(({ data: { user }, actions }) => ({
   data: user,
   actions: (actions as ActionsObject).user,
 }));
+export const useUi = selector(({ data: { ui }, actions }) => ({
+  data: ui,
+  actions: (actions as ActionsObject).ui,
+}));
 
 export const GlobalStore = Store;

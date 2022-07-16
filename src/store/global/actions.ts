@@ -35,4 +35,14 @@ export const provideActions = (
       }));
     },
   },
+  ui: {
+    setIsOpened: (payload) =>
+      setStore((store) => ({
+        ...store,
+        ui: {
+          ...store.ui,
+          isOpened: payload,
+        },
+      })),
+  },
 });

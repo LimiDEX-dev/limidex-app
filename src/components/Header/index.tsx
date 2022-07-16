@@ -16,8 +16,7 @@ import { Dropdown } from "../Dropdown";
 import { Modal } from "../Modal";
 import { Input } from "../Input";
 import { Button } from "../Button";
-import { useUser } from "../../store";
-import { useIsOpened } from "src/store/ui";
+import { useUi, useUser } from "../../store";
 
 const SocialList = () => (
   <ul className="header__social__list">
@@ -55,22 +54,20 @@ export const Header: FC = () => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { data: user } = useUser();
-  const { data: isOpened } = useIsOpened();
   const {
-    data: { transactionsPending },
-    actions: { setTransactionsPending },
-  } = useIsOpened();
-
+    data: { isOpened },
+    actions: { setIsOpened },
+  } = useUi();
 
   const handleOpen = () => {
-    setTransactionsPending((prevState) => !prevState);
+    setIsOpened(!isOpened);
   };
 
   useOutsideAlerter(headerRef, (event) => {
     const target = event.target as Element;
 
     if (!modalRef.current.contains(target)) {
-      setTransactionsPending(false)
+      setIsOpened(false);
     }
   });
 
