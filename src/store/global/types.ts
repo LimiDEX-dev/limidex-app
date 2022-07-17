@@ -39,12 +39,21 @@ export interface SlippageToleranceActions {
   setSlippageTolerance: (count: string) => void;
 }
 
+export interface IsOpenedStore {
+  isOpened: boolean;
+}
+
+export interface IsOpenedActions {
+  setIsOpened: (isOpened: boolean) => void;
+}
+
 export interface ActionsObject {
   notifications: NotificationActions;
   user: UserActions;
   selectedChain: SelectedChainActions;
   isSettingsOpened: IsSettingsOpenedActions;
   slippageTolerance: SlippageToleranceActions;
+  isOpened: IsOpenedActions;
 }
 
 export interface StoreObject {
@@ -54,4 +63,5 @@ export interface StoreObject {
   selectedChain: SelectedChainStore;
   isSettingsOpened: IsSettingsOpenedStore;
   slippageTolerance: SlippageToleranceStore;
+  isOpened: IsOpenedStore;
 }

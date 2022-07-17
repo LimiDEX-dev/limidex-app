@@ -15,8 +15,7 @@ import { Dropdown } from "../Dropdown";
 import { Modal } from "../Modal";
 import { Input } from "../Input";
 import { Button } from "../Button";
-import { useUser, useChains, useSelectedChain, useIsSettingsOpened, useSlippageTolerance } from "../../store";
-import { useIsOpened } from "../../store/ui";
+import { useUser, useChains, useSelectedChain, useIsSettingsOpened, useSlippageTolerance, useIsOpened } from "../../store";
 
 const SocialList = () => (
   <ul className="header__social__list">
@@ -55,14 +54,13 @@ export const Header: FC = () => {
 
   const { data: user } = useUser();
   const { data: chains } = useChains();
-  const { data: isOpened } = useIsOpened();
   const {
     data: selectedChain,
     actions: { setSelectedChain },
   } = useSelectedChain();
   const {
-    data: { transactionsPending },
-    actions: { setTransactionsPending },
+    data: { isOpened },
+    actions: { setIsOpened },
   } = useIsOpened();
   const {
     data: { isSettingsOpened },
@@ -75,14 +73,14 @@ export const Header: FC = () => {
 
 
   const handleOpen = () => {
-    setTransactionsPending(transactionsPending);
+    setIsOpened(isOpened);
   };
 
   useOutsideAlerter(headerRef, (event) => {
     const target = event.target as Element;
 
     if (!modalRef.current.contains(target)) {
-      setTransactionsPending(false)
+      setIsOpened(false)
     }
   });
 

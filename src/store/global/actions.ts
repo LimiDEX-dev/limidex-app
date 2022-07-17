@@ -68,4 +68,15 @@ export const provideActions = (
       }));
     },
   },
+  isOpened: {
+    setIsOpened: (payload) => {
+      setStore((store) => ({
+        ...store,
+        isOpened: {
+          ...store.isOpened,
+          transactionsPending: !payload,
+        },
+      }));
+    },
+  },
 });

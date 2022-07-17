@@ -34,5 +34,9 @@ export const useSlippageTolerance = selector(({ data: { slippageTolerance }, act
   actions: (actions as ActionsObject).slippageTolerance,
   
 }));
+export const useIsOpened = selector(({ data: { isOpened }, actions }) => ({
+  data: isOpened,
+  actions: (actions as ActionsObject).isOpened,
+}));
 
 export const GlobalStore = Store;

@@ -10,4 +10,7 @@ export const initialStore: StoreObject = {
   selectedChain: mockChains[0],
   isSettingsOpened: {isSettingsOpened: false},
   slippageTolerance: {slippageTolerance: "0.5"},
+  isOpened: {
+    isOpened: false,
+  },
 };
