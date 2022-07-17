@@ -10,7 +10,7 @@ export const provideActions = (
           ...store,
           isOpened: {
             ...store.isOpened,
-            transactionsPending: payload,
+            transactionsPending: !payload,
           },
         }));
       },

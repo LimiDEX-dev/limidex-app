@@ -11,13 +11,12 @@ import {
   TwitterIcon,
 } from "../../lib/icons/social";
 import { useOutsideAlerter } from "../../lib/hooks";
-import { chains as mockChains } from "../../lib/mock/valutes";
 import { Dropdown } from "../Dropdown";
 import { Modal } from "../Modal";
 import { Input } from "../Input";
 import { Button } from "../Button";
-import { useUser } from "../../store";
-import { useIsOpened } from "src/store/ui";
+import { useUser, useChains, useSelectedChain, useIsSettingsOpened, useSlippageTolerance } from "../../store";
+import { useIsOpened } from "../../store/ui";
 
 const SocialList = () => (
   <ul className="header__social__list">
@@ -46,24 +45,37 @@ const SocialList = () => (
 
 export const Header: FC = () => {
   // const [isOpened, setIsOpened] = useState<boolean>(false);
-  const [chains, setChains] = useState(mockChains);
-  const [selectedChain, setSelectedChain] = useState(mockChains[0]);
-  const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
-  const [slippageTolerance, setSlippageTolerance] = useState<string>("0.5");
+  // const [chains, setChains] = useState(mockChains);
+  // const [selectedChain, setSelectedChain] = useState(mockChains[0]);
+  // const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
+  // const [slippageTolerance, setSlippageTolerance] = useState<string>("0.5");
 
   const headerRef = useRef(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { data: user } = useUser();
+  const { data: chains } = useChains();
   const { data: isOpened } = useIsOpened();
+  const {
+    data: selectedChain,
+    actions: { setSelectedChain },
+  } = useSelectedChain();
   const {
     data: { transactionsPending },
     actions: { setTransactionsPending },
   } = useIsOpened();
+  const {
+    data: { isSettingsOpened },
+    actions: { setIsSettingsOpened },
+  } = useIsSettingsOpened();
+  const {
+    data: { slippageTolerance },
+    actions: { setSlippageTolerance },
+  } = useSlippageTolerance();
 
 
   const handleOpen = () => {
-    setTransactionsPending((prevState) => !prevState);
+    setTransactionsPending(transactionsPending);
   };
 
   useOutsideAlerter(headerRef, (event) => {

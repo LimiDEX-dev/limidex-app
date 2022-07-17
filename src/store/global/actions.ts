@@ -35,4 +35,37 @@ export const provideActions = (
       }));
     },
   },
+  selectedChain: {
+    setSelectedChain: (payload) => {
+      setStore((store) => ({
+        ...store,
+        selectedChain: {
+          ...store.selectedChain,
+          transactionsPending: payload,
+        },
+      }));
+    },
+  },
+  isSettingsOpened: {
+    setIsSettingsOpened: (payload) => {
+      setStore((store) => ({
+        ...store,
+        isSettingsOpened: {
+          ...store.isSettingsOpened,
+          isSettingsOpened: payload,
+        },
+      }));
+    },
+  },
+  slippageTolerance: {
+    setSlippageTolerance: (payload) => {
+      setStore((store) => ({
+        ...store,
+        slippageTolerance: {
+          ...store.slippageTolerance,
+          slippageTolerance: payload,
+        },
+      }));
+    },
+  },
 });
