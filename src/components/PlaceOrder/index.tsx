@@ -19,7 +19,7 @@ import { Modal } from "../Modal";
 import { Checkbox } from "../Checkbox";
 import { ethereumAddressRegexp } from "../../lib/constants";
 import { Coin, CoinDescription } from "../CoinDescription";
-import { useNotifications, useUser } from "../../store";
+import { useNotifications, usePlaceOrder, useUser } from "../../store";
 
 type PlaceOrderProps = {
   isExpertMode: boolean;
@@ -34,39 +34,56 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
   activeTab,
   setActiveTab,
 }) => {
+  const {
+    data: {
+      valutes: {
+        sell: { valute: sellValute, value: sellValue },
+        buy: { valute: buyValute, value: buyValue },
+      },
+      advanced: { takeProfit, stopLoss, trailingSL },
+      customToken: {
+        visible: isCustomTokenVisible,
+        value: customTokenValue,
+        invalid: isCustomTokenInvalid,
+        checkbox: isUnderstandChecked,
+      },
+      burnToken,
+      priceImpact,
+      selectedChain,
+      tokenInfo,
+      isTokenInfoVisible,
+      lastViewedToken,
+    },
+    actions: {
+      setSellValute,
+      setSellValue,
+      setBuyValute,
+      setBuyValue,
+      setBurnToken,
+      setPriceImpact,
+      setTakeProfit,
+      setStopLoss,
+      setTrailingSL,
+      setIsCustomTokenVisible,
+      setCustomTokenValue,
+      setIsCustomTokenInvalid,
+      setIsUnderstandChecked,
+      setSelectedChain,
+      setTokenInfo,
+      setIsTokenInfoVisible,
+      setLastViewedToken,
+      handleSwapValutes,
+      handleAddToken,
+    },
+  } = usePlaceOrder();
+
   const [activeBuyTab, setActiveBuyTab] = useState<0 | 1>(0);
-  const [selectedSellValute, setSelectedSellValute] = useState<DropdownItem>(
-    mockValutes[0],
-  );
-  const [selectedBuyValute, setSelectedBuyValute] = useState<DropdownItem>(
-    mockValutes[1],
-  );
-  const [toSell, setToSell] = useState<string>("10.00");
-  const [toBuy, setToBuy] = useState<string>("10.00");
-  const [valuteCosts, setValuteCosts] = useState<string>("520.00");
-  const [burnToken, setBurnToken] = useState<string>("100.00");
-  const [priceImpact, setPriceImpact] = useState<string>("422.77");
   const [isAdvancedOpened, setIsAdvancedOpened] = useState<boolean>(false);
-  const [takeProfit, setTakeProfit] = useState<string>("0.1");
-  const [stopLoss, setStopLoss] = useState<string>("0.1");
-  const [trailingSL, setTrailingSL] = useState<string>("0.1");
-  const [isAddCustomTokenVisible, setIsAddCustomTokenVisible] =
-    useState<boolean>(false);
-  const [customToken, setCustomToken] = useState<string>("");
-  const [isAddressValid, setIsAddressValid] = useState<boolean>(true);
-  const [isUnderstandChecked, setIsUnderstandChecked] =
-    useState<boolean>(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [valutes, setValutes] = useState(mockValutes);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [chains, setChains] = useState(mockChains);
-  const [selectedChain, setSelectedChain] = useState<DropdownItem>(
-    mockChains[0],
-  );
-  const [tokenInfo, setTokenInfo] = useState<Coin | null>(null);
-  const [isTokenInfoVisible, setIsTokenInfoVisible] = useState<boolean>(false);
-  const [lastViewedToken, setLastViewedToken] = useState<string>("");
-  const [trade, setTrade] = useState<DropdownItem>(selectedSellValute);
+  const [trade, setTrade] = useState<DropdownItem>(sellValute);
 
   const {
     data: notifications,
@@ -83,30 +100,9 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
     // setValutes(someData);
   }, []);
 
-  const onSelectSellValute = (valute: DropdownItem) => {
-    setSelectedSellValute(valute);
-  };
-
-  const onSelectBuyValute = (valute: DropdownItem) => {
-    setSelectedBuyValute(valute);
-  };
-
-  const handleSwapValutes = () => {
-    setSelectedSellValute(selectedBuyValute);
-    setSelectedBuyValute(selectedSellValute);
-    setToSell(toBuy);
-    setToBuy(toSell);
-  };
-
-  const handleAddToken = () => {
-    setIsAddCustomTokenVisible(false);
-    setIsUnderstandChecked(false);
-    setCustomToken("");
-  };
-
   const handleBlurCustomToken = (value: string) => {
     if (ethereumAddressRegexp.test(value)) {
-      setIsAddressValid(true);
+      setIsCustomTokenInvalid(false);
 
       if (lastViewedToken !== value) {
         setTokenInfo({
@@ -126,20 +122,19 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
       return;
     }
 
-    setIsAddressValid(false);
+    setIsCustomTokenInvalid(true);
     setLastViewedToken("");
   };
 
   const isSubmitDisabled = (): boolean => {
     if (activeTab === "limit" || activeTab === "swap") {
       return (
-        !toSell ||
-        !toBuy ||
-        !selectedSellValute ||
-        !selectedBuyValute ||
+        !sellValue ||
+        !buyValue ||
+        !sellValute ||
+        !buyValute ||
         !priceImpact ||
         !burnToken ||
-        (activeTab === "limit" && !valuteCosts) ||
         !takeProfit ||
         !stopLoss ||
         !trailingSL ||
@@ -149,10 +144,10 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
     }
 
     return (
-      !toSell ||
-      !toBuy ||
-      !selectedSellValute ||
-      !selectedBuyValute ||
+      !sellValue ||
+      !buyValue ||
+      !sellValute ||
+      !buyValute ||
       !selectedChain ||
       !burnToken ||
       transactionsPending > 0 ||
@@ -190,8 +185,8 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
   return (
     <div className="PlaceOrder">
       <Modal
-        isVisible={isAddCustomTokenVisible}
-        handleClose={() => setIsAddCustomTokenVisible(false)}
+        isVisible={isCustomTokenVisible}
+        handleClose={() => setIsCustomTokenVisible(false)}
         title="Add custom token"
       >
         <CoinDescription
@@ -200,12 +195,12 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
           isVisible={isTokenInfoVisible}
         />
         <Input
-          value={customToken}
-          onChange={setCustomToken}
+          value={customTokenValue}
+          onChange={setCustomTokenValue}
           onBlur={handleBlurCustomToken}
           icon={<SearchIcon />}
         />
-        {!isAddressValid && (
+        {isCustomTokenInvalid && (
           <span className="PlaceOrder__modal__error">
             Invalid token address
           </span>
@@ -228,7 +223,9 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
           I understand
         </Checkbox>
         <Button
-          disabled={!isUnderstandChecked || !customToken || !isAddressValid}
+          disabled={
+            !isUnderstandChecked || !customTokenValue || isCustomTokenInvalid
+          }
           onClick={handleAddToken}
         >
           Add token
@@ -305,15 +302,15 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
             <div className="valute-converter__content">
               <Dropdown
                 items={valutes}
-                onSelect={onSelectSellValute}
+                onSelect={setSellValute}
                 isAddCustomVisible
                 notRightBorderRadius
                 width={110}
-                handleAddCustom={() => setIsAddCustomTokenVisible(true)}
+                handleAddCustom={() => setIsCustomTokenVisible(true)}
               >
-                {selectedSellValute.icon}
+                {sellValute.icon}
                 <span className="dropdown__trigger__label">
-                  {selectedSellValute.label}
+                  {sellValute.label}
                   <br />
                   <span>Wrapped BNB</span>
                 </span>
@@ -323,8 +320,8 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                 <input
                   type="text"
                   className="custom-input"
-                  value={toSell}
-                  onChange={({ target }) => setToSell(target.value)}
+                  value={sellValue}
+                  onChange={({ target }) => setSellValue(target.value)}
                 />
               </div>
             </div>
@@ -399,15 +396,15 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
             <div className="valute-converter__content">
               <Dropdown
                 items={valutes}
-                onSelect={onSelectBuyValute}
+                onSelect={setBuyValute}
                 isAddCustomVisible
                 notRightBorderRadius
                 width={110}
-                handleAddCustom={() => setIsAddCustomTokenVisible(true)}
+                handleAddCustom={() => setIsCustomTokenVisible(true)}
               >
-                {selectedBuyValute.icon}
+                {buyValute.icon}
                 <span className="dropdown__trigger__label">
-                  {selectedBuyValute.label}
+                  {buyValute.label}
                   <br />
                   <span>Wrapped BNB</span>
                 </span>
@@ -417,8 +414,8 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                 <input
                   type="text"
                   className="custom-input"
-                  value={toBuy}
-                  onChange={({ target }) => setToBuy(target.value)}
+                  value={buyValue}
+                  onChange={({ target }) => setBuyValue(target.value)}
                 />
               </div>
             </div>
@@ -552,7 +549,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
             </span>
           </Popup>
           <Dropdown
-            items={[selectedBuyValute, selectedSellValute]}
+            items={[buyValute, sellValute]}
             onSelect={(item) => setTrade(item)}
           >
             <span

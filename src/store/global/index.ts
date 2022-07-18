@@ -16,5 +16,9 @@ export const useUser = selector(({ data: { user }, actions }) => ({
   data: user,
   actions: (actions as ActionsObject).user,
 }));
+export const usePlaceOrder = selector(({ data: { placeOrder }, actions }) => ({
+  data: placeOrder,
+  actions: (actions as ActionsObject).placeOrder,
+}));
 
 export const GlobalStore = Store;

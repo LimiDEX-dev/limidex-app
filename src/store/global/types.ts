@@ -1,4 +1,5 @@
 import { Notification } from "../../types/notification";
+import { PlaceOrderActions, PlaceOrderObject } from "./placeOrder";
 
 export type NotificationStore = Notification[];
 
@@ -18,9 +19,11 @@ export interface UserActions {
 export interface ActionsObject {
   notifications: NotificationActions;
   user: UserActions;
+  placeOrder: PlaceOrderActions;
 }
 
 export interface StoreObject {
   notifications: NotificationStore;
   user: UserStore;
+  placeOrder: PlaceOrderObject;
 }

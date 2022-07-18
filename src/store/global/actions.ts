@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { ActionsObject, StoreObject } from "./types";
+import { providePlaceOrderActions } from "./placeOrder";
 
 export const provideActions = (
   setStore: Dispatch<SetStateAction<StoreObject>>,
@@ -35,4 +36,5 @@ export const provideActions = (
       }));
     },
   },
+  placeOrder: { ...providePlaceOrderActions(setStore) },
 });
