@@ -79,4 +79,50 @@ export const provideActions = (
       }));
     },
   },
+
+  // ExchangesRates
+  currentPrice: {
+    setCurrentPrice: (payload) => {
+      setStore((store) => ({
+        ...store,
+        currentPrice: {
+          ...store.currentPrice,
+          currentPrice: payload,
+        },
+      }));
+    },
+  },
+  redDates: {
+    setRedDates: (payload) => {
+      setStore((store) => ({
+        ...store,
+        redDates: {
+          ...store.redDates,
+          redDates: payload,
+        },
+      }));
+    },
+  },
+  greenDates: {
+    setGreenDates: (payload) => {
+      setStore((store) => ({
+        ...store,
+        greenDates: {
+          ...store.greenDates,
+          greenDates: payload,
+        },
+      }));
+    },    
+  },
+  selectedStep: {
+    setSelectedStep: (payload) => {
+      setStore((store) => ({
+        ...store,
+        selectedStep: {
+          ...store.selectedStep,
+          selectedStep: payload,
+        },
+      }));
+    },      
+  }
 });

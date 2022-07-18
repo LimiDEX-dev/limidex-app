@@ -39,4 +39,22 @@ export const useIsOpened = selector(({ data: { isOpened }, actions }) => ({
   actions: (actions as ActionsObject).isOpened,
 }));
 
+// ExchangesRates
+export const useCurrentPrice = selector(({ data: { currentPrice }, actions }) => ({
+  data: currentPrice,
+  actions: (actions as ActionsObject).currentPrice,
+}));
+export const useRedDates = selector(({ data: { redDates }, actions }) => ({
+  data: redDates,
+  actions: (actions as ActionsObject).redDates,
+}));
+export const useGreenDates = selector(({ data: { greenDates }, actions }) => ({
+  data: greenDates,
+  actions: (actions as ActionsObject).greenDates,
+}));
+export const useSelectedStep = selector(({ data: { selectedStep }, actions }) => ({
+  data: selectedStep,
+  actions: (actions as ActionsObject).selectedStep,
+}));
+
 export const GlobalStore = Store;

@@ -1,5 +1,7 @@
 import { StoreObject } from "./types";
 import { chains as mockChains } from "../../lib/mock/valutes";
+import { mockData } from "../../lib/mock/rates";
+import { stepOptions } from "../../lib/mock/stepoptions";
 
 export const initialStore: StoreObject = {
   notifications: [],
@@ -13,4 +15,8 @@ export const initialStore: StoreObject = {
   isOpened: {
     isOpened: false,
   },
+  currentPrice: mockData.currentPrice,
+  redDates: mockData.redRates,
+  greenDates: mockData.greenRates,
+  selectedStep: stepOptions[0],
 };

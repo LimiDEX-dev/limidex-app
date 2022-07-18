@@ -5,4 +5,4 @@ export interface SelectedChain {
     label: string,
     icon?: ReactNode,
     color?: string,
-  }
+}

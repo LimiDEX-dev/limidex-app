@@ -1,10 +1,16 @@
 import { DropdownItem } from "src/components/Dropdown";
 import { Notification } from "../../types/notification";
 import { SelectedChain } from "../../types/selectedchain";
+import { Rate } from "../../types/rate";
+import { StepOption } from "../../types/stepoption";
 
 export type NotificationStore = Notification[];
 export type ChainsStore = DropdownItem[];
 export type SelectedChainStore = SelectedChain;
+export type CurrentPriceStore = Rate;
+export type RedDatesStore = Rate[];
+export type GreenDatesStore = Rate[];
+export type SelectedStepStore = StepOption;
 
 export interface NotificationActions {
   createNotification: (notification: Notification) => void;
@@ -47,6 +53,23 @@ export interface IsOpenedActions {
   setIsOpened: (isOpened: boolean) => void;
 }
 
+// ExchangesRates
+export interface CurrentPriceActions {
+  setCurrentPrice: (currentPrice: Rate) => void;
+}
+
+export interface GreenDatesActions {
+  setGreenDates: (greenDates: Rate[]) => void;
+}
+
+export interface RedDatesActions {
+  setRedDates: (redDates: Rate[]) => void;
+}
+
+export interface SelectedStepActions {
+  setSelectedStep: (selectedStep: StepOption) => void;
+}
+
 export interface ActionsObject {
   notifications: NotificationActions;
   user: UserActions;
@@ -54,6 +77,10 @@ export interface ActionsObject {
   isSettingsOpened: IsSettingsOpenedActions;
   slippageTolerance: SlippageToleranceActions;
   isOpened: IsOpenedActions;
+  currentPrice: CurrentPriceActions;
+  redDates: RedDatesActions;
+  greenDates: GreenDatesActions;
+  selectedStep: SelectedStepActions;
 }
 
 export interface StoreObject {
@@ -64,4 +91,8 @@ export interface StoreObject {
   isSettingsOpened: IsSettingsOpenedStore;
   slippageTolerance: SlippageToleranceStore;
   isOpened: IsOpenedStore;
+  currentPrice: CurrentPriceStore;
+  redDates: RedDatesStore;
+  greenDates: GreenDatesStore;
+  selectedStep: SelectedStepStore;
 }

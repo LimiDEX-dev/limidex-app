@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
 import { Dropdown } from '../Dropdown';
+import { useCurrentPrice, useRedDates, useGreenDates, useSelectedStep } from '../../store';
 
 const stepOptions = [
   {
@@ -24,12 +25,32 @@ const stepOptions = [
 
 export const ExchangesRates = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [redDates, setRedDates] = useState(mockData.redRates);
+  // const [redDates, setRedDates] = useState(mockData.redRates);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [greenDates, setGreenDates] = useState(mockData.greenRates);
+  // const [greenDates, setGreenDates] = useState(mockData.greenRates);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [currentPrice, setCurrentPrice] = useState(mockData.currentPrice);
-  const [selectedStep, setSelectedStep] = useState(stepOptions[0]);
+  // const [currentPrice, setCurrentPrice] = useState(mockData.currentPrice);
+  // const [selectedStep, setSelectedStep] = useState(stepOptions[0]);
+
+  const {
+    data: currentPrice,
+    actions: { setCurrentPrice },
+  } = useCurrentPrice();
+
+  const {
+    data: redDates,
+    actions: { setRedDates },
+  } = useRedDates();
+
+  const {
+    data: greenDates,
+    actions: { setGreenDates },
+  } = useGreenDates();
+
+  const {
+    data: selectedStep,
+    actions: { setSelectedStep },
+  } = useSelectedStep();
 
   useEffect(() => {
     // THERE IS FUNCTIONS THAT SET RATES DATA
@@ -101,156 +122,156 @@ export const ExchangesRates = () => {
   );
 };
 
-const mockData = {
-  currentPrice: {
-    price: '48 099',
-    amount: '1 099.0990',
-    min: '0.0001',
-    max: '0.0009',
-    progress: 25,
-  },
-  redRates: [
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 25,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 50,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 25,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 10,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 100,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 25,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 25,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 75,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 75,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 75,
-    },
-  ],
-  greenRates: [
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 25,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 0,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 10,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 25,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 25,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 75,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 100,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 15,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 25,
-    },
-    {
-      price: '48 099',
-      amount: '1 099.0990',
-      min: '0.0001',
-      max: '0.0009',
-      progress: 50,
-    },
-  ],
-};
+// const mockData = {
+//   currentPrice: {
+//     price: '48 099',
+//     amount: '1 099.0990',
+//     min: '0.0001',
+//     max: '0.0009',
+//     progress: 25,
+//   },
+//   redRates: [
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 25,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 50,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 25,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 10,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 100,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 25,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 25,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 75,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 75,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 75,
+//     },
+//   ],
+//   greenRates: [
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 25,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 0,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 10,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 25,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 25,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 75,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 100,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 15,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 25,
+//     },
+//     {
+//       price: '48 099',
+//       amount: '1 099.0990',
+//       min: '0.0001',
+//       max: '0.0009',
+//       progress: 50,
+//     },
+//   ],
+// };
