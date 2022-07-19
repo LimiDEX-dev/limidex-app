@@ -1,12 +1,12 @@
 /* eslint-disable react/no-array-index-key */
-import React, { FC, useRef } from 'react';
+import React, { FC, useRef } from "react";
 
-import './style.scss';
-import { Title } from '../../components/Title';
-import { Description } from '../../components/Description';
-import { CopyIcon } from '../../lib/icons';
-import { ambassador } from '../../lib/mock/ambassador';
-import { Button } from '../../components/Button';
+import "./style.scss";
+import { Title } from "../../components/atoms/Title";
+import { Description } from "../../components/atoms/Description";
+import { CopyIcon } from "../../lib/icons";
+import { ambassador } from "../../lib/mock/ambassador";
+import { Button } from "../../components/atoms/Button";
 
 export const Referral: FC = () => {
   const linkRef = useRef<HTMLAnchorElement>(null);
@@ -19,29 +19,26 @@ export const Referral: FC = () => {
     <div className="ambassador">
       <div className="ambassador__main-wrapper">
         <div className="ambassador__wrapper">
-          <Title>
-            Claim Rewards
-          </Title>
+          <Title>Claim Rewards</Title>
           <Description>
             <ul className="ambassador__list">
               <li>Lock SPLX as veSPLX to get share 2% of protocol revenue</li>
               <li>
-                Get cashback from every trade which
-                triggered arbs, up to 60% from arbitrage profit
+                Get cashback from every trade which triggered arbs, up to 60%
+                from arbitrage profit
               </li>
               <li>
-                Invite friends and get 1% (1 lvl)
-                and 0.2%(2 lvl) from their arb cashbacks
+                Invite friends and get 1% (1 lvl) and 0.2%(2 lvl) from their arb
+                cashbacks
               </li>
               <li>
-                If you have followers who copy
-                your trades you will recieved 5% from their arb profits
+                If you have followers who copy your trades you will recieved 5%
+                from their arb profits
               </li>
             </ul>
 
             <span className="ambassador__link">
-              Your referral link:
-              {' '}
+              Your referral link:{" "}
               <a href="http://limidex.io/ref/tradex123" ref={linkRef}>
                 limidex.io/ref/tradex123
               </a>
@@ -53,16 +50,10 @@ export const Referral: FC = () => {
         </div>
         <div className="ambassador__wrapper">
           <h3 className="ambassador__earned__title">
-            You earned
-            {' '}
-            <span>123456$</span>
-            {' '}
-            in total
+            You earned <span>123456$</span> in total
           </h3>
           <h3 className="ambassador__earned__title">
-            Available to claim
-            {' '}
-            <span>200$</span>
+            Available to claim <span>200$</span>
           </h3>
           <Button size="large">Claim all</Button>
         </div>
@@ -70,8 +61,7 @@ export const Referral: FC = () => {
       <div className="ambassador__stats__wrapper">
         <Title>Claim rewards</Title>
         <span className="ambassador__link">
-          Your referral link:
-          {' '}
+          Your referral link:{" "}
           <a href="http://limidex.io/ref/tradex123" ref={linkRef}>
             limidex.io/ref/tradex123
           </a>
@@ -81,9 +71,7 @@ export const Referral: FC = () => {
         </span>
 
         <div className="ambassador__stats">
-          <span className="ambassador__stats__title">
-            Reward list
-          </span>
+          <span className="ambassador__stats__title">Reward list</span>
           <div className="ambassador__stats__table__wrapper">
             <table className="ambassador__stats__table">
               <thead>
@@ -111,9 +99,7 @@ export const Referral: FC = () => {
                     <td>{item.total}</td>
                     <td>{item.available}</td>
                     <td>
-                      <Button size="small">
-                        Claim
-                      </Button>
+                      <Button size="small">Claim</Button>
                     </td>
                   </tr>
                 ))}

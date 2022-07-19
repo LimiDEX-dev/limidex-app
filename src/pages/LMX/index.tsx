@@ -1,42 +1,42 @@
 /* eslint-disable react/no-array-index-key */
-import React, { FC, useState } from 'react';
-import { Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { FC, useState } from "react";
+import { Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import { Title } from '../../components/Title';
-import { Description } from '../../components/Description';
-import './style.scss';
-import { lmx } from '../../lib/mock/lmx';
-import { StakingCard } from '../../components/StakingCard';
-import { Modal } from '../../components/Modal';
-import { Input } from '../../components/Input';
-import { Dropdown } from '../../components/Dropdown';
-import { Button } from '../../components/Button';
-import { Popup } from '../../components/Popup';
-import { Rewards } from '../../components/Rewards';
+import { Title } from "../../components/atoms/Title";
+import { Description } from "../../components/atoms/Description";
+import "./style.scss";
+import { lmx } from "../../lib/mock/lmx";
+import { StakingCard } from "../../components/molecules/StakingCard";
+import { Modal } from "../../components/atoms/Modal";
+import { Input } from "../../components/atoms/Input";
+import { Dropdown } from "../../components/atoms/Dropdown";
+import { Button } from "../../components/atoms/Button";
+import { Popup } from "../../components/atoms/Popup";
+import { Rewards } from "../../components/molecules/Rewards";
 
 const lockPeriodes = [
   {
-    value: 'year',
-    label: '1 Year',
+    value: "year",
+    label: "1 Year",
   },
   {
-    value: 'year',
-    label: '1 Year',
+    value: "year",
+    label: "1 Year",
   },
   {
-    value: 'year',
-    label: '1 Year',
+    value: "year",
+    label: "1 Year",
   },
   {
-    value: 'year',
-    label: '1 Year',
+    value: "year",
+    label: "1 Year",
   },
 ];
 
 export const LMX: FC = () => {
   const [isModal, setIsModal] = useState(false);
-  const [lockLMX, setLockLMX] = useState<string>('100.00');
+  const [lockLMX, setLockLMX] = useState<string>("100.00");
   const [selectedPeriod, setSelectedPeriod] = useState(lockPeriodes[0]);
 
   const getFirstDescription = () => (
@@ -50,29 +50,23 @@ export const LMX: FC = () => {
   const getRewardsDescription = () => (
     <span className="lmx__rewards-description">
       <Description>
-        Holders can lock SPLX for a certain period of time to get veSPLX,
-        which allows them right to receive a share of the profits on each network
+        Holders can lock SPLX for a certain period of time to get veSPLX, which
+        allows them right to receive a share of the profits on each network
         <span className="lmx__description">
           <span className="lmx__description__wrapper">
             <span className="lmx__description__title">Time Lock</span>
             <span className="lmx__description__content">
-              1 Month: 1 SPLX = 0.1 veSPLX
-              {' '}
-              <br />
-              3 Months: 1 SPLX = 0.25 veSPLX
-              {' '}
-              <br />
-              6 Months: 1 SPLX = 0.5 veSPLX
-              {' '}
-              <br />
+              1 Month: 1 SPLX = 0.1 veSPLX <br />3 Months: 1 SPLX = 0.25 veSPLX{" "}
+              <br />6 Months: 1 SPLX = 0.5 veSPLX <br />
               1 Year: 1 SPLX = 1 veSPLX
               <br />
               <br />
-              The protocol allocates 2% of the total protocol profit
-              in each network and distributes it to veSPLX holders
+              The protocol allocates 2% of the total protocol profit in each
+              network and distributes it to veSPLX holders
               <br />
               <br />
-              Lock SPLX and get rewards in WETH, WBNB, WMATIC, WFTM, WAVAX, arbitrum WETH
+              Lock SPLX and get rewards in WETH, WBNB, WMATIC, WFTM, WAVAX,
+              arbitrum WETH
             </span>
           </span>
         </span>
@@ -95,7 +89,13 @@ export const LMX: FC = () => {
             <span className="staking__card__header__photo" />
             <span className="staking__card__header__title">LMX</span>
           </div>
-          <Input value={lockLMX} onChange={setLockLMX} label="Lock LMX" currency="LMX" topLabel="Balance 12 LMX" />
+          <Input
+            value={lockLMX}
+            onChange={setLockLMX}
+            label="Lock LMX"
+            currency="LMX"
+            topLabel="Balance 12 LMX"
+          />
           <ul className="staking__card__list">
             <li className="staking__card__item">
               <Popup content="Lorem ipsum dolor sit amet">
@@ -127,20 +127,14 @@ export const LMX: FC = () => {
             </li>
           </ul>
           <div className="staking__card__actions">
-            <Button onClick={() => setIsModal(false)}>
-              Approve
-            </Button>
-            <Button disabled>
-              Stake
-            </Button>
+            <Button onClick={() => setIsModal(false)}>Approve</Button>
+            <Button disabled>Stake</Button>
           </div>
         </Modal>
       </div>
       <div className="lmx">
         <div className="lmx__wrapper">
-          <Title>
-            Lock SPLX to Earn protocol profits
-          </Title>
+          <Title>Lock SPLX to Earn protocol profits</Title>
           {getDescription()}
         </div>
         <div className="lmx__wrapper">
@@ -150,7 +144,7 @@ export const LMX: FC = () => {
             spaceBetween={0}
             pagination={{
               clickable: true,
-              el: '.staking__pagination',
+              el: ".staking__pagination",
               renderBullet: (index, className) => `
               <span class="${className}">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

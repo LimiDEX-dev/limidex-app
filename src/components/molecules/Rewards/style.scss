@@ -1,0 +1,94 @@
+@use "../../../styles/index";
+
+.lmx {
+  &__rewards {
+    max-height: 200px;
+    padding: 8px 20px;
+    margin: 30px 0;
+
+    border: 1px solid index.$accent;
+    border-radius: 12px;
+    backdrop-filter: blur(40px);
+
+    @media (min-width: 1200px) {
+      margin-top: 100px;
+      margin-bottom: 0;
+    }
+
+    &__title {
+      display: flex;
+      align-items: center;
+
+      margin-bottom: 10px;
+
+      font-size: 18px;
+      color: #FFF9F9;
+      font-weight: 500;
+      line-height: 21px;
+
+      & > button {
+        margin-left: 16px;
+      }
+    }
+
+    &__table {
+      width: 100%;
+
+      &__wrapper {
+        max-height: 150px;
+
+        overflow-y: auto;
+      }
+
+      & td,
+      & th {
+        padding: 4px 8px;
+
+        text-align: left;
+      }
+
+      & thead th {
+        border-top: 1px solid #202734;
+        border-bottom: 1px solid #202734;
+      }
+
+      & tbody tr {
+        &:not(:last-child) {
+          border-bottom: 1px solid #202734;
+        }
+      }
+
+      & thead th {
+        position: sticky;
+        top: 0;
+
+        background-color: index.$background;
+
+        font-size: 15px;
+        color: index.$text;
+        font-weight: 300;
+        line-height: 18px;
+      }
+
+      & tbody td {
+        font-size: 13px;
+        color: index.$text;
+        line-height: 15px;
+
+        & button {
+          padding: 2px 6px;
+
+          background: index.$gray;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+
+          font-size: 12px;
+          color: index.$text;
+          font-weight: 500;
+          line-height: 14px;
+        }
+      }
+    }
+  }
+}

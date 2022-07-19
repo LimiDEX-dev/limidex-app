@@ -3,10 +3,10 @@ import classnames from "classnames";
 
 import "./style.scss";
 
-import { PlaceOrder } from "../../components/PlaceOrder";
-import { ExchangesRates } from "../../components/ExchangesRates";
-import { Orders } from "../../components/Orders";
-import { Chart } from "../../components/Chart";
+import { PlaceOrder } from "../../components/molecules/PlaceOrder";
+import { ExchangesRates } from "../../components/molecules/ExchangesRates";
+import { Orders } from "../../components/molecules/Orders";
+import { Chart } from "../../components/molecules/Chart";
 import { ChartIcon, RatesIcon } from "../../lib/icons";
 
 export const Main = () => {
