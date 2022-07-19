@@ -1,8 +1,5 @@
-import React, { FC } from 'react';
-import './style.scss';
+import React, { FC } from "react";
 
-export const Title: FC = ({ children }) => (
-  <h1 className="title">
-    {children}
-  </h1>
-);
+import * as S from "./style";
+
+export const Title: FC = ({ children }) => <S.Title>{children}</S.Title>;

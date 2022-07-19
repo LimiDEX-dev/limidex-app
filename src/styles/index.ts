@@ -3,11 +3,13 @@ import { createStitches } from "@stitches/react";
 import { setupFonts } from "./fonts";
 import { setupStyles } from "./global";
 
-export const { styled } = createStitches({
+export const { styled, keyframes } = createStitches({
   theme: {
     colors: {
       background: "#0A0A0A",
       text: "#E5E5E5",
+      textGray: "#FFF9F9",
+      textDark: "#202734",
       accent: "#F29212",
       section: "#191919",
       blocks: "#2E2D2C",
@@ -22,6 +24,7 @@ export const { styled } = createStitches({
   },
   media: {
     fromLaptop: "only screen and (min-width: 1200px)",
+    toLaptop: "only screen and (max-width: 1199px)",
   },
 });
 

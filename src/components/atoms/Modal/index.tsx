@@ -1,13 +1,10 @@
-import React, { FC, forwardRef, PropsWithChildren, useRef } from "react";
-import "./style.scss";
-import classnames from "classnames";
+import React, { forwardRef, PropsWithChildren, useRef } from "react";
+
 import { CloseIcon } from "../../../lib/icons";
 
-type ModalProps = {
-  isVisible: boolean;
-  handleClose: () => void;
-  title?: string;
-};
+import { ModalProps } from "./types";
+
+import * as S from "./style";
 
 export const Modal = forwardRef<HTMLDivElement, PropsWithChildren<ModalProps>>(
   ({ isVisible, handleClose, title, children }, ref) => {
@@ -16,26 +13,17 @@ export const Modal = forwardRef<HTMLDivElement, PropsWithChildren<ModalProps>>(
     // useOutsideAlerter(wrapperRef, handleClose);
 
     return (
-      <div
-        className={classnames("modal", {
-          "modal--visible": isVisible,
-        })}
-        ref={ref}
-      >
-        <div className="modal__wrapper" ref={wrapperRef}>
-          <div className="modal__header">
-            <span className="modal__title">{title}</span>
-            <button
-              type="button"
-              className="modal__close"
-              onClick={handleClose}
-            >
+      <S.Modal visible={isVisible} ref={ref}>
+        <S.Wrapper ref={wrapperRef}>
+          <S.Header>
+            <S.Title>{title}</S.Title>
+            <S.CloseButton type="button" onClick={handleClose}>
               <CloseIcon />
-            </button>
-          </div>
-          <div className="modal__content">{children}</div>
-        </div>
-      </div>
+            </S.CloseButton>
+          </S.Header>
+          <S.Content>{children}</S.Content>
+        </S.Wrapper>
+      </S.Modal>
     );
   },
 );

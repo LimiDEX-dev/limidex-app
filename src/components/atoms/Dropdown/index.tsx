@@ -1,33 +1,18 @@
 /* eslint-disable react/no-array-index-key */
-import React, { FC, ReactElement, useRef, useState } from "react";
-import classnames from "classnames";
+import React, { FC, useRef, useState } from "react";
+
 import {
   BorderedPlusIcon,
   DropdownArrowIcon,
   SearchIcon,
 } from "../../../lib/icons";
 import { useOutsideAlerter } from "../../../lib/hooks";
-import "./style.scss";
 
-export type DropdownItem = {
-  label: string;
-  value: string;
-  icon?: ReactElement;
-  [key: string]: any;
-};
+import { DropdownProps, DropdownItem } from "./types";
 
-type DropdownProps = {
-  items: DropdownItem[];
-  onSelect: (item: DropdownItem) => void;
-  handleAddCustom?: () => void;
-  isAddCustomVisible?: boolean;
-  selectedValue?: DropdownItem;
-  notRightBorderRadius?: boolean;
-  width?: number;
-  textAlign?: "right" | "left";
-  arrowHidden?: boolean;
-  borderColor?: string;
-};
+import * as S from "./style";
+
+export type { DropdownItem };
 
 export const Dropdown: FC<DropdownProps> = ({
   items,
@@ -40,6 +25,7 @@ export const Dropdown: FC<DropdownProps> = ({
   textAlign,
   arrowHidden,
   borderColor,
+  noBorder,
   children,
 }) => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
@@ -63,41 +49,36 @@ export const Dropdown: FC<DropdownProps> = ({
   };
 
   return (
-    <div
-      className={classnames("dropdown", {
-        "dropdown--opened": isOpened,
-        "dropdown--right": textAlign === "right",
-      })}
-      ref={dropdownRef}
-    >
-      <button
+    <S.Dropdown ref={dropdownRef}>
+      <S.DropdownTrigger
         type="button"
-        className={`dropdown__trigger${
-          notRightBorderRadius ? " dropdown__trigger--not-radius" : ""
-        }`}
+        notRightBorderRadius={notRightBorderRadius}
         onClick={() => setIsOpened((prevState) => !prevState)}
         style={{ width, borderColor: borderColor || undefined }}
+        noBorder={noBorder}
       >
         {selectedValue ? (
           <>
-            {selectedValue.icon}
-            <span className="dropdown__trigger__label">
+            <S.DropdownTriggerValueIcon>
+              {selectedValue.icon}
+            </S.DropdownTriggerValueIcon>
+            <S.DropdownTriggerLabel>
               {selectedValue.label}
-            </span>
+            </S.DropdownTriggerLabel>
           </>
         ) : (
           children
         )}
         {!arrowHidden && (
-          <span className="dropdown__trigger__icon">
+          <S.DropdownTriggerIcon>
             <DropdownArrowIcon />
-          </span>
+          </S.DropdownTriggerIcon>
         )}
-      </button>
+      </S.DropdownTrigger>
       {isOpened && (
-        <ul className="dropdown__list">
+        <S.List>
           {isAddCustomVisible && (
-            <li className="dropdown__item dropdown__item--add-custom dropdown__item--search">
+            <S.Item addCustom search>
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label>
                 <SearchIcon />
@@ -108,55 +89,42 @@ export const Dropdown: FC<DropdownProps> = ({
                   placeholder="Search"
                 />
               </label>
-            </li>
+            </S.Item>
           )}
           {items
             .filter(({ label }) =>
               label.toLowerCase().includes(search.toLowerCase()),
             )
             .map((item, index) => (
-              <li className="dropdown__item" key={`${item.value}-${index}`}>
-                <button
+              <S.Item key={`${item.value}-${index}`}>
+                <S.ItemTrigger
                   type="button"
                   onClick={() => handleClickItem(item)}
-                  className="dropdown__item__trigger"
                 >
-                  {item.icon && (
-                    <span className="dropdown__item__icon">{item.icon}</span>
-                  )}
+                  {item.icon && <S.ItemIcon>{item.icon}</S.ItemIcon>}
                   {textAlign === "right" ? (
                     <>
-                      <span className="dropdown__item__label">
-                        {item.label}
-                      </span>
-                      <span className="dropdown__item__label dropdown__item__label--value">
-                        {item.value}
-                      </span>
+                      <S.ItemLabel>{item.label}</S.ItemLabel>
+                      <S.ItemLabel data-value="true">{item.value}</S.ItemLabel>
                     </>
                   ) : (
-                    <span className="dropdown__item__label">{item.label}</span>
+                    <S.ItemLabel>{item.label}</S.ItemLabel>
                   )}
-                </button>
-              </li>
+                </S.ItemTrigger>
+              </S.Item>
             ))}
           {isAddCustomVisible && (
-            <li className="dropdown__item dropdown__item--add-custom">
-              <button
-                type="button"
-                onClick={handleClickAddCustom}
-                className="dropdown__item__trigger"
-              >
-                <span className="dropdown__item__icon">
+            <S.Item addCustom>
+              <S.ItemTrigger type="button" onClick={handleClickAddCustom}>
+                <S.ItemIcon>
                   <BorderedPlusIcon />
-                </span>
-                <span className="dropdown__item__label dropdown__item__label--small">
-                  Add custom
-                </span>
-              </button>
-            </li>
+                </S.ItemIcon>
+                <S.ItemLabel small>Add custom</S.ItemLabel>
+              </S.ItemTrigger>
+            </S.Item>
           )}
-        </ul>
+        </S.List>
       )}
-    </div>
+    </S.Dropdown>
   );
 };

@@ -1,14 +1,8 @@
-import React, { FC, ReactElement } from "react";
-import classnames from "classnames";
+import React, { FC } from "react";
 
-import "./style.scss";
+import { NetworkItemProps } from "./types";
 
-type NetworkItemProps = {
-  title: string;
-  icon?: ReactElement;
-  isActive: boolean;
-  handleChange: () => void;
-};
+import * as S from "./style";
 
 export const NetworkItem: FC<NetworkItemProps> = ({
   title,
@@ -16,16 +10,10 @@ export const NetworkItem: FC<NetworkItemProps> = ({
   isActive,
   handleChange,
 }) => (
-  <li className="network-item">
-    <button
-      type="button"
-      className={classnames("network-item__trigger", {
-        "network-item__trigger--active": isActive,
-      })}
-      onClick={handleChange}
-    >
-      {icon && <span className="network-item__icon">{icon}</span>}
-      <span className="network-item__title">{title}</span>
-    </button>
-  </li>
+  <S.NetworkItem>
+    <S.TriggerButton type="button" onClick={handleChange} isActive={isActive}>
+      {icon && <S.Icon>{icon}</S.Icon>}
+      <S.Title>{title}</S.Title>
+    </S.TriggerButton>
+  </S.NetworkItem>
 );

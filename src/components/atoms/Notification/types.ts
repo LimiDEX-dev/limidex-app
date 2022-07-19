@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+
 import { NotificationStatus } from "../../../types/notification";
 
 export interface NotificationProps {

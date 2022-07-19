@@ -1,39 +1,30 @@
-import React, { FC, useState } from 'react';
-import './style.scss';
+import React, { FC, useState } from "react";
 
-type PopupProps = {
-  content: string;
-  width?: number;
-}
+import { PopupProps } from "./types";
+
+import * as S from "./style";
 
 export const Popup: FC<PopupProps> = ({ content, children, width }) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   return (
-    <div className="popup">
-      <button
-        className="popup__trigger"
+    <S.Popup>
+      <S.Trigger
         type="button"
         onMouseEnter={() => setIsVisible(true)}
         onMouseLeave={() => setIsVisible(false)}
       >
         {children}
-      </button>
+      </S.Trigger>
       {isVisible && (
-        <div
-          className="popup__content"
+        <S.Content
           onMouseEnter={() => setIsVisible(true)}
           onMouseLeave={() => setIsVisible(false)}
           style={{ left: width ? `calc(50% - ${width / 2}px)` : undefined }}
         >
-          <div
-            className="popup__content__wrapper"
-            style={{ width }}
-          >
-            {content}
-          </div>
-        </div>
+          <S.Wrapper style={{ width }}>{content}</S.Wrapper>
+        </S.Content>
       )}
-    </div>
+    </S.Popup>
   );
 };

@@ -1,26 +1,9 @@
-import React, {
-  ChangeEvent,
-  FC,
-  HTMLInputTypeAttribute,
-  ReactElement,
-} from "react";
+import React, { ChangeEvent, FC } from "react";
 import classnames from "classnames";
 
-import "./style.scss";
+import { InputProps } from "./types";
 
-type InputProps = {
-  value: string;
-  onChange: (value: string) => void;
-  onBlur?: (value: string) => void;
-  label?: string | ReactElement;
-  topLabel?: string | ReactElement;
-  currency?: string;
-  notLeftBorder?: boolean;
-  icon?: ReactElement;
-  type?: HTMLInputTypeAttribute;
-  min?: number;
-  max?: number;
-};
+import * as S from "./style";
 
 export const Input: FC<InputProps> = ({
   value,
@@ -49,16 +32,11 @@ export const Input: FC<InputProps> = ({
   };
 
   return (
-    <div
-      className={classnames("input__container", {
-        "input__container--no-border": notLeftBorder,
-        "input__container--full-width": !!icon,
-      })}
-    >
-      {topLabel && <span className="input__top-label">{topLabel}</span>}
-      {label && <span className="input__label">{label}</span>}
-      {currency && <span className="input__currency">{currency}</span>}
-      <input
+    <S.Input noBorder={notLeftBorder} fullWidth={!!icon}>
+      {topLabel && <S.TopLabel>{topLabel}</S.TopLabel>}
+      {label && <S.Label>{label}</S.Label>}
+      {currency && <S.Currency>{currency}</S.Currency>}
+      <S.InputField
         type={type || "text"}
         className="input"
         value={value}
@@ -68,6 +46,6 @@ export const Input: FC<InputProps> = ({
         max={max}
       />
       {icon}
-    </div>
+    </S.Input>
   );
 };

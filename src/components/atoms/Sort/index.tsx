@@ -1,15 +1,13 @@
 import React, { FC } from "react";
 import classnames from "classnames";
+
 import { SortArrowIcon, SortWordIcon } from "../../../lib/icons";
-import "./style.scss";
 
-export type SortType = "up" | "down" | "no";
+import { SortProps, SortType } from "./types";
 
-type SortProps = {
-  isWordSort?: boolean;
-  sort: SortType;
-  onChange: (sort: SortType) => void;
-};
+import * as S from "./style";
+
+export type { SortType };
 
 export const Sort: FC<SortProps> = ({
   isWordSort,
@@ -31,21 +29,13 @@ export const Sort: FC<SortProps> = ({
   };
 
   return (
-    <button
-      type="button"
-      className={classnames("sort", {
-        "sort--word": isWordSort,
-        "sort--up": sort === "up",
-        "sort--down": sort === "down",
-      })}
-      onClick={handleClick}
-    >
-      <span className="sort__icons">
+    <S.Sort type="button" sort={sort} word={isWordSort} onClick={handleClick}>
+      <S.Icons>
         <SortArrowIcon />
         <SortWordIcon />
         <SortArrowIcon />
-      </span>
-      <span className="sort__descr">{children}</span>
-    </button>
+      </S.Icons>
+      <S.Descr>{children}</S.Descr>
+    </S.Sort>
   );
 };

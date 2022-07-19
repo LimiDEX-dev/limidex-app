@@ -4,7 +4,7 @@ import classnames from "classnames";
 import { NotificationProps } from "./types";
 import { CloseIcon, ErrorIcon, SuccessIcon } from "../../../lib/icons";
 
-import "./style.scss";
+import * as S from "./style";
 
 export const Notification: FC<NotificationProps> = ({
   timeout,
@@ -36,27 +36,17 @@ export const Notification: FC<NotificationProps> = ({
   };
 
   return (
-    <div
-      className={classnames("notification", {
-        "notification--error": status === "error",
-        "notification--success": status === "success",
-        "notification--closed": isClosed,
-      })}
-    >
-      <div className="notification__wrapper">
+    <S.Notification status={status} closed={isClosed}>
+      <S.Wrapper>
         {status === "success" ? <SuccessIcon /> : <ErrorIcon />}
-      </div>
-      <div className="notification__wrapper">
-        <span className="notification__title">{title}</span>
-        <div className="notification__content">{children}</div>
-      </div>
-      <button
-        className="notification__close"
-        type="button"
-        onClick={handleClickClose}
-      >
+      </S.Wrapper>
+      <S.Wrapper>
+        <S.Title>{title}</S.Title>
+        <S.Content>{children}</S.Content>
+      </S.Wrapper>
+      <S.CloseButton type="button" onClick={handleClickClose}>
         <CloseIcon />
-      </button>
-    </div>
+      </S.CloseButton>
+    </S.Notification>
   );
 };

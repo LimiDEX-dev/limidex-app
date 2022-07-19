@@ -46,4 +46,16 @@ export const setupStyles = globalCss({
     clip: "rect(0 0 0 0)",
     overflow: "hidden",
   },
+
+  ".input__flex-label": {
+    display: "flex",
+    alignItems: "center",
+
+    wordBreak: "keep-all",
+    whiteSpace: "nowrap",
+
+    "& > div": {
+      marginLeft: 4,
+    },
+  },
 });

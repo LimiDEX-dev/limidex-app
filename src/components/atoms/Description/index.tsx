@@ -1,8 +1,7 @@
-import React, { FC } from 'react';
-import './style.scss';
+import { FC } from "react";
+
+import * as S from "./style";
 
 export const Description: FC = ({ children }) => (
-  <span className="description">
-    {children}
-  </span>
+  <S.Description>{children}</S.Description>
 );

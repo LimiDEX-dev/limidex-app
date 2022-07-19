@@ -314,6 +314,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                 items={valutes}
                 onSelect={onSelectSellValute}
                 isAddCustomVisible
+                noBorder
                 notRightBorderRadius
                 width={110}
                 handleAddCustom={() => setIsAddCustomTokenVisible(true)}
@@ -408,6 +409,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                 items={valutes}
                 onSelect={onSelectBuyValute}
                 isAddCustomVisible
+                noBorder
                 notRightBorderRadius
                 width={110}
                 handleAddCustom={() => setIsAddCustomTokenVisible(true)}
