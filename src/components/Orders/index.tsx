@@ -1,16 +1,32 @@
 import React, { FC, useEffect, useState } from "react";
 import "./style.scss";
 import { orders } from "../../lib/mock/orders";
+import { useActiveOrders, useHistoryOrders, useCrossOrders } from "../../store";
 
 export const Orders: FC = () => {
   const [activeTab, setActiveTab] = useState<0 | 1 | 2>(0);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [activeOrders, setActiveOrders] = useState(orders.active);
+  // const [activeOrders, setActiveOrders] = useState(orders.active);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [historyOrders, setHistoryOrders] = useState(orders.history);
+  // const [historyOrders, setHistoryOrders] = useState(orders.history);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [crossOrders, setCrossOrders] = useState(orders.cross);
+  // const [crossOrders, setCrossOrders] = useState(orders.cross);
+
+  const {
+    data: activeOrders,
+    actions: { setActiveOrders, deleteActiveOrder },
+  } = useActiveOrders();
+
+  const {
+    data: historyOrders,
+    actions: { setHistoryOrders },
+  } = useHistoryOrders();
+
+  const {
+    data: crossOrders,
+    actions: { setCrossOrders },
+  } = useCrossOrders();
 
   useEffect(() => {
     // THERE IS FUNCTION THAT SET ORDERS DATA
@@ -58,10 +74,11 @@ export const Orders: FC = () => {
   };
 
   const handleDeleteActiveOrder = (index) => {
-    setActiveOrders((prevState) => [
-      ...prevState.slice(0, index),
-      ...prevState.slice(index + 1),
-    ]);
+    // setActiveOrders((prevState) => [
+    //   ...prevState.slice(0, index),
+    //   ...prevState.slice(index + 1),
+    // ]);
+    deleteActiveOrder(index)
   };
 
   const getTable = () => {

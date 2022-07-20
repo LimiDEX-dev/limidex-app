@@ -124,5 +124,58 @@ export const provideActions = (
         },
       }));
     },      
-  }
+  },
+  chart: {
+    setChart: (payload) => {
+      setStore((store) => ({
+        ...store,
+        chart: {
+          ...store.chart,
+          chart: payload,
+        },
+      }));
+    },     
+  },
+  activeOrders: {
+    setActiveOrders: (payload) => {
+      setStore((store) => ({
+        ...store,
+        activeOrders: {
+          ...store.activeOrders,
+          activeOrders: payload,
+        },
+      }));
+    }, 
+    deleteActiveOrder: (payload) => {
+      setStore((store) => ({
+        ...store,
+        activeOrders: [
+          ...store.activeOrders.slice(0, payload),
+          ...store.activeOrders.slice(payload + 1),
+        ],
+      }));
+    },
+  },
+  historyOrders: {
+    setHistoryOrders: (payload) => {
+      setStore((store) => ({
+        ...store,
+        historyOrders: {
+          ...store.historyOrders,
+          historyOrders: payload,
+        },
+      }));
+    }, 
+  },
+  crossOrders: {
+    setCrossOrders: (payload) => {
+      setStore((store) => ({
+        ...store,
+        crossOrders: {
+          ...store.crossOrders,
+          crossOrders: payload,
+        },
+      }));
+    }, 
+  },
 });

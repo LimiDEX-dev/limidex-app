@@ -56,5 +56,21 @@ export const useSelectedStep = selector(({ data: { selectedStep }, actions }) =>
   data: selectedStep,
   actions: (actions as ActionsObject).selectedStep,
 }));
+export const useChart = selector(({ data: { chart }, actions }) => ({
+  data: chart,
+  actions: (actions as ActionsObject).chart,
+}));
+export const useActiveOrders = selector(({ data: { activeOrders }, actions }) => ({
+  data: activeOrders,
+  actions: (actions as ActionsObject).activeOrders,
+}));
+export const useHistoryOrders = selector(({ data: { historyOrders }, actions }) => ({
+  data: historyOrders,
+  actions: (actions as ActionsObject).historyOrders,
+}));
+export const useCrossOrders = selector(({ data: { crossOrders }, actions }) => ({
+  data: crossOrders,
+  actions: (actions as ActionsObject).crossOrders,
+}));
 
 export const GlobalStore = Store;
