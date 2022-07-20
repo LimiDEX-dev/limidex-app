@@ -4,6 +4,7 @@ import './style.scss';
 import { ApexOptions } from 'apexcharts';
 import { chart as mockChart } from '../../lib/mock/chart';
 import { Dropdown } from '../Dropdown';
+import { useChart } from '../../store';
 
 const chartOptions: ApexOptions = {
   chart: {
@@ -79,7 +80,12 @@ type ChartProps = {
 export const Chart: FC<ChartProps> = ({ height, setHeight }) => {
   const [selectedTimeframe, setSelectedTimeframe] = useState(timeframeOptions[0]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [chart, setChart] = useState(mockChart);
+  // const [chart, setChart] = useState(mockChart);
+
+  const {
+    data: chart,
+    actions: { setChart },
+  } = useChart();
 
   return (
     <div className="Chart">

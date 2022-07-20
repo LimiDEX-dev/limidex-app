@@ -11,12 +11,11 @@ import {
   TwitterIcon,
 } from "../../lib/icons/social";
 import { useOutsideAlerter } from "../../lib/hooks";
-import { chains as mockChains } from "../../lib/mock/valutes";
 import { Dropdown } from "../Dropdown";
 import { Modal } from "../Modal";
 import { Input } from "../Input";
 import { Button } from "../Button";
-import { useUser } from "../../store";
+import { useUser, useChains, useSelectedChain, useIsSettingsOpened, useSlippageTolerance, useIsOpened } from "../../store";
 
 const SocialList = () => (
   <ul className="header__social__list">
@@ -44,26 +43,44 @@ const SocialList = () => (
 );
 
 export const Header: FC = () => {
-  const [isOpened, setIsOpened] = useState<boolean>(false);
-  const [chains, setChains] = useState(mockChains);
-  const [selectedChain, setSelectedChain] = useState(mockChains[0]);
-  const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
-  const [slippageTolerance, setSlippageTolerance] = useState<string>("0.5");
+  // const [isOpened, setIsOpened] = useState<boolean>(false);
+  // const [chains, setChains] = useState(mockChains);
+  // const [selectedChain, setSelectedChain] = useState(mockChains[0]);
+  // const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
+  // const [slippageTolerance, setSlippageTolerance] = useState<string>("0.5");
 
   const headerRef = useRef(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { data: user } = useUser();
+  const { data: chains } = useChains();
+  const {
+    data: selectedChain,
+    actions: { setSelectedChain },
+  } = useSelectedChain();
+  const {
+    data: { isOpened },
+    actions: { setIsOpened },
+  } = useIsOpened();
+  const {
+    data: { isSettingsOpened },
+    actions: { setIsSettingsOpened },
+  } = useIsSettingsOpened();
+  const {
+    data: { slippageTolerance },
+    actions: { setSlippageTolerance },
+  } = useSlippageTolerance();
+
 
   const handleOpen = () => {
-    setIsOpened((prevState) => !prevState);
+    setIsOpened(isOpened);
   };
 
   useOutsideAlerter(headerRef, (event) => {
     const target = event.target as Element;
 
     if (!modalRef.current.contains(target)) {
-      setIsOpened(false);
+      setIsOpened(false)
     }
   });
 
