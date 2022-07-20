@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from "react";
-import "./style.scss";
 import classnames from "classnames";
 import {
   Dropdown,
@@ -24,12 +23,9 @@ import { ethereumAddressRegexp } from "../../../lib/constants";
 import { Coin, CoinDescription } from "../CoinDescription";
 import { useNotifications, useUser } from "../../../store";
 
-type PlaceOrderProps = {
-  isExpertMode: boolean;
-  setIsExpertMode: (value: boolean) => void;
-  activeTab: "limit" | "swap" | "cross";
-  setActiveTab: (value: "limit" | "swap" | "cross") => void;
-};
+import { PlaceOrderProps } from "./types";
+
+import * as S from "./style";
 
 export const PlaceOrder: FC<PlaceOrderProps> = ({
   isExpertMode,
@@ -195,7 +191,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
   };
 
   return (
-    <div className="PlaceOrder">
+    <S.PlaceOrder>
       <Modal
         isVisible={isAddCustomTokenVisible}
         handleClose={() => setIsAddCustomTokenVisible(false)}
@@ -242,7 +238,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
         </Button>
       </Modal>
       {activeTab === "swap" && (
-        <div className="title__wrapper">
+        <S.TitleWrapper>
           <Checkbox
             checked={isExpertMode}
             onChange={setIsExpertMode}
@@ -250,56 +246,54 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
           >
             Expert Mode
           </Checkbox>
-        </div>
+        </S.TitleWrapper>
       )}
-      <div className="tab-switch">
-        <button
+      <S.TabSwitch>
+        <S.TabSwitchButton
           type="button"
-          className={activeTab === "swap" ? "active" : ""}
+          isActive={activeTab === "swap"}
           onClick={() => setActiveTab("swap")}
         >
           Swap
-        </button>
-        <button
+        </S.TabSwitchButton>
+        <S.TabSwitchButton
           type="button"
-          className={activeTab === "limit" ? "active" : ""}
+          isActive={activeTab === "limit"}
           onClick={() => setActiveTab("limit")}
         >
           Limit
-        </button>
-        <button
+        </S.TabSwitchButton>
+        <S.TabSwitchButton
           type="button"
-          className={activeTab === "cross" ? "active" : ""}
+          isActive={activeTab === "cross"}
           onClick={() => setActiveTab("cross")}
         >
           Cross-chain
-        </button>
-      </div>
+        </S.TabSwitchButton>
+      </S.TabSwitch>
 
-      <div className="PlaceOrder__content">
-        <div className="valute-swap">
-          <div className="valute-converter__label__wrapper">
+      <S.Content>
+        <S.Valute>
+          <S.ValuteConverterWrapper>
             {activeTab === "limit" && (
-              <div className="valute-toggle-container">
-                <div className="valute-toggle">
-                  <button
-                    type="button"
-                    className={activeBuyTab === 0 ? "active" : ""}
-                    onClick={() => setActiveBuyTab(0)}
-                  >
-                    Buy
-                  </button>
-                  <button
-                    type="button"
-                    className={activeBuyTab === 1 ? "active" : ""}
-                    onClick={() => setActiveBuyTab(1)}
-                  >
-                    Sell
-                  </button>
-                </div>
-              </div>
+              <S.ValuteToggle>
+                <S.ValuteToggleButton
+                  type="button"
+                  isActive={activeBuyTab === 0}
+                  onClick={() => setActiveBuyTab(0)}
+                >
+                  Buy
+                </S.ValuteToggleButton>
+                <S.ValuteToggleButton
+                  type="button"
+                  isActive={activeBuyTab === 1}
+                  onClick={() => setActiveBuyTab(1)}
+                >
+                  Sell
+                </S.ValuteToggleButton>
+              </S.ValuteToggle>
             )}
-          </div>
+          </S.ValuteConverterWrapper>
           <div className="valute-converter">
             <div className="valute-converter__header">
               <span className="valute-converter__header__item valute-converter__header__item--title">
@@ -432,7 +426,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
               </div>
             </div>
           </div>
-        </div>
+        </S.Valute>
 
         {activeTab === "swap" && (
           <div className="burn-lmx">
@@ -595,7 +589,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
         <Button disabled={isSubmitDisabled()} onClick={handleSubmit}>
           Give permission to use WNBN
         </Button>
-      </div>
-    </div>
+      </S.Content>
+    </S.PlaceOrder>
   );
 };

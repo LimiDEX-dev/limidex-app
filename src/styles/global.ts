@@ -53,6 +53,7 @@ export const setupStyles = globalCss({
 
     wordBreak: "keep-all",
     whiteSpace: "nowrap",
+    color: "$text",
 
     "& > div": {
       marginLeft: 4,
