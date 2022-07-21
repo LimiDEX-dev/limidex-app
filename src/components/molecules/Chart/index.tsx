@@ -5,6 +5,10 @@ import { ApexOptions } from "apexcharts";
 import { chart as mockChart } from "../../../lib/mock/chart";
 import { Dropdown } from "../../atoms";
 
+import { ChartProps } from "./types";
+
+import * as S from "./style";
+
 const chartOptions: ApexOptions = {
   chart: {
     type: "candlestick",
@@ -34,47 +38,42 @@ const chartOptions: ApexOptions = {
 
 const timeframeOptions = [
   {
-    label: "seconds",
+    label: "seconds ",
     value: "60",
   },
   {
-    label: "minutes",
+    label: "minutes ",
     value: "10",
   },
   {
-    label: "minutes",
+    label: "minutes ",
     value: "30",
   },
   {
-    label: "minutes",
+    label: "minutes ",
     value: "60",
   },
   {
-    label: "hours",
+    label: "hours ",
     value: "6 ",
   },
   {
-    label: "hours",
+    label: "hours ",
     value: "24",
   },
   {
-    label: "days",
+    label: "days ",
     value: "2 ",
   },
   {
-    label: "weeks",
+    label: "weeks ",
     value: "1 ",
   },
   {
-    label: "month",
+    label: "month ",
     value: "1 ",
   },
 ];
-
-type ChartProps = {
-  height: number;
-  setHeight: (height: number) => void;
-};
 
 export const Chart: FC<ChartProps> = ({ height, setHeight }) => {
   const [selectedTimeframe, setSelectedTimeframe] = useState(
@@ -84,39 +83,35 @@ export const Chart: FC<ChartProps> = ({ height, setHeight }) => {
   const [chart, setChart] = useState(mockChart);
 
   return (
-    <div className="Chart">
-      <div className="chart__header">
-        <div className="chart__header__flex-wrapper">
-          <span className="chart__header__title">Rates</span>
+    <S.Chart>
+      <S.Header>
+        <S.HeaderWrapper>
+          <S.HeaderTitle>Rates</S.HeaderTitle>
           <Dropdown
             items={timeframeOptions}
             onSelect={setSelectedTimeframe}
             textAlign="right"
             arrowHidden
           >
-            <span className="chart__header__timeframe__text">Timeframe</span>
-            <span className="chart__header__timeframe__wrapper">
-              <span className="chart__header__timeframe__text">
-                {selectedTimeframe.label[0]}
-              </span>
-              <span className="chart__header__timeframe__minutes">
-                {selectedTimeframe.value}
-              </span>
-            </span>
+            <S.TimeframeText>Timeframe</S.TimeframeText>
+            <S.TimeframeWrapper>
+              <S.TimeframeText>{selectedTimeframe.label[0]}</S.TimeframeText>
+              <S.TimeframeMinutes>{selectedTimeframe.value}</S.TimeframeMinutes>
+            </S.TimeframeWrapper>
           </Dropdown>
-        </div>
-        <div className="chart__header__current">
-          <div className="chart__header__valute">
-            <span className="chart__header__valute__icon" />
-            <span className="chart__header__valute__icon" />
-            <span className="chart__header__valute__text">WNBN / WNBN</span>
-          </div>
-          <div className="chart__header__current__wrapper">
-            <span className="chart__header__current__text">556.7373732987</span>
-            <span className="chart__header__current__change">+0.00018</span>
-          </div>
-        </div>
-      </div>
+        </S.HeaderWrapper>
+        <S.HeaderCurrent>
+          <S.HeaderValute>
+            <S.HeaderValuteIcon />
+            <S.HeaderValuteIcon />
+            <S.HeaderValuteText>WNBN / WNBN</S.HeaderValuteText>
+          </S.HeaderValute>
+          <S.HeaderCurrentWrapper>
+            <S.HeaderCurrentText>556.7373732987</S.HeaderCurrentText>
+            <S.HeaderCurrentChange>+0.00018</S.HeaderCurrentChange>
+          </S.HeaderCurrentWrapper>
+        </S.HeaderCurrent>
+      </S.Header>
       {/* <CandleStickChart /> */}
       <div id="chart">
         <ReactApexChart
@@ -126,6 +121,6 @@ export const Chart: FC<ChartProps> = ({ height, setHeight }) => {
           height={height}
         />
       </div>
-    </div>
+    </S.Chart>
   );
 };
