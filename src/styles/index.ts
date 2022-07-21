@@ -9,6 +9,7 @@ export const { styled, keyframes } = createStitches({
       background: "#0A0A0A",
       text: "#E5E5E5",
       textGray: "#FFF9F9",
+      textGraySecondary: "#8F9096",
       textDark: "#202734",
       accent: "#F29212",
       section: "#191919",
@@ -20,6 +21,7 @@ export const { styled, keyframes } = createStitches({
       green: "#5ABD13",
       deepGreen: "#19801E",
       lightGreen: "#3BD795",
+      white: "#FFFFFF",
     },
   },
   media: {

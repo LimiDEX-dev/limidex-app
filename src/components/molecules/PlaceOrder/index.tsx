@@ -294,16 +294,16 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
               </S.ValuteToggle>
             )}
           </S.ValuteConverterWrapper>
-          <div className="valute-converter">
-            <div className="valute-converter__header">
-              <span className="valute-converter__header__item valute-converter__header__item--title">
+          <S.ValuteConverter>
+            <S.ValuteConverterHeader>
+              <S.ValuteConverterHeaderItemTitle>
                 You Pay
-              </span>
-              <span className="valute-converter__header__item">
+              </S.ValuteConverterHeaderItemTitle>
+              <S.ValuteConverterHeaderItem>
                 Balance: 12
-              </span>
-            </div>
-            <div className="valute-converter__content">
+              </S.ValuteConverterHeaderItem>
+            </S.ValuteConverterHeader>
+            <S.ValuteConverterContent>
               <Dropdown
                 items={valutes}
                 onSelect={onSelectSellValute}
@@ -321,21 +321,16 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                 </span>
               </Dropdown>
               <div>
-                <span className="custom-input__top-label">~$4,227</span>
-                <input
+                <S.CustomInputTopLabel>~$4,227</S.CustomInputTopLabel>
+                <S.CustomInput
                   type="text"
-                  className="custom-input"
                   value={toSell}
                   onChange={({ target }) => setToSell(target.value)}
                 />
               </div>
-            </div>
-          </div>
-          <div
-            className={classnames("swap__wrapper", {
-              "swap__wrapper--no-inputs": activeTab === "swap",
-            })}
-          >
+            </S.ValuteConverterContent>
+          </S.ValuteConverter>
+          <S.SwapWrapper noInputs={activeTab === "swap"}>
             {activeTab === "limit" && (
               <Input
                 value={priceImpact}
@@ -346,8 +341,8 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
             )}
 
             {activeTab === "cross" && (
-              <div className="chain">
-                <span className="chain__title">Destination Chain:</span>
+              <S.Chain>
+                <S.ChainTitle>Destination Chain:</S.ChainTitle>
                 <Dropdown
                   items={chains}
                   onSelect={setSelectedChain}
@@ -356,16 +351,15 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                   {selectedChain.icon}
                   {selectedChain.label}
                 </Dropdown>
-              </div>
+              </S.Chain>
             )}
-            <button
+            <S.SwapButton
               type="button"
-              className="swap-icon"
               onClick={handleSwapValutes}
               aria-label="swap currencies"
             >
               <SwapIcon />
-            </button>
+            </S.SwapButton>
             {(activeTab === "limit" || activeTab === "cross") && (
               <Input
                 value={burnToken}
@@ -388,17 +382,17 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                 currency="LMX"
               />
             )}
-          </div>
-          <div className="valute-converter">
-            <div className="valute-converter__header">
-              <span className="valute-converter__header__item valute-converter__header__item--title">
+          </S.SwapWrapper>
+          <S.ValuteConverter>
+            <S.ValuteConverterHeader>
+              <S.ValuteConverterHeaderItemTitle>
                 You Recieve
-              </span>
-              <span className="valute-converter__header__item">
+              </S.ValuteConverterHeaderItemTitle>
+              <S.ValuteConverterHeaderItem>
                 Balance: 12
-              </span>
-            </div>
-            <div className="valute-converter__content">
+              </S.ValuteConverterHeaderItem>
+            </S.ValuteConverterHeader>
+            <S.ValuteConverterContent>
               <Dropdown
                 items={valutes}
                 onSelect={onSelectBuyValute}
@@ -416,24 +410,23 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                 </span>
               </Dropdown>
               <div>
-                <span className="custom-input__top-label">~$4,227</span>
-                <input
+                <S.CustomInputTopLabel>~$4,227</S.CustomInputTopLabel>
+                <S.CustomInput
                   type="text"
-                  className="custom-input"
                   value={toBuy}
                   onChange={({ target }) => setToBuy(target.value)}
                 />
               </div>
-            </div>
-          </div>
+            </S.ValuteConverterContent>
+          </S.ValuteConverter>
         </S.Valute>
 
         {activeTab === "swap" && (
-          <div className="burn-lmx">
-            <div className="info">
+          <S.BurnLmx>
+            <S.BurnLmxInfo>
               Price slippage: <span>0.03%</span>
-            </div>
-            <div className="input__container--custom">
+            </S.BurnLmxInfo>
+            <S.CustomInputContainer>
               <Input
                 value={burnToken}
                 onChange={setBurnToken}
@@ -454,26 +447,24 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                 }
                 currency="LMX"
               />
-            </div>
-          </div>
+            </S.CustomInputContainer>
+          </S.BurnLmx>
         )}
 
         {activeTab !== "cross" && (
           <>
-            <button
+            <S.More
               type="button"
-              className={classnames("more", {
-                "more--opened": isAdvancedOpened,
-              })}
+              isOpened={isAdvancedOpened}
               onClick={() => setIsAdvancedOpened((prevState) => !prevState)}
             >
               Advanced
               <DropdownArrowIcon />
-            </button>
+            </S.More>
 
             {isAdvancedOpened && (
-              <div className="advanced-fields">
-                <div className="advanced-fields__inputs">
+              <S.Advanced>
+                <S.AdvancedInputs>
                   <Input
                     value={takeProfit}
                     onChange={setTakeProfit}
@@ -502,51 +493,54 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                     }
                     currency="%"
                   />
-                </div>
-                <div className="advanced-fields__submit">
+                </S.AdvancedInputs>
+                <S.AdvancedSubmit>
                   <Button
                     size="small"
                     onClick={() => setIsAdvancedOpened(false)}
                   >
                     OK
                   </Button>
-                </div>
-              </div>
+                </S.AdvancedSubmit>
+              </S.Advanced>
             )}
 
-            <div className="routes-container">
+            <S.Routes>
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-              <label>
-                <input
+              <S.RoutesLabel>
+                <S.RoutesInput
                   type="radio"
                   name="routing"
-                  className="radio-input visually-hidden"
+                  className="visually-hidden"
                   defaultChecked
                 />
-                <div className="radio active" />
-                <div className="radio-label">Self route</div>
-                <div className="radio-title">
+                <S.RoutesRadio />
+                <S.RoutesRadioLabel>Self route</S.RoutesRadioLabel>
+                <S.RoutesRadioTitle>
                   Your order will be executed at the best opportunity at the
                   time of the trade
-                </div>
-              </label>
+                </S.RoutesRadioTitle>
+              </S.RoutesLabel>
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-              <label>
-                <input
+              <S.RoutesLabel>
+                <S.RoutesInput
                   type="radio"
                   name="routing"
-                  className="radio-input visually-hidden"
+                  className="visually-hidden"
                 />
-                <div className="radio" />
-                <div className="radio-label">Pancakeswap</div>
-                <div className="radio-title">Slippage 0.5% </div>
-              </label>
-            </div>
+                <S.RoutesRadio />
+                <S.RoutesRadioLabel>Pancakeswap</S.RoutesRadioLabel>
+                <S.RoutesRadioTitle>Slippage 0.5% </S.RoutesRadioTitle>
+              </S.RoutesLabel>
+            </S.Routes>
           </>
         )}
 
-        <div className="trade">
-          <Popup content="Сhoose in which coin you want to receive arbitrage cashbacks">
+        <S.Trade>
+          <Popup
+            content="Сhoose in which coin you want to receive arbitrage cashbacks"
+            width={140}
+          >
             <span className="input__flex-label">
               Trade Reward
               <div>
@@ -572,23 +566,23 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
               Wrapped BNB
             </span>
           </Dropdown>
-        </div>
+        </S.Trade>
 
         {activeTab === "limit" && (
-          <div className="info">
+          <S.Info>
             You will buy: <span>10 WBNB for 4270 USDT</span>
             <br />
             Target price: <span>0.001 WBNB for 1 USDT</span>
             <br />
             <br />
             Price slippage: <span>0.03%</span>
-          </div>
+          </S.Info>
         )}
 
         {/* PLACE ORDER SUBMIT BUTTON */}
-        <Button disabled={isSubmitDisabled()} onClick={handleSubmit}>
+        <S.SubmitButton disabled={isSubmitDisabled()} onClick={handleSubmit}>
           Give permission to use WNBN
-        </Button>
+        </S.SubmitButton>
       </S.Content>
     </S.PlaceOrder>
   );
