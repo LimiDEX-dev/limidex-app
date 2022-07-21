@@ -59,4 +59,14 @@ export const setupStyles = globalCss({
       marginLeft: 4,
     },
   },
+
+  "#chart": {
+    width: "100%",
+    height: "100%",
+
+    svg: {
+      width: "100%",
+      height: "100%",
+    },
+  },
 });
