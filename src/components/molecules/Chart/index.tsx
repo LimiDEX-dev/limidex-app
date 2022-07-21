@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import ReactApexChart from "react-apexcharts";
-import "./style.scss";
 import { ApexOptions } from "apexcharts";
 import { chart as mockChart } from "../../../lib/mock/chart";
 import { Dropdown } from "../../atoms";
