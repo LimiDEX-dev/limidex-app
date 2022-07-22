@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
-import "./style.scss";
 import { orders } from "../../../lib/mock/orders";
+
+import * as S from "./style";
+import { CloseIcon } from "../../../lib/icons";
 
 export const Orders: FC = () => {
   const [activeTab, setActiveTab] = useState<0 | 1 | 2>(0);
@@ -67,96 +69,95 @@ export const Orders: FC = () => {
   const getTable = () => {
     if (activeTab === 0) {
       return (
-        <table>
+        <S.Table>
           <thead>
             <tr>
-              <td className="name">From asset</td>
-              <td className="orderType text-center">Volume</td>
-              <td className="volume">To asset</td>
-              <td className="volume text-center">Estimated out</td>
-              <td className="volume text-center">Order type</td>
-              <td className="orderFee text-center">Price</td>
-              <td className="routing text-center">TP / SL</td>
-              <td className="delete">Delete</td>
+              <S.TableHeaderItem>From asset</S.TableHeaderItem>
+              <S.TableHeaderItem textCenter>Volume</S.TableHeaderItem>
+              <S.TableHeaderItem>To asset</S.TableHeaderItem>
+              <S.TableHeaderItem textCenter>Estimated out</S.TableHeaderItem>
+              <S.TableHeaderItem textCenter>Order type</S.TableHeaderItem>
+              <S.TableHeaderItem textCenter>Price</S.TableHeaderItem>
+              <S.TableHeaderItem textCenter>TP / SL</S.TableHeaderItem>
+              <S.TableHeaderItem>Delete</S.TableHeaderItem>
             </tr>
           </thead>
           <tbody>
             {activeOrders.map((order, index) => (
               // eslint-disable-next-line react/no-array-index-key
               <tr key={`${order.asset.name}-${index}`}>
-                <td className="name">
-                  <div>
+                <S.TableItem>
+                  <S.TableItemWrapper>
                     <span>
-                      <span className="bold">{order.asset.name}</span>(
+                      <S.Text bold>{order.asset.name}</S.Text> (
                       {order.asset.descr})
                     </span>
-                  </div>
-                </td>
-                <td className="volume text-center">
-                  <div>
+                  </S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem textCenter>
+                  <S.TableItemWrapper>
                     <span>{order.volume}</span>
-                  </div>
-                </td>
-                <td className="orderFee">
-                  <div>
+                  </S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem>
+                  <S.TableItemWrapper>
                     <span>
                       <span>
-                        <span className="bold">{order.destination.name}</span>(
+                        <S.Text bold>{order.destination.name}</S.Text> (
                         {order.destination.descr})
                       </span>
                     </span>
-                  </div>
-                </td>
-                <td className="volume text-center">
-                  <div>
+                  </S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem textCenter>
+                  <S.TableItemWrapper>
                     <span>{order.estimatedOut}</span>
-                  </div>
-                </td>
-                <td className="volume text-center">
-                  <div>
+                  </S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem textCenter>
+                  <S.TableItemWrapper>
                     <span>{order.type}</span>
-                  </div>
-                </td>
-                <td className="routing text-center">
-                  <div>
+                  </S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem textCenter>
+                  <S.TableItemWrapper>
                     <span>{order.price}</span>
-                  </div>
-                </td>
-                <td className="routing text-center">
-                  <div>
+                  </S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem textCenter>
+                  <S.TableItemWrapper>
                     <span>{order.tpSl}</span>
-                  </div>
-                </td>
-                <td className="delete">
-                  <button
-                    type="button"
+                  </S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem>
+                  <S.DeleteButton
                     onClick={() => handleDeleteActiveOrder(index)}
                     aria-label="Delete order"
                   >
-                    <span />
-                  </button>
-                </td>
+                    <CloseIcon />
+                  </S.DeleteButton>
+                </S.TableItem>
               </tr>
             ))}
           </tbody>
-        </table>
+        </S.Table>
       );
     }
 
     if (activeTab === 1) {
       return (
-        <table>
+        <S.Table>
           <thead>
             <tr>
-              <td className="name">From asset</td>
-              <td className="orderType">Volume</td>
-              <td className="volume">Destination</td>
-              <td className="fee">Amount out</td>
-              <td className="rebase">Network</td>
-              <td className="status">Order Type</td>
-              <td className="change">Reward</td>
-              <td className="change">Status</td>
-              <td className="change">Review</td>
+              <S.TableHeaderItem>From asset</S.TableHeaderItem>
+              <S.TableHeaderItem>Volume</S.TableHeaderItem>
+              <S.TableHeaderItem>Destination</S.TableHeaderItem>
+              <S.TableHeaderItem>Amount out</S.TableHeaderItem>
+              <S.TableHeaderItem>Network</S.TableHeaderItem>
+              <S.TableHeaderItem>Order Type</S.TableHeaderItem>
+              <S.TableHeaderItem>Reward</S.TableHeaderItem>
+              <S.TableHeaderItem>Status</S.TableHeaderItem>
+              <S.TableHeaderItem>Review</S.TableHeaderItem>
             </tr>
           </thead>
           <tbody>
@@ -165,76 +166,76 @@ export const Orders: FC = () => {
               .map((order, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <tr key={`${order.asset.name}-${index}`}>
-                  <td className="name">
-                    <div>
+                  <S.TableItem>
+                    <S.TableItemWrapper>
                       <span>
-                        <span className="bold">{order.asset.name}</span>(
+                        <S.Text bold>{order.asset.name}</S.Text> (
                         {order.asset.descr})
                       </span>
-                    </div>
-                  </td>
-                  <td className="orderType">
-                    <div>
+                    </S.TableItemWrapper>
+                  </S.TableItem>
+                  <S.TableItem>
+                    <S.TableItemWrapper>
                       <span>{order.volume}</span>
-                    </div>
-                  </td>
-                  <td className="volume">
-                    <div>
+                    </S.TableItemWrapper>
+                  </S.TableItem>
+                  <S.TableItem>
+                    <S.TableItemWrapper>
                       <span>
-                        <span className="bold">{order.destination.name}</span>(
+                        <S.Text bold>{order.destination.name}</S.Text> (
                         {order.destination.descr})
                       </span>
-                    </div>
-                  </td>
-                  <td className="fee">
-                    <div>
+                    </S.TableItemWrapper>
+                  </S.TableItem>
+                  <S.TableItem>
+                    <S.TableItemWrapper>
                       <span>{order.amount}</span>
-                    </div>
-                  </td>
-                  <td className="rebase">
-                    <div>
+                    </S.TableItemWrapper>
+                  </S.TableItem>
+                  <S.TableItem>
+                    <S.TableItemWrapper>
                       <span>{order.network}</span>
-                    </div>
-                  </td>
-                  <td className="status">
-                    <div>
+                    </S.TableItemWrapper>
+                  </S.TableItem>
+                  <S.TableItem>
+                    <S.TableItemWrapper>
                       <span>{order.type}</span>
-                    </div>
-                  </td>
-                  <td className="status">
-                    <div>
+                    </S.TableItemWrapper>
+                  </S.TableItem>
+                  <S.TableItem>
+                    <S.TableItemWrapper>
                       <span>{order.reward}</span>
-                    </div>
-                  </td>
-                  <td className="status">
-                    <div>
+                    </S.TableItemWrapper>
+                  </S.TableItem>
+                  <S.TableItem>
+                    <S.TableItemWrapper>
                       <span>{order.status}</span>
-                    </div>
-                  </td>
-                  <td className="change">
-                    <button type="button">
+                    </S.TableItemWrapper>
+                  </S.TableItem>
+                  <S.TableItem>
+                    <S.DeleteButton>
                       <span>Full info</span>
-                    </button>
-                  </td>
+                    </S.DeleteButton>
+                  </S.TableItem>
                 </tr>
               ))}
           </tbody>
-        </table>
+        </S.Table>
       );
     }
 
     return (
-      <table>
+      <S.Table>
         <thead>
           <tr>
-            <td className="name">From Asset</td>
-            <td className="orderType">Volume</td>
-            <td className="volume">Destination</td>
-            <td className="fee">Amount out</td>
-            <td className="rebase">Status</td>
-            <td className="status">Rewards</td>
-            <td className="change">1-tx</td>
-            <td className="change">2-tx</td>
+            <S.TableHeaderItem>From Asset</S.TableHeaderItem>
+            <S.TableHeaderItem>Volume</S.TableHeaderItem>
+            <S.TableHeaderItem>Destination</S.TableHeaderItem>
+            <S.TableHeaderItem>Amount out</S.TableHeaderItem>
+            <S.TableHeaderItem>Status</S.TableHeaderItem>
+            <S.TableHeaderItem>Rewards</S.TableHeaderItem>
+            <S.TableHeaderItem>1-tx</S.TableHeaderItem>
+            <S.TableHeaderItem>2-tx</S.TableHeaderItem>
           </tr>
         </thead>
         <tbody>
@@ -243,83 +244,83 @@ export const Orders: FC = () => {
             .map((order, index) => (
               // eslint-disable-next-line react/no-array-index-key
               <tr key={`${order.asset.name}-${index}`}>
-                <td className="name">
-                  <div>
-                    <span className="bold">{order.asset.name}</span>(
+                <S.TableItem>
+                  <S.TableItemWrapper>
+                    <S.Text bold>{order.asset.name}</S.Text> (
                     {order.asset.descr})
-                  </div>
-                </td>
-                <td className="orderType">
-                  <div>
+                  </S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem>
+                  <S.TableItemWrapper>
                     <span>{order.volume}</span>
-                  </div>
-                </td>
-                <td className="volume">
-                  <div>
-                    <span className="bold">{order.destination.name}</span>(
+                  </S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem>
+                  <S.TableItemWrapper>
+                    <S.Text bold>{order.destination.name}</S.Text> (
                     {order.destination.descr})
-                  </div>
-                </td>
-                <td className="fee">
-                  <div>
+                  </S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem>
+                  <S.TableItemWrapper>
                     <span>{order.amount}</span>
-                  </div>
-                </td>
-                <td className="rebase">
-                  <div>
+                  </S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem>
+                  <S.TableItemWrapper>
                     <span>{order.status}</span>
-                  </div>
-                </td>
-                <td className="status">
-                  <div>
+                  </S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem>
+                  <S.TableItemWrapper>
                     <span>{order.rewards}</span>
-                  </div>
-                </td>
-                <td className="change">
-                  <button type="button">
+                  </S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem>
+                  <S.DeleteButton>
                     <span>Full info</span>
-                  </button>
-                </td>
-                <td className="change">
-                  <button type="button">
+                  </S.DeleteButton>
+                </S.TableItem>
+                <S.TableItem>
+                  <S.DeleteButton>
                     <span>Full info</span>
-                  </button>
-                </td>
+                  </S.DeleteButton>
+                </S.TableItem>
               </tr>
             ))}
         </tbody>
-      </table>
+      </S.Table>
     );
   };
 
   return (
-    <div className="Orders">
-      <div className="container">
-        <div className="tabs">
-          <button
+    <S.Orders className="Orders">
+      <S.Container>
+        <S.Tabs>
+          <S.Tab
+            isActive={activeTab === 0}
             type="button"
-            className={`tab${activeTab === 0 ? " active" : ""}`}
             onClick={() => setActiveTab(0)}
           >
             Active orders
-          </button>
-          <button
+          </S.Tab>
+          <S.Tab
+            isActive={activeTab === 1}
             type="button"
-            className={`tab${activeTab === 1 ? " active" : ""}`}
             onClick={() => setActiveTab(1)}
           >
             Order history
-          </button>
-          <button
+          </S.Tab>
+          <S.Tab
+            isActive={activeTab === 2}
             type="button"
-            className={`tab${activeTab === 2 ? " active" : ""}`}
             onClick={() => setActiveTab(2)}
           >
             Cross-chain history
-          </button>
-        </div>
-        <div className="content">{getTable()}</div>
-      </div>
-    </div>
+          </S.Tab>
+        </S.Tabs>
+        <S.Content>{getTable()}</S.Content>
+      </S.Container>
+    </S.Orders>
   );
 };
