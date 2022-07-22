@@ -1,7 +1,11 @@
 export { Button } from "./Button/style";
 export { Checkbox } from "./Checkbox/style";
 export { Description } from "./Description/style";
-export { Dropdown } from "./Dropdown/style";
+export {
+  Dropdown,
+  DropdownTrigger,
+  DropdownTriggerLabel,
+} from "./Dropdown/style";
 export { Input } from "./Input/style";
 export { Modal } from "./Modal/style";
 export { NetworkItem } from "./NetworkItem/style";

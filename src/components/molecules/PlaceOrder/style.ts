@@ -2,10 +2,12 @@ import { styled } from "../../../styles";
 
 import { Currency, TopLabel } from "../../atoms/Input/style";
 import {
+  Button,
+  Input,
+  Popup,
   DropdownTrigger,
   DropdownTriggerLabel,
-} from "../../atoms/Dropdown/style";
-import { Button, Input, Popup } from "../../atoms/styled";
+} from "../../atoms/styled";
 
 export const PlaceOrder = styled("div", {
   height: "100%",

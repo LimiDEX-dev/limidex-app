@@ -11,7 +11,7 @@ export const setupStyles = globalCss({
     background: "$background",
 
     color: "$text",
-    fontFamily: "Roboto, sans-serif",
+    fontFamily: "$roboto",
   },
 
   "html, body": {

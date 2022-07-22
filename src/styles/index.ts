@@ -23,6 +23,10 @@ export const { styled, keyframes } = createStitches({
       lightGreen: "#3BD795",
       white: "#FFFFFF",
     },
+    fonts: {
+      roboto: "Roboto, sans-serif",
+      robotoMono: "Roboto Mono, sans-serif",
+    },
   },
   media: {
     fromLaptop: "only screen and (min-width: 1200px)",

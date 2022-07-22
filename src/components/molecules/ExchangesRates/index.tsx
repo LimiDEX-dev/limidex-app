@@ -1,7 +1,9 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from "react";
-import "./style.scss";
+
 import { Dropdown } from "../../atoms";
+
+import * as S from "./style";
 
 const stepOptions = [
   {
@@ -39,70 +41,61 @@ export const ExchangesRates = () => {
   }, []);
 
   return (
-    <div className="ExchangesRates">
-      <div className="top">
-        <div className="title">Orderbook</div>
+    <S.ExchangeRates>
+      <S.Header>
+        <S.Title>Orderbook</S.Title>
         <Dropdown
           items={stepOptions}
           onSelect={setSelectedStep}
           arrowHidden
           textAlign="right"
         >
-          <div className="step">
-            <span>Step</span>
-            <span>$</span>
-            <span>{selectedStep.value}</span>
-          </div>
+          <S.Step>
+            <S.StepItem>Step</S.StepItem>
+            <S.StepItem>$</S.StepItem>{" "}
+            <S.StepItem>{selectedStep.value}</S.StepItem>
+          </S.Step>
         </Dropdown>
-      </div>
+      </S.Header>
 
-      <div className="content">
-        <table>
+      <S.Content>
+        <S.Table>
           <thead>
             <tr>
-              <td className="price">Price — BUSD</td>
-              <td className="amount">Amount</td>
+              <S.TableHeaderItem>Price — BUSD</S.TableHeaderItem>
+              <S.TableHeaderItem>Amount</S.TableHeaderItem>
             </tr>
           </thead>
           <tbody>
             {redDates.map((rate, index) => (
-              <tr className="red-rate" key={`${rate.price}-${index}`}>
-                <td className="price">{rate.price}</td>
-                <td className="amount">
+              <S.Row redRate key={`${rate.price}-${index}`}>
+                <S.TableItem>{rate.price}</S.TableItem>
+                <S.TableItem>
                   <span>{rate.amount}</span>
-                  <div
-                    className="progress"
-                    style={{ width: `${rate.progress}%` }}
-                  />
-                </td>
-              </tr>
+                  <S.Progress style={{ width: `${rate.progress}%` }} />
+                </S.TableItem>
+              </S.Row>
             ))}
-            <tr className="red-rate red-rate--big" key="date-current-price">
-              <td className="price">{currentPrice.price}</td>
-              <td className="amount">
+            <S.Row redRate big>
+              <S.TableItem>{currentPrice.price}</S.TableItem>
+              <S.TableItem>
                 <span>{currentPrice.amount}</span>
-                <div
-                  className="progress"
-                  style={{ width: `${currentPrice.progress}%` }}
-                />
-              </td>
-            </tr>
+                <S.Progress style={{ width: `${currentPrice.progress}%` }} />
+              </S.TableItem>
+            </S.Row>
             {greenDates.map((rate, index) => (
-              <tr className="green-rate" key={`${rate.price}-${index}`}>
-                <td className="price">{rate.price}</td>
-                <td className="amount">
+              <S.Row greenRate key={`${rate.price}-${index}`}>
+                <S.TableItem>{rate.price}</S.TableItem>
+                <S.TableItem>
                   <span>{rate.amount}</span>
-                  <div
-                    className="progress"
-                    style={{ width: `${rate.progress}%` }}
-                  />
-                </td>
-              </tr>
+                  <S.Progress style={{ width: `${rate.progress}%` }} />
+                </S.TableItem>
+              </S.Row>
             ))}
           </tbody>
-        </table>
-      </div>
-    </div>
+        </S.Table>
+      </S.Content>
+    </S.ExchangeRates>
   );
 };
 

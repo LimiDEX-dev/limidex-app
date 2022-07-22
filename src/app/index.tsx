@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
-import { Header } from "../components/template/Header";
-import { Notification } from "../components/atoms/Notification";
+import { Header } from "../components/template";
+import { Notification } from "../components/atoms";
 import { useNotifications } from "../store";
 
 import { setupGlobalStyles } from "../styles";
@@ -44,6 +44,12 @@ function App({ children }) {
   return (
     <S.App>
       <S.Wrapper>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+          rel="stylesheet"
+        />
         <Header />
 
         {notifications.map((item, index) => (
