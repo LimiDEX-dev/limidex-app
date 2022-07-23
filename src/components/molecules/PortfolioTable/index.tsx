@@ -1,53 +1,13 @@
 /* eslint-disable react/no-array-index-key */
 import React, { FC } from "react";
-import "./style.scss";
-import { Sort, SortType } from "../../atoms/Sort";
-import { Button } from "../../atoms";
 
-export type PortfolioTableFields =
-  | "type"
-  | "name"
-  | "network"
-  | "coin"
-  | "balance"
-  | "deals"
-  | "followers"
-  | "pnl"
-  | "price"
-  | "balanceUSD"
-  | "approve";
+import { Sort, Button } from "../../atoms";
 
-type PortfolioTableProps = {
-  sort: {
-    field: PortfolioTableFields;
-    by: SortType;
-  };
-  handleChangeSort: ({
-    field,
-    by,
-  }: {
-    field: PortfolioTableFields;
-    by: SortType;
-  }) => void;
-  trading: {
-    type: string;
-    name: string;
-    balance: string;
-    deals: string;
-    followers: string;
-    pnl: string;
-  }[];
-  wallet: {
-    network: string;
-    coin: string;
-    balance: string;
-    price: string;
-    balanceUSD: string;
-    approve: string;
-  }[];
-  activeNetwork?: number;
-  handleFollow: () => void;
-};
+import { PortfolioTableProps, PortfolioTableFields } from "./types";
+
+import * as S from "./style";
+
+export type { PortfolioTableFields };
 
 export const PortfolioTable: FC<PortfolioTableProps> = ({
   sort,
@@ -57,12 +17,12 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
   activeNetwork,
   handleFollow,
 }) => (
-  <div className="portfolio-table">
-    <table className="portfolio-table__main-table">
+  <S.PortfolioTable>
+    <S.Table>
       <thead>
         {activeNetwork === 0 ? (
           <tr className="portfolio-table__row">
-            <td>
+            <S.TableHeaderItem>
               <Sort
                 sort={sort.field === "type" ? sort.by : "no"}
                 onChange={(by) => handleChangeSort({ field: "type", by })}
@@ -70,8 +30,8 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
               >
                 Type
               </Sort>
-            </td>
-            <td>
+            </S.TableHeaderItem>
+            <S.TableHeaderItem>
               <Sort
                 sort={sort.field === "name" ? sort.by : "no"}
                 onChange={(by) => handleChangeSort({ field: "name", by })}
@@ -79,44 +39,44 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
               >
                 Name
               </Sort>
-            </td>
-            <td>
+            </S.TableHeaderItem>
+            <S.TableHeaderItem>
               <Sort
                 sort={sort.field === "balance" ? sort.by : "no"}
                 onChange={(by) => handleChangeSort({ field: "balance", by })}
               >
                 Balance
               </Sort>
-            </td>
-            <td>
+            </S.TableHeaderItem>
+            <S.TableHeaderItem>
               <Sort
                 sort={sort.field === "deals" ? sort.by : "no"}
                 onChange={(by) => handleChangeSort({ field: "deals", by })}
               >
                 Deals Open/Close
               </Sort>
-            </td>
-            <td>
+            </S.TableHeaderItem>
+            <S.TableHeaderItem>
               <Sort
                 sort={sort.field === "followers" ? sort.by : "no"}
                 onChange={(by) => handleChangeSort({ field: "followers", by })}
               >
                 Followers
               </Sort>
-            </td>
-            <td>
+            </S.TableHeaderItem>
+            <S.TableHeaderItem>
               <Sort
                 sort={sort.field === "pnl" ? sort.by : "no"}
                 onChange={(by) => handleChangeSort({ field: "pnl", by })}
               >
                 PnL
               </Sort>
-            </td>
-            <td />
+            </S.TableHeaderItem>
+            <S.TableHeaderItem />
           </tr>
         ) : (
           <tr className="portfolio-table__row">
-            <td>
+            <S.TableHeaderItem>
               <Sort
                 sort={sort.field === "network" ? sort.by : "no"}
                 onChange={(by) => handleChangeSort({ field: "network", by })}
@@ -124,8 +84,8 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
               >
                 Network
               </Sort>
-            </td>
-            <td>
+            </S.TableHeaderItem>
+            <S.TableHeaderItem>
               <Sort
                 sort={sort.field === "coin" ? sort.by : "no"}
                 onChange={(by) => handleChangeSort({ field: "coin", by })}
@@ -133,34 +93,34 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
               >
                 Coin
               </Sort>
-            </td>
-            <td>
+            </S.TableHeaderItem>
+            <S.TableHeaderItem>
               <Sort
                 sort={sort.field === "balance" ? sort.by : "no"}
                 onChange={(by) => handleChangeSort({ field: "balance", by })}
               >
                 Balance
               </Sort>
-            </td>
-            <td>
+            </S.TableHeaderItem>
+            <S.TableHeaderItem>
               <Sort
                 sort={sort.field === "price" ? sort.by : "no"}
                 onChange={(by) => handleChangeSort({ field: "price", by })}
               >
                 Price, $
               </Sort>
-            </td>
-            <td>
+            </S.TableHeaderItem>
+            <S.TableHeaderItem>
               <Sort
                 sort={sort.field === "balanceUSD" ? sort.by : "no"}
                 onChange={(by) => handleChangeSort({ field: "balanceUSD", by })}
               >
                 Balance USD, $
               </Sort>
-            </td>
-            <td>
+            </S.TableHeaderItem>
+            <S.TableHeaderItem>
               <Button size="small">Approve</Button>
-            </td>
+            </S.TableHeaderItem>
           </tr>
         )}
       </thead>
@@ -172,50 +132,44 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
                 className="portfolio-table__row"
               >
                 <td>
-                  <span className="portfolio-table__wrapper">
-                    <span className="portfolio-table__icon" />
-                    <span className="portfolio-table__text">{item.type}</span>
-                  </span>
+                  <S.TableItemWrapper>
+                    <S.TableIcon />
+                    <S.TableText>{item.type}</S.TableText>
+                  </S.TableItemWrapper>
                 </td>
                 <td>
-                  <span className="portfolio-table__wrapper">
-                    <span className="portfolio-table__icon" />
-                    <span className="portfolio-table__text">{item.name}</span>
-                  </span>
+                  <S.TableItemWrapper>
+                    <S.TableIcon />
+                    <S.TableText>{item.name}</S.TableText>
+                  </S.TableItemWrapper>
                 </td>
                 <td>
-                  <span className="portfolio-table__wrapper">
-                    <span className="portfolio-table__text">
-                      {item.balance}
-                    </span>
-                  </span>
+                  <S.TableItemWrapper>
+                    <S.TableText>{item.balance}</S.TableText>
+                  </S.TableItemWrapper>
                 </td>
                 <td>
-                  <span className="portfolio-table__wrapper">
-                    <span className="portfolio-table__text">{item.deals}</span>
-                  </span>
+                  <S.TableItemWrapper>
+                    <S.TableText>{item.deals}</S.TableText>
+                  </S.TableItemWrapper>
                 </td>
                 <td>
-                  <span className="portfolio-table__wrapper">
-                    <span className="portfolio-table__text">
-                      {item.followers}
-                    </span>
-                  </span>
+                  <S.TableItemWrapper>
+                    <S.TableText>{item.followers}</S.TableText>
+                  </S.TableItemWrapper>
                 </td>
                 <td>
-                  <span className="portfolio-table__wrapper">
-                    <span className="portfolio-table__text portfolio-table__text--underline">
-                      {item.pnl}
-                    </span>
-                  </span>
+                  <S.TableItemWrapper>
+                    <S.TableText isUnderline>{item.pnl}</S.TableText>
+                  </S.TableItemWrapper>
                 </td>
                 <td>
-                  <span className="portfolio-table__wrapper">
+                  <S.TableItemWrapper>
                     <Button size="middle" onClick={handleFollow}>
                       Follow
                     </Button>
                     <Button size="middle">Unfollow</Button>
-                  </span>
+                  </S.TableItemWrapper>
                 </td>
               </tr>
             ))
@@ -225,50 +179,40 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
                 className="portfolio-table__row"
               >
                 <td>
-                  <span className="portfolio-table__wrapper">
-                    <span className="portfolio-table__icon" />
-                    <span className="portfolio-table__text">
-                      {item.network}
-                    </span>
-                  </span>
+                  <S.TableItemWrapper>
+                    <S.TableIcon />
+                    <S.TableText>{item.network}</S.TableText>
+                  </S.TableItemWrapper>
                 </td>
                 <td>
-                  <span className="portfolio-table__wrapper">
-                    <span className="portfolio-table__icon" />
-                    <span className="portfolio-table__text">{item.coin}</span>
-                  </span>
+                  <S.TableItemWrapper>
+                    <S.TableIcon />
+                    <S.TableText>{item.coin}</S.TableText>
+                  </S.TableItemWrapper>
                 </td>
                 <td>
-                  <span className="portfolio-table__wrapper">
-                    <span className="portfolio-table__text portfolio-table__text--mono">
-                      {item.balance}
-                    </span>
-                  </span>
+                  <S.TableItemWrapper>
+                    <S.TableText>{item.balance}</S.TableText>
+                  </S.TableItemWrapper>
                 </td>
                 <td>
-                  <span className="portfolio-table__wrapper">
-                    <span className="portfolio-table__text portfolio-table__text--mono">
-                      {item.price}
-                    </span>
-                  </span>
+                  <S.TableItemWrapper>
+                    <S.TableText>{item.price}</S.TableText>
+                  </S.TableItemWrapper>
                 </td>
                 <td>
-                  <span className="portfolio-table__wrapper">
-                    <span className="portfolio-table__text portfolio-table__text--mono">
-                      {item.balanceUSD}
-                    </span>
-                  </span>
+                  <S.TableItemWrapper>
+                    <S.TableText>{item.balanceUSD}</S.TableText>
+                  </S.TableItemWrapper>
                 </td>
                 <td>
-                  <span className="portfolio-table__wrapper">
-                    <span className="portfolio-table__text portfolio-table__text--mono portfolio-table__text--underline">
-                      {item.approve}
-                    </span>
-                  </span>
+                  <S.TableItemWrapper>
+                    <S.TableText isUnderline>{item.approve}</S.TableText>
+                  </S.TableItemWrapper>
                 </td>
               </tr>
             ))}
       </tbody>
-    </table>
-  </div>
+    </S.Table>
+  </S.PortfolioTable>
 );

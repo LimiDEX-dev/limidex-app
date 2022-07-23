@@ -143,6 +143,10 @@ export const Row = styled("tr", {
       true: {
         [`& ${TableItem}`]: {
           color: "inherit",
+
+          [`& ${Progress}`]: {
+            display: "none",
+          },
         },
       },
     },
