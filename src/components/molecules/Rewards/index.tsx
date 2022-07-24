@@ -1,45 +1,41 @@
 /* eslint-disable react/no-array-index-key */
 import React, { FC } from "react";
-import "./style.scss";
+
 import { Button } from "../../atoms";
 
-type RewardsProps = {
-  data: {
-    network: string;
-    token: string;
-    reward: string;
-  }[];
-};
+import { RewardsProps } from "./types";
+
+import * as S from "./style";
 
 export const Rewards: FC<RewardsProps> = ({ data }) => (
-  <div className="lmx__rewards">
-    <span className="lmx__rewards__title">
+  <S.Rewards>
+    <S.Title>
       Rewards list
       <Button size="small">Claim all rewards</Button>
-    </span>
-    <div className="lmx__rewards__table__wrapper">
-      <table className="lmx__rewards__table">
+    </S.Title>
+    <S.TableWrapper>
+      <S.Table>
         <thead>
           <tr>
-            <th>Network</th>
-            <th>Token</th>
-            <th>Reward</th>
-            <th>Claim</th>
+            <S.TableHeaderItem>Network</S.TableHeaderItem>
+            <S.TableHeaderItem>Token</S.TableHeaderItem>
+            <S.TableHeaderItem>Reward</S.TableHeaderItem>
+            <S.TableHeaderItem>Claim</S.TableHeaderItem>
           </tr>
         </thead>
         <tbody>
           {data.map((item, index) => (
-            <tr key={`${item.reward}-${index}`}>
-              <td>{item.network}</td>
-              <td>{item.token}</td>
-              <td>{item.reward}</td>
-              <td>
-                <button type="button">Reward</button>
-              </td>
-            </tr>
+            <S.Row key={`${item.reward}-${index}`}>
+              <S.TableItem>{item.network}</S.TableItem>
+              <S.TableItem>{item.token}</S.TableItem>
+              <S.TableItem>{item.reward}</S.TableItem>
+              <S.TableItem>
+                <S.TableItemButton type="button">Reward</S.TableItemButton>
+              </S.TableItem>
+            </S.Row>
           ))}
         </tbody>
-      </table>
-    </div>
-  </div>
+      </S.Table>
+    </S.TableWrapper>
+  </S.Rewards>
 );

@@ -3,16 +3,18 @@ import React, { FC, useState } from "react";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { Title } from "../../components/atoms/Title";
-import { Description } from "../../components/atoms/Description";
+import {
+  Title,
+  Description,
+  Modal,
+  Input,
+  Dropdown,
+  Button,
+  Popup,
+} from "../../components/atoms";
 import "./style.scss";
 import { lmx } from "../../lib/mock/lmx";
-import { StakingCard } from "../../components/molecules/StakingCard";
-import { Modal } from "../../components/atoms/Modal";
-import { Input } from "../../components/atoms/Input";
-import { Dropdown } from "../../components/atoms/Dropdown";
-import { Button } from "../../components/atoms/Button";
-import { Popup } from "../../components/atoms/Popup";
+import { StakingCard } from "../../components/molecules";
 import { Rewards } from "../../components/molecules/Rewards";
 
 const lockPeriodes = [

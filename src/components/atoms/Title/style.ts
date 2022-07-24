@@ -6,7 +6,7 @@ export const Title = styled("h1", {
 
   color: "$textGray",
   fontSize: 48,
-  lineHeight: 56,
+  lineHeight: "56px",
 
   "@toTablet": {
     marginBottom: 14,
