@@ -2,21 +2,10 @@
 import React, { FC, useEffect } from "react";
 import { useSwiper } from "swiper/react";
 import { Button } from "../../atoms";
-import "./style.scss";
 
-type StakingCardProps = {
-  title: string;
-  list: {
-    title: string;
-    currency: string;
-    descr: string;
-  }[];
-  tokens?: {
-    date: string;
-    lmx: string;
-  }[];
-  handleDeposit?: () => void;
-};
+import { StakingCardProps } from "./types";
+
+import * as S from "./style";
 
 export const StakingCard: FC<StakingCardProps> = ({
   title,
@@ -57,45 +46,40 @@ export const StakingCard: FC<StakingCardProps> = ({
   }, [swiper]);
 
   return (
-    <div className="staking__card">
-      <div className="staking__card__header">
-        <span className="staking__card__header__photo" />
-        <span className="staking__card__header__title">{title}</span>
-      </div>
-      <ul className="staking__card__list">
+    <S.StakingCard>
+      <S.Header>
+        <S.HeaderPhoto />
+        <S.HeaderTitle>{title}</S.HeaderTitle>
+      </S.Header>
+      <S.List>
         {list.map((item, index) => (
-          <li className="staking__card__item" key={`${item.title}-${index}`}>
-            <span className="staking__card__title">{item.title}</span>
-            <span className="staking__card__wrapper">
-              <span className="staking__card__currency">{item.currency}</span>
-              <span className="staking__card__descr">{item.descr}</span>
-            </span>
-          </li>
+          <S.Item key={`${item.title}-${index}`}>
+            <S.ItemTitle>{item.title}</S.ItemTitle>
+            <S.ItemWrapper>
+              <S.ItemTitle>{item.currency}</S.ItemTitle>
+              <S.ItemDescr>{item.descr}</S.ItemDescr>
+            </S.ItemWrapper>
+          </S.Item>
         ))}
-      </ul>
+      </S.List>
       {tokens && (
         <>
-          <span className="staking__card__tokens__title">
-            Your tokens will be unlocked
-          </span>
-          <ul className="staking__card__tokens">
+          <S.TokensTitle>Your tokens will be unlocked</S.TokensTitle>
+          <S.Tokens>
             {tokens.map((item, index) => (
-              <li
-                className="staking__card__tokens__item"
-                key={`${item.date}-${index}`}
-              >
-                <span className="staking__card__tokens__bullet" />
-                <span className="staking__card__tokens__text">{item.date}</span>
-                <span className="staking__card__tokens__text">{item.lmx}</span>
-              </li>
+              <S.TokensItem key={`${item.date}-${index}`}>
+                <S.TokensItemBullet />
+                <S.TokensItemText>{item.date}</S.TokensItemText>
+                <S.TokensItemText>{item.lmx}</S.TokensItemText>
+              </S.TokensItem>
             ))}
-          </ul>
+          </S.Tokens>
         </>
       )}
-      <div className="staking__card__actions">
+      <S.Actions>
         <Button onClick={handleDeposit}>Deposit</Button>
         <Button disabled>Withdraw</Button>
-      </div>
-    </div>
+      </S.Actions>
+    </S.StakingCard>
   );
 };
