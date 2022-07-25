@@ -31,6 +31,7 @@ export const { styled, keyframes } = createStitches({
   media: {
     fromLaptop: "only screen and (min-width: 1200px)",
     toLaptop: "only screen and (max-width: 1199px)",
+    toTablet: "only screen and (max-width: 700px)",
   },
 });
 

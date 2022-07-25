@@ -1,16 +1,15 @@
 /* eslint-disable react/no-array-index-key */
 import React, { FC, useEffect, useState } from "react";
-import "./style.scss";
+
 import { portfolio } from "../../lib/mock/portfolio";
-import { NetworkItem } from "../../components/atoms/NetworkItem";
+import { NetworkItem, Button, Modal, Input } from "../../components/atoms";
 import {
   PortfolioTable,
   PortfolioTableFields,
 } from "../../components/molecules/PortfolioTable";
 import { SortType } from "../../components/atoms/Sort";
-import { Button } from "../../components/atoms/Button";
-import { Modal } from "../../components/atoms/Modal";
-import { Input } from "../../components/atoms/Input";
+
+import * as S from "./style";
 
 export const Portfolio: FC = () => {
   const [activeNetwork, setActiveNetwork] = useState<number>(0);
@@ -51,18 +50,18 @@ export const Portfolio: FC = () => {
   }, []);
 
   return (
-    <div className="portfolio">
+    <S.Portfolio>
       <Modal
         isVisible={isFollowModal}
         handleClose={() => setIsFollowModal(false)}
       >
-        <span className="portfolio__modal__title">
+        <S.ModalTitle>
           Are you sure you want to follow for this trader? After that you will
           start copying his trades
           <br /> <br />
           Set allowed volume to copy trades
-        </span>
-        <div className="portfolio__modal__actions">
+        </S.ModalTitle>
+        <S.ModalActions>
           <Input
             value={tokenValue}
             onChange={setTokenValue}
@@ -75,57 +74,47 @@ export const Portfolio: FC = () => {
           <Button size="middle" onClick={() => setIsFollowModal(false)}>
             Subscribe
           </Button>
-        </div>
+        </S.ModalActions>
       </Modal>
-      <div className="portfolio__info">
-        <div className="portfolio__info__wrapper">
-          <div className="portfolio__info__wallet">
-            <span className="portfolio__info__wallet__title">
+      <S.Info>
+        <S.InfoWrapper>
+          <S.InfoWallet>
+            <S.InfoWalletTitle>
               0x039e1e57a1a1028819f7ecd11d67b49b86316e37
-            </span>
+            </S.InfoWalletTitle>
             <Button size="middle">Share</Button>
             <Button size="middle">Follow</Button>
-          </div>
-          <div className="portfolio__info__stats">
-            <span className="portfolio__info__stats__item">
+          </S.InfoWallet>
+          <S.InfoStats>
+            <S.InfoStatsItem>
               Following <span>0</span>
-            </span>
-            <span className="portfolio__info__stats__item">
+            </S.InfoStatsItem>
+            <S.InfoStatsItem>
               Followers <span>0</span>
-            </span>
-          </div>
-          <div className="portfolio__info__rewards">
-            <span className="portfolio__info__rewards__title">
-              Rewards: $12,357,554
-            </span>
-          </div>
-        </div>
-        <div className="portfolio__info__wrapper">
-          <div className="portfolio__info__balance">
-            <span className="portfolio__info__balance__title">
-              Balance: $12,357,554
-            </span>
-            <div className="portfolio__info__balance__tags">
-              <span className="portfolio__info__balance__tag">
-                <span>
-                  Weekly PnL: <span className="red">-10%</span>
-                </span>
-              </span>
-              <span className="portfolio__info__balance__tag">
-                <span>
-                  Monthly PnL: <span className="green">10%</span>
-                </span>
-              </span>
-              <span className="portfolio__info__balance__tag">
-                <span>
-                  Quarterly PnL: <span className="green">124%</span>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ul className="portfolio__networks__list">
+            </S.InfoStatsItem>
+          </S.InfoStats>
+          <S.InfoRewards>
+            <S.InfoBalanceTitle>Rewards: $12,357,554</S.InfoBalanceTitle>
+          </S.InfoRewards>
+        </S.InfoWrapper>
+        <S.InfoWrapper>
+          <S.InfoBalance>
+            <S.InfoBalanceTitle>Balance: $12,357,554</S.InfoBalanceTitle>
+            <S.InfoBalanceTags>
+              <S.InfoBalanceTag red>
+                Weekly PnL: <span>-10%</span>
+              </S.InfoBalanceTag>
+              <S.InfoBalanceTag green>
+                Monthly PnL: <span>10%</span>
+              </S.InfoBalanceTag>
+              <S.InfoBalanceTag green>
+                Quarterly PnL: <span>124%</span>
+              </S.InfoBalanceTag>
+            </S.InfoBalanceTags>
+          </S.InfoBalance>
+        </S.InfoWrapper>
+      </S.Info>
+      <S.List>
         {networks.map((item, index) => (
           <NetworkItem
             title={item.title}
@@ -134,8 +123,8 @@ export const Portfolio: FC = () => {
             key={`${item.title}-${index}`}
           />
         ))}
-      </ul>
-      <span className="portfolio__title">All assets - 12453$</span>
+      </S.List>
+      <S.Title>All assets - 12453$</S.Title>
       <PortfolioTable
         sort={sort}
         handleChangeSort={setSort}
@@ -144,6 +133,6 @@ export const Portfolio: FC = () => {
         activeNetwork={activeNetwork}
         handleFollow={handleFollow}
       />
-    </div>
+    </S.Portfolio>
   );
 };

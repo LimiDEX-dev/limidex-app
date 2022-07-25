@@ -8,7 +8,7 @@ export const Title = styled("h1", {
   fontSize: 48,
   lineHeight: "56px",
 
-  "@toTablet": {
+  "@toLaptop": {
     marginBottom: 14,
 
     fontFamily: "Roboto Mono, sans-serif",

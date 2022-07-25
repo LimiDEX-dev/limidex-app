@@ -12,10 +12,11 @@ import {
   Button,
   Popup,
 } from "../../components/atoms";
-import "./style.scss";
 import { lmx } from "../../lib/mock/lmx";
 import { StakingCard } from "../../components/molecules";
-import { Rewards } from "../../components/molecules/Rewards";
+
+import * as S from "./style";
+import * as Card from "../../components/molecules/StakingCard/style";
 
 const lockPeriodes = [
   {
@@ -54,10 +55,10 @@ export const LMX: FC = () => {
       <Description>
         Holders can lock SPLX for a certain period of time to get veSPLX, which
         allows them right to receive a share of the profits on each network
-        <span className="lmx__description">
-          <span className="lmx__description__wrapper">
-            <span className="lmx__description__title">Time Lock</span>
-            <span className="lmx__description__content">
+        <S.Description>
+          <S.DescriptionWrapper>
+            <S.DescriptionTitle>Time Lock</S.DescriptionTitle>
+            <S.DescriptionContent>
               1 Month: 1 SPLX = 0.1 veSPLX <br />3 Months: 1 SPLX = 0.25 veSPLX{" "}
               <br />6 Months: 1 SPLX = 0.5 veSPLX <br />
               1 Year: 1 SPLX = 1 veSPLX
@@ -69,9 +70,9 @@ export const LMX: FC = () => {
               <br />
               Lock SPLX and get rewards in WETH, WBNB, WMATIC, WFTM, WAVAX,
               arbitrum WETH
-            </span>
-          </span>
-        </span>
+            </S.DescriptionContent>
+          </S.DescriptionWrapper>
+        </S.Description>
       </Description>
     </span>
   );
@@ -85,12 +86,12 @@ export const LMX: FC = () => {
 
   return (
     <>
-      <div className="lmx-modal">
+      <S.Modal>
         <Modal isVisible={isModal} handleClose={() => setIsModal(false)}>
-          <div className="staking__card__header">
-            <span className="staking__card__header__photo" />
-            <span className="staking__card__header__title">LMX</span>
-          </div>
+          <Card.Header>
+            <Card.HeaderPhoto />
+            <Card.HeaderTitle>LMX</Card.HeaderTitle>
+          </Card.Header>
           <Input
             value={lockLMX}
             onChange={setLockLMX}
@@ -98,48 +99,48 @@ export const LMX: FC = () => {
             currency="LMX"
             topLabel="Balance 12 LMX"
           />
-          <ul className="staking__card__list">
-            <li className="staking__card__item">
+          <Card.List>
+            <Card.Item>
               <Popup content="Lorem ipsum dolor sit amet">
-                <span className="staking__card__title">ROI</span>
+                <Card.ItemTitle>ROI</Card.ItemTitle>
               </Popup>
-              <span className="staking__card__wrapper">
-                <span className="staking__card__currency">$</span>
-                <span className="staking__card__descr">1 200 000</span>
-              </span>
-            </li>
-            <li className="staking__card__item">
+              <Card.ItemWrapper>
+                <Card.ItemTitle>$</Card.ItemTitle>
+                <Card.ItemDescr>1 200 000</Card.ItemDescr>
+              </Card.ItemWrapper>
+            </Card.Item>
+            <Card.Item>
               <Popup content="Lorem ipsum dolor sit amet">
-                <span className="staking__card__title">Get LP</span>
+                <Card.ItemTitle>Get LP</Card.ItemTitle>
               </Popup>
-              <span className="staking__card__wrapper">
-                <span className="staking__card__currency">LP</span>
-                <span className="staking__card__descr">1.2</span>
-              </span>
-            </li>
-            <li className="staking__card__item">
-              <span className="staking__card__title">Lock period</span>
-              <span className="staking__card__wrapper">
-                <span className="staking__card__descr">
+              <Card.ItemWrapper>
+                <Card.ItemTitle>LP</Card.ItemTitle>
+                <Card.ItemDescr>1.2</Card.ItemDescr>
+              </Card.ItemWrapper>
+            </Card.Item>
+            <Card.Item>
+              <Card.ItemTitle>Lock period</Card.ItemTitle>
+              <Card.ItemWrapper>
+                <Card.ItemTitle>
                   <Dropdown items={lockPeriodes} onSelect={setSelectedPeriod}>
                     {selectedPeriod.label}
                   </Dropdown>
-                </span>
-              </span>
-            </li>
-          </ul>
-          <div className="staking__card__actions">
+                </Card.ItemTitle>
+              </Card.ItemWrapper>
+            </Card.Item>
+          </Card.List>
+          <Card.Actions>
             <Button onClick={() => setIsModal(false)}>Approve</Button>
             <Button disabled>Stake</Button>
-          </div>
+          </Card.Actions>
         </Modal>
-      </div>
-      <div className="lmx">
-        <div className="lmx__wrapper">
+      </S.Modal>
+      <S.LMX>
+        <S.Wrapper>
           <Title>Lock SPLX to Earn protocol profits</Title>
           {getDescription()}
-        </div>
-        <div className="lmx__wrapper">
+        </S.Wrapper>
+        <S.Wrapper>
           <Swiper
             modules={[Pagination]}
             slidesPerView={1}
@@ -169,12 +170,12 @@ export const LMX: FC = () => {
             ))}
           </Swiper>
           <div className="staking__pagination" />
-        </div>
-        <div className="lmx__description__main-wrapper">
+        </S.Wrapper>
+        <S.DescriptionMainWrapper>
           {getFirstDescription()}
           {getRewardsDescription()}
-        </div>
-      </div>
+        </S.DescriptionMainWrapper>
+      </S.LMX>
     </>
   );
 };

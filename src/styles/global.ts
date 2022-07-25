@@ -61,16 +61,15 @@ export const setupStyles = globalCss({
   },
 
   "#chart": {
-    width: "100%",
     height: "calc(100% - 50px)",
-    margin: "0 -40px",
+    margin: "0 -20px",
 
     svg: {
       width: "100%",
       height: "100%",
     },
 
-    "@fromTablet": {
+    "@fromLaptop": {
       height: "100%",
       margin: 0,
     },

@@ -294,7 +294,7 @@ export const Orders: FC = () => {
   };
 
   return (
-    <S.Orders className="Orders">
+    <S.Orders>
       <S.Container>
         <S.Tabs>
           <S.Tab

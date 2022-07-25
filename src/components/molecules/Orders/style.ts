@@ -10,7 +10,7 @@ export const Orders = styled("div", {
   borderRadius: 8,
 
   "@toLaptop": {
-    padding: 0,
+    paddingTop: 10,
     marginTop: 24,
 
     border: "none",

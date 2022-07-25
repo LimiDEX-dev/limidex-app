@@ -1,16 +1,21 @@
 /* eslint-disable react/no-array-index-key */
 import React, { FC, useState } from "react";
-import "./style.scss";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+
 import { staking } from "../../lib/mock/staking";
-import { StakingCard } from "../../components/molecules/StakingCard";
-import { Title } from "../../components/atoms/Title";
-import { Description } from "../../components/atoms/Description";
-import { Modal } from "../../components/atoms/Modal";
-import { Input } from "../../components/atoms/Input";
-import { Popup } from "../../components/atoms/Popup";
-import { Button } from "../../components/atoms/Button";
+import { StakingCard } from "../../components/molecules";
+import {
+  Title,
+  Description,
+  Modal,
+  Input,
+  Popup,
+  Button,
+} from "../../components/atoms";
+
+import * as S from "./style";
+import * as Card from "../../components/molecules/StakingCard/style";
 
 export const Staking: FC = () => {
   const [selectedCard, setSelectedCard] = useState<null | {
@@ -34,17 +39,15 @@ export const Staking: FC = () => {
 
   return (
     <>
-      <div className="staking-modal">
+      <S.Modal>
         <Modal
           isVisible={!!selectedCard}
           handleClose={() => setSelectedCard(null)}
         >
-          <div className="staking__card__header">
-            <span className="staking__card__header__photo" />
-            <span className="staking__card__header__title">
-              {selectedCard?.title}
-            </span>
-          </div>
+          <Card.Header>
+            <Card.HeaderPhoto />
+            <Card.HeaderTitle>{selectedCard?.title}</Card.HeaderTitle>
+          </Card.Header>
           <Input
             value={stateToken}
             onChange={setStateToken}
@@ -52,40 +55,38 @@ export const Staking: FC = () => {
             currency="WBNB"
             topLabel="Balance 12 WNBN"
           />
-          <ul className="staking__card__list">
-            <li className="staking__card__item">
+          <Card.List>
+            <Card.Item>
               <Popup content="Lorem ipsum dolor sit amet">
-                <span className="staking__card__title">ROI</span>
+                <Card.ItemTitle>ROI</Card.ItemTitle>
               </Popup>
-              <span className="staking__card__wrapper">
-                <span className="staking__card__currency">$</span>
-                <span className="staking__card__descr">
-                  {selectedCard?.roi}
-                </span>
-              </span>
-            </li>
-            <li className="staking__card__item">
+              <Card.ItemWrapper>
+                <Card.ItemTitle>$</Card.ItemTitle>
+                <Card.ItemDescr>{selectedCard?.roi}</Card.ItemDescr>
+              </Card.ItemWrapper>
+            </Card.Item>
+            <Card.Item>
               <Popup content="Lorem ipsum dolor sit amet">
-                <span className="staking__card__title">Get LP</span>
+                <Card.ItemTitle>Get LP</Card.ItemTitle>
               </Popup>
-              <span className="staking__card__wrapper">
-                <span className="staking__card__currency">LP</span>
-                <span className="staking__card__descr">{selectedCard?.lp}</span>
-              </span>
-            </li>
-          </ul>
-          <div className="staking__card__actions">
+              <Card.ItemWrapper>
+                <Card.ItemTitle>LP</Card.ItemTitle>
+                <Card.ItemDescr>{selectedCard?.lp}</Card.ItemDescr>
+              </Card.ItemWrapper>
+            </Card.Item>
+          </Card.List>
+          <Card.Actions>
             <Button onClick={() => setSelectedCard(null)}>Approve</Button>
             <Button disabled>Stake</Button>
-          </div>
+          </Card.Actions>
         </Modal>
-      </div>
-      <div className="staking">
-        <div className="staking__wrapper">
+      </S.Modal>
+      <S.Staking>
+        <S.Wrapper>
           <Title>Stake and Earn protocol profits</Title>
           {getDescription()}
-        </div>
-        <div className="staking__wrapper">
+        </S.Wrapper>
+        <S.Wrapper>
           <Swiper
             modules={[Pagination]}
             slidesPerView={1}
@@ -119,10 +120,10 @@ export const Staking: FC = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className="staking__pagination" />
-        </div>
-        <div className="staking__description">{getDescription()}</div>
-      </div>
+          <S.Pagination />
+        </S.Wrapper>
+        <S.Description>{getDescription()}</S.Description>
+      </S.Staking>
     </>
   );
 };
