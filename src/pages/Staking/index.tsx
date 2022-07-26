@@ -93,7 +93,7 @@ export const Staking: FC = () => {
             spaceBetween={0}
             pagination={{
               clickable: true,
-              el: ".staking__pagination",
+              el: ".custom-pagination",
               renderBullet: (index, className) => `
               <span class="${className}">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,7 +120,7 @@ export const Staking: FC = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-          <S.Pagination />
+          <div className="custom-pagination" />
         </S.Wrapper>
         <S.Description>{getDescription()}</S.Description>
       </S.Staking>

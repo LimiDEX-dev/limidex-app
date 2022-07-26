@@ -90,38 +90,6 @@ export const Wrapper = styled("div", {
   },
 });
 
-export const Pagination = styled("div", {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-
-  marginTop: 14,
-
-  "@fromLaptop": {
-    display: "none",
-  },
-
-  "& > .swiper-pagination-bullet": {
-    display: "block",
-
-    width: 16,
-    height: 16,
-    marginLeft: "0 !important",
-
-    backgroundColor: "transparent",
-
-    color: "#B8B5B8",
-
-    "&:not(:last-child)": {
-      marginRight: 4,
-    },
-
-    "&-active": {
-      color: "$accent",
-    },
-  },
-});
-
 export const Modal = styled("div", {
   [`& ${List}`]: {
     marginTop: 6,
