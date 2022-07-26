@@ -60,7 +60,7 @@ export const Wrapper = styled("div", {
       display: "block",
 
       width: "auto",
-      margin: "0 -32px 30px",
+      margin: "0 -16px 30px",
     },
 
     "& .swiper": {

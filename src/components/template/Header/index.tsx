@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
-import classnames from "classnames";
+
 import { LoadingSmallIcon, SettingsIcon } from "../../../lib/icons";
-import "./style.scss";
 import {
   GithubIcon,
   MDownIcon,
@@ -12,47 +11,34 @@ import {
 } from "../../../lib/icons/social";
 import { useOutsideAlerter } from "../../../lib/hooks";
 import { chains as mockChains } from "../../../lib/mock/valutes";
-import { Dropdown } from "../../atoms/Dropdown";
-import { Modal } from "../../atoms/Modal";
-import { Input } from "../../atoms/Input";
-import { Button } from "../../atoms/Button";
+import { Dropdown, Modal, Input, Button } from "../../atoms";
 import { useUser } from "../../../store";
 
+import * as S from "./style";
+
 const SocialList = () => (
-  <ul className="header__social__list">
-    <li className="header__social__item">
-      <a
-        href="src/components/template/Header/index#"
-        className="header__social__link"
-      >
+  <S.SocialList>
+    <S.SocialItem>
+      <a href="src/components/template/Header/index#">
         <TwitterIcon />
       </a>
-    </li>
-    <li className="header__social__item">
-      <a
-        href="src/components/template/Header/index#"
-        className="header__social__link"
-      >
+    </S.SocialItem>
+    <li>
+      <a href="src/components/template/Header/index#">
         <TelegramIcon />
       </a>
     </li>
-    <li className="header__social__item">
-      <a
-        href="src/components/template/Header/index#"
-        className="header__social__link"
-      >
+    <li>
+      <a href="src/components/template/Header/index#">
         <MDownIcon />
       </a>
     </li>
-    <li className="header__social__item">
-      <a
-        href="src/components/template/Header/index#"
-        className="header__social__link"
-      >
+    <li>
+      <a href="src/components/template/Header/index#">
         <GithubIcon />
       </a>
     </li>
-  </ul>
+  </S.SocialList>
 );
 
 export const Header: FC = () => {
@@ -86,7 +72,7 @@ export const Header: FC = () => {
         isVisible={isSettingsOpened}
         handleClose={() => setIsSettingsOpened(false)}
       >
-        <div className="header__settings">
+        <S.HeaderSettings>
           <Input
             value={slippageTolerance}
             onChange={setSlippageTolerance}
@@ -98,12 +84,12 @@ export const Header: FC = () => {
           />
           <Button>Change</Button>
           <SocialList />
-        </div>
+        </S.HeaderSettings>
       </Modal>
-      <div className="header__mobile">
-        <div className="header__mobile__logo">
+      <S.Mobile>
+        <S.MobileLogo>
           <img src="/assets/logo-mobile.png" alt="" width={50} />
-        </div>
+        </S.MobileLogo>
         <Dropdown
           items={chains}
           onSelect={setSelectedChain}
@@ -112,65 +98,67 @@ export const Header: FC = () => {
           {selectedChain.icon}
           {selectedChain.label}
         </Dropdown>
-        <span className="user-nav__wallet">0x039e...6e37</span>
+        <S.Wallet>
+          0x039e...6e37
+          {user.transactionsPending > 0 && (
+            <S.WalletPendingStatus>
+              <LoadingSmallIcon /> {user.transactionsPending} Pending
+            </S.WalletPendingStatus>
+          )}
+        </S.Wallet>
         {/* if no wallet connected */}
         {/* <Button size="small"> */}
         {/*  Connect wallet */}
         {/* </Button> */}
-      </div>
+      </S.Mobile>
       <div ref={headerRef}>
-        <header
-          className={classnames("header", {
-            "header--opened": isOpened,
-          })}
-        >
-          <div className="header__logo">
+        <S.Header isOpened={isOpened}>
+          <S.Logo>
             <img src="/assets/logo.png" alt="" width={180} />
-          </div>
-          <nav className="header__nav nav">
-            <ul className="nav__list">
-              <li className="nav__item">
+          </S.Logo>
+          <S.Nav>
+            <S.List>
+              <S.Item>
                 <NavLink to="/staking" onClick={handleOpen}>
                   Staking
                 </NavLink>
-              </li>
-              <li className="nav__item">
+              </S.Item>
+              <S.Item>
                 <NavLink to="/trading" onClick={handleOpen}>
                   Copy trade
                 </NavLink>
-              </li>
-              <li className="nav__item">
+              </S.Item>
+              <S.Item>
                 <NavLink to="/lmx" onClick={handleOpen}>
                   veSPLX
                 </NavLink>
-              </li>
-              <li className="nav__item">
+              </S.Item>
+              <S.Item>
                 <NavLink to="/" onClick={handleOpen}>
                   Trade
                 </NavLink>
-              </li>
-              <li className="nav__item">
+              </S.Item>
+              <S.Item>
                 <NavLink to="/rewards" onClick={handleOpen}>
                   Rewards
                 </NavLink>
-              </li>
-            </ul>
-          </nav>
-          <div className="header__info">
-            <div className="header__info__card">
+              </S.Item>
+            </S.List>
+          </S.Nav>
+          <S.Info>
+            <S.InfoCard>
               Cashback
               <br />
               <br />
               <span>123 LMX</span>
-            </div>
-          </div>
-          <button
-            className="header__close"
+            </S.InfoCard>
+          </S.Info>
+          <S.CloseButton
             type="button"
             onClick={handleOpen}
             aria-label="close navigation"
           />
-          <div className="header__user-nav user-nav">
+          <S.UserNav>
             <Button size="small">Split RPC</Button>
             <Dropdown
               items={chains}
@@ -180,38 +168,36 @@ export const Header: FC = () => {
               {selectedChain.icon}
               {selectedChain.label}
             </Dropdown>
-            <div className="user-nav__balance">
-              <span className="user-nav__balance__icon" />0
-            </div>
-            <span className="user-nav__wallet">
+            <S.Balance>
+              <S.BalanceIcon />0
+            </S.Balance>
+            <S.Wallet>
               0x039e...6e37
               {user.transactionsPending > 0 && (
-                <span className="user-nav__wallet__pending-status">
+                <S.WalletPendingStatus>
                   <LoadingSmallIcon /> {user.transactionsPending} Pending
-                </span>
+                </S.WalletPendingStatus>
               )}
-            </span>
+            </S.Wallet>
             {/* if no wallet connected */}
             {/* <Button size="small"> */}
             {/*  Connect wallet */}
             {/* </Button> */}
-            <button
-              className="user-nav__settings"
+            <S.UserNavSettings
               type="button"
               onClick={() => setIsSettingsOpened(true)}
             >
               <SettingsIcon />
-            </button>
-          </div>
-        </header>
-        <button
-          className="header__burger"
+            </S.UserNavSettings>
+          </S.UserNav>
+        </S.Header>
+        <S.Burger
           type="button"
           onClick={handleOpen}
           aria-label={isOpened ? "close navigation" : "open navigation"}
         >
           <span />
-        </button>
+        </S.Burger>
       </div>
     </>
   );

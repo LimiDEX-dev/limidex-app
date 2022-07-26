@@ -53,7 +53,7 @@ export const Wrapper = styled("div", {
   },
 
   "&:nth-child(2)": {
-    margin: "0 -32px 12px",
+    margin: "0 -16px 12px",
 
     "@fromLaptop": {
       width: "60%",
