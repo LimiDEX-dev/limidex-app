@@ -1,13 +1,14 @@
 import React, { useLayoutEffect, useState } from "react";
-import classnames from "classnames";
 
-import "./style.scss";
-
-import { PlaceOrder } from "../../components/PlaceOrder";
-import { ExchangesRates } from "../../components/ExchangesRates";
-import { Orders } from "../../components/Orders";
-import { Chart } from "../../components/Chart";
+import {
+  PlaceOrder,
+  ExchangesRates,
+  Orders,
+  Chart,
+} from "../../components/molecules";
 import { ChartIcon, RatesIcon } from "../../lib/icons";
+
+import * as S from "./style";
 
 export const Main = () => {
   const [activeOrderTab, setActiveOrderTab] = useState<
@@ -38,45 +39,44 @@ export const Main = () => {
   }, [isExpertMode, activeOrderTab]);
 
   return (
-    <div
-      className={classnames("Main", {
-        "Main--expert":
-          (isExpertMode && activeOrderTab === "swap") ||
-          activeOrderTab === "limit",
-      })}
+    <S.Main
+      isExpertMode={
+        (isExpertMode && activeOrderTab === "swap") ||
+        activeOrderTab === "limit"
+      }
     >
-      <div className="left">
+      <S.LeftContent>
         <PlaceOrder
           isExpertMode={isExpertMode}
           setIsExpertMode={setIsExpertMode}
           activeTab={activeOrderTab}
           setActiveTab={setActiveOrderTab}
         />
-      </div>
+      </S.LeftContent>
 
-      <div className="right">
-        <div className="right-top" data-active-tab={activeTab}>
-          <div className="exchanges-rates-container">
+      <S.RightContent>
+        <S.RightTop>
+          <S.ExchangeRatesContainer isActive={activeTab === 1}>
             <ExchangesRates />
-          </div>
-          <div className="chart-container">
+          </S.ExchangeRatesContainer>
+          <S.ChartContainer isActive={activeTab === 0}>
             <Chart height={height} setHeight={setHeight} />
-          </div>
-        </div>
+          </S.ChartContainer>
+        </S.RightTop>
 
-        <div className="right-bottom">
+        <S.RightBottom>
           <Orders />
-        </div>
-      </div>
-      <div className="actions">
-        <button type="button" onClick={() => setActiveTab(0)}>
+        </S.RightBottom>
+      </S.RightContent>
+      <S.Actions>
+        <S.ActionButton type="button" onClick={() => setActiveTab(0)}>
           <ChartIcon />
-        </button>
-        <button type="button" onClick={() => setActiveTab(1)}>
+        </S.ActionButton>
+        <S.ActionButton type="button" onClick={() => setActiveTab(1)}>
           <RatesIcon />
-        </button>
-      </div>
+        </S.ActionButton>
+      </S.Actions>
       <Orders />
-    </div>
+    </S.Main>
   );
 };
