@@ -10,7 +10,6 @@ import { setupGlobalStyles } from "../styles";
 
 import * as S from "./style";
 
-import "../styles/index.scss";
 import "swiper/css";
 import "swiper/css/pagination";
 
