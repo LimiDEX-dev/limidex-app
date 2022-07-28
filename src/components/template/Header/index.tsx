@@ -10,9 +10,8 @@ import {
   TwitterIcon,
 } from "../../../lib/icons/social";
 import { useOutsideAlerter } from "../../../lib/hooks";
-import { chains as mockChains } from "../../../lib/mock/valutes";
 import { Dropdown, Modal, Input, Button } from "../../atoms";
-import { useUser } from "../../../store";
+import { useUser, useChains } from "../../../store";
 
 import * as S from "./style";
 
@@ -43,8 +42,8 @@ const SocialList = () => (
 
 export const Header: FC = () => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
-  const [chains, setChains] = useState(mockChains);
-  const [selectedChain, setSelectedChain] = useState(mockChains[0]);
+  // const [chains, setChains] = useState(mockChains);
+  // const [selectedChain, setSelectedChain] = useState(mockChains[0]);
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
   const [slippageTolerance, setSlippageTolerance] = useState<string>("0.5");
 
@@ -52,9 +51,13 @@ export const Header: FC = () => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { data: user } = useUser();
+  const {
+    data: { data: chains, selectedChain },
+    actions: { setSelectedChain },
+  } = useChains();
 
   const handleOpen = () => {
-    setIsOpened((prevState) => !prevState);
+    setIsOpened(isOpened);
   };
 
   useOutsideAlerter(headerRef, (event) => {

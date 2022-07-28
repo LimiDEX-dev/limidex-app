@@ -1,5 +1,5 @@
 import React from "react";
-import { DropdownItem } from "../../components/atoms/Dropdown";
+import { DropdownItem } from "../../components/atoms";
 import {
   ArbitrumIcon,
   EthereumIcon,
@@ -7,6 +7,7 @@ import {
   PolygonIcon,
   AvalancheIcon,
 } from "../icons/tokens";
+import { Chain } from "../../types/chains";
 
 export const valutes: DropdownItem[] = [
   {
@@ -291,7 +292,7 @@ export const valutes: DropdownItem[] = [
   },
 ];
 
-export const chains: DropdownItem[] = [
+export const chains: Chain[] = [
   {
     value: "ethereum",
     label: "Ethereum",

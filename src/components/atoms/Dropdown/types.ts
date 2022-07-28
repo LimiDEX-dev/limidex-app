@@ -1,9 +1,9 @@
-import { ReactElement } from "react";
+import { ReactNode } from "react";
 
 export interface DropdownItem {
   label: string;
   value: string;
-  icon?: ReactElement;
+  icon?: ReactNode;
   [key: string]: any;
 }
 
