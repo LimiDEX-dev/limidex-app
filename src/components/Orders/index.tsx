@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import "./style.scss";
 import { orders } from "../../lib/mock/orders";
-import { useActiveOrders, useHistoryOrders, useCrossOrders } from "../../store";
+import { useOrders } from "../../store";
 
 export const Orders: FC = () => {
   const [activeTab, setActiveTab] = useState<0 | 1 | 2>(0);
@@ -14,19 +14,11 @@ export const Orders: FC = () => {
   // const [crossOrders, setCrossOrders] = useState(orders.cross);
 
   const {
-    data: activeOrders,
-    actions: { setActiveOrders, deleteActiveOrder },
-  } = useActiveOrders();
-
-  const {
-    data: historyOrders,
-    actions: { setHistoryOrders },
-  } = useHistoryOrders();
-
-  const {
-    data: crossOrders,
-    actions: { setCrossOrders },
-  } = useCrossOrders();
+    data: { activeOrders, historyOrders, crossOrders },
+    actions: {
+      activeOrders: { deleteActiveOrder },
+    },
+  } = useOrders();
 
   useEffect(() => {
     // THERE IS FUNCTION THAT SET ORDERS DATA
@@ -78,7 +70,7 @@ export const Orders: FC = () => {
     //   ...prevState.slice(0, index),
     //   ...prevState.slice(index + 1),
     // ]);
-    deleteActiveOrder(index)
+    deleteActiveOrder(index);
   };
 
   const getTable = () => {

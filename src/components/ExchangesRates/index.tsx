@@ -1,25 +1,25 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useEffect, useState } from 'react';
-import './style.scss';
-import { Dropdown } from '../Dropdown';
-import { useCurrentPrice, useRedDates, useGreenDates, useSelectedStep } from '../../store';
+import React, { useEffect, useState } from "react";
+import "./style.scss";
+import { Dropdown } from "../Dropdown";
+import { useRates } from "../../store";
 
 const stepOptions = [
   {
-    label: '$',
-    value: '1 ',
+    label: "$",
+    value: "1 ",
   },
   {
-    label: '$',
-    value: '5 ',
+    label: "$",
+    value: "5 ",
   },
   {
-    label: '$',
-    value: '10',
+    label: "$",
+    value: "10",
   },
   {
-    label: '$',
-    value: '50',
+    label: "$",
+    value: "50",
   },
 ];
 
@@ -33,24 +33,11 @@ export const ExchangesRates = () => {
   // const [selectedStep, setSelectedStep] = useState(stepOptions[0]);
 
   const {
-    data: currentPrice,
-    actions: { setCurrentPrice },
-  } = useCurrentPrice();
-
-  const {
-    data: redDates,
-    actions: { setRedDates },
-  } = useRedDates();
-
-  const {
-    data: greenDates,
-    actions: { setGreenDates },
-  } = useGreenDates();
-
-  const {
-    data: selectedStep,
-    actions: { setSelectedStep },
-  } = useSelectedStep();
+    data: { currentPrice, greenRates, redRates, selectedStep },
+    actions: {
+      selectedStep: { setSelectedStep },
+    },
+  } = useRates();
 
   useEffect(() => {
     // THERE IS FUNCTIONS THAT SET RATES DATA
@@ -63,7 +50,12 @@ export const ExchangesRates = () => {
     <div className="ExchangesRates">
       <div className="top">
         <div className="title">Orderbook</div>
-        <Dropdown items={stepOptions} onSelect={setSelectedStep} arrowHidden textAlign="right">
+        <Dropdown
+          items={stepOptions}
+          onSelect={setSelectedStep}
+          arrowHidden
+          textAlign="right"
+        >
           <div className="step">
             <span>Step</span>
             <span>$</span>
@@ -81,37 +73,37 @@ export const ExchangesRates = () => {
             </tr>
           </thead>
           <tbody>
-            {redDates.map((rate, index) => (
-              <tr
-                className="red-rate"
-                key={`${rate.price}-${index}`}
-              >
+            {redRates.map((rate, index) => (
+              <tr className="red-rate" key={`${rate.price}-${index}`}>
                 <td className="price">{rate.price}</td>
                 <td className="amount">
                   <span>{rate.amount}</span>
-                  <div className="progress" style={{ width: `${rate.progress}%` }} />
+                  <div
+                    className="progress"
+                    style={{ width: `${rate.progress}%` }}
+                  />
                 </td>
               </tr>
             ))}
-            <tr
-              className="red-rate red-rate--big"
-              key="date-current-price"
-            >
+            <tr className="red-rate red-rate--big" key="date-current-price">
               <td className="price">{currentPrice.price}</td>
               <td className="amount">
                 <span>{currentPrice.amount}</span>
-                <div className="progress" style={{ width: `${currentPrice.progress}%` }} />
+                <div
+                  className="progress"
+                  style={{ width: `${currentPrice.progress}%` }}
+                />
               </td>
             </tr>
-            {greenDates.map((rate, index) => (
-              <tr
-                className="green-rate"
-                key={`${rate.price}-${index}`}
-              >
+            {greenRates.map((rate, index) => (
+              <tr className="green-rate" key={`${rate.price}-${index}`}>
                 <td className="price">{rate.price}</td>
                 <td className="amount">
                   <span>{rate.amount}</span>
-                  <div className="progress" style={{ width: `${rate.progress}%` }} />
+                  <div
+                    className="progress"
+                    style={{ width: `${rate.progress}%` }}
+                  />
                 </td>
               </tr>
             ))}

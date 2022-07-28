@@ -16,61 +16,21 @@ export const useUser = selector(({ data: { user }, actions }) => ({
   data: user,
   actions: (actions as ActionsObject).user,
 }));
-export const useChains = selector(({ data: { chains }, }) => ({
+export const useChains = selector(({ data: { chains }, actions }) => ({
   data: chains,
+  actions: (actions as ActionsObject).chains,
 }));
-export const useSelectedChain = selector(({ data: { selectedChain }, actions}) => ({
-  data: selectedChain,
-  actions: (actions as ActionsObject).selectedChain,
-  
-}));
-export const useIsSettingsOpened = selector(({ data: { isSettingsOpened }, actions}) => ({
-  data: isSettingsOpened,
-  actions: (actions as ActionsObject).isSettingsOpened,
-  
-}));
-export const useSlippageTolerance = selector(({ data: { slippageTolerance }, actions}) => ({
-  data: slippageTolerance,
-  actions: (actions as ActionsObject).slippageTolerance,
-  
-}));
-export const useIsOpened = selector(({ data: { isOpened }, actions }) => ({
-  data: isOpened,
-  actions: (actions as ActionsObject).isOpened,
-}));
-
-// ExchangesRates
-export const useCurrentPrice = selector(({ data: { currentPrice }, actions }) => ({
-  data: currentPrice,
-  actions: (actions as ActionsObject).currentPrice,
-}));
-export const useRedDates = selector(({ data: { redDates }, actions }) => ({
-  data: redDates,
-  actions: (actions as ActionsObject).redDates,
-}));
-export const useGreenDates = selector(({ data: { greenDates }, actions }) => ({
-  data: greenDates,
-  actions: (actions as ActionsObject).greenDates,
-}));
-export const useSelectedStep = selector(({ data: { selectedStep }, actions }) => ({
-  data: selectedStep,
-  actions: (actions as ActionsObject).selectedStep,
+export const useRates = selector(({ data: { rates }, actions }) => ({
+  data: rates,
+  actions: (actions as ActionsObject).rates,
 }));
 export const useChart = selector(({ data: { chart }, actions }) => ({
   data: chart,
   actions: (actions as ActionsObject).chart,
 }));
-export const useActiveOrders = selector(({ data: { activeOrders }, actions }) => ({
-  data: activeOrders,
-  actions: (actions as ActionsObject).activeOrders,
-}));
-export const useHistoryOrders = selector(({ data: { historyOrders }, actions }) => ({
-  data: historyOrders,
-  actions: (actions as ActionsObject).historyOrders,
-}));
-export const useCrossOrders = selector(({ data: { crossOrders }, actions }) => ({
-  data: crossOrders,
-  actions: (actions as ActionsObject).crossOrders,
+export const useOrders = selector(({ data: { orders }, actions }) => ({
+  data: orders,
+  actions: (actions as ActionsObject).orders,
 }));
 
 export const GlobalStore = Store;
