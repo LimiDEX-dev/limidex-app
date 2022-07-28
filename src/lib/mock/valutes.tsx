@@ -1,5 +1,5 @@
 import React from "react";
-import { DropdownItem } from "../../components/Dropdown";
+import { DropdownItem } from "../../components/atoms";
 import {
   ArbitrumIcon,
   EthereumIcon,

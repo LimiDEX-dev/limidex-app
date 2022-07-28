@@ -3,7 +3,7 @@ import { Chain } from "../../types/chains";
 import { Rate } from "../../types/rate";
 import { Chart } from "../../types/chart";
 import { ActiveOrder, HistoryOrder, CrossOrder } from "../../types/orders";
-import { DropdownItem } from "../../components/Dropdown";
+import { DropdownItem } from "../../components/atoms";
 
 export type NotificationStore = Notification[];
 

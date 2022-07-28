@@ -1,23 +1,29 @@
 /* eslint-disable react/no-array-index-key */
-import React, { FC, useState } from 'react';
-import './style.scss';
-import { Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { staking } from '../../lib/mock/staking';
-import { StakingCard } from '../../components/StakingCard';
-import { Title } from '../../components/Title';
-import { Description } from '../../components/Description';
-import { Modal } from '../../components/Modal';
-import { Input } from '../../components/Input';
-import { Popup } from '../../components/Popup';
-import { Button } from '../../components/Button';
+import React, { FC, useState } from "react";
+import { Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import { staking } from "../../lib/mock/staking";
+import { StakingCard } from "../../components/molecules";
+import {
+  Title,
+  Description,
+  Modal,
+  Input,
+  Popup,
+  Button,
+} from "../../components/atoms";
+
+import * as S from "./style";
+import * as Card from "../../components/molecules/StakingCard/style";
 
 export const Staking: FC = () => {
-  const [selectedCard, setSelectedCard] = useState<
-    null |
-    { title: string; roi: string; lp: string; }
-    >(null);
-  const [stateToken, setStateToken] = useState<string>('100.00');
+  const [selectedCard, setSelectedCard] = useState<null | {
+    title: string;
+    roi: string;
+    lp: string;
+  }>(null);
+  const [stateToken, setStateToken] = useState<string>("100.00");
 
   const getDescription = () => (
     <Description>
@@ -26,64 +32,68 @@ export const Staking: FC = () => {
       essentially a new tool for staking native network coins
       <br />
       <br />
-      The protocol distributes 10% of arbitrage and 60% of flashloan profits to LP&apos;s
+      The protocol distributes 10% of arbitrage and 60% of flashloan profits to
+      LP&apos;s
     </Description>
   );
 
   return (
     <>
-      <div className="staking-modal">
-        <Modal isVisible={!!selectedCard} handleClose={() => setSelectedCard(null)}>
-          <div className="staking__card__header">
-            <span className="staking__card__header__photo" />
-            <span className="staking__card__header__title">{selectedCard?.title}</span>
-          </div>
-          <Input value={stateToken} onChange={setStateToken} label="Stake Token" currency="WBNB" topLabel="Balance 12 WNBN" />
-          <ul className="staking__card__list">
-            <li className="staking__card__item">
+      <S.Modal>
+        <Modal
+          isVisible={!!selectedCard}
+          handleClose={() => setSelectedCard(null)}
+        >
+          <Card.Header>
+            <Card.HeaderPhoto />
+            <Card.HeaderTitle>{selectedCard?.title}</Card.HeaderTitle>
+          </Card.Header>
+          <Input
+            value={stateToken}
+            onChange={setStateToken}
+            label="Stake Token"
+            currency="WBNB"
+            topLabel="Balance 12 WNBN"
+          />
+          <Card.List>
+            <Card.Item>
               <Popup content="Lorem ipsum dolor sit amet">
-                <span className="staking__card__title">ROI</span>
+                <Card.ItemTitle>ROI</Card.ItemTitle>
               </Popup>
-              <span className="staking__card__wrapper">
-                <span className="staking__card__currency">$</span>
-                <span className="staking__card__descr">{selectedCard?.roi}</span>
-              </span>
-            </li>
-            <li className="staking__card__item">
+              <Card.ItemWrapper>
+                <Card.ItemTitle>$</Card.ItemTitle>
+                <Card.ItemDescr>{selectedCard?.roi}</Card.ItemDescr>
+              </Card.ItemWrapper>
+            </Card.Item>
+            <Card.Item>
               <Popup content="Lorem ipsum dolor sit amet">
-                <span className="staking__card__title">Get LP</span>
+                <Card.ItemTitle>Get LP</Card.ItemTitle>
               </Popup>
-              <span className="staking__card__wrapper">
-                <span className="staking__card__currency">LP</span>
-                <span className="staking__card__descr">{selectedCard?.lp}</span>
-              </span>
-            </li>
-          </ul>
-          <div className="staking__card__actions">
-            <Button onClick={() => setSelectedCard(null)}>
-              Approve
-            </Button>
-            <Button disabled>
-              Stake
-            </Button>
-          </div>
+              <Card.ItemWrapper>
+                <Card.ItemTitle>LP</Card.ItemTitle>
+                <Card.ItemDescr>{selectedCard?.lp}</Card.ItemDescr>
+              </Card.ItemWrapper>
+            </Card.Item>
+          </Card.List>
+          <Card.Actions>
+            <Button onClick={() => setSelectedCard(null)}>Approve</Button>
+            <Button disabled>Stake</Button>
+          </Card.Actions>
         </Modal>
-      </div>
-      <div className="staking">
-        <div className="staking__wrapper">
-          <Title>
-            Stake and Earn protocol profits
-          </Title>
+      </S.Modal>
+      <S.Staking>
+        <S.Wrapper>
+          <Title>Stake and Earn protocol profits</Title>
           {getDescription()}
-        </div>
-        <div className="staking__wrapper">
+        </S.Wrapper>
+        <S.Wrapper>
           <Swiper
             modules={[Pagination]}
             slidesPerView={1}
             spaceBetween={0}
             pagination={{
               clickable: true,
-              el: '.staking__pagination',
+              el: ".custom-pagination",
               renderBullet: (index, className) => `
               <span class="${className}">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -99,21 +109,21 @@ export const Staking: FC = () => {
                 <StakingCard
                   title={item.title}
                   list={item.list}
-                  handleDeposit={() => setSelectedCard({
-                    title: item.title,
-                    roi: '1 200 000',
-                    lp: '1.2',
-                  })}
+                  handleDeposit={() =>
+                    setSelectedCard({
+                      title: item.title,
+                      roi: "1 200 000",
+                      lp: "1.2",
+                    })
+                  }
                 />
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className="staking__pagination" />
-        </div>
-        <div className="staking__description">
-          {getDescription()}
-        </div>
-      </div>
+          <div className="custom-pagination" />
+        </S.Wrapper>
+        <S.Description>{getDescription()}</S.Description>
+      </S.Staking>
     </>
   );
 };

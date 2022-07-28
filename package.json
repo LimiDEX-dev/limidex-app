@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@stitches/react": "1.2.8",
     "@types/d3": "^7.1.0",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
