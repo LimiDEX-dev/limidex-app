@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { shortenIfAddress, useEthers } from "@usedapp/core";
 
 import { LoadingSmallIcon, SettingsIcon } from "../../../lib/icons";
 import {
@@ -12,6 +13,7 @@ import {
 import { useOutsideAlerter } from "../../../lib/hooks";
 import { Dropdown, Modal, Input, Button } from "../../atoms";
 import { useUser, useChains } from "../../../store";
+import { getSignMessage } from "../../../lib/utils";
 
 import * as S from "./style";
 
@@ -41,11 +43,12 @@ const SocialList = () => (
 );
 
 export const Header: FC = () => {
+  const { activateBrowserWallet, account, library } = useEthers();
+
   const [isOpened, setIsOpened] = useState<boolean>(false);
-  // const [chains, setChains] = useState(mockChains);
-  // const [selectedChain, setSelectedChain] = useState(mockChains[0]);
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
   const [slippageTolerance, setSlippageTolerance] = useState<string>("0.5");
+  const [readyToSign, setReadyToSign] = useState(false);
 
   const headerRef = useRef(null);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -67,6 +70,25 @@ export const Header: FC = () => {
       setIsOpened(false);
     }
   });
+
+  useEffect(() => {
+    if (readyToSign && account) {
+      (async () => {
+        const signer = library.getSigner();
+
+        const signature = await signer.signMessage(getSignMessage());
+        console.log(signature);
+        localStorage.setItem("signature", signature);
+
+        setReadyToSign(false);
+      })();
+    }
+  }, [readyToSign, account]);
+
+  const handleConnectWallet = () => {
+    activateBrowserWallet();
+    setReadyToSign(true);
+  };
 
   return (
     <>
@@ -101,18 +123,20 @@ export const Header: FC = () => {
           {selectedChain.icon}
           {selectedChain.label}
         </Dropdown>
-        <S.Wallet>
-          0x039e...6e37
-          {user.transactionsPending > 0 && (
-            <S.WalletPendingStatus>
-              <LoadingSmallIcon /> {user.transactionsPending} Pending
-            </S.WalletPendingStatus>
-          )}
-        </S.Wallet>
-        {/* if no wallet connected */}
-        {/* <Button size="small"> */}
-        {/*  Connect wallet */}
-        {/* </Button> */}
+        {account ? (
+          <S.Wallet>
+            {shortenIfAddress(account)}
+            {user.transactionsPending > 0 && (
+              <S.WalletPendingStatus>
+                <LoadingSmallIcon /> {user.transactionsPending} Pending
+              </S.WalletPendingStatus>
+            )}
+          </S.Wallet>
+        ) : (
+          <Button size="small" onClick={handleConnectWallet}>
+            Connect wallet
+          </Button>
+        )}
       </S.Mobile>
       <div ref={headerRef}>
         <S.Header isOpened={isOpened}>
@@ -171,21 +195,25 @@ export const Header: FC = () => {
               {selectedChain.icon}
               {selectedChain.label}
             </Dropdown>
-            <S.Balance>
-              <S.BalanceIcon />0
-            </S.Balance>
-            <S.Wallet>
-              0x039e...6e37
-              {user.transactionsPending > 0 && (
-                <S.WalletPendingStatus>
-                  <LoadingSmallIcon /> {user.transactionsPending} Pending
-                </S.WalletPendingStatus>
-              )}
-            </S.Wallet>
-            {/* if no wallet connected */}
-            {/* <Button size="small"> */}
-            {/*  Connect wallet */}
-            {/* </Button> */}
+            {account ? (
+              <>
+                <S.Balance>
+                  <S.BalanceIcon />0
+                </S.Balance>
+                <S.Wallet>
+                  {shortenIfAddress(account)}
+                  {user.transactionsPending > 0 && (
+                    <S.WalletPendingStatus>
+                      <LoadingSmallIcon /> {user.transactionsPending} Pending
+                    </S.WalletPendingStatus>
+                  )}
+                </S.Wallet>
+              </>
+            ) : (
+              <Button size="small" onClick={handleConnectWallet}>
+                Connect wallet
+              </Button>
+            )}
             <S.UserNavSettings
               type="button"
               onClick={() => setIsSettingsOpened(true)}

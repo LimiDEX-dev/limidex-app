@@ -294,37 +294,37 @@ export const valutes: DropdownItem[] = [
 
 export const chains: Chain[] = [
   {
-    value: "ethereum",
+    value: "1",
     label: "Ethereum",
     icon: <EthereumIcon />,
     color: "rgb(68, 113, 244)",
   },
   {
-    value: "bcs",
+    value: "56",
     label: "BCS Mainnet",
     icon: <MainnetIcon />,
     color: "#F2EE93",
   },
   {
-    value: "polygon",
+    value: "137",
     label: "Polygon",
     icon: <PolygonIcon />,
     color: "rgb(113, 55, 210)",
   },
   {
-    value: "avalanche",
+    value: "43114",
     label: "Avalanche",
     icon: <AvalancheIcon />,
     color: "rgb(214, 60, 54)",
   },
+  // {
+  //   value: "arbitrum",
+  //   label: "Arbitrum",
+  //   icon: <ArbitrumIcon />,
+  //   color: "rgb(22, 139, 217)",
+  // },
   {
-    value: "arbitrum",
-    label: "Arbitrum",
-    icon: <ArbitrumIcon />,
-    color: "rgb(22, 139, 217)",
-  },
-  {
-    value: "fantom",
+    value: "250",
     label: "Fantom",
     icon: <img src="/assets/fantom-logo.png" alt="" width={16} />,
     color: "rgb(25, 105, 255)",

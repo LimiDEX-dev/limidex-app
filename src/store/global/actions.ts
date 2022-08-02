@@ -39,9 +39,9 @@ export const provideActions = (
     setSelectedChain: (payload) => {
       setStore((store) => ({
         ...store,
-        selectedChain: {
-          ...store.chains.selectedChain,
-          transactionsPending: payload,
+        chains: {
+          ...store.chains,
+          selectedChain: payload,
         },
       }));
     },
