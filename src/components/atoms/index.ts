@@ -10,3 +10,4 @@ export { Modal } from "./Modal";
 export { Popup } from "./Popup";
 export { Sort } from "./Sort";
 export { Title } from "./Title";
+export { Pagination } from "./Pagination";

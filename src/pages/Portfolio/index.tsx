@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 
 import { portfolio } from "../../lib/mock/portfolio";
 import { NetworkItem, Button, Modal, Input } from "../../components/atoms";
@@ -8,23 +8,34 @@ import {
   PortfolioTableFields,
 } from "../../components/molecules/PortfolioTable";
 import { SortType } from "../../components/atoms/Sort";
+import { ROWS_PER_PAGE, useTokensData } from "./hooks/useTokensData";
 
 import * as S from "./style";
+import { usePortfolio } from "../../store";
 
 export const Portfolio: FC = () => {
+  useTokensData();
+
   const [activeNetwork, setActiveNetwork] = useState<number>(0);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [networks, setNetworks] = useState(portfolio.networks);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [trading, setTrading] = useState(portfolio.trading);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [wallet, setWallet] = useState(portfolio.wallet);
   const [sort, setSort] = useState<{
     field: PortfolioTableFields;
     by: SortType;
   }>({ field: "type", by: "no" });
   const [isFollowModal, setIsFollowModal] = useState<boolean>(false);
   const [tokenValue, setTokenValue] = useState<string>("100");
+
+  const {
+    data: {
+      wallet: { data: wallet, page, pagesCount },
+    },
+    actions: {
+      wallet: { setPage },
+    },
+  } = usePortfolio();
 
   const handleChangeActiveNetwork = (index: number) => {
     setActiveNetwork(index);
@@ -41,13 +52,6 @@ export const Portfolio: FC = () => {
   const handleFollow = () => {
     setIsFollowModal(true);
   };
-
-  useEffect(() => {
-    // THERE IS FUNCTION THAT SET NETWORKS DATA
-    // setNetworks(someData);
-    // AND PORTFOLIO TABLE DATA
-    // setList(someData);
-  }, []);
 
   return (
     <S.Portfolio>
@@ -132,6 +136,9 @@ export const Portfolio: FC = () => {
         wallet={wallet}
         activeNetwork={activeNetwork}
         handleFollow={handleFollow}
+        pagesCount={pagesCount}
+        currentPage={page}
+        handleChangePage={setPage}
       />
     </S.Portfolio>
   );

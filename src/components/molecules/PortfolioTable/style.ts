@@ -3,6 +3,7 @@ import { Button, Sort } from "../../atoms/styled";
 
 export const PortfolioTable = styled("div", {
   height: "calc(100% - 70px)",
+  maxHeight: 520,
   padding: "0 20px 16px",
 
   overflow: "auto",
@@ -38,6 +39,11 @@ export const TableHeaderItem = styled(TableItemDefault, {
   backgroundColor: "$section",
   borderBottom: "1px solid $textDark",
 
+  fontFamily: "Roboto Mono, sans-serif",
+  color: "#55647D",
+  fontSize: 12,
+  fontWeight: 300,
+  lineHeight: "10px",
   whiteSpace: "nowrap",
 
   [`& > ${Sort}`]: {
@@ -59,6 +65,11 @@ export const TableItemWrapper = styled("span", {
       marginRight: 10,
     },
   },
+
+  "& > svg": {
+    width: 24,
+    height: 24,
+  },
 });
 
 export const TableIcon = styled("span", {
@@ -70,6 +81,13 @@ export const TableIcon = styled("span", {
 
   backgroundColor: "#C4C4C4",
   borderRadius: "100%",
+});
+
+export const Icon = styled("img", {
+  display: "block",
+
+  width: 24,
+  height: 24,
 });
 
 export const TableText = styled("span", {
@@ -85,6 +103,11 @@ export const TableText = styled("span", {
       true: {
         fontWeight: 500,
         textDecoration: "underline",
+      },
+    },
+    leftMargin: {
+      true: {
+        marginLeft: 8,
       },
     },
   },

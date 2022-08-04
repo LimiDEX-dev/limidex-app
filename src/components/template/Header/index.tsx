@@ -11,11 +11,32 @@ import {
   TwitterIcon,
 } from "../../../lib/icons/social";
 import { useOutsideAlerter } from "../../../lib/hooks";
-import { Dropdown, Modal, Input, Button } from "../../atoms";
+import { Dropdown, Modal, Input, Button, DropdownItem } from "../../atoms";
 import { useUser, useChains } from "../../../store";
 import { getSignMessage } from "../../../lib/utils";
 
 import * as S from "./style";
+import { chainsData } from "../../../config/chains";
+
+const getChainDataById = (chainId: number) => {
+  if (chainId === 56) {
+    return chainsData.mainnet;
+  }
+
+  if (chainId === 137) {
+    return chainsData.polygon;
+  }
+
+  if (chainId === 43114) {
+    return chainsData.avalanche;
+  }
+
+  if (chainId === 250) {
+    return chainsData.fantom;
+  }
+
+  return undefined;
+};
 
 const SocialList = () => (
   <S.SocialList>
@@ -43,7 +64,8 @@ const SocialList = () => (
 );
 
 export const Header: FC = () => {
-  const { activateBrowserWallet, account, library } = useEthers();
+  const { activateBrowserWallet, account, library, switchNetwork, chainId } =
+    useEthers();
 
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
@@ -77,17 +99,42 @@ export const Header: FC = () => {
         const signer = library.getSigner();
 
         const signature = await signer.signMessage(getSignMessage());
-        console.log(signature);
-        localStorage.setItem("signature", signature);
 
+        localStorage.setItem("signature", signature);
         setReadyToSign(false);
       })();
     }
   }, [readyToSign, account]);
 
+  useEffect(() => {
+    if (chainId && +selectedChain.value !== chainId) {
+      setSelectedChain(chains.find((item) => +item.value === chainId));
+    }
+  }, [chainId, selectedChain]);
+
   const handleConnectWallet = () => {
     activateBrowserWallet();
     setReadyToSign(true);
+  };
+
+  const handleChangeNetwork = async (network: DropdownItem) => {
+    await switchNetwork(+network.value);
+
+    if (chainId !== +network.value) {
+      const chainData = getChainDataById(+network.value);
+
+      if (chainData) {
+        // @ts-ignore
+        await window?.ethereum?.request({
+          jsonrpc: "2.0",
+          method: "wallet_addEthereumChain",
+          params: [chainData],
+          id: 0,
+        });
+      }
+    }
+
+    setSelectedChain(network);
   };
 
   return (
@@ -117,7 +164,7 @@ export const Header: FC = () => {
         </S.MobileLogo>
         <Dropdown
           items={chains}
-          onSelect={setSelectedChain}
+          onSelect={handleChangeNetwork}
           borderColor={selectedChain.color}
         >
           {selectedChain.icon}
@@ -189,7 +236,7 @@ export const Header: FC = () => {
             <Button size="small">Split RPC</Button>
             <Dropdown
               items={chains}
-              onSelect={setSelectedChain}
+              onSelect={handleChangeNetwork}
               borderColor={selectedChain.color}
             >
               {selectedChain.icon}

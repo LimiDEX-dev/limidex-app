@@ -15,5 +15,13 @@ export const App = styled("div", {
 });
 
 export const Wrapper = styled("div", {
-  height: "100%",
+  minHeight: "100%",
+
+  variants: {
+    isMain: {
+      true: {
+        height: "100%",
+      },
+    },
+  },
 });

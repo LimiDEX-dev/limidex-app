@@ -14,6 +14,7 @@ import "swiper/css/pagination";
 
 function App({ children }) {
   setupGlobalStyles();
+
   const {
     data: notifications,
     actions: { deleteNotification },
@@ -21,7 +22,7 @@ function App({ children }) {
 
   return (
     <S.App>
-      <S.Wrapper>
+      <S.Wrapper isMain={window.location.pathname === "/"}>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link

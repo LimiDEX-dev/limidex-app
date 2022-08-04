@@ -32,5 +32,9 @@ export const useOrders = selector(({ data: { orders }, actions }) => ({
   data: orders,
   actions: (actions as ActionsObject).orders,
 }));
+export const usePortfolio = selector(({ data: { portfolio }, actions }) => ({
+  data: portfolio,
+  actions: (actions as ActionsObject).portfolio,
+}));
 
 export const GlobalStore = Store;

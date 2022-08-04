@@ -3,7 +3,7 @@ import { Button, Input } from "../../components/atoms/styled";
 
 export const Portfolio = styled("div", {
   height: "100%",
-  paddingBottom: 70,
+  marginBottom: 70,
 });
 
 export const Info = styled("div", {

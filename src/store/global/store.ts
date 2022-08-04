@@ -26,4 +26,11 @@ export const initialStore: StoreObject = {
     historyOrders: orders.history,
     crossOrders: orders.cross,
   },
+  portfolio: {
+    wallet: {
+      data: [],
+      page: 1,
+      pagesCount: 1,
+    },
+  },
 };

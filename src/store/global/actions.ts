@@ -152,4 +152,44 @@ export const provideActions = (
       },
     },
   },
+  portfolio: {
+    wallet: {
+      setData: (payload) => {
+        setStore((store) => ({
+          ...store,
+          portfolio: {
+            ...store.portfolio,
+            wallet: {
+              ...store.portfolio.wallet,
+              data: payload,
+            },
+          },
+        }));
+      },
+      setPage: (payload) => {
+        setStore((store) => ({
+          ...store,
+          portfolio: {
+            ...store.portfolio,
+            wallet: {
+              ...store.portfolio.wallet,
+              page: payload,
+            },
+          },
+        }));
+      },
+      setPagesCount: (payload) => {
+        setStore((store) => ({
+          ...store,
+          portfolio: {
+            ...store.portfolio,
+            wallet: {
+              ...store.portfolio.wallet,
+              pagesCount: payload,
+            },
+          },
+        }));
+      },
+    },
+  },
 });

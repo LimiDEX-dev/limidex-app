@@ -13,3 +13,4 @@ export { Notification } from "./Notification/style";
 export { Popup } from "./Popup/style";
 export { Sort } from "./Sort/style";
 export { Title } from "./Title/style";
+export { Pagination } from "./Pagination/style";

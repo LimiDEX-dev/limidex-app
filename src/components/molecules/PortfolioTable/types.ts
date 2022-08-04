@@ -1,4 +1,5 @@
 import { SortType } from "../../atoms/Sort";
+import { WalletItem } from "../../../types/portfolio";
 
 export type PortfolioTableFields =
   | "type"
@@ -33,14 +34,10 @@ export interface PortfolioTableProps {
     followers: string;
     pnl: string;
   }[];
-  wallet: {
-    network: string;
-    coin: string;
-    balance: string;
-    price: string;
-    balanceUSD: string;
-    approve: string;
-  }[];
+  wallet: WalletItem[];
   activeNetwork?: number;
   handleFollow: () => void;
+  pagesCount: number;
+  currentPage: number;
+  handleChangePage: (page: number) => void;
 }

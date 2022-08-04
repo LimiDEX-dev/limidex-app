@@ -6,10 +6,11 @@ import { DAppProvider } from "@usedapp/core";
 import App from "./app";
 import { Routes } from "./pages/routes";
 import { GlobalStore } from "./store";
+import { dappConfig } from "./config/dapp";
 
 ReactDOM.render(
   <React.StrictMode>
-    <DAppProvider config={{}}>
+    <DAppProvider config={dappConfig}>
       <Router>
         <GlobalStore>
           <App>
