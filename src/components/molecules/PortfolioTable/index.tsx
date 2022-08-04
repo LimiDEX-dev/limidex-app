@@ -1,13 +1,15 @@
 /* eslint-disable react/no-array-index-key */
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import { useEthers, useTokenBalance } from "@usedapp/core";
+import { ethers } from "ethers";
 import { Sort, Button, Pagination } from "../../atoms";
 
 import { PortfolioTableProps, PortfolioTableFields } from "./types";
 
 import * as S from "./style";
 import { useChains } from "../../../store";
+import { contracts } from "../../../config/contracts";
 
 export type { PortfolioTableFields };
 
@@ -22,10 +24,30 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
   currentPage,
   handleChangePage,
 }) => {
-  const { account } = useEthers();
+  const [balances, setBalances] = useState([]);
+  const { account, library } = useEthers();
   const {
     data: { selectedChain },
   } = useChains();
+
+  useEffect(() => {
+    if (wallet.length && account) {
+      (async function () {
+        const signer = library.getSigner();
+        const contract = new ethers.Contract(
+          contracts.router.address,
+          contracts.router.abi,
+          signer,
+        );
+
+        const tokensBalances = await contract.getUserBalances(
+          account,
+          wallet.map((item) => item.address),
+        );
+        console.log(tokensBalances);
+      })();
+    }
+  }, [wallet, account]);
 
   return (
     <>

@@ -118,7 +118,11 @@ export const Header: FC = () => {
   };
 
   const handleChangeNetwork = async (network: DropdownItem) => {
-    await switchNetwork(+network.value);
+    try {
+      await switchNetwork(+network.value);
+    } catch (e) {
+      console.log(e);
+    }
 
     if (chainId !== +network.value) {
       const chainData = getChainDataById(+network.value);

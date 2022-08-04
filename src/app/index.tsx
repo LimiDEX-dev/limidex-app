@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 import { Header } from "../components/template";
 import { Notification } from "../components/atoms";
@@ -15,6 +16,8 @@ import "swiper/css/pagination";
 function App({ children }) {
   setupGlobalStyles();
 
+  const { pathname } = useLocation();
+
   const {
     data: notifications,
     actions: { deleteNotification },
@@ -22,7 +25,7 @@ function App({ children }) {
 
   return (
     <S.App>
-      <S.Wrapper isMain={window.location.pathname === "/"}>
+      <S.Wrapper isMain={pathname === "/"}>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link

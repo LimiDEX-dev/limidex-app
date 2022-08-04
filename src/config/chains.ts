@@ -12,8 +12,8 @@ export const chainsData = {
   },
   mainnet: {
     chainId: "0x38",
-    chainName: "Smart Chain",
-    rpcUrls: ["https://bsc-dataseed.binance.org/"],
+    chainName: "Binance Smart Chain Mainnet",
+    rpcUrls: ["https://bsc-dataseed1.binance.org"],
     nativeCurrency: {
       name: "BNB",
       symbol: "BNB",
