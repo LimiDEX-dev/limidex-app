@@ -34,6 +34,15 @@ export const provideActions = (
         },
       }));
     },
+    setBalance: (payload) => {
+      setStore((store) => ({
+        ...store,
+        user: {
+          ...store.user,
+          balance: payload,
+        },
+      }));
+    },
   },
   chains: {
     setSelectedChain: (payload) => {
@@ -190,6 +199,79 @@ export const provideActions = (
           },
         }));
       },
+    },
+  },
+  veSPLX: {
+    setLockPeriod: (payload) => {
+      setStore((store) => ({
+        ...store,
+        veSPLX: {
+          ...store.veSPLX,
+          lockPeriod: payload,
+        },
+      }));
+    },
+    setLockSPLX: (payload) => {
+      setStore((store) => ({
+        ...store,
+        veSPLX: {
+          ...store.veSPLX,
+          lockSPLX: payload,
+        },
+      }));
+    },
+    setWithdraw: (payload) => {
+      setStore((store) => ({
+        ...store,
+        veSPLX: {
+          ...store.veSPLX,
+          withdraw: {
+            ...store.veSPLX.withdraw,
+            ...payload,
+          },
+        },
+      }));
+    },
+  },
+  staking: {
+    setSelectedCard: (payload) => {
+      setStore((store) => ({
+        ...store,
+        staking: {
+          ...store.staking,
+          selectedCard: payload,
+        },
+      }));
+    },
+    setStateToken: (payload) => {
+      setStore((store) => ({
+        ...store,
+        staking: {
+          ...store.staking,
+          stateToken: payload,
+        },
+      }));
+    },
+    setLpTokens: (payload) => {
+      setStore((store) => ({
+        ...store,
+        staking: {
+          ...store.staking,
+          lpTokens: payload,
+        },
+      }));
+    },
+    setWithdraw: (payload) => {
+      setStore((store) => ({
+        ...store,
+        staking: {
+          ...store.staking,
+          withdraw: {
+            ...store.staking.withdraw,
+            ...payload,
+          },
+        },
+      }));
     },
   },
 });

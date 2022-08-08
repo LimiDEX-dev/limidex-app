@@ -10,4 +10,6 @@ export interface StakingCardProps {
     lmx: string;
   }[];
   handleDeposit?: () => void;
+  handleWithdraw?: () => void;
+  icon?: string;
 }

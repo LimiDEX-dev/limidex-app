@@ -32,14 +32,13 @@ export const Header = styled("div", {
   marginBottom: 40,
 });
 
-export const HeaderPhoto = styled("span", {
+export const HeaderPhoto = styled("img", {
   display: "block",
 
   width: 64,
   height: 64,
   marginBottom: 8,
 
-  backgroundColor: "$gray",
   borderRadius: "100%",
 });
 

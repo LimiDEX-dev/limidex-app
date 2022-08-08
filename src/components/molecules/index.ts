@@ -7,3 +7,4 @@ export { CandleStickChart } from "./CandleStickChart";
 export { Chart } from "./Chart";
 export { CoinDescription } from "./CoinDescription";
 export { ExchangesRates } from "./ExchangesRates";
+export { WithdrawModal } from "./WithdrawModal";

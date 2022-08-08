@@ -114,9 +114,3 @@ export const DescriptionTitle = styled("span", {
 export const DescriptionContent = styled("span", {
   whiteSpace: "pre-wrap",
 });
-
-export const Modal = styled("div", {
-  [`& ${List}`]: {
-    marginTop: 6,
-  },
-});

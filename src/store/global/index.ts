@@ -36,5 +36,13 @@ export const usePortfolio = selector(({ data: { portfolio }, actions }) => ({
   data: portfolio,
   actions: (actions as ActionsObject).portfolio,
 }));
+export const useVeSPLX = selector(({ data: { veSPLX }, actions }) => ({
+  data: veSPLX,
+  actions: (actions as ActionsObject).veSPLX,
+}));
+export const useStaking = selector(({ data: { staking }, actions }) => ({
+  data: staking,
+  actions: (actions as ActionsObject).staking,
+}));
 
 export const GlobalStore = Store;

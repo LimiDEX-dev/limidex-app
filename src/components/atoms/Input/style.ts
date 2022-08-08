@@ -59,16 +59,27 @@ export const Input = styled("div", {
   },
 });
 
-export const TopLabel = styled("span", {
+export const TopLabel = styled("button", {
   position: "absolute",
   bottom: "calc(100% + 2px)",
   right: 2,
+
+  backgroundColor: "transparent",
+  border: "none",
 
   fontFamily: "Roboto, sans-serif",
   color: "$text",
   fontSize: 10,
   fontWeight: 300,
   lineHeight: "11px",
+
+  variants: {
+    isPointer: {
+      true: {
+        cursor: "pointer",
+      },
+    },
+  },
 });
 
 const DefaultText = styled("span", {

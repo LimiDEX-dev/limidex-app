@@ -1,29 +1,70 @@
 /* eslint-disable react/no-array-index-key */
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useEthers } from "@usedapp/core";
 
+import { Contract, ethers } from "ethers";
 import { staking } from "../../lib/mock/staking";
-import { StakingCard } from "../../components/molecules";
-import {
-  Title,
-  Description,
-  Modal,
-  Input,
-  Popup,
-  Button,
-} from "../../components/atoms";
+import { StakingCard, WithdrawModal } from "../../components/molecules";
+import { Title, Description } from "../../components/atoms";
+import { useStaking, useUser } from "../../store";
 
 import * as S from "./style";
-import * as Card from "../../components/molecules/StakingCard/style";
+import { contracts } from "../../config/contracts";
+import { DepositModal } from "./components";
 
 export const Staking: FC = () => {
-  const [selectedCard, setSelectedCard] = useState<null | {
-    title: string;
-    roi: string;
-    lp: string;
-  }>(null);
-  const [stateToken, setStateToken] = useState<string>("100.00");
+  const { library } = useEthers();
+
+  const [isWithdraw, setIsWithdraw] = useState<boolean>(false);
+  const [contract, setContract] = useState<null | Contract>(null);
+
+  const {
+    data: {
+      selectedCard,
+      stateToken,
+      withdraw: { lpTokens, tokensInMoney, tokensReturned },
+    },
+    actions: { setSelectedCard, setLpTokens, setWithdraw },
+  } = useStaking();
+  const {
+    data: { balance },
+  } = useUser();
+
+  useEffect(() => {
+    if (library?.getSigner) {
+      const signer = library?.getSigner();
+
+      if (!signer) {
+        return;
+      }
+
+      setContract(
+        new ethers.Contract(contracts.pool.address, contracts.pool.abi, signer),
+      );
+    }
+  }, [library]);
+
+  useEffect(() => {
+    if (contract && !Number.isNaN(parseInt(stateToken, 10))) {
+      (async function () {
+        setLpTokens(await contract.calculateLP(stateToken));
+      })();
+    }
+  }, [contract, stateToken]);
+
+  useEffect(() => {
+    if (contract && !Number.isNaN(parseInt(lpTokens, 10))) {
+      (async function () {
+        const tokens = await contract.calculateAmount(lpTokens);
+
+        setWithdraw({
+          tokensReturned: tokens,
+        });
+      })();
+    }
+  }, [contract, lpTokens]);
 
   const getDescription = () => (
     <Description>
@@ -37,50 +78,45 @@ export const Staking: FC = () => {
     </Description>
   );
 
+  const handleSubmit = async () => {
+    if (!contract) {
+      return;
+    }
+
+    await contract.deposit(stateToken);
+
+    setSelectedCard(null);
+  };
+
+  const handleWithdrawSubmit = async () => {
+    if (!contract) {
+      return;
+    }
+
+    await contract.withdraw(lpTokens);
+
+    setSelectedCard(null);
+    setIsWithdraw(false);
+  };
+
   return (
     <>
-      <S.Modal>
-        <Modal
-          isVisible={!!selectedCard}
-          handleClose={() => setSelectedCard(null)}
-        >
-          <Card.Header>
-            <Card.HeaderPhoto />
-            <Card.HeaderTitle>{selectedCard?.title}</Card.HeaderTitle>
-          </Card.Header>
-          <Input
-            value={stateToken}
-            onChange={setStateToken}
-            label="Stake Token"
-            currency="WBNB"
-            topLabel="Balance 12 WNBN"
-          />
-          <Card.List>
-            <Card.Item>
-              <Popup content="Lorem ipsum dolor sit amet">
-                <Card.ItemTitle>ROI</Card.ItemTitle>
-              </Popup>
-              <Card.ItemWrapper>
-                <Card.ItemTitle>$</Card.ItemTitle>
-                <Card.ItemDescr>{selectedCard?.roi}</Card.ItemDescr>
-              </Card.ItemWrapper>
-            </Card.Item>
-            <Card.Item>
-              <Popup content="Lorem ipsum dolor sit amet">
-                <Card.ItemTitle>Get LP</Card.ItemTitle>
-              </Popup>
-              <Card.ItemWrapper>
-                <Card.ItemTitle>LP</Card.ItemTitle>
-                <Card.ItemDescr>{selectedCard?.lp}</Card.ItemDescr>
-              </Card.ItemWrapper>
-            </Card.Item>
-          </Card.List>
-          <Card.Actions>
-            <Button onClick={() => setSelectedCard(null)}>Approve</Button>
-            <Button disabled>Stake</Button>
-          </Card.Actions>
-        </Modal>
-      </S.Modal>
+      <DepositModal handleSubmit={handleSubmit} />
+      <WithdrawModal
+        isVisible={!!selectedCard && isWithdraw}
+        setIsVisible={() => {
+          setSelectedCard(null);
+          setIsWithdraw(false);
+        }}
+        handleSubmit={handleWithdrawSubmit}
+        lpTokens={lpTokens}
+        setLpTokens={(value) => setWithdraw({ lpTokens: value })}
+        tokensReturned={tokensReturned}
+        tokensInMoney={tokensInMoney}
+        balanceInLp="12"
+        icon="https://place-hold.it/64x64"
+        title={selectedCard?.title}
+      />
       <S.Staking>
         <S.Wrapper>
           <Title>Stake and Earn protocol profits</Title>
@@ -114,8 +150,19 @@ export const Staking: FC = () => {
                       title: item.title,
                       roi: "1 200 000",
                       lp: "1.2",
+                      currency: item.currency,
                     })
                   }
+                  handleWithdraw={() => {
+                    setSelectedCard({
+                      title: item.title,
+                      roi: "1 200 000",
+                      lp: "1.2",
+                      currency: item.currency,
+                    });
+                    setIsWithdraw(true);
+                  }}
+                  icon="https://place-hold.it/64x64"
                 />
               </SwiperSlide>
             ))}

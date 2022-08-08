@@ -6,72 +6,72 @@ import { ActiveOrder, HistoryOrder, CrossOrder } from "../../types/orders";
 import { DropdownItem } from "../../components/atoms";
 import { WalletItem } from "../../types/portfolio";
 
-export type NotificationStore = Notification[];
+type NotificationStore = Notification[];
 
-export interface NotificationActions {
+interface NotificationActions {
   createNotification: (notification: Notification) => void;
   deleteNotification: (index: number) => void;
 }
 
-export type ChainsStore = {
+type ChainsStore = {
   data: Chain[];
   selectedChain: Chain;
 };
 
-export interface ChainsActions {
+interface ChainsActions {
   setSelectedChain: (selectedChain: Chain) => void;
 }
 
-export type CurrentPriceStore = Rate;
+type CurrentPriceStore = Rate;
 
-export interface CurrentPriceActions {
+interface CurrentPriceActions {
   setCurrentPrice: (currentPrice: Rate) => void;
 }
 
-export type RedDatesStore = Rate[];
+type RedDatesStore = Rate[];
 
-export interface RedDatesActions {
+interface RedDatesActions {
   setRedDates: (redDates: Rate[]) => void;
 }
 
-export type GreenDatesStore = Rate[];
+type GreenDatesStore = Rate[];
 
-export interface GreenDatesActions {
+interface GreenDatesActions {
   setGreenDates: (greenDates: Rate[]) => void;
 }
 
-export type SelectedStepStore = DropdownItem;
+type SelectedStepStore = DropdownItem;
 
-export interface SelectedStepActions {
+interface SelectedStepActions {
   setSelectedStep: (selectedStep: DropdownItem) => void;
 }
 
-export type ChartStore = Chart;
+type ChartStore = Chart;
 
-export interface ChartActions {
+interface ChartActions {
   setChart: (chart: Chart) => void;
 }
 
-export type ActiveOrdersStore = ActiveOrder[];
+type ActiveOrdersStore = ActiveOrder[];
 
-export interface ActiveOrdersActions {
+interface ActiveOrdersActions {
   setActiveOrders: (activeOrders: ActiveOrder[]) => void;
   deleteActiveOrder: (index: number) => void;
 }
 
-export type HistoryOrdersStore = HistoryOrder[];
+type HistoryOrdersStore = HistoryOrder[];
 
-export interface HistoryOrdersActions {
+interface HistoryOrdersActions {
   setHistoryOrders: (historyOrders: HistoryOrder[]) => void;
 }
 
-export type CrossOrdersStore = CrossOrder[];
+type CrossOrdersStore = CrossOrder[];
 
-export interface CrossOrdersActions {
+interface CrossOrdersActions {
   setCrossOrders: (crossOrders: CrossOrder[]) => void;
 }
 
-export interface PortfolioStore {
+interface PortfolioStore {
   wallet: {
     data: WalletItem[];
     page: number;
@@ -79,7 +79,7 @@ export interface PortfolioStore {
   };
 }
 
-export interface PortfolioActions {
+interface PortfolioActions {
   wallet: {
     setData: (data: WalletItem[]) => void;
     setPage: (page: number) => void;
@@ -87,12 +87,53 @@ export interface PortfolioActions {
   };
 }
 
-export interface UserStore {
+interface UserStore {
   transactionsPending: number;
+  balance: number;
 }
 
-export interface UserActions {
+interface UserActions {
   setTransactionsPending: (count: number) => void;
+  setBalance: (balance: number) => void;
+}
+
+interface WithdrawObject {
+  lpTokens: string;
+  tokensReturned: string;
+  tokensInMoney: string;
+}
+
+interface VeSPLXStore {
+  lockPeriod: DropdownItem;
+  lockSPLX: string;
+  withdraw: WithdrawObject;
+}
+
+interface VeSPLXActions {
+  setLockPeriod: (lockPeriod: DropdownItem) => void;
+  setLockSPLX: (value: string) => void;
+  setWithdraw: (payload: Partial<WithdrawObject>) => void;
+}
+
+interface StakingSelectedCard {
+  title: string;
+  roi: string;
+  lp: string;
+  currency: string;
+}
+
+interface StakingStore {
+  selectedCard: null | StakingSelectedCard;
+  stateToken: string;
+  lpTokens: string;
+  withdraw: WithdrawObject;
+}
+
+interface StakingActions {
+  setSelectedCard: (payload: null | StakingSelectedCard) => void;
+  setStateToken: (payload: string) => void;
+  setLpTokens: (payload: string) => void;
+  setWithdraw: (payload: Partial<WithdrawObject>) => void;
 }
 
 export interface ActionsObject {
@@ -112,6 +153,8 @@ export interface ActionsObject {
     crossOrders: CrossOrdersActions;
   };
   portfolio: PortfolioActions;
+  veSPLX: VeSPLXActions;
+  staking: StakingActions;
 }
 
 export interface StoreObject {
@@ -131,4 +174,6 @@ export interface StoreObject {
     crossOrders: CrossOrdersStore;
   };
   portfolio: PortfolioStore;
+  veSPLX: VeSPLXStore;
+  staking: StakingStore;
 }

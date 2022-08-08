@@ -336,7 +336,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                 value={priceImpact}
                 onChange={setPriceImpact}
                 topLabel="Price"
-                currency="LMX"
+                currency="SPLX"
               />
             )}
 
@@ -379,7 +379,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                     </span>
                   </Popup>
                 }
-                currency="LMX"
+                currency="SPLX"
               />
             )}
           </S.SwapWrapper>
@@ -445,7 +445,7 @@ export const PlaceOrder: FC<PlaceOrderProps> = ({
                     </span>
                   </Popup>
                 }
-                currency="LMX"
+                currency="SPLX"
               />
             </S.CustomInputContainer>
           </S.BurnLmx>

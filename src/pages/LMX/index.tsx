@@ -1,8 +1,10 @@
 /* eslint-disable react/no-array-index-key */
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { useEthers } from "@usedapp/core";
+import { Contract, ethers } from "ethers";
 import {
   Title,
   Description,
@@ -13,34 +15,79 @@ import {
   Popup,
 } from "../../components/atoms";
 import { lmx } from "../../lib/mock/lmx";
-import { StakingCard } from "../../components/molecules";
+import { StakingCard, WithdrawModal } from "../../components/molecules";
 
 import * as S from "./style";
 import * as Card from "../../components/molecules/StakingCard/style";
+import { useUser, useVeSPLX } from "../../store";
+import { contracts } from "../../config/contracts";
+import { SPLX_ADDRESS } from "../../config/common";
+import { DepositModal } from "./components";
 
-const lockPeriodes = [
+export const lockPeriodes = [
   {
-    value: "year",
-    label: "1 Year",
+    value: "0",
+    label: "1 Month",
   },
   {
-    value: "year",
-    label: "1 Year",
+    value: "1",
+    label: "3 Months",
   },
   {
-    value: "year",
-    label: "1 Year",
+    value: "2",
+    label: "6 Months",
   },
   {
-    value: "year",
+    value: "3",
     label: "1 Year",
   },
 ];
 
 export const LMX: FC = () => {
-  const [isModal, setIsModal] = useState(false);
-  const [lockLMX, setLockLMX] = useState<string>("100.00");
-  const [selectedPeriod, setSelectedPeriod] = useState(lockPeriodes[0]);
+  const { library } = useEthers();
+
+  const [isDeposit, setIsDeposit] = useState<boolean>(false);
+  const [isWithdraw, setIsWithdraw] = useState<boolean>(false);
+  const [contract, setContract] = useState<null | Contract>(null);
+  const [poolContract, setPoolContract] = useState<null | Contract>(null);
+
+  const {
+    data: {
+      lockPeriod,
+      lockSPLX,
+      withdraw: { lpTokens, tokensReturned, tokensInMoney },
+    },
+    actions: { setLockPeriod, setLockSPLX, setWithdraw },
+  } = useVeSPLX();
+
+  useEffect(() => {
+    if (library?.getSigner) {
+      const signer = library.getSigner();
+
+      setContract(
+        new ethers.Contract(
+          contracts.veToken.address,
+          contracts.veToken.abi,
+          signer,
+        ),
+      );
+      setPoolContract(
+        new ethers.Contract(contracts.pool.address, contracts.pool.abi, signer),
+      );
+    }
+  }, [library]);
+
+  useEffect(() => {
+    if (poolContract && !Number.isNaN(parseInt(lpTokens, 10))) {
+      (async function () {
+        const tokens = await poolContract.calculateAmount(lpTokens);
+
+        setWithdraw({
+          tokensReturned: tokens,
+        });
+      })();
+    }
+  }, [lpTokens, poolContract]);
 
   const getFirstDescription = () => (
     <Description>
@@ -84,57 +131,45 @@ export const LMX: FC = () => {
     </Description>
   );
 
+  const handleSubmit = async () => {
+    if (!contract) {
+      return;
+    }
+
+    await contract.deposit(lockSPLX, lockPeriod.value, SPLX_ADDRESS);
+
+    setIsDeposit(false);
+  };
+
+  const handleSubmitWithdraw = async () => {
+    if (!contract) {
+      return;
+    }
+
+    await contract.withdraw(lpTokens);
+
+    setIsWithdraw(false);
+  };
+
   return (
     <>
-      <S.Modal>
-        <Modal isVisible={isModal} handleClose={() => setIsModal(false)}>
-          <Card.Header>
-            <Card.HeaderPhoto />
-            <Card.HeaderTitle>LMX</Card.HeaderTitle>
-          </Card.Header>
-          <Input
-            value={lockLMX}
-            onChange={setLockLMX}
-            label="Lock LMX"
-            currency="LMX"
-            topLabel="Balance 12 LMX"
-          />
-          <Card.List>
-            <Card.Item>
-              <Popup content="Lorem ipsum dolor sit amet">
-                <Card.ItemTitle>ROI</Card.ItemTitle>
-              </Popup>
-              <Card.ItemWrapper>
-                <Card.ItemTitle>$</Card.ItemTitle>
-                <Card.ItemDescr>1 200 000</Card.ItemDescr>
-              </Card.ItemWrapper>
-            </Card.Item>
-            <Card.Item>
-              <Popup content="Lorem ipsum dolor sit amet">
-                <Card.ItemTitle>Get LP</Card.ItemTitle>
-              </Popup>
-              <Card.ItemWrapper>
-                <Card.ItemTitle>LP</Card.ItemTitle>
-                <Card.ItemDescr>1.2</Card.ItemDescr>
-              </Card.ItemWrapper>
-            </Card.Item>
-            <Card.Item>
-              <Card.ItemTitle>Lock period</Card.ItemTitle>
-              <Card.ItemWrapper>
-                <Card.ItemTitle>
-                  <Dropdown items={lockPeriodes} onSelect={setSelectedPeriod}>
-                    {selectedPeriod.label}
-                  </Dropdown>
-                </Card.ItemTitle>
-              </Card.ItemWrapper>
-            </Card.Item>
-          </Card.List>
-          <Card.Actions>
-            <Button onClick={() => setIsModal(false)}>Approve</Button>
-            <Button disabled>Stake</Button>
-          </Card.Actions>
-        </Modal>
-      </S.Modal>
+      <DepositModal
+        isVisible={isDeposit}
+        setIsVisible={setIsDeposit}
+        handleSubmit={handleSubmit}
+      />
+      <WithdrawModal
+        isVisible={isWithdraw}
+        setIsVisible={setIsWithdraw}
+        handleSubmit={handleSubmitWithdraw}
+        lpTokens={lpTokens}
+        setLpTokens={(value) => setWithdraw({ lpTokens: value })}
+        tokensReturned={tokensReturned}
+        tokensInMoney={tokensInMoney}
+        balanceInLp="1.2"
+        title="LMX"
+        icon="/assets/split-tech.png"
+      />
       <S.LMX>
         <S.Wrapper>
           <Title>Lock SPLX to Earn protocol profits</Title>
@@ -163,8 +198,10 @@ export const LMX: FC = () => {
                 <StakingCard
                   title={card.title}
                   list={card.list}
-                  handleDeposit={() => setIsModal(true)}
+                  handleDeposit={() => setIsDeposit(true)}
+                  handleWithdraw={() => setIsWithdraw(true)}
                   tokens={card.tokens}
+                  icon="/assets/split-tech.png"
                 />
               </SwiperSlide>
             ))}

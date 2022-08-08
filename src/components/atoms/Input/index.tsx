@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FC } from "react";
-import classnames from "classnames";
 
 import { InputProps } from "./types";
 
@@ -11,6 +10,7 @@ export const Input: FC<InputProps> = ({
   onBlur,
   label,
   topLabel,
+  onClickTopLabel,
   currency,
   notLeftBorder,
   icon,
@@ -33,7 +33,15 @@ export const Input: FC<InputProps> = ({
 
   return (
     <S.Input noBorder={notLeftBorder} fullWidth={!!icon}>
-      {topLabel && <S.TopLabel>{topLabel}</S.TopLabel>}
+      {topLabel && (
+        <S.TopLabel
+          type="button"
+          onClick={onClickTopLabel}
+          isPointer={!!onClickTopLabel}
+        >
+          {topLabel}
+        </S.TopLabel>
+      )}
       {label && <S.Label>{label}</S.Label>}
       {currency && <S.Currency>{currency}</S.Currency>}
       <S.InputField

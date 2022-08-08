@@ -12,6 +12,8 @@ export const StakingCard: FC<StakingCardProps> = ({
   list,
   tokens,
   handleDeposit,
+  handleWithdraw,
+  icon,
 }) => {
   const swiper = useSwiper();
 
@@ -48,7 +50,7 @@ export const StakingCard: FC<StakingCardProps> = ({
   return (
     <S.StakingCard>
       <S.Header>
-        <S.HeaderPhoto />
+        <S.HeaderPhoto src={icon || "https://place-hold.it/64x64"} alt="" />
         <S.HeaderTitle>{title}</S.HeaderTitle>
       </S.Header>
       <S.List>
@@ -78,7 +80,7 @@ export const StakingCard: FC<StakingCardProps> = ({
       )}
       <S.Actions>
         <Button onClick={handleDeposit}>Deposit</Button>
-        <Button disabled>Withdraw</Button>
+        <Button onClick={handleWithdraw}>Withdraw</Button>
       </S.Actions>
     </S.StakingCard>
   );

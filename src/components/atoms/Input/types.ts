@@ -6,6 +6,7 @@ export interface InputProps {
   onBlur?: (value: string) => void;
   label?: string | ReactElement;
   topLabel?: string | ReactElement;
+  onClickTopLabel?: () => void;
   currency?: string;
   notLeftBorder?: boolean;
   icon?: ReactElement;

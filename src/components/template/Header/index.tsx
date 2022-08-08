@@ -228,7 +228,7 @@ export const Header: FC = () => {
               Cashback
               <br />
               <br />
-              <span>123 LMX</span>
+              <span>123 SPLX</span>
             </S.InfoCard>
           </S.Info>
           <S.CloseButton
