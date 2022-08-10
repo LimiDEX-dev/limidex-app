@@ -1,14 +1,20 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React, { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
-import { ContextValue, StoreCreator } from './types';
+import React, {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
+import { StoreCreator } from "./types";
 
-export const createStore = <StoreObject, ActionsObject>
-(
+export const createStore = <StoreObject, ActionsObject>(
   initialStore: StoreObject,
   provideActions: (
-    setStore: Dispatch<SetStateAction<StoreObject>>
-  ) => ActionsObject): StoreCreator<StoreObject, ActionsObject> => {
-  const defaultContextValue: ContextValue<StoreObject, ActionsObject> = {
+    setStore: Dispatch<SetStateAction<StoreObject>>,
+  ) => ActionsObject,
+): StoreCreator<StoreObject, ActionsObject> => {
+  const defaultContextValue = {
     data: initialStore,
     actions: {},
   };
@@ -31,7 +37,7 @@ export const createStore = <StoreObject, ActionsObject>
         >
           {children}
         </StoreContext.Provider>
-      )
-    }
+      );
+    },
   };
 };

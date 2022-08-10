@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 import { Notification } from "../../types/notification";
 import { Chain } from "../../types/chains";
 import { Rate } from "../../types/rate";
@@ -5,6 +7,7 @@ import { Chart } from "../../types/chart";
 import { ActiveOrder, HistoryOrder, CrossOrder } from "../../types/orders";
 import { DropdownItem } from "../../components/atoms";
 import { WalletItem } from "../../types/portfolio";
+import { Token } from "../../api/1inch/tokens/types";
 
 type NotificationStore = Notification[];
 
@@ -136,6 +139,10 @@ interface StakingActions {
   setWithdraw: (payload: Partial<WithdrawObject>) => void;
 }
 
+interface TokensActions {
+  setTokens: (tokens: Token[]) => void;
+}
+
 export interface ActionsObject {
   notifications: NotificationActions;
   user: UserActions;
@@ -155,6 +162,7 @@ export interface ActionsObject {
   portfolio: PortfolioActions;
   veSPLX: VeSPLXActions;
   staking: StakingActions;
+  tokens: TokensActions;
 }
 
 export interface StoreObject {
@@ -176,4 +184,5 @@ export interface StoreObject {
   portfolio: PortfolioStore;
   veSPLX: VeSPLXStore;
   staking: StakingStore;
+  tokens: Token[];
 }

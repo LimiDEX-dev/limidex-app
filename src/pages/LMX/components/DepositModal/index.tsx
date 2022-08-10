@@ -28,20 +28,20 @@ export const DepositModal: FC<DepositModalProps> = ({
     data: { balance },
   } = useUser();
 
-  const getVeSPLXByLockPeriod = () => {
+  const getVeSPLX = () => {
     if (lockPeriod.value === "0") {
-      return 0.1;
+      return (+lockSPLX * 10) / 100;
     }
 
     if (lockPeriod.value === "1") {
-      return 0.25;
+      return (+lockSPLX * 25) / 100;
     }
 
     if (lockPeriod.value === "2") {
-      return 0.5;
+      return (+lockSPLX * 50) / 100;
     }
 
-    return 1;
+    return lockSPLX;
   };
 
   return (
@@ -66,7 +66,7 @@ export const DepositModal: FC<DepositModalProps> = ({
             </Popup>
             <Card.ItemWrapper>
               <Card.ItemTitle>veSPLX</Card.ItemTitle>
-              <Card.ItemDescr>{getVeSPLXByLockPeriod()}</Card.ItemDescr>
+              <Card.ItemDescr>{getVeSPLX()}</Card.ItemDescr>
             </Card.ItemWrapper>
           </Card.Item>
           <Card.Item>

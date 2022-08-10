@@ -1,9 +1,11 @@
+import { AxiosResponse } from "axios";
 import { axios1inch } from "../base";
 
-import { Token } from "./types";
 import { urls } from "./urls";
+
+import { GetTokensByChainIdResponse } from "./types";
 
 export const getTokensByChainId = async (
   chainId: string,
-): Promise<{ data: { tokens: Record<string, Token> } }> =>
+): Promise<AxiosResponse<GetTokensByChainIdResponse>> =>
   axios1inch.get(urls.tokens(chainId));

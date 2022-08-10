@@ -8,7 +8,7 @@ import {
   PortfolioTableFields,
 } from "../../components/molecules/PortfolioTable";
 import { SortType } from "../../components/atoms/Sort";
-import { ROWS_PER_PAGE, useTokensData } from "./hooks/useTokensData";
+import { useTokensData } from "./lib/hooks";
 
 import * as S from "./style";
 import { usePortfolio } from "../../store";

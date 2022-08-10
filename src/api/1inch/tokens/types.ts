@@ -6,3 +6,7 @@ export interface Token {
   symbol: string;
   tags: string[];
 }
+
+export interface GetTokensByChainIdResponse {
+  tokens: Record<string, Token>;
+}

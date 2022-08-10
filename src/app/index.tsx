@@ -1,10 +1,11 @@
 /* eslint-disable react/no-array-index-key */
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { Header } from "../components/template";
 import { Notification } from "../components/atoms";
-import { useNotifications } from "../store";
+import { useChains, useNotifications, useTokens } from "../store";
+import { getTokensByChainId } from "../api/1inch/tokens";
 
 import { setupGlobalStyles } from "../styles";
 
@@ -22,6 +23,21 @@ function App({ children }) {
     data: notifications,
     actions: { deleteNotification },
   } = useNotifications();
+  const {
+    actions: { setTokens },
+  } = useTokens();
+  const {
+    data: { selectedChain },
+  } = useChains();
+
+  useEffect(() => {
+    (async function () {
+      const { data } = await getTokensByChainId(selectedChain.value);
+
+      const tokensArr = Object.values(data.tokens);
+      setTokens(tokensArr);
+    })();
+  }, [selectedChain]);
 
   return (
     <S.App>

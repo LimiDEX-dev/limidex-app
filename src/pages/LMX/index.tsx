@@ -5,21 +5,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { useEthers } from "@usedapp/core";
 import { Contract, ethers } from "ethers";
-import {
-  Title,
-  Description,
-  Modal,
-  Input,
-  Dropdown,
-  Button,
-  Popup,
-} from "../../components/atoms";
+import { Title, Description } from "../../components/atoms";
 import { lmx } from "../../lib/mock/lmx";
 import { StakingCard, WithdrawModal } from "../../components/molecules";
 
 import * as S from "./style";
-import * as Card from "../../components/molecules/StakingCard/style";
-import { useUser, useVeSPLX } from "../../store";
+import { useVeSPLX } from "../../store";
 import { contracts } from "../../config/contracts";
 import { SPLX_ADDRESS } from "../../config/common";
 import { DepositModal } from "./components";
@@ -57,7 +48,7 @@ export const LMX: FC = () => {
       lockSPLX,
       withdraw: { lpTokens, tokensReturned, tokensInMoney },
     },
-    actions: { setLockPeriod, setLockSPLX, setWithdraw },
+    actions: { setWithdraw },
   } = useVeSPLX();
 
   useEffect(() => {

@@ -44,5 +44,9 @@ export const useStaking = selector(({ data: { staking }, actions }) => ({
   data: staking,
   actions: (actions as ActionsObject).staking,
 }));
+export const useTokens = selector(({ data: { tokens }, actions }) => ({
+  data: tokens,
+  actions: (actions as ActionsObject).tokens,
+}));
 
 export const GlobalStore = Store;

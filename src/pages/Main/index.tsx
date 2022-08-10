@@ -1,22 +1,23 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { FC, useLayoutEffect, useState } from "react";
 
-import {
-  PlaceOrder,
-  ExchangesRates,
-  Orders,
-  Chart,
-} from "../../components/molecules";
+import { ExchangesRates, Orders, Chart } from "../../components/molecules";
+import { PlaceOrder } from "./components";
 import { ChartIcon, RatesIcon } from "../../lib/icons";
+import { ActionsObject, useLocalStore, Store } from "./context";
 
 import * as S from "./style";
 
-export const Main = () => {
-  const [activeOrderTab, setActiveOrderTab] = useState<
-    "limit" | "swap" | "cross"
-  >("swap");
-  const [activeTab, setActiveTab] = useState<0 | 1>(0);
-  const [isExpertMode, setIsExpertMode] = useState(false);
+const Page = () => {
   const [height, setHeight] = useState<number>(0);
+
+  const localStore = useLocalStore();
+
+  const {
+    ui: { mobileTab, orderTab, isExpertMode },
+  } = localStore.data;
+  const {
+    ui: { setMobileTab },
+  } = localStore.actions as ActionsObject;
 
   useLayoutEffect(() => {
     // THERE IS FUNCTION THAT SET CHART DATA
@@ -36,30 +37,24 @@ export const Main = () => {
     return () => {
       window.removeEventListener("resize", update);
     };
-  }, [isExpertMode, activeOrderTab]);
+  }, [isExpertMode, orderTab]);
 
   return (
     <S.Main
       isExpertMode={
-        (isExpertMode && activeOrderTab === "swap") ||
-        activeOrderTab === "limit"
+        (isExpertMode && orderTab === "swap") || orderTab === "limit"
       }
     >
       <S.LeftContent>
-        <PlaceOrder
-          isExpertMode={isExpertMode}
-          setIsExpertMode={setIsExpertMode}
-          activeTab={activeOrderTab}
-          setActiveTab={setActiveOrderTab}
-        />
+        <PlaceOrder />
       </S.LeftContent>
 
       <S.RightContent>
         <S.RightTop>
-          <S.ExchangeRatesContainer isActive={activeTab === 1}>
+          <S.ExchangeRatesContainer isActive={mobileTab === "rates"}>
             <ExchangesRates />
           </S.ExchangeRatesContainer>
-          <S.ChartContainer isActive={activeTab === 0}>
+          <S.ChartContainer isActive={mobileTab === "chart"}>
             <Chart height={height} setHeight={setHeight} />
           </S.ChartContainer>
         </S.RightTop>
@@ -69,10 +64,10 @@ export const Main = () => {
         </S.RightBottom>
       </S.RightContent>
       <S.Actions>
-        <S.ActionButton type="button" onClick={() => setActiveTab(0)}>
+        <S.ActionButton type="button" onClick={() => setMobileTab("chart")}>
           <ChartIcon />
         </S.ActionButton>
-        <S.ActionButton type="button" onClick={() => setActiveTab(1)}>
+        <S.ActionButton type="button" onClick={() => setMobileTab("rates")}>
           <RatesIcon />
         </S.ActionButton>
       </S.Actions>
@@ -80,3 +75,9 @@ export const Main = () => {
     </S.Main>
   );
 };
+
+export const MainPage: FC = () => (
+  <Store>
+    <Page />
+  </Store>
+);

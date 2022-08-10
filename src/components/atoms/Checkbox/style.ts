@@ -20,7 +20,16 @@ export const StyledCheckbox = styled("span", {
   },
 });
 
-export const CheckboxInput = styled("input", {});
+export const CheckboxInput = styled("input", {
+  [`&:checked ~ ${StyledCheckbox}`]: {
+    backgroundColor: "$accent",
+    borderColor: "$accent",
+
+    "& > svg": {
+      display: "block",
+    },
+  },
+});
 
 export const CheckboxLabel = styled("span", {
   fontFamily: "Roboto, sans-serif",
@@ -82,15 +91,6 @@ export const Checkbox = styled("label", {
         },
       },
       checkbox: {},
-    },
-  },
-
-  [`&:checked ~ ${StyledCheckbox}`]: {
-    backgroundColor: "$accent",
-    borderColor: "$accent",
-
-    "& > svg": {
-      display: "block",
     },
   },
 });

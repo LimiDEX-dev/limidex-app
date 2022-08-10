@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-import { useChains, usePortfolio } from "../../../store";
-import { getTokensByChainId } from "../../../api/1inch/tokens";
-import { getTokensFinancesByAddresses } from "../../../api/dexGuru/chain";
-import { Token } from "../../../api/1inch/tokens/types";
-import { WalletItem } from "../../../types/portfolio";
+import { useChains, usePortfolio, useTokens } from "../../../../store";
+import { getTokensByChainId } from "../../../../api/1inch/tokens";
+import { getTokensFinancesByAddresses } from "../../../../api/dexGuru/chain";
+import { WalletItem } from "../../../../types/portfolio";
 
 export const ROWS_PER_PAGE = 10;
 
 export const useTokensData = () => {
-  const [tokens, setTokens] = useState<Token[]>([]);
-  console.log(tokens);
+  const {
+    data: tokens,
+    actions: { setTokens },
+  } = useTokens();
 
   const {
     data: { selectedChain },
@@ -62,17 +63,8 @@ export const useTokensData = () => {
   };
 
   useEffect(() => {
-    (async function () {
-      const { data } = await getTokensByChainId(selectedChain.value);
-
-      const tokensArr = Object.values(data.tokens);
-      setTokens(tokensArr);
-      setPagesCount(Math.ceil(tokensArr.length / ROWS_PER_PAGE));
-    })();
-  }, [selectedChain]);
-
-  useEffect(() => {
     if (tokens.length) {
+      setPagesCount(Math.ceil(tokens.length / ROWS_PER_PAGE));
       getPortfolioWallet();
     }
   }, [tokens, page]);

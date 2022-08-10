@@ -1,4 +1,5 @@
 import { StoreObject } from "./types";
+
 import { chains as mockChains } from "../../lib/mock/valutes";
 import { mockData } from "../../lib/mock/rates";
 import { stepOptions } from "../../lib/mock/stepoptions";
@@ -54,4 +55,5 @@ export const initialStore: StoreObject = {
       tokensReturned: "0",
     },
   },
+  tokens: [],
 };

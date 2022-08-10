@@ -274,4 +274,12 @@ export const provideActions = (
       }));
     },
   },
+  tokens: {
+    setTokens: (payload) => {
+      setStore((store) => ({
+        ...store,
+        tokens: payload,
+      }));
+    },
+  },
 });
