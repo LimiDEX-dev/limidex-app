@@ -23,8 +23,8 @@ export const PlaceOrderTrade: FC = () => {
   useEffect(() => {
     if (
       (selectedSell && selectedBuy && !trade) ||
-      (selectedSell.value !== trade?.value &&
-        selectedBuy.value !== trade?.value)
+      (selectedSell?.value !== trade?.value &&
+        selectedBuy?.value !== trade?.value)
     ) {
       setTrade(selectedSell);
     }

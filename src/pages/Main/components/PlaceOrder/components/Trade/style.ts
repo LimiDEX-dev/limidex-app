@@ -36,7 +36,7 @@ export const Trade = styled("div", {
   },
 
   "& .dropdown__trigger__label": {
-    maxWidth: 120,
+    maxWidth: 70,
     fontWeight: 400,
     textAlign: "left",
 
