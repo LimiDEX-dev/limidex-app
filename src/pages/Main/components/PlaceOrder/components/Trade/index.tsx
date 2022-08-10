@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 
 import { ActionsObject, useLocalStore } from "../../../../context";
 import { Dropdown, Popup } from "../../../../../../components/atoms";
@@ -20,6 +20,16 @@ export const PlaceOrderTrade: FC = () => {
     settings: { setTrade },
   } = localStore.actions as ActionsObject;
 
+  useEffect(() => {
+    if (
+      (selectedSell && selectedBuy && !trade) ||
+      (selectedSell.value !== trade?.value &&
+        selectedBuy.value !== trade?.value)
+    ) {
+      setTrade(selectedSell);
+    }
+  }, [selectedSell, selectedBuy, trade]);
+
   return (
     <S.Trade>
       <Popup
@@ -37,18 +47,11 @@ export const PlaceOrderTrade: FC = () => {
         items={[selectedSell, selectedBuy]}
         onSelect={(item) => setTrade(item)}
       >
-        <span
-          style={{
-            width: 25,
-            height: 25,
-            background: "rgba(255, 249, 249, 0.5)",
-            borderRadius: "100%",
-          }}
-        />
+        <S.Img src={(trade?.icon as string) || ""} alt="" />
         <span className="dropdown__trigger__label">
-          <span>{trade?.label}</span>
+          {trade?.symbol}
           <br />
-          Wrapped BNB
+          <span>{trade?.label}</span>
         </span>
       </Dropdown>
     </S.Trade>

@@ -31,6 +31,10 @@ function App({ children }) {
   } = useChains();
 
   useEffect(() => {
+    if (!selectedChain) {
+      return;
+    }
+
     (async function () {
       const { data } = await getTokensByChainId(selectedChain.value);
 

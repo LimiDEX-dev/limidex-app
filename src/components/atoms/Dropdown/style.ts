@@ -35,11 +35,15 @@ export const ItemTrigger = styled("button", {
 });
 
 export const ItemLabel = styled("span", {
+  width: "calc(100% - 28px)",
+
   fontFamily: "Roboto, sans-serif",
   color: "$text",
   fontSize: 12,
   whiteSpace: "pre-wrap",
+  wordWrap: "break-word",
   lineHeight: "14px",
+  textAlign: "left",
 
   variants: {
     small: {
@@ -54,7 +58,8 @@ export const ItemLabel = styled("span", {
 
 export const Dropdown = styled("div", {
   display: "flex",
-  flexShrink: 0,
+
+  width: "fit-content",
 
   position: "relative",
 
@@ -140,7 +145,7 @@ export const List = styled("ul", {
   top: "calc(100% + 6px)",
   left: 0,
 
-  width: 116,
+  width: 140,
   maxHeight: 260,
   margin: 0,
   padding: 0,
@@ -215,6 +220,12 @@ export const ItemIcon = styled("span", {
   alignItems: "center",
 
   marginRight: 8,
+});
+
+export const ItemImg = styled("img", {
+  display: "block",
+
+  width: 20,
 });
 
 export const DropdownTriggerValueIcon = styled("span", {

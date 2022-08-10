@@ -15,7 +15,7 @@ export const initialStore: StoreObject = {
   },
   chains: {
     data: mockChains,
-    selectedChain: mockChains[0],
+    selectedChain: null,
   },
   rates: {
     currentPrice: mockData.currentPrice,

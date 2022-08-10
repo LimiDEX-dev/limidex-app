@@ -18,7 +18,7 @@ interface NotificationActions {
 
 type ChainsStore = {
   data: Chain[];
-  selectedChain: Chain;
+  selectedChain: Chain | null;
 };
 
 interface ChainsActions {

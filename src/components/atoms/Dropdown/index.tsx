@@ -101,7 +101,15 @@ export const Dropdown: FC<DropdownProps> = ({
                   type="button"
                   onClick={() => handleClickItem(item)}
                 >
-                  {item.icon && <S.ItemIcon>{item.icon}</S.ItemIcon>}
+                  {item.icon && (
+                    <S.ItemIcon>
+                      {typeof item.icon === "string" ? (
+                        <S.ItemImg src={item.icon} alt="" />
+                      ) : (
+                        item.icon
+                      )}
+                    </S.ItemIcon>
+                  )}
                   {textAlign === "right" ? (
                     <>
                       <S.ItemLabel>{item.label}</S.ItemLabel>

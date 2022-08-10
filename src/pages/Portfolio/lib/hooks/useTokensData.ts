@@ -26,6 +26,10 @@ export const useTokensData = () => {
   } = usePortfolio();
 
   const getPortfolioWallet = async () => {
+    if (!selectedChain) {
+      return;
+    }
+
     const currentTokens = tokens.slice(
       (page - 1) * ROWS_PER_PAGE,
       page * ROWS_PER_PAGE,

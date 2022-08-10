@@ -107,7 +107,7 @@ export const Header: FC = () => {
   }, [readyToSign, account]);
 
   useEffect(() => {
-    if (chainId && +selectedChain.value !== chainId) {
+    if (chainId && (!selectedChain || +selectedChain.value !== chainId)) {
       setSelectedChain(chains.find((item) => +item.value === chainId));
     }
   }, [chainId, selectedChain]);
@@ -120,25 +120,25 @@ export const Header: FC = () => {
   const handleChangeNetwork = async (network: DropdownItem) => {
     try {
       await switchNetwork(+network.value);
+
+      setSelectedChain(network);
     } catch (e) {
       console.log(e);
     }
 
-    if (chainId !== +network.value) {
-      const chainData = getChainDataById(+network.value);
-
-      if (chainData) {
-        // @ts-ignore
-        await window?.ethereum?.request({
-          jsonrpc: "2.0",
-          method: "wallet_addEthereumChain",
-          params: [chainData],
-          id: 0,
-        });
-      }
-    }
-
-    setSelectedChain(network);
+    // if (chainId !== +network.value) {
+    //   const chainData = getChainDataById(+network.value);
+    //
+    //   if (chainData) {
+    //     // @ts-ignore
+    //     await window?.ethereum?.request({
+    //       jsonrpc: "2.0",
+    //       method: "wallet_addEthereumChain",
+    //       params: [chainData],
+    //       id: 0,
+    //     });
+    //   }
+    // }
   };
 
   return (
@@ -169,10 +169,10 @@ export const Header: FC = () => {
         <Dropdown
           items={chains}
           onSelect={handleChangeNetwork}
-          borderColor={selectedChain.color}
+          borderColor={selectedChain?.color}
         >
-          {selectedChain.icon}
-          {selectedChain.label}
+          {selectedChain?.icon}
+          {selectedChain?.label}
         </Dropdown>
         {account ? (
           <S.Wallet>
@@ -241,10 +241,10 @@ export const Header: FC = () => {
             <Dropdown
               items={chains}
               onSelect={handleChangeNetwork}
-              borderColor={selectedChain.color}
+              borderColor={selectedChain?.color}
             >
-              {selectedChain.icon}
-              {selectedChain.label}
+              {selectedChain?.icon}
+              {selectedChain?.label}
             </Dropdown>
             {account ? (
               <>

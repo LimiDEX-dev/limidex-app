@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 
 import { useTokens } from "../../../../../../store";
 import { Dropdown, DropdownItem } from "../../../../../../components/atoms";
@@ -28,12 +28,48 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
     addCustomToken: { setIsAddCustomTokenVisible },
   } = localStore.actions as ActionsObject;
 
-  const getMappedTokens = (): DropdownItem[] =>
-    tokens.map((item) => ({
-      value: item.address,
-      label: item.name,
-      icon: item.logoURI,
-    }));
+  const getMappedTokens = (action: "sell" | "buy"): DropdownItem[] =>
+    tokens
+      .filter((item) =>
+        action === "sell"
+          ? item.address !== selectedSell?.value
+          : item.address !== selectedBuy?.value,
+      )
+      .map((item) => ({
+        value: item.address,
+        label: item.name,
+        icon: item.logoURI,
+        symbol: item.symbol,
+      }));
+
+  const handleChangeSell = (item: DropdownItem) => {
+    if (item.value === selectedBuy?.value) {
+      handleSwap();
+
+      return;
+    }
+
+    setConvertSell(item);
+  };
+
+  const handleChangeBuy = (item: DropdownItem) => {
+    if (item.value === selectedSell?.value) {
+      handleSwap();
+
+      return;
+    }
+
+    setConvertBuy(item);
+  };
+
+  useEffect(() => {
+    if (tokens.length) {
+      const mappedTokens = getMappedTokens("sell");
+
+      setConvertSell(mappedTokens[0]);
+      setConvertBuy(mappedTokens[1]);
+    }
+  }, [tokens]);
 
   return (
     <S.ConvertDropdowns>
@@ -44,19 +80,21 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
         </S.ConverterHeader>
         <S.ConverterContent>
           <Dropdown
-            items={getMappedTokens()}
-            onSelect={setConvertSell}
+            items={getMappedTokens("sell")}
+            onSelect={handleChangeSell}
             isAddCustomVisible
             noBorder
             notRightBorderRadius
-            width={110}
             handleAddCustom={() => setIsAddCustomTokenVisible(true)}
           >
-            {selectedSell?.icon}
+            <S.ConverterValueImg
+              src={(selectedSell?.icon as string) || ""}
+              alt=""
+            />
             <span className="dropdown__trigger__label">
-              {selectedSell?.label}
+              {selectedSell?.symbol}
               <br />
-              <span>Wrapped BNB</span>
+              <span>{selectedSell?.label}</span>
             </span>
           </Dropdown>
           <div>
@@ -87,19 +125,21 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
         </S.ConverterHeader>
         <S.ConverterContent>
           <Dropdown
-            items={getMappedTokens()}
-            onSelect={setConvertBuy}
+            items={getMappedTokens("buy")}
+            onSelect={handleChangeBuy}
             isAddCustomVisible
             noBorder
             notRightBorderRadius
-            width={110}
             handleAddCustom={() => setIsAddCustomTokenVisible(true)}
           >
-            {selectedBuy?.icon}
+            <S.ConverterValueImg
+              src={(selectedBuy?.icon as string) || ""}
+              alt=""
+            />
             <span className="dropdown__trigger__label">
-              {selectedBuy?.label}
+              {selectedBuy?.symbol}
               <br />
-              <span>Wrapped BNB</span>
+              <span>{selectedBuy?.label}</span>
             </span>
           </Dropdown>
           <div>

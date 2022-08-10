@@ -40,8 +40,6 @@ export const ConverterContent = styled("div", {
   padding: "0 10px 8px 0",
 
   "& .dropdown__trigger__label": {
-    marginLeft: 8,
-
     fontWeight: 700,
     textAlign: "left",
 
@@ -49,6 +47,12 @@ export const ConverterContent = styled("div", {
       fontWeight: 400,
     },
   },
+});
+
+export const ConverterValueImg = styled("img", {
+  display: "block",
+
+  width: 28,
 });
 
 export const CustomInput = styled("input", {

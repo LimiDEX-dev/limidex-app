@@ -36,13 +36,19 @@ export const Trade = styled("div", {
   },
 
   "& .dropdown__trigger__label": {
-    marginLeft: 8,
-
-    fontWeight: 700,
+    maxWidth: 120,
+    fontWeight: 400,
     textAlign: "left",
 
     "& > span": {
-      fontWeight: 400,
+      fontWeight: 700,
+      wordBreak: "break-word",
     },
   },
+});
+
+export const Img = styled("img", {
+  display: "block",
+
+  width: 28,
 });
