@@ -1,4 +1,6 @@
 import React, { FC, useEffect } from "react";
+import { useEthers } from "@usedapp/core";
+import { ethers } from "ethers";
 
 import { Dropdown, Input, Popup } from "../../../../components/atoms";
 import { HelpIcon } from "../../../../lib/icons";
@@ -12,10 +14,17 @@ import {
   PlaceOrderRoutes,
   PlaceOrderTrade,
 } from "./components";
+import {
+  handleSubmitCrossSwap,
+  handleSubmitLimitSwap,
+  handleSubmitSwap,
+} from "../../../../api/main/trade";
 
 import * as S from "./style";
 
 export const PlaceOrder: FC = () => {
+  const { account } = useEthers();
+
   const localStore = useLocalStore();
 
   const {
@@ -24,7 +33,7 @@ export const PlaceOrder: FC = () => {
       sell: { selectedSell, toSell },
       buy: { selectedBuy, toBuy },
     },
-    settings: { burnToken, destinationChain, priceImpact },
+    settings: { burnToken, destinationChain, priceImpact, route },
     advanced: { takeProfit, stopLoss, trailingSL },
   } = localStore.data;
   const {
@@ -37,15 +46,17 @@ export const PlaceOrder: FC = () => {
     actions: { createNotification },
   } = useNotifications();
   const {
-    data: { transactionsPending },
+    data: { transactionsPending, slippageTolerance, isStablePoolPreferably },
     actions: { setTransactionsPending },
   } = useUser();
   const {
     data: { data: chains },
   } = useChains();
+  console.log(selectedSell, selectedBuy);
 
   const isSubmitDisabled = (): boolean => {
     if (orderTab === "limit" || orderTab === "swap") {
+      console.log(transactionsPending, notifications.length);
       return (
         !toSell ||
         !toBuy ||
@@ -73,35 +84,73 @@ export const PlaceOrder: FC = () => {
     );
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setTransactionsPending(1);
 
-    const timeoutId = setTimeout(() => {
-      setTransactionsPending(0);
+    const params = {
+      fromToken: selectedSell.value,
+      toToken: selectedBuy.value,
+      volume: ethers.utils.parseEther(toSell),
+      trader: account,
+      traderSig: localStorage.getItem("signature"),
+      slippage: +slippageTolerance * 100,
+      router: route.toString(),
+      burnAmount: +burnToken,
+      useStableReward: isStablePoolPreferably,
+      takeProfit,
+      stopLoss,
+      trailingStopLoss: trailingSL,
+    };
 
-      const status = Math.random() > 0.5 ? "success" : "error";
+    if (orderTab === "swap") {
+      const {
+        data: {
+          result: { txHash, stopLossOrderID, takeProfitOrderID },
+        },
+      } = await handleSubmitSwap(params);
+      console.log(txHash, stopLossOrderID, takeProfitOrderID);
+    }
 
-      createNotification({
-        status,
-        title: status === "success" ? "Success" : "Failed",
-        content: (
-          <>
-            <span>Approve BUSD</span>
-            <br />
-            <br />
-            <a
-              href="src/pages/Main/components/PlaceOrder/index"
-              target="_blank"
-              rel="noreferrer"
-            >
-              View on BscScan{" "}
-            </a>
-          </>
-        ),
-      });
+    if (orderTab === "limit") {
+      const {
+        data: {
+          result: { txHash, stopLossOrderID, takeProfitOrderID },
+        },
+      } = await handleSubmitLimitSwap(params);
+      console.log(txHash, stopLossOrderID, takeProfitOrderID);
+    }
 
-      clearTimeout(timeoutId);
-    }, 2000);
+    if (orderTab === "cross") {
+      const {
+        data: {
+          result: { txHash, orderID },
+        },
+      } = await handleSubmitCrossSwap(params);
+      console.log(txHash, orderID);
+    }
+
+    setTransactionsPending(0);
+
+    const status = Math.random() > 0.5 ? "success" : "error";
+
+    createNotification({
+      status,
+      title: status === "success" ? "Success" : "Failed",
+      content: (
+        <>
+          <span>Approve BUSD</span>
+          <br />
+          <br />
+          <a
+            href="src/pages/Main/components/PlaceOrder/index"
+            target="_blank"
+            rel="noreferrer"
+          >
+            View on BscScan{" "}
+          </a>
+        </>
+      ),
+    });
   };
 
   const getBeforeSwapAddon = () => {

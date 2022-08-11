@@ -12,6 +12,8 @@ export const initialStore: StoreObject = {
   user: {
     transactionsPending: 0,
     balance: 12,
+    isStablePoolPreferably: false,
+    slippageTolerance: "0.3",
   },
   chains: {
     data: mockChains,

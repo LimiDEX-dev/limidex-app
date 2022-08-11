@@ -8,6 +8,7 @@ import { ActiveOrder, HistoryOrder, CrossOrder } from "../../types/orders";
 import { DropdownItem } from "../../components/atoms";
 import { WalletItem } from "../../types/portfolio";
 import { Token } from "../../api/1inch/tokens/types";
+import { getIsStablePoolPreferably } from "../../api/main/trade";
 
 type NotificationStore = Notification[];
 
@@ -93,11 +94,15 @@ interface PortfolioActions {
 interface UserStore {
   transactionsPending: number;
   balance: number;
+  isStablePoolPreferably: boolean;
+  slippageTolerance: string;
 }
 
 interface UserActions {
   setTransactionsPending: (count: number) => void;
   setBalance: (balance: number) => void;
+  setIsStablePoolPreferably: (payload: boolean) => void;
+  setSlippageTolerance: (payload: string) => void;
 }
 
 interface WithdrawObject {

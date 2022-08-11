@@ -21,9 +21,9 @@ export const PlaceOrderRoutes: FC = () => {
           type="radio"
           name="routing"
           className="visually-hidden"
-          value="self"
-          checked={route === "self"}
-          onChange={() => setRoute("self")}
+          value={0}
+          checked={route === 0}
+          onChange={() => setRoute(0)}
         />
         <S.RoutesRadio />
         <S.RoutesRadioLabel>Self route</S.RoutesRadioLabel>
@@ -37,9 +37,9 @@ export const PlaceOrderRoutes: FC = () => {
           type="radio"
           name="routing"
           className="visually-hidden"
-          value="pancakeswap"
-          checked={route === "pancakeswap"}
-          onChange={() => setRoute("pancakeswap")}
+          value={1}
+          checked={route === 1}
+          onChange={() => setRoute(1)}
         />
         <S.RoutesRadio />
         <S.RoutesRadioLabel>Pancakeswap</S.RoutesRadioLabel>

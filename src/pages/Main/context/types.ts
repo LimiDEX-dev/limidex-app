@@ -21,7 +21,7 @@ export interface StoreObject {
   settings: {
     burnToken: string;
     priceImpact: string;
-    route: "self" | "pancakeswap";
+    route: 0 | 1;
     trade: DropdownItem | null;
     destinationChain: DropdownItem | null;
   };
@@ -59,7 +59,7 @@ export interface ActionsObject {
   settings: {
     setBurnToken: (burnToken: string) => void;
     setPriceImpact: (priceImpact: string) => void;
-    setRoute: (route: "self" | "pancakeswap") => void;
+    setRoute: (route: 0 | 1) => void;
     setTrade: (payload: DropdownItem | null) => void;
     setDestinationChain: (payload: DropdownItem) => void;
   };

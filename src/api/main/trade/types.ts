@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+import { BigNumber } from "ethers";
 
 export interface JsonRpcResponse<T>
   extends AxiosResponse<{
@@ -10,7 +11,7 @@ export interface JsonRpcResponse<T>
 export interface GetOutParams {
   fromToken: string;
   toToken: string;
-  volume: string;
+  volume: BigNumber;
   slippage?: number;
   router?: string;
 }
@@ -22,7 +23,7 @@ export interface GetOutResponse {
 export interface SwapSubmitParams {
   fromToken: string;
   toToken: string;
-  volume: string;
+  volume: BigNumber;
   traderSig: string;
   trader: string;
   slippage?: number;
@@ -44,7 +45,7 @@ export interface SwapSubmitResponse {
 export interface CrossGetOutParams {
   fromToken: string;
   toToken: string;
-  volume: string;
+  volume: BigNumber;
   destChain: number;
   slippage?: number;
 }

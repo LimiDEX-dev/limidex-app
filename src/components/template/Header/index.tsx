@@ -69,13 +69,15 @@ export const Header: FC = () => {
 
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
-  const [slippageTolerance, setSlippageTolerance] = useState<string>("0.5");
   const [readyToSign, setReadyToSign] = useState(false);
 
   const headerRef = useRef(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const { data: user } = useUser();
+  const {
+    data: { transactionsPending, slippageTolerance },
+    actions: { setSlippageTolerance },
+  } = useUser();
   const {
     data: { data: chains, selectedChain },
     actions: { setSelectedChain },
@@ -177,9 +179,9 @@ export const Header: FC = () => {
         {account ? (
           <S.Wallet>
             {shortenIfAddress(account)}
-            {user.transactionsPending > 0 && (
+            {transactionsPending > 0 && (
               <S.WalletPendingStatus>
-                <LoadingSmallIcon /> {user.transactionsPending} Pending
+                <LoadingSmallIcon /> {transactionsPending} Pending
               </S.WalletPendingStatus>
             )}
           </S.Wallet>
@@ -253,9 +255,9 @@ export const Header: FC = () => {
                 </S.Balance>
                 <S.Wallet>
                   {shortenIfAddress(account)}
-                  {user.transactionsPending > 0 && (
+                  {transactionsPending > 0 && (
                     <S.WalletPendingStatus>
-                      <LoadingSmallIcon /> {user.transactionsPending} Pending
+                      <LoadingSmallIcon /> {transactionsPending} Pending
                     </S.WalletPendingStatus>
                   )}
                 </S.Wallet>

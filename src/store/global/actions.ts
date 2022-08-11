@@ -43,6 +43,24 @@ export const provideActions = (
         },
       }));
     },
+    setIsStablePoolPreferably: (payload) => {
+      setStore((store) => ({
+        ...store,
+        user: {
+          ...store.user,
+          isStablePoolPreferably: payload,
+        },
+      }));
+    },
+    setSlippageTolerance: (payload) => {
+      setStore((store) => ({
+        ...store,
+        user: {
+          ...store.user,
+          slippageTolerance: payload,
+        },
+      }));
+    },
   },
   chains: {
     setSelectedChain: (payload) => {

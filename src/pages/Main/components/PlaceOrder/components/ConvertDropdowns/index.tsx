@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from "react";
 
+import { ethers } from "ethers";
 import { useTokens } from "../../../../../../store";
 import { Dropdown, DropdownItem } from "../../../../../../components/atoms";
 import { SwapIcon } from "../../../../../../lib/icons";
@@ -8,6 +9,7 @@ import { useLocalStore, ActionsObject } from "../../../../context";
 import { ConvertDropdownsProps } from "./types";
 
 import * as S from "./style";
+import { getReceiveSumInWei } from "../../../../../../api/main/trade";
 
 export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
   beforeSwapAddon,
@@ -70,6 +72,46 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
       setConvertBuy(mappedTokens[1]);
     }
   }, [tokens]);
+
+  useEffect(() => {
+    if (!selectedSell || !selectedBuy || !toSell) {
+      return;
+    }
+
+    (async function () {
+      const {
+        data: {
+          result: { amountOut },
+        },
+      } = await getReceiveSumInWei({
+        fromToken: selectedSell.value,
+        toToken: selectedBuy.value,
+        volume: ethers.utils.parseEther(toSell),
+      });
+
+      setToBuy(ethers.utils.formatEther(amountOut));
+    })();
+  }, [selectedSell, selectedBuy, toSell]);
+
+  useEffect(() => {
+    if (!selectedSell || !selectedBuy || !toBuy) {
+      return;
+    }
+
+    (async function () {
+      const {
+        data: {
+          result: { amountOut },
+        },
+      } = await getReceiveSumInWei({
+        fromToken: selectedBuy.value,
+        toToken: selectedSell.value,
+        volume: ethers.utils.parseEther(toBuy),
+      });
+
+      setToSell(ethers.utils.formatEther(amountOut));
+    })();
+  }, [selectedSell, selectedBuy, toBuy]);
 
   return (
     <S.ConvertDropdowns>

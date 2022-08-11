@@ -20,7 +20,7 @@ export const initialStore: StoreObject = {
   settings: {
     burnToken: "100",
     priceImpact: "422.77",
-    route: "self",
+    route: 0,
     trade: null,
     destinationChain: null,
   },

@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 import { Header } from "../components/template";
 import { Notification } from "../components/atoms";
-import { useChains, useNotifications, useTokens } from "../store";
+import { useChains, useNotifications, useTokens, useUser } from "../store";
 import { getTokensByChainId } from "../api/1inch/tokens";
 
 import { setupGlobalStyles } from "../styles";
@@ -13,6 +13,7 @@ import * as S from "./style";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import { getIsStablePoolPreferably } from "../api/main/trade";
 
 function App({ children }) {
   setupGlobalStyles();
@@ -29,6 +30,9 @@ function App({ children }) {
   const {
     data: { selectedChain },
   } = useChains();
+  const {
+    actions: { setIsStablePoolPreferably },
+  } = useUser();
 
   useEffect(() => {
     if (!selectedChain) {
@@ -42,6 +46,16 @@ function App({ children }) {
       setTokens(tokensArr);
     })();
   }, [selectedChain]);
+
+  useEffect(() => {
+    (async function () {
+      const {
+        data: { result },
+      } = await getIsStablePoolPreferably();
+
+      setIsStablePoolPreferably(result);
+    })();
+  }, []);
 
   return (
     <S.App>
