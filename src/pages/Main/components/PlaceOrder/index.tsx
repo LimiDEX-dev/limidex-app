@@ -52,11 +52,9 @@ export const PlaceOrder: FC = () => {
   const {
     data: { data: chains },
   } = useChains();
-  console.log(selectedSell, selectedBuy);
 
   const isSubmitDisabled = (): boolean => {
     if (orderTab === "limit" || orderTab === "swap") {
-      console.log(transactionsPending, notifications.length);
       return (
         !toSell ||
         !toBuy ||

@@ -69,3 +69,15 @@ export interface CrossSwapSubmitResponse {
 export type CheckTokensParams = Array<string>;
 
 export type CheckTokensResponse = Record<string, boolean>;
+
+export interface GetTokenPriceParams {
+  token: string;
+  currencyToken?: string;
+  priceBlockNumber?: number;
+  router?: string;
+}
+
+export interface GetTokenPriceResponse {
+  price: number;
+  isUSD: boolean;
+}

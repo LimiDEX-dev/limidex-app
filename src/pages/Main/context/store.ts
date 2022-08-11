@@ -10,11 +10,13 @@ export const initialStore: StoreObject = {
   convert: {
     sell: {
       selectedSell: null,
-      toSell: "10",
+      toSell: "0",
+      toSellUSD: 0,
     },
     buy: {
       selectedBuy: null,
-      toBuy: "10",
+      toBuy: "0",
+      toBuyUSD: 0,
     },
   },
   settings: {

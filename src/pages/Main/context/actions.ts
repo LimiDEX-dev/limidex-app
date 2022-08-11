@@ -59,12 +59,23 @@ export const provideActions = (
     setToSell: (payload) => {
       setStore((store) => ({
         ...store,
-        ...store,
         convert: {
           ...store.convert,
           sell: {
             ...store.convert.sell,
             toSell: payload,
+          },
+        },
+      }));
+    },
+    setToSellUSD: (payload) => {
+      setStore((store) => ({
+        ...store,
+        convert: {
+          ...store.convert,
+          sell: {
+            ...store.convert.sell,
+            toSellUSD: payload,
           },
         },
       }));
@@ -93,6 +104,18 @@ export const provideActions = (
         },
       }));
     },
+    setToBuyUSD: (payload) => {
+      setStore((store) => ({
+        ...store,
+        convert: {
+          ...store.convert,
+          buy: {
+            ...store.convert.buy,
+            toBuyUSD: payload,
+          },
+        },
+      }));
+    },
     handleSwap: () => {
       setStore((store) => ({
         ...store,
@@ -101,10 +124,12 @@ export const provideActions = (
           sell: {
             selectedSell: store.convert.buy.selectedBuy,
             toSell: store.convert.buy.toBuy,
+            toSellUSD: store.convert.buy.toBuyUSD,
           },
           buy: {
             selectedBuy: store.convert.sell.selectedSell,
             toBuy: store.convert.sell.toSell,
+            toBuyUSD: store.convert.sell.toSellUSD,
           },
         },
       }));

@@ -10,6 +10,8 @@ import {
   CrossSwapSubmitResponse,
   GetOutParams,
   GetOutResponse,
+  GetTokenPriceParams,
+  GetTokenPriceResponse,
   JsonRpcResponse,
   SwapSubmitParams,
   SwapSubmitResponse,
@@ -69,4 +71,12 @@ export const handleCheckTokens = async (
   axios.post("", {
     method: urls.checkTokens,
     params,
+  });
+
+export const getTokenPrice = async (
+  params: GetTokenPriceParams,
+): Promise<JsonRpcResponse<GetTokenPriceResponse>> =>
+  axios.post("", {
+    method: urls.tokenPrice,
+    params: [{ ...params }],
   });

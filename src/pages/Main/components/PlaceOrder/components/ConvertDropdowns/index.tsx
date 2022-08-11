@@ -9,7 +9,10 @@ import { useLocalStore, ActionsObject } from "../../../../context";
 import { ConvertDropdownsProps } from "./types";
 
 import * as S from "./style";
-import { getReceiveSumInWei } from "../../../../../../api/main/trade";
+import {
+  getReceiveSumInWei,
+  getTokenPrice,
+} from "../../../../../../api/main/trade";
 
 export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
   beforeSwapAddon,
@@ -21,12 +24,21 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
   const {
     ui: { orderTab },
     convert: {
-      sell: { selectedSell, toSell },
-      buy: { selectedBuy, toBuy },
+      sell: { selectedSell, toSell, toSellUSD },
+      buy: { selectedBuy, toBuy, toBuyUSD },
     },
+    settings: { route },
   } = localStore.data;
   const {
-    convert: { setConvertSell, setToSell, setConvertBuy, setToBuy, handleSwap },
+    convert: {
+      setConvertSell,
+      setToSell,
+      setToSellUSD,
+      setConvertBuy,
+      setToBuy,
+      setToBuyUSD,
+      handleSwap,
+    },
     addCustomToken: { setIsAddCustomTokenVisible },
   } = localStore.actions as ActionsObject;
 
@@ -113,6 +125,48 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
     })();
   }, [selectedSell, selectedBuy, toBuy]);
 
+  useEffect(() => {
+    if (!toSell || Number.isNaN(parseInt(toSell, 10))) {
+      setToSellUSD(0);
+
+      return;
+    }
+
+    (async function () {
+      const {
+        data: {
+          result: { price },
+        },
+      } = await getTokenPrice({
+        token: selectedSell.value,
+        router: route.toString(),
+      });
+
+      setToSellUSD(price);
+    })();
+  }, [toSell]);
+
+  useEffect(() => {
+    if (!toBuy || Number.isNaN(parseInt(toBuy, 10))) {
+      setToSellUSD(0);
+
+      return;
+    }
+
+    (async function () {
+      const {
+        data: {
+          result: { price },
+        },
+      } = await getTokenPrice({
+        token: selectedBuy.value,
+        router: route.toString(),
+      });
+
+      setToBuyUSD(price);
+    })();
+  }, [toBuy]);
+
   return (
     <S.ConvertDropdowns>
       <S.Converter>
@@ -140,7 +194,7 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
             </span>
           </Dropdown>
           <div>
-            <S.CustomInputTopLabel>~$4,227</S.CustomInputTopLabel>
+            <S.CustomInputTopLabel>~${toSellUSD}</S.CustomInputTopLabel>
             <S.CustomInput
               type="text"
               value={toSell}
@@ -185,7 +239,7 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
             </span>
           </Dropdown>
           <div>
-            <S.CustomInputTopLabel>~$4,227</S.CustomInputTopLabel>
+            <S.CustomInputTopLabel>~${toBuyUSD}</S.CustomInputTopLabel>
             <S.CustomInput
               type="text"
               value={toBuy}

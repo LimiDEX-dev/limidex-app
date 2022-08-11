@@ -6,4 +6,5 @@ export const urls = {
   crossSwap: "splx_crossSwap",
   stableReward: "splx_stableReward",
   checkTokens: "splx_checkTokens",
+  tokenPrice: "splx_getTokenPrice",
 };

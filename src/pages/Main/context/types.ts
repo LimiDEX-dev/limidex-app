@@ -12,10 +12,12 @@ export interface StoreObject {
     sell: {
       selectedSell: DropdownItem | null;
       toSell: string;
+      toSellUSD: number;
     };
     buy: {
       selectedBuy: DropdownItem | null;
       toBuy: string;
+      toBuyUSD: number;
     };
   };
   settings: {
@@ -52,8 +54,10 @@ export interface ActionsObject {
   convert: {
     setConvertSell: (payload: DropdownItem) => void;
     setToSell: (payload: string) => void;
+    setToSellUSD: (payload: number) => void;
     setConvertBuy: (payload: DropdownItem) => void;
     setToBuy: (payload: string) => void;
+    setToBuyUSD: (payload: number) => void;
     handleSwap: () => void;
   };
   settings: {
