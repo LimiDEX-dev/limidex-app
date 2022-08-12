@@ -22,6 +22,7 @@ export const Dropdown: FC<DropdownProps> = ({
   selectedValue,
   notRightBorderRadius,
   width,
+  listWidth,
   textAlign,
   arrowHidden,
   borderColor,
@@ -49,7 +50,7 @@ export const Dropdown: FC<DropdownProps> = ({
   };
 
   return (
-    <S.Dropdown ref={dropdownRef}>
+    <S.Dropdown ref={dropdownRef} right={textAlign === "right"}>
       <S.DropdownTrigger
         type="button"
         notRightBorderRadius={notRightBorderRadius}
@@ -76,7 +77,7 @@ export const Dropdown: FC<DropdownProps> = ({
         )}
       </S.DropdownTrigger>
       {isOpened && (
-        <S.List>
+        <S.List style={{ width: listWidth }}>
           {isAddCustomVisible && (
             <S.Item addCustom search>
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}

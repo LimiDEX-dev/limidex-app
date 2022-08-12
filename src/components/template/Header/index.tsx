@@ -17,6 +17,7 @@ import { getSignMessage } from "../../../lib/utils";
 
 import * as S from "./style";
 import { chainsData } from "../../../config/chains";
+import { setUserAuth } from "../../../api/main/user";
 
 const getChainDataById = (chainId: number) => {
   if (chainId === 56) {
@@ -104,6 +105,12 @@ export const Header: FC = () => {
 
         localStorage.setItem("signature", signature);
         setReadyToSign(false);
+
+        const {
+          data: { result },
+        } = await setUserAuth({ trader: account, traderSig: signature });
+
+        console.log(result);
       })();
     }
   }, [readyToSign, account]);

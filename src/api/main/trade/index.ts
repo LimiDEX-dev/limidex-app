@@ -1,4 +1,5 @@
 import { axios } from "../base";
+import { JsonRpcResponse } from "../types";
 
 import { urls } from "./urls";
 import {
@@ -12,7 +13,6 @@ import {
   GetOutResponse,
   GetTokenPriceParams,
   GetTokenPriceResponse,
-  JsonRpcResponse,
   SwapSubmitParams,
   SwapSubmitResponse,
 } from "./types";

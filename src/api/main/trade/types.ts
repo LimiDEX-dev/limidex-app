@@ -1,12 +1,4 @@
-import { AxiosResponse } from "axios";
 import { BigNumber } from "ethers";
-
-export interface JsonRpcResponse<T>
-  extends AxiosResponse<{
-    id: string;
-    jsonrpc: string;
-    result: T;
-  }> {}
 
 export interface GetOutParams {
   fromToken: string;

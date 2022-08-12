@@ -49,6 +49,7 @@ export const ExchangesRates = () => {
           onSelect={setSelectedStep}
           arrowHidden
           textAlign="right"
+          listWidth={90}
         >
           <S.Step>
             <S.StepItem>Step</S.StepItem>

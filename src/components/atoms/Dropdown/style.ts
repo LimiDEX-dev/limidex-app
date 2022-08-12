@@ -76,6 +76,9 @@ export const Dropdown = styled("div", {
         [`& ${ItemTrigger}`]: {
           justifyContent: "flex-end",
         },
+        [`& ${ItemLabel}`]: {
+          width: "auto",
+        },
         [`& ${ItemLabel}[data-value="true"]`]: {
           marginLeft: 6,
 

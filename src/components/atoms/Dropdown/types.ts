@@ -15,6 +15,7 @@ export interface DropdownProps {
   selectedValue?: DropdownItem;
   notRightBorderRadius?: boolean;
   width?: number;
+  listWidth?: number;
   textAlign?: "right" | "left";
   arrowHidden?: boolean;
   borderColor?: string;

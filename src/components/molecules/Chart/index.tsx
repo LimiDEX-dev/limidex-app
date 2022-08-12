@@ -91,6 +91,7 @@ export const Chart: FC<ChartProps> = ({ height, setHeight }) => {
             onSelect={setSelectedTimeframe}
             textAlign="right"
             arrowHidden
+            listWidth={110}
           >
             <S.TimeframeText>Timeframe</S.TimeframeText>
             <S.TimeframeWrapper>

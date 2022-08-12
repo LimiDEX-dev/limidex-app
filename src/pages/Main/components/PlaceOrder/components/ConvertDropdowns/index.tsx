@@ -126,7 +126,7 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
   }, [selectedSell, selectedBuy, toBuy]);
 
   useEffect(() => {
-    if (!toSell || Number.isNaN(parseInt(toSell, 10))) {
+    if (!selectedSell || !toSell || Number.isNaN(parseInt(toSell, 10))) {
       setToSellUSD(0);
 
       return;
@@ -138,16 +138,16 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
           result: { price },
         },
       } = await getTokenPrice({
-        token: selectedSell.value,
+        token: selectedSell?.value,
         router: route.toString(),
       });
 
       setToSellUSD(price);
     })();
-  }, [toSell]);
+  }, [toSell, selectedSell]);
 
   useEffect(() => {
-    if (!toBuy || Number.isNaN(parseInt(toBuy, 10))) {
+    if (!selectedBuy || !toBuy || Number.isNaN(parseInt(toBuy, 10))) {
       setToSellUSD(0);
 
       return;
@@ -165,7 +165,7 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
 
       setToBuyUSD(price);
     })();
-  }, [toBuy]);
+  }, [toBuy, selectedBuy]);
 
   return (
     <S.ConvertDropdowns>

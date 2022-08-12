@@ -44,3 +44,12 @@ export const chainsData = {
     blockExplorerUrls: ["https://snowtrace.io"],
   },
 };
+
+// Chain ID - one block time is seconds
+export const chainsBlockTimes: Record<number, number> = {
+  1: 15,
+  56: 3,
+  137: 2.3,
+  43114: 3,
+  250: 0.7,
+};
