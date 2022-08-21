@@ -1,14 +1,66 @@
 /* eslint-disable react/no-array-index-key */
-import React, { FC, useRef } from "react";
+import React, { FC, useEffect, useRef } from "react";
+import { useEthers } from "@usedapp/core";
 
 import { Title, Description, Button } from "../../components/atoms";
 import { CopyIcon } from "../../lib/icons";
-import { ambassador } from "../../lib/mock/ambassador";
+import {
+  claimAllRewards,
+  claimReward,
+  getRewardBalance,
+} from "../../api/main/rewards";
+import { Store, useLocalStore } from "./context";
+import { useGlobalStore } from "../../store";
 
 import * as S from "./style";
 
-export const Referral: FC = () => {
+const Page: FC = () => {
+  const { account } = useEthers();
+
   const linkRef = useRef<HTMLAnchorElement>(null);
+  const {
+    data: { rewards },
+  } = useLocalStore();
+  const {
+    data: {
+      chains: { selectedChain },
+    },
+  } = useGlobalStore();
+
+  useEffect(() => {
+    if (!account) {
+      return;
+    }
+
+    (async function () {
+      const { data } = await getRewardBalance({
+        user: account,
+        allChains: true,
+      });
+      console.log(data);
+    })();
+  }, [account]);
+
+  const handleClaimReward = async (token: string) => {
+    const {
+      data: { result },
+    } = await claimReward({
+      trader: account,
+      traderSig: localStorage.getItem("signature"),
+      token,
+    });
+    console.log(result);
+  };
+
+  const handleClaimAllRewards = async () => {
+    const {
+      data: { result },
+    } = await claimAllRewards({
+      trader: account,
+      traderSig: localStorage.getItem("signature"),
+    });
+    console.log(result);
+  };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(linkRef.current.textContent);
@@ -54,7 +106,9 @@ export const Referral: FC = () => {
           <S.EarnedTitle>
             Available to claim <span>200$</span>
           </S.EarnedTitle>
-          <Button size="large">Claim all</Button>
+          <Button size="large" onClick={handleClaimAllRewards}>
+            Claim all
+          </Button>
         </S.Wrapper>
       </S.MainWrapper>
       <S.StatsWrapper>
@@ -87,18 +141,23 @@ export const Referral: FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {ambassador.stats.map((item, index) => (
-                  <S.Row key={`${item.network}-${index}`}>
-                    <S.TableItem>{item.network}</S.TableItem>
-                    <S.TableItem>{item.veSPLX}</S.TableItem>
-                    <S.TableItem>{item.cashback}</S.TableItem>
-                    <S.TableItem>{item.ref1}</S.TableItem>
-                    <S.TableItem>{item.ref2}</S.TableItem>
-                    <S.TableItem>{item.followers}</S.TableItem>
-                    <S.TableItem>{item.total}</S.TableItem>
-                    <S.TableItem>{item.available}</S.TableItem>
+                {rewards.map((item, index) => (
+                  <S.Row key={`${item.Balance}-${index}`}>
+                    <S.TableItem>{selectedChain.label}</S.TableItem>
+                    <S.TableItem>{item.VE}</S.TableItem>
+                    <S.TableItem>{item.Cashback}</S.TableItem>
+                    <S.TableItem>{item.RefLvl1}</S.TableItem>
+                    <S.TableItem>{item.RefLvl2}</S.TableItem>
+                    <S.TableItem>{item.Followers}</S.TableItem>
+                    <S.TableItem>{item.Total}</S.TableItem>
+                    <S.TableItem>{item.Balance}</S.TableItem>
                     <S.TableItem>
-                      <Button size="small">Claim</Button>
+                      <Button
+                        size="small"
+                        onClick={() => handleClaimReward("ETH")}
+                      >
+                        Claim
+                      </Button>
                     </S.TableItem>
                   </S.Row>
                 ))}
@@ -110,3 +169,9 @@ export const Referral: FC = () => {
     </S.Referral>
   );
 };
+
+export const ReferralPage = () => (
+  <Store>
+    <Page />
+  </Store>
+);
