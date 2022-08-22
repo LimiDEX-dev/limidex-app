@@ -20,29 +20,9 @@ export const useChains = selector(({ data: { chains }, actions }) => ({
   data: chains,
   actions: (actions as ActionsObject).chains,
 }));
-export const useRates = selector(({ data: { rates }, actions }) => ({
-  data: rates,
-  actions: (actions as ActionsObject).rates,
-}));
 export const useChart = selector(({ data: { chart }, actions }) => ({
   data: chart,
   actions: (actions as ActionsObject).chart,
-}));
-export const useOrders = selector(({ data: { orders }, actions }) => ({
-  data: orders,
-  actions: (actions as ActionsObject).orders,
-}));
-export const usePortfolio = selector(({ data: { portfolio }, actions }) => ({
-  data: portfolio,
-  actions: (actions as ActionsObject).portfolio,
-}));
-export const useVeSPLX = selector(({ data: { veSPLX }, actions }) => ({
-  data: veSPLX,
-  actions: (actions as ActionsObject).veSPLX,
-}));
-export const useStaking = selector(({ data: { staking }, actions }) => ({
-  data: staking,
-  actions: (actions as ActionsObject).staking,
 }));
 export const useTokens = selector(({ data: { tokens }, actions }) => ({
   data: tokens,

@@ -3,16 +3,22 @@ import { orders } from "../../../lib/mock/orders";
 
 import * as S from "./style";
 import { CloseIcon } from "../../../lib/icons";
+import { ActionsObject, useLocalStore } from "../../../pages/Main/context";
 
 export const Orders: FC = () => {
   const [activeTab, setActiveTab] = useState<0 | 1 | 2>(0);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [activeOrders, setActiveOrders] = useState(orders.active);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [historyOrders, setHistoryOrders] = useState(orders.history);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [crossOrders, setCrossOrders] = useState(orders.cross);
+
+  const localStore = useLocalStore();
+  const {
+    orders: { activeOrders, historyOrders, crossOrders },
+  } = localStore.data;
+  const {
+    orders: {
+      activeOrders: { deleteActiveOrder },
+    },
+  } = localStore.actions as ActionsObject;
 
   useEffect(() => {
     // THERE IS FUNCTION THAT SET ORDERS DATA
@@ -60,10 +66,7 @@ export const Orders: FC = () => {
   };
 
   const handleDeleteActiveOrder = (index) => {
-    setActiveOrders((prevState) => [
-      ...prevState.slice(0, index),
-      ...prevState.slice(index + 1),
-    ]);
+    deleteActiveOrder(index);
   };
 
   const getTable = () => {

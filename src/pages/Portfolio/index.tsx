@@ -9,11 +9,11 @@ import {
 } from "../../components/molecules/PortfolioTable";
 import { SortType } from "../../components/atoms/Sort";
 import { useTokensData } from "./lib/hooks";
+import { ActionsObject, useLocalStore, Store } from "./context";
 
 import * as S from "./style";
-import { usePortfolio } from "../../store";
 
-export const Portfolio: FC = () => {
+const Page: FC = () => {
   useTokensData();
 
   const [activeNetwork, setActiveNetwork] = useState<number>(0);
@@ -28,14 +28,13 @@ export const Portfolio: FC = () => {
   const [isFollowModal, setIsFollowModal] = useState<boolean>(false);
   const [tokenValue, setTokenValue] = useState<string>("100");
 
+  const localStore = useLocalStore();
   const {
-    data: {
-      wallet: { data: wallet, page, pagesCount },
-    },
-    actions: {
-      wallet: { setPage },
-    },
-  } = usePortfolio();
+    wallet: { data: wallet, page, pagesCount },
+  } = localStore.data;
+  const {
+    wallet: { setPage },
+  } = localStore.actions as ActionsObject;
 
   const handleChangeActiveNetwork = (index: number) => {
     setActiveNetwork(index);
@@ -143,3 +142,9 @@ export const Portfolio: FC = () => {
     </S.Portfolio>
   );
 };
+
+export const PortfolioPage = () => (
+  <Store>
+    <Page />
+  </Store>
+);

@@ -8,33 +8,14 @@ import { Contract, ethers } from "ethers";
 import { Title, Description } from "../../components/atoms";
 import { lmx } from "../../lib/mock/lmx";
 import { StakingCard, WithdrawModal } from "../../components/molecules";
-
-import * as S from "./style";
-import { useVeSPLX } from "../../store";
+import { Store, useLocalStore, ActionsObject } from "./context";
 import { contracts } from "../../config/contracts";
 import { SPLX_ADDRESS } from "../../config/common";
 import { DepositModal } from "./components";
 
-export const lockPeriodes = [
-  {
-    value: "0",
-    label: "1 Month",
-  },
-  {
-    value: "1",
-    label: "3 Months",
-  },
-  {
-    value: "2",
-    label: "6 Months",
-  },
-  {
-    value: "3",
-    label: "1 Year",
-  },
-];
+import * as S from "./style";
 
-export const LMX: FC = () => {
+const Page: FC = () => {
   const { library } = useEthers();
 
   const [isDeposit, setIsDeposit] = useState<boolean>(false);
@@ -42,14 +23,13 @@ export const LMX: FC = () => {
   const [contract, setContract] = useState<null | Contract>(null);
   const [poolContract, setPoolContract] = useState<null | Contract>(null);
 
+  const localStore = useLocalStore();
   const {
-    data: {
-      lockPeriod,
-      lockSPLX,
-      withdraw: { lpTokens, tokensReturned, tokensInMoney },
-    },
-    actions: { setWithdraw },
-  } = useVeSPLX();
+    lockPeriod,
+    lockSPLX,
+    withdraw: { lpTokens, tokensReturned, tokensInMoney },
+  } = localStore.data;
+  const { setWithdraw } = localStore.actions as ActionsObject;
 
   useEffect(() => {
     if (library?.getSigner) {
@@ -207,3 +187,9 @@ export const LMX: FC = () => {
     </>
   );
 };
+
+export const LmxPage = () => (
+  <Store>
+    <Page />
+  </Store>
+);

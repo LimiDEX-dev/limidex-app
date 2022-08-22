@@ -1,37 +1,20 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { Dropdown } from "../../atoms";
+import { ActionsObject, useLocalStore } from "../../../pages/Main/context";
+import { stepOptions } from "../../../pages/Main/context/store";
 
 import * as S from "./style";
 
-const stepOptions = [
-  {
-    label: "$",
-    value: "1 ",
-  },
-  {
-    label: "$",
-    value: "5 ",
-  },
-  {
-    label: "$",
-    value: "10",
-  },
-  {
-    label: "$",
-    value: "50",
-  },
-];
-
 export const ExchangesRates = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [redDates, setRedDates] = useState(mockData.redRates);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [greenDates, setGreenDates] = useState(mockData.greenRates);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [currentPrice, setCurrentPrice] = useState(mockData.currentPrice);
-  const [selectedStep, setSelectedStep] = useState(stepOptions[0]);
+  const localStore = useLocalStore();
+  const {
+    rates: { selectedStep, redRates, greenRates, currentPrice },
+  } = localStore.data;
+  const {
+    rates: { setSelectedStep },
+  } = localStore.actions as ActionsObject;
 
   useEffect(() => {
     // THERE IS FUNCTIONS THAT SET RATES DATA
@@ -68,7 +51,7 @@ export const ExchangesRates = () => {
             </tr>
           </thead>
           <tbody>
-            {redDates.map((rate, index) => (
+            {redRates.map((rate, index) => (
               <S.Row redRate key={`${rate.price}-${index}`}>
                 <S.TableItem>{rate.price}</S.TableItem>
                 <S.TableItem>
@@ -84,7 +67,7 @@ export const ExchangesRates = () => {
                 <S.Progress style={{ width: `${currentPrice.progress}%` }} />
               </S.TableItem>
             </S.Row>
-            {greenDates.map((rate, index) => (
+            {greenRates.map((rate, index) => (
               <S.Row greenRate key={`${rate.price}-${index}`}>
                 <S.TableItem>{rate.price}</S.TableItem>
                 <S.TableItem>

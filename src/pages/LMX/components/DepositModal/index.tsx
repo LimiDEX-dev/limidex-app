@@ -7,8 +7,8 @@ import {
   Modal,
   Popup,
 } from "../../../../components/atoms";
-import { lockPeriodes } from "../../index";
-import { useUser, useVeSPLX } from "../../../../store";
+import { lockPeriodes, ActionsObject, useLocalStore } from "../../context";
+import { useUser } from "../../../../store";
 
 import { DepositModalProps } from "./types";
 
@@ -21,12 +21,12 @@ export const DepositModal: FC<DepositModalProps> = ({
   handleSubmit,
 }) => {
   const {
-    data: { lockSPLX, lockPeriod },
-    actions: { setLockPeriod, setLockSPLX },
-  } = useVeSPLX();
-  const {
     data: { balance },
   } = useUser();
+
+  const localStore = useLocalStore();
+  const { lockSPLX, lockPeriod } = localStore.data;
+  const { setLockPeriod, setLockSPLX } = localStore.actions as ActionsObject;
 
   const getVeSPLX = () => {
     if (lockPeriod.value === "0") {

@@ -285,4 +285,85 @@ export const provideActions = (
       }));
     },
   },
+  rates: {
+    setCurrentPrice: (payload) => {
+      setStore((store) => ({
+        ...store,
+        rates: {
+          ...store.rates,
+          currentPrice: payload,
+        },
+      }));
+    },
+    setRedRates: (payload) => {
+      setStore((store) => ({
+        ...store,
+        rates: {
+          ...store.rates,
+          redRates: payload,
+        },
+      }));
+    },
+    setGreenRates: (payload) => {
+      setStore((store) => ({
+        ...store,
+        rates: {
+          ...store.rates,
+          greenRates: payload,
+        },
+      }));
+    },
+    setSelectedStep: (payload) => {
+      setStore((store) => ({
+        ...store,
+        rates: {
+          ...store.rates,
+          selectedStep: payload,
+        },
+      }));
+    },
+  },
+  orders: {
+    activeOrders: {
+      setActiveOrders: (payload) => {
+        setStore((store) => ({
+          ...store,
+          orders: {
+            ...store.orders,
+            activeOrders: payload,
+          },
+        }));
+      },
+      deleteActiveOrder: (payload) => {
+        setStore((store) => ({
+          ...store,
+          orders: {
+            ...store.orders,
+            activeOrders: [
+              ...store.orders.activeOrders.slice(0, payload),
+              ...store.orders.activeOrders.slice(payload + 1),
+            ],
+          },
+        }));
+      },
+    },
+    setHistoryOrders: (payload) => {
+      setStore((store) => ({
+        ...store,
+        historyOrders: {
+          ...store.orders,
+          historyOrders: payload,
+        },
+      }));
+    },
+    setCrossOrders: (payload) => {
+      setStore((store) => ({
+        ...store,
+        crossOrders: {
+          ...store.orders,
+          crossOrders: payload,
+        },
+      }));
+    },
+  },
 });

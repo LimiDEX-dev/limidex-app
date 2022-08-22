@@ -1,5 +1,19 @@
 import { DropdownItem } from "../../../components/atoms";
 import { Coin } from "../../../components/molecules/CoinDescription";
+import { ActiveOrder, CrossOrder, HistoryOrder } from "../../../types/orders";
+
+export interface Rate {
+  price: string;
+  amount: string;
+  min: string;
+  max: string;
+  progress: number;
+}
+
+interface ActiveOrdersActions {
+  setActiveOrders: (activeOrders: ActiveOrder[]) => void;
+  deleteActiveOrder: (index: number) => void;
+}
 
 export interface StoreObject {
   ui: {
@@ -42,6 +56,17 @@ export interface StoreObject {
     stopLoss: string;
     trailingSL: string;
   };
+  rates: {
+    currentPrice: Rate;
+    redRates: Rate[];
+    greenRates: Rate[];
+    selectedStep: DropdownItem;
+  };
+  orders: {
+    activeOrders: ActiveOrder[];
+    historyOrders: HistoryOrder[];
+    crossOrders: CrossOrder[];
+  };
 }
 
 export interface ActionsObject {
@@ -81,5 +106,16 @@ export interface ActionsObject {
     setTakeProfit: (payload: string) => void;
     setStopLoss: (payload: string) => void;
     setTrailingSL: (payload: string) => void;
+  };
+  rates: {
+    setCurrentPrice: (currentPrice: Rate) => void;
+    setRedRates: (redRates: Rate[]) => void;
+    setGreenRates: (greenRates: Rate[]) => void;
+    setSelectedStep: (selectedStep: DropdownItem) => void;
+  };
+  orders: {
+    activeOrders: ActiveOrdersActions;
+    setHistoryOrders: (historyOrders: HistoryOrder[]) => void;
+    setCrossOrders: (crossOrders: CrossOrder[]) => void;
   };
 }

@@ -1,4 +1,25 @@
 import { StoreObject } from "./types";
+import { mockData } from "../../../lib/mock/rates";
+import { orders } from "../../../lib/mock/orders";
+
+export const stepOptions = [
+  {
+    label: "$",
+    value: "1 ",
+  },
+  {
+    label: "$",
+    value: "5 ",
+  },
+  {
+    label: "$",
+    value: "10",
+  },
+  {
+    label: "$",
+    value: "50",
+  },
+];
 
 export const initialStore: StoreObject = {
   ui: {
@@ -40,5 +61,16 @@ export const initialStore: StoreObject = {
     takeProfit: "0.1",
     stopLoss: "0.1",
     trailingSL: "0.1",
+  },
+  rates: {
+    currentPrice: mockData.currentPrice,
+    redRates: mockData.redRates,
+    greenRates: mockData.greenRates,
+    selectedStep: stepOptions[0],
+  },
+  orders: {
+    activeOrders: orders.active,
+    historyOrders: orders.history,
+    crossOrders: orders.cross,
   },
 };

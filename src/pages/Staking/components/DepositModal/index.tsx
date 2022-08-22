@@ -1,7 +1,8 @@
 import React, { FC } from "react";
 
 import { Button, Input, Modal, Popup } from "../../../../components/atoms";
-import { useStaking, useUser } from "../../../../store";
+import { useUser } from "../../../../store";
+import { ActionsObject, useLocalStore } from "../../context";
 
 import { DepositModalProps } from "./types";
 
@@ -12,10 +13,11 @@ export const DepositModal: FC<DepositModalProps> = ({ handleSubmit }) => {
   const {
     data: { balance },
   } = useUser();
-  const {
-    data: { selectedCard, stateToken, lpTokens },
-    actions: { setStateToken, setSelectedCard },
-  } = useStaking();
+
+  const localStore = useLocalStore();
+  const { selectedCard, stateToken, lpTokens } = localStore.data;
+  const { setStateToken, setSelectedCard } =
+    localStore.actions as ActionsObject;
 
   return (
     <S.Modal>

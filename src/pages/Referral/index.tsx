@@ -143,7 +143,7 @@ const Page: FC = () => {
               <tbody>
                 {rewards.map((item, index) => (
                   <S.Row key={`${item.Balance}-${index}`}>
-                    <S.TableItem>{selectedChain.label}</S.TableItem>
+                    <S.TableItem>{selectedChain?.label}</S.TableItem>
                     <S.TableItem>{item.VE}</S.TableItem>
                     <S.TableItem>{item.Cashback}</S.TableItem>
                     <S.TableItem>{item.RefLvl1}</S.TableItem>

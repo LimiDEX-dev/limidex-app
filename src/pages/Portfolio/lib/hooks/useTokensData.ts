@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import { useChains, usePortfolio, useTokens } from "../../../../store";
-import { getTokensByChainId } from "../../../../api/1inch/tokens";
+import { useChains, useTokens } from "../../../../store";
+import { ActionsObject, useLocalStore } from "../../context";
 import { getTokensFinancesByAddresses } from "../../../../api/dexGuru/chain";
 import { WalletItem } from "../../../../types/portfolio";
 
@@ -12,18 +12,17 @@ export const useTokensData = () => {
     data: tokens,
     actions: { setTokens },
   } = useTokens();
-
   const {
     data: { selectedChain },
   } = useChains();
+
+  const localStore = useLocalStore();
   const {
-    data: {
-      wallet: { page },
-    },
-    actions: {
-      wallet: { setPagesCount, setData },
-    },
-  } = usePortfolio();
+    wallet: { page },
+  } = localStore.data;
+  const {
+    wallet: { setPagesCount, setData },
+  } = localStore.actions as ActionsObject;
 
   const getPortfolioWallet = async () => {
     if (!selectedChain) {

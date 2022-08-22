@@ -8,29 +8,31 @@ import { Contract, ethers } from "ethers";
 import { staking } from "../../lib/mock/staking";
 import { StakingCard, WithdrawModal } from "../../components/molecules";
 import { Title, Description } from "../../components/atoms";
-import { useStaking, useUser } from "../../store";
+import { useUser } from "../../store";
+import { ActionsObject, Store, useLocalStore } from "./context";
 
 import * as S from "./style";
 import { contracts } from "../../config/contracts";
 import { DepositModal } from "./components";
 
-export const Staking: FC = () => {
+const Page: FC = () => {
   const { library } = useEthers();
 
   const [isWithdraw, setIsWithdraw] = useState<boolean>(false);
   const [contract, setContract] = useState<null | Contract>(null);
 
   const {
-    data: {
-      selectedCard,
-      stateToken,
-      withdraw: { lpTokens, tokensInMoney, tokensReturned },
-    },
-    actions: { setSelectedCard, setLpTokens, setWithdraw },
-  } = useStaking();
-  const {
     data: { balance },
   } = useUser();
+
+  const localStore = useLocalStore();
+  const {
+    selectedCard,
+    stateToken,
+    withdraw: { lpTokens, tokensInMoney, tokensReturned },
+  } = localStore.data;
+  const { setSelectedCard, setLpTokens, setWithdraw } =
+    localStore.actions as ActionsObject;
 
   useEffect(() => {
     if (library?.getSigner) {
@@ -174,3 +176,9 @@ export const Staking: FC = () => {
     </>
   );
 };
+
+export const StakingPage = () => (
+  <Store>
+    <Page />
+  </Store>
+);
