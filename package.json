@@ -15,6 +15,7 @@
     "ethers": "5.6.9",
     "react": "^17.0.2",
     "react-apexcharts": "1.3.9",
+    "react-crypto-chart": "0.0.6",
     "react-dom": "^17.0.2",
     "react-router-dom": "6.2.1",
     "react-scripts": "5.0.0",

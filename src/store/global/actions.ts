@@ -73,17 +73,6 @@ export const provideActions = (
       }));
     },
   },
-  chart: {
-    setChart: (payload) => {
-      setStore((store) => ({
-        ...store,
-        chart: {
-          ...store.chart,
-          chart: payload,
-        },
-      }));
-    },
-  },
   tokens: {
     setTokens: (payload) => {
       setStore((store) => ({

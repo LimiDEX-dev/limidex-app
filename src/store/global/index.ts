@@ -20,10 +20,6 @@ export const useChains = selector(({ data: { chains }, actions }) => ({
   data: chains,
   actions: (actions as ActionsObject).chains,
 }));
-export const useChart = selector(({ data: { chart }, actions }) => ({
-  data: chart,
-  actions: (actions as ActionsObject).chart,
-}));
 export const useTokens = selector(({ data: { tokens }, actions }) => ({
   data: tokens,
   actions: (actions as ActionsObject).tokens,

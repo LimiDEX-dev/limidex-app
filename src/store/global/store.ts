@@ -1,7 +1,6 @@
 import { StoreObject } from "./types";
 
 import { chains as mockChains } from "../../lib/mock/valutes";
-import { chart as mockChart } from "../../lib/mock/chart";
 
 export const initialStore: StoreObject = {
   notifications: [],
@@ -15,6 +14,5 @@ export const initialStore: StoreObject = {
     data: mockChains,
     selectedChain: null,
   },
-  chart: mockChart,
   tokens: [],
 };

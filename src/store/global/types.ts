@@ -25,12 +25,6 @@ interface ChainsActions {
   setSelectedChain: (selectedChain: Chain) => void;
 }
 
-type ChartStore = Chart;
-
-interface ChartActions {
-  setChart: (chart: Chart) => void;
-}
-
 interface UserStore {
   transactionsPending: number;
   balance: number;
@@ -53,7 +47,6 @@ export interface ActionsObject {
   notifications: NotificationActions;
   user: UserActions;
   chains: ChainsActions;
-  chart: ChartActions;
   tokens: TokensActions;
 }
 
@@ -61,6 +54,5 @@ export interface StoreObject {
   notifications: NotificationStore;
   user: UserStore;
   chains: ChainsStore;
-  chart: ChartStore;
   tokens: Token[];
 }
