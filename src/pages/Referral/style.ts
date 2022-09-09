@@ -337,3 +337,12 @@ export const TableItem = styled(TableDefaultItem, {
     padding: "2px 6px",
   },
 });
+
+export const ActionButtons = styled("div", {
+  display: "flex",
+  alignItems: "center",
+
+  [`& > ${Button}:not(:last-child)`]: {
+    marginRight: 20,
+  },
+});

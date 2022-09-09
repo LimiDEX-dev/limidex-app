@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 import { Input, Checkbox, Modal } from "../../../../../../components/atoms";
 import { CoinDescription } from "../../../../../../components/molecules";
@@ -7,6 +7,7 @@ import { ethereumAddressRegexp } from "../../../../../../lib/constants";
 import { useLocalStore, ActionsObject } from "../../../../context";
 
 import * as S from "./style";
+import { handleCheckTokens } from "../../../../../../api/main/trade";
 
 export const AddCustomTokenModal: FC = () => {
   const localStore = useLocalStore();
@@ -19,6 +20,7 @@ export const AddCustomTokenModal: FC = () => {
       tokenInfo,
       isTokenInfoVisible,
       lastViewedToken,
+      isTokenValid,
     },
   } = localStore.data;
   const {
@@ -30,8 +32,11 @@ export const AddCustomTokenModal: FC = () => {
       setTokenInfo,
       setIsTokenInfoVisible,
       setLastViewedToken,
+      setIsTokenValid,
     },
   } = localStore.actions as ActionsObject;
+
+  const [isFieldBlured, setIsFieldBlured] = useState<boolean>(false);
 
   const handleAddToken = () => {
     setIsAddCustomTokenVisible(false);
@@ -39,11 +44,26 @@ export const AddCustomTokenModal: FC = () => {
     setCustomToken("");
   };
 
-  const handleBlurCustomToken = (value: string) => {
+  const handleBlurCustomToken = async (value: string) => {
+    if (!isFieldBlured) {
+      setIsFieldBlured(true);
+    }
+
     if (ethereumAddressRegexp.test(value)) {
       setIsAddressValid(true);
 
       if (lastViewedToken !== value) {
+        const {
+          data: { result },
+        } = await handleCheckTokens([value]);
+
+        if (!result[value]) {
+          setIsTokenValid(false);
+
+          return;
+        }
+
+        setIsTokenValid(true);
         setTokenInfo({
           title: "DOGI Coin",
           pot: "example value",
@@ -82,7 +102,14 @@ export const AddCustomTokenModal: FC = () => {
         onBlur={handleBlurCustomToken}
         icon={<SearchIcon />}
       />
-      {!isAddressValid && <S.Error>Invalid token address</S.Error>}
+      {!isAddressValid && isFieldBlured && (
+        <S.Error>Invalid token address</S.Error>
+      )}
+      {isAddressValid && (
+        <S.Error>
+          the token is not suitable according to the rules of the platform
+        </S.Error>
+      )}
       <S.ModalText>
         <S.ModalTextTitle>Trade at your own risk</S.ModalTextTitle>
         <S.ModalTextDescription>
@@ -95,7 +122,12 @@ export const AddCustomTokenModal: FC = () => {
         I understand
       </Checkbox>
       <S.StyledButton
-        disabled={!isUnderstandChecked || !customToken || !isAddressValid}
+        disabled={
+          !isUnderstandChecked ||
+          !customToken ||
+          !isAddressValid ||
+          !isTokenValid
+        }
         onClick={handleAddToken}
       >
         Add token

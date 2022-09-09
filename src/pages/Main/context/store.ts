@@ -1,6 +1,7 @@
 import { StoreObject } from "./types";
 import { mockData } from "../../../lib/mock/rates";
 import { orders } from "../../../lib/mock/orders";
+import { chart } from "../../../lib/mock/chart";
 
 export const stepOptions = [
   {
@@ -50,11 +51,12 @@ export const initialStore: StoreObject = {
   addCustomToken: {
     isAddCustomTokenVisible: false,
     customToken: "",
-    isAddressValid: true,
+    isAddressValid: false,
     isUnderstandChecked: false,
     tokenInfo: null,
     isTokenInfoVisible: false,
     lastViewedToken: "",
+    isTokenValid: false,
   },
   advanced: {
     isAdvancedOpened: false,
@@ -73,4 +75,5 @@ export const initialStore: StoreObject = {
     historyOrders: orders.history,
     crossOrders: orders.cross,
   },
+  chart,
 };

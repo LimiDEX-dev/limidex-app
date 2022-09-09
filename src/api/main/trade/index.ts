@@ -13,6 +13,7 @@ import {
   GetOutResponse,
   GetTokenPriceParams,
   GetTokenPriceResponse,
+  SwapLimitResponse,
   SwapSubmitParams,
   SwapSubmitResponse,
 } from "./types";
@@ -35,7 +36,7 @@ export const handleSubmitSwap = async (
 
 export const handleSubmitLimitSwap = async (
   params: SwapSubmitParams,
-): Promise<JsonRpcResponse<SwapSubmitResponse>> =>
+): Promise<JsonRpcResponse<SwapLimitResponse>> =>
   axios.post("", {
     method: urls.limitSwap,
     params: [{ ...params }],

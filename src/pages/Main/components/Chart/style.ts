@@ -1,6 +1,6 @@
-import { styled } from "../../../styles";
+import { styled } from "../../../../styles";
 
-import { DropdownTrigger } from "../../atoms/styled";
+import { DropdownTrigger } from "../../../../components/atoms/styled";
 
 export const Chart = styled("div", {
   padding: "24px 20px",

@@ -33,7 +33,7 @@ export const Input = styled("div", {
   position: "relative",
 
   width: "100%",
-  padding: "7px 12px",
+  padding: "7px 8px",
 
   border: "1px solid $stroke",
   borderRadius: 4,

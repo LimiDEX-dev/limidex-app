@@ -1,11 +1,16 @@
 import React, { FC, useEffect, useState } from "react";
-import { orders } from "../../../lib/mock/orders";
+import { useEthers } from "@usedapp/core";
+import { orders } from "../../../../lib/mock/orders";
+
+import { CloseIcon } from "../../../../lib/icons";
+import { ActionsObject, useLocalStore } from "../../context";
+import { removeLimitOrder } from "../../../../api/main/orders";
 
 import * as S from "./style";
-import { CloseIcon } from "../../../lib/icons";
-import { ActionsObject, useLocalStore } from "../../../pages/Main/context";
 
 export const Orders: FC = () => {
+  const { account } = useEthers();
+
   const [activeTab, setActiveTab] = useState<0 | 1 | 2>(0);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -65,8 +70,18 @@ export const Orders: FC = () => {
     return Array.from({ length: pagesCount }, (_, i) => i + 1);
   };
 
-  const handleDeleteActiveOrder = (index) => {
+  const handleDeleteActiveOrder = async (index) => {
     deleteActiveOrder(index);
+
+    const {
+      data: { result },
+    } = await removeLimitOrder({
+      trader: account,
+      traderSig: localStorage.getItem("signature"),
+      orderID: index,
+    });
+
+    console.log(result);
   };
 
   const getTable = () => {

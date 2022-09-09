@@ -1,11 +1,12 @@
 /* eslint-disable react/no-array-index-key */
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect } from "react";
 import { useEthers } from "@usedapp/core";
 
 import { Title, Description, Button } from "../../components/atoms";
 import { CopyIcon } from "../../lib/icons";
 import {
   claimAllRewards,
+  claimAndBridgeAllRewards,
   claimReward,
   getRewardBalance,
 } from "../../api/main/rewards";
@@ -17,7 +18,6 @@ import * as S from "./style";
 const Page: FC = () => {
   const { account } = useEthers();
 
-  const linkRef = useRef<HTMLAnchorElement>(null);
   const {
     data: { rewards },
   } = useLocalStore();
@@ -26,6 +26,8 @@ const Page: FC = () => {
       chains: { selectedChain },
     },
   } = useGlobalStore();
+
+  const referralLink: string = "split-fi.x/ref/user123";
 
   useEffect(() => {
     if (!account) {
@@ -59,11 +61,23 @@ const Page: FC = () => {
       trader: account,
       traderSig: localStorage.getItem("signature"),
     });
+
+    console.log(result);
+  };
+
+  const handleAndBridgeClaimAllRewards = async () => {
+    const {
+      data: { result },
+    } = await claimAndBridgeAllRewards({
+      trader: account,
+      traderSig: localStorage.getItem("signature"),
+    });
+
     console.log(result);
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(linkRef.current.textContent);
+    navigator.clipboard.writeText(referralLink);
   };
 
   return (
@@ -90,8 +104,8 @@ const Page: FC = () => {
 
             <S.Link>
               Your referral link:{" "}
-              <S.LinkHref href="http://limidex.io/ref/tradex123" ref={linkRef}>
-                limidex.io/ref/tradex123
+              <S.LinkHref href={`https://${referralLink}`}>
+                {referralLink}
               </S.LinkHref>
               <S.LinkButton type="button" onClick={handleCopy}>
                 <CopyIcon />
@@ -106,17 +120,22 @@ const Page: FC = () => {
           <S.EarnedTitle>
             Available to claim <span>200$</span>
           </S.EarnedTitle>
-          <Button size="large" onClick={handleClaimAllRewards}>
-            Claim all
-          </Button>
+          <S.ActionButtons>
+            <Button size="middle" onClick={handleClaimAllRewards}>
+              Claim all
+            </Button>
+            <Button size="middle" onClick={handleAndBridgeClaimAllRewards}>
+              Claim all & bridge
+            </Button>
+          </S.ActionButtons>
         </S.Wrapper>
       </S.MainWrapper>
       <S.StatsWrapper>
         <Title>Claim rewards</Title>
         <S.Link>
           Your referral link:{" "}
-          <S.LinkHref href="http://limidex.io/ref/tradex123" ref={linkRef}>
-            limidex.io/ref/tradex123
+          <S.LinkHref href={`https://${referralLink}`}>
+            {referralLink}
           </S.LinkHref>
           <S.LinkButton type="button" onClick={handleCopy}>
             <CopyIcon />

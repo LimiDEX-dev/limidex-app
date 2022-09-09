@@ -1,6 +1,5 @@
 import { Notification } from "../../types/notification";
 import { Chain } from "../../types/chains";
-import { Chart } from "../../types/chart";
 import { Token } from "../../api/1inch/tokens/types";
 
 export interface WithdrawObject {

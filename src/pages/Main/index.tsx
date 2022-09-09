@@ -1,13 +1,15 @@
 import React, { FC, useLayoutEffect, useState } from "react";
 
-import { ExchangesRates, Orders, Chart } from "../../components/molecules";
-import { PlaceOrder } from "./components";
+import { PlaceOrder, Orders, Chart, ExchangesRates } from "./components";
 import { ChartIcon, RatesIcon } from "../../lib/icons";
 import { ActionsObject, useLocalStore, Store } from "./context";
+import { useChartData } from "./lib/hooks";
 
 import * as S from "./style";
 
 const Page = () => {
+  useChartData();
+
   const [height, setHeight] = useState<number>(0);
 
   const localStore = useLocalStore();

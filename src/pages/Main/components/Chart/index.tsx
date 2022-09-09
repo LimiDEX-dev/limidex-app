@@ -1,13 +1,13 @@
 import React, { FC, useState } from "react";
-import TradeViewChart from "react-crypto-chart";
+import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-import { chart as mockChart } from "../../../lib/mock/chart";
-import { Dropdown } from "../../atoms";
+
+import { Dropdown } from "../../../../components/atoms";
+import { useLocalStore } from "../../context";
 
 import { ChartProps } from "./types";
 
 import * as S from "./style";
-import { useLocalStore } from "../../../pages/Main/context";
 
 const chartOptions: ApexOptions = {
   chart: {
@@ -85,6 +85,7 @@ export const Chart: FC<ChartProps> = ({ height, setHeight }) => {
         sell: { selectedSell },
         buy: { selectedBuy },
       },
+      chart,
     },
   } = useLocalStore();
 
@@ -119,14 +120,12 @@ export const Chart: FC<ChartProps> = ({ height, setHeight }) => {
           </S.HeaderCurrentWrapper>
         </S.HeaderCurrent>
       </S.Header>
-      {/* <CandleStickChart /> */}
       <div id="chart">
-        <TradeViewChart
-          pair={`${selectedSell?.symbol}${selectedBuy?.symbol}`}
-          interval="1m"
-          candleStickConfig={{}}
-          histogramConfig={{}}
-          chartLayout={{}}
+        <ReactApexChart
+          type="candlestick"
+          series={chart.series}
+          options={chartOptions}
+          height={height}
         />
       </div>
     </S.Chart>

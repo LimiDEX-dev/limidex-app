@@ -1,10 +1,10 @@
-export interface ChartDatePoint {
+export interface ChartDataPoint {
   x: Date;
   y: number[];
 }
 
 export interface ChartData {
-  data: ChartDatePoint[];
+  data: ChartDataPoint[];
 }
 
 export interface Chart {

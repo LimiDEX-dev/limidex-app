@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 
 import { ActionsObject, StoreObject } from "./types";
+import { getCandlestickDataByCoin } from "../../../api/CoinGecko/coins";
+import { ChartDataPoint } from "../../../types/chart";
 
 export const provideActions = (
   setStore: Dispatch<SetStateAction<StoreObject>>,
@@ -246,6 +248,15 @@ export const provideActions = (
         },
       }));
     },
+    setIsTokenValid: (payload) => {
+      setStore((store) => ({
+        ...store,
+        addCustomToken: {
+          ...store.addCustomToken,
+          isTokenValid: payload,
+        },
+      }));
+    },
   },
   advanced: {
     setIsAdvancedOpened: (payload) => {
@@ -362,6 +373,20 @@ export const provideActions = (
         crossOrders: {
           ...store.orders,
           crossOrders: payload,
+        },
+      }));
+    },
+  },
+  chart: {
+    setChart: (payload) => {
+      setStore((store) => ({
+        ...store,
+        chart: {
+          series: [
+            {
+              data: payload,
+            },
+          ],
         },
       }));
     },

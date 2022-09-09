@@ -1,5 +1,5 @@
-import { styled } from "../../../styles";
-import { DropdownTrigger } from "../../atoms/styled";
+import { styled } from "../../../../styles";
+import { DropdownTrigger } from "../../../../components/atoms/styled";
 
 export const ExchangeRates = styled("div", {
   display: "flex",

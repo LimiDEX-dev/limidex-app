@@ -30,8 +30,10 @@ export interface SwapSubmitParams {
 
 export interface SwapSubmitResponse {
   txHash: string;
-  stopLossOrderID?: string;
-  takeProfitOrderID?: string;
+}
+
+export interface SwapLimitResponse {
+  orderID: string;
 }
 
 export interface CrossGetOutParams {
@@ -44,7 +46,6 @@ export interface CrossGetOutParams {
 
 export interface CrossGetOutResponse {
   amountOut: string;
-  connectorToken: string;
 }
 
 export interface CrossSwapSubmitParams

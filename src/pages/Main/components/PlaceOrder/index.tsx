@@ -102,29 +102,23 @@ export const PlaceOrder: FC = () => {
 
     if (orderTab === "swap") {
       const {
-        data: {
-          result: { txHash, stopLossOrderID, takeProfitOrderID },
-        },
+        data: { result },
       } = await handleSubmitSwap(params);
-      console.log(txHash, stopLossOrderID, takeProfitOrderID);
+      console.log(result);
     }
 
     if (orderTab === "limit") {
       const {
-        data: {
-          result: { txHash, stopLossOrderID, takeProfitOrderID },
-        },
+        data: { result },
       } = await handleSubmitLimitSwap(params);
-      console.log(txHash, stopLossOrderID, takeProfitOrderID);
+      console.log(result);
     }
 
     if (orderTab === "cross") {
       const {
-        data: {
-          result: { txHash, orderID },
-        },
+        data: { result },
       } = await handleSubmitCrossSwap(params);
-      console.log(txHash, orderID);
+      console.log(result);
     }
 
     setTransactionsPending(0);
@@ -282,7 +276,7 @@ export const PlaceOrder: FC = () => {
           </>
         )}
 
-        <PlaceOrderTrade />
+        {/* <PlaceOrderTrade /> */}
 
         {orderTab === "limit" && (
           <S.Info>

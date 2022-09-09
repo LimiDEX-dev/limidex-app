@@ -1,9 +1,9 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect } from "react";
 
-import { Dropdown } from "../../atoms";
-import { ActionsObject, useLocalStore } from "../../../pages/Main/context";
-import { stepOptions } from "../../../pages/Main/context/store";
+import { Dropdown } from "../../../../components/atoms";
+import { ActionsObject, useLocalStore } from "../../context";
+import { stepOptions } from "../../context/store";
 
 import * as S from "./style";
 

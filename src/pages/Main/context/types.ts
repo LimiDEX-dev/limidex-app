@@ -1,6 +1,7 @@
 import { DropdownItem } from "../../../components/atoms";
 import { Coin } from "../../../components/molecules/CoinDescription";
 import { ActiveOrder, CrossOrder, HistoryOrder } from "../../../types/orders";
+import { Chart, ChartDataPoint } from "../../../types/chart";
 
 export interface Rate {
   price: string;
@@ -49,6 +50,7 @@ export interface StoreObject {
     tokenInfo: Coin | null;
     isTokenInfoVisible: boolean;
     lastViewedToken: string;
+    isTokenValid: boolean;
   };
   advanced: {
     isAdvancedOpened: boolean;
@@ -67,6 +69,7 @@ export interface StoreObject {
     historyOrders: HistoryOrder[];
     crossOrders: CrossOrder[];
   };
+  chart: Chart;
 }
 
 export interface ActionsObject {
@@ -100,6 +103,7 @@ export interface ActionsObject {
     setTokenInfo: (payload: Coin | null) => void;
     setIsTokenInfoVisible: (payload: boolean) => void;
     setLastViewedToken: (payload: string) => void;
+    setIsTokenValid: (payload: boolean) => void;
   };
   advanced: {
     setIsAdvancedOpened: (payload: boolean) => void;
@@ -117,5 +121,8 @@ export interface ActionsObject {
     activeOrders: ActiveOrdersActions;
     setHistoryOrders: (historyOrders: HistoryOrder[]) => void;
     setCrossOrders: (crossOrders: CrossOrder[]) => void;
+  };
+  chart: {
+    setChart: (data: ChartDataPoint[]) => void;
   };
 }

@@ -102,7 +102,7 @@ export const Main = styled("div", {
 
         [`& ${PlaceOrder}`]: {
           "@fromLaptop": {
-            width: 310,
+            width: 330,
           },
         },
       },
