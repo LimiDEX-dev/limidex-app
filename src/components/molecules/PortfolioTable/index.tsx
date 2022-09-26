@@ -1,9 +1,9 @@
 /* eslint-disable react/no-array-index-key */
 import React, { FC, useEffect, useState } from "react";
 
-import { useEthers, useTokenBalance } from "@usedapp/core";
+import { useEthers } from "@usedapp/core";
 import { ethers } from "ethers";
-import { Sort, Button, Pagination } from "../../atoms";
+import { Button, Pagination } from "../../atoms";
 
 import { PortfolioTableProps, PortfolioTableFields } from "./types";
 
@@ -56,112 +56,21 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
           <thead>
             {activeNetwork === 0 ? (
               <tr className="portfolio-table__row">
-                <S.TableHeaderItem>
-                  <Sort
-                    sort={sort.field === "type" ? sort.by : "no"}
-                    onChange={(by) => handleChangeSort({ field: "type", by })}
-                    isWordSort
-                  >
-                    Type
-                  </Sort>
-                </S.TableHeaderItem>
-                <S.TableHeaderItem>
-                  <Sort
-                    sort={sort.field === "name" ? sort.by : "no"}
-                    onChange={(by) => handleChangeSort({ field: "name", by })}
-                    isWordSort
-                  >
-                    Name
-                  </Sort>
-                </S.TableHeaderItem>
-                <S.TableHeaderItem>
-                  <Sort
-                    sort={sort.field === "balance" ? sort.by : "no"}
-                    onChange={(by) =>
-                      handleChangeSort({ field: "balance", by })
-                    }
-                  >
-                    Balance
-                  </Sort>
-                </S.TableHeaderItem>
-                <S.TableHeaderItem>
-                  <Sort
-                    sort={sort.field === "deals" ? sort.by : "no"}
-                    onChange={(by) => handleChangeSort({ field: "deals", by })}
-                  >
-                    Deals
-                  </Sort>
-                </S.TableHeaderItem>
-                <S.TableHeaderItem>
-                  <Sort
-                    sort={sort.field === "followers" ? sort.by : "no"}
-                    onChange={(by) =>
-                      handleChangeSort({ field: "followers", by })
-                    }
-                  >
-                    Followers
-                  </Sort>
-                </S.TableHeaderItem>
-                <S.TableHeaderItem>
-                  <Sort
-                    sort={sort.field === "pnl" ? sort.by : "no"}
-                    onChange={(by) => handleChangeSort({ field: "pnl", by })}
-                  >
-                    PnL
-                  </Sort>
-                </S.TableHeaderItem>
+                <S.TableHeaderItem>Type</S.TableHeaderItem>
+                <S.TableHeaderItem>Name</S.TableHeaderItem>
+                <S.TableHeaderItem>Balance</S.TableHeaderItem>
+                <S.TableHeaderItem>Deals</S.TableHeaderItem>
+                <S.TableHeaderItem>Followers</S.TableHeaderItem>
+                <S.TableHeaderItem>PnL</S.TableHeaderItem>
                 <S.TableHeaderItem />
               </tr>
             ) : (
               <tr className="portfolio-table__row">
-                <S.TableHeaderItem>
-                  <Sort
-                    sort={sort.field === "network" ? sort.by : "no"}
-                    onChange={(by) =>
-                      handleChangeSort({ field: "network", by })
-                    }
-                    isWordSort
-                  >
-                    Network
-                  </Sort>
-                </S.TableHeaderItem>
-                <S.TableHeaderItem>
-                  <Sort
-                    sort={sort.field === "coin" ? sort.by : "no"}
-                    onChange={(by) => handleChangeSort({ field: "coin", by })}
-                    isWordSort
-                  >
-                    Coin
-                  </Sort>
-                </S.TableHeaderItem>
-                <S.TableHeaderItem>
-                  <Sort
-                    sort={sort.field === "balance" ? sort.by : "no"}
-                    onChange={(by) =>
-                      handleChangeSort({ field: "balance", by })
-                    }
-                  >
-                    Balance
-                  </Sort>
-                </S.TableHeaderItem>
-                <S.TableHeaderItem>
-                  <Sort
-                    sort={sort.field === "price" ? sort.by : "no"}
-                    onChange={(by) => handleChangeSort({ field: "price", by })}
-                  >
-                    Price, $
-                  </Sort>
-                </S.TableHeaderItem>
-                <S.TableHeaderItem>
-                  <Sort
-                    sort={sort.field === "balanceUSD" ? sort.by : "no"}
-                    onChange={(by) =>
-                      handleChangeSort({ field: "balanceUSD", by })
-                    }
-                  >
-                    Balance USD, $
-                  </Sort>
-                </S.TableHeaderItem>
+                <S.TableHeaderItem>Network</S.TableHeaderItem>
+                <S.TableHeaderItem>Coin</S.TableHeaderItem>
+                <S.TableHeaderItem>Balance</S.TableHeaderItem>
+                <S.TableHeaderItem>Price, $</S.TableHeaderItem>
+                <S.TableHeaderItem>Balance USD, $</S.TableHeaderItem>
                 <S.TableHeaderItem>Approve</S.TableHeaderItem>
               </tr>
             )}
