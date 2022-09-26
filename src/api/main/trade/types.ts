@@ -1,4 +1,5 @@
 import { BigNumber } from "ethers";
+import { OrderBookItem } from "../../../types/orderBook";
 
 export interface GetOutParams {
   fromToken: string;
@@ -74,3 +75,12 @@ export interface GetTokenPriceResponse {
   price: number;
   isUSD: boolean;
 }
+
+export interface GetOrderBookParams {
+  fromToken: string;
+  toToken: string;
+  delta: number;
+  size: number;
+}
+
+export type GetOrderBookResponse = OrderBookItem[];

@@ -2,14 +2,7 @@ import { DropdownItem } from "../../../components/atoms";
 import { Coin } from "../../../components/molecules/CoinDescription";
 import { ActiveOrder, CrossOrder, HistoryOrder } from "../../../types/orders";
 import { Chart, ChartDataPoint } from "../../../types/chart";
-
-export interface Rate {
-  price: string;
-  amount: string;
-  min: string;
-  max: string;
-  progress: number;
-}
+import { OrderBookItem } from "../../../types/orderBook";
 
 interface ActiveOrdersActions {
   setActiveOrders: (activeOrders: ActiveOrder[]) => void;
@@ -60,9 +53,7 @@ export interface StoreObject {
     trailingSL: string;
   };
   rates: {
-    currentPrice: Rate;
-    redRates: Rate[];
-    greenRates: Rate[];
+    data: OrderBookItem[];
     selectedStep: DropdownItem;
   };
   orders: {
@@ -124,9 +115,7 @@ export interface ActionsObject {
     setTrailingSL: (payload: string) => void;
   };
   rates: {
-    setCurrentPrice: (currentPrice: Rate) => void;
-    setRedRates: (redRates: Rate[]) => void;
-    setGreenRates: (greenRates: Rate[]) => void;
+    setData: (payload: OrderBookItem[]) => void;
     setSelectedStep: (selectedStep: DropdownItem) => void;
   };
   orders: {

@@ -1,8 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
 import { ActionsObject, StoreObject } from "./types";
-import { getCandlestickDataByCoin } from "../../../api/CoinGecko/coins";
-import { ChartDataPoint } from "../../../types/chart";
 
 export const provideActions = (
   setStore: Dispatch<SetStateAction<StoreObject>>,
@@ -297,30 +295,12 @@ export const provideActions = (
     },
   },
   rates: {
-    setCurrentPrice: (payload) => {
+    setData: (payload) => {
       setStore((store) => ({
         ...store,
         rates: {
           ...store.rates,
-          currentPrice: payload,
-        },
-      }));
-    },
-    setRedRates: (payload) => {
-      setStore((store) => ({
-        ...store,
-        rates: {
-          ...store.rates,
-          redRates: payload,
-        },
-      }));
-    },
-    setGreenRates: (payload) => {
-      setStore((store) => ({
-        ...store,
-        rates: {
-          ...store.rates,
-          greenRates: payload,
+          data: payload,
         },
       }));
     },

@@ -6,22 +6,88 @@ import { ActionsObject, useLocalStore } from "../../context";
 import { stepOptions } from "../../context/store";
 
 import * as S from "./style";
+import { ORDER_BOOKS_ITEMS } from "../../lib/constants";
+import { getOrderBook } from "../../../../api/main/trade";
 
 export const ExchangesRates = () => {
   const localStore = useLocalStore();
   const {
-    rates: { selectedStep, redRates, greenRates, currentPrice },
+    convert: {
+      sell: { selectedSell },
+      buy: { selectedBuy },
+    },
+    rates: { selectedStep, data },
   } = localStore.data;
   const {
-    rates: { setSelectedStep },
+    rates: { setSelectedStep, setData },
   } = localStore.actions as ActionsObject;
 
   useEffect(() => {
-    // THERE IS FUNCTIONS THAT SET RATES DATA
-    // setRedDates()
-    // setGreenDates()
-    // setCurrentPrice()
-  }, []);
+    if (!selectedSell || !selectedBuy || !selectedStep) {
+      return;
+    }
+
+    (async function () {
+      const result = await getOrderBook({
+        fromToken: selectedSell.symbol,
+        toToken: selectedBuy.symbol,
+        delta: +selectedStep.value,
+        size: ORDER_BOOKS_ITEMS,
+      });
+      console.log(result);
+
+      setData(result.data.result);
+    })();
+  }, [selectedSell, selectedBuy, selectedStep]);
+
+  const renderRates = () =>
+    data.map((rate, index) => {
+      if (index < ORDER_BOOKS_ITEMS) {
+        const allVolumes = data
+          .slice(0, ORDER_BOOKS_ITEMS)
+          .map((item) => item.volume)
+          .reduce((prevValue, curValue) => +prevValue + +curValue, 0);
+        const progress = (+rate.volume / allVolumes) * 100;
+
+        return (
+          <S.Row redRate key={`${rate.price}-${index}`}>
+            <S.TableItem>{rate.price}</S.TableItem>
+            <S.TableItem>
+              <span>{rate.price}</span>
+              <S.Progress style={{ width: `${progress}%` }} />
+            </S.TableItem>
+          </S.Row>
+        );
+      }
+
+      if (index === ORDER_BOOKS_ITEMS) {
+        return (
+          <S.Row redRate big key={`${rate.price}-${index}`}>
+            <S.TableItem>{rate.price}</S.TableItem>
+            <S.TableItem>
+              <span>{rate.price}</span>
+              <S.Progress style={{ width: `0%` }} />
+            </S.TableItem>
+          </S.Row>
+        );
+      }
+
+      const allVolumes = data
+        .slice(ORDER_BOOKS_ITEMS + 1)
+        .map((item) => item.volume)
+        .reduce((prevValue, curValue) => +prevValue + +curValue, 0);
+      const progress = (+rate.volume / allVolumes) * 100;
+
+      return (
+        <S.Row greenRate key={`${rate.price}-${index}`}>
+          <S.TableItem>{rate.price}</S.TableItem>
+          <S.TableItem>
+            <span>{rate.price}</span>
+            <S.Progress style={{ width: `${progress}%` }} />
+          </S.TableItem>
+        </S.Row>
+      );
+    });
 
   return (
     <S.ExchangeRates>
@@ -50,33 +116,7 @@ export const ExchangesRates = () => {
               <S.TableHeaderItem>Amount</S.TableHeaderItem>
             </tr>
           </thead>
-          <tbody>
-            {redRates.map((rate, index) => (
-              <S.Row redRate key={`${rate.price}-${index}`}>
-                <S.TableItem>{rate.price}</S.TableItem>
-                <S.TableItem>
-                  <span>{rate.amount}</span>
-                  <S.Progress style={{ width: `${rate.progress}%` }} />
-                </S.TableItem>
-              </S.Row>
-            ))}
-            <S.Row redRate big>
-              <S.TableItem>{currentPrice.price}</S.TableItem>
-              <S.TableItem>
-                <span>{currentPrice.amount}</span>
-                <S.Progress style={{ width: `${currentPrice.progress}%` }} />
-              </S.TableItem>
-            </S.Row>
-            {greenRates.map((rate, index) => (
-              <S.Row greenRate key={`${rate.price}-${index}`}>
-                <S.TableItem>{rate.price}</S.TableItem>
-                <S.TableItem>
-                  <span>{rate.amount}</span>
-                  <S.Progress style={{ width: `${rate.progress}%` }} />
-                </S.TableItem>
-              </S.Row>
-            ))}
-          </tbody>
+          <tbody>{renderRates()}</tbody>
         </S.Table>
       </S.Content>
     </S.ExchangeRates>

@@ -65,9 +65,7 @@ export const initialStore: StoreObject = {
     trailingSL: "0.1",
   },
   rates: {
-    currentPrice: mockData.currentPrice,
-    redRates: mockData.redRates,
-    greenRates: mockData.greenRates,
+    data: [],
     selectedStep: stepOptions[0],
   },
   orders: {

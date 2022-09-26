@@ -9,6 +9,8 @@ import {
   CrossGetOutResponse,
   CrossSwapSubmitParams,
   CrossSwapSubmitResponse,
+  GetOrderBookParams,
+  GetOrderBookResponse,
   GetOutParams,
   GetOutResponse,
   GetTokenPriceParams,
@@ -80,4 +82,12 @@ export const getTokenPrice = async (
   axios.post("", {
     method: urls.tokenPrice,
     params: [{ ...params }],
+  });
+
+export const getOrderBook = async (
+  params: GetOrderBookParams,
+): Promise<JsonRpcResponse<GetOrderBookResponse>> =>
+  axios.post("", {
+    method: urls.orderBook,
+    params,
   });

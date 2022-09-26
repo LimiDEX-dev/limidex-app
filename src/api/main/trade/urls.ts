@@ -7,4 +7,5 @@ export const urls = {
   stableReward: "/splx_stableReward",
   checkTokens: "/splx_checkTokens",
   tokenPrice: "/splx_getTokenPrice",
+  orderBook: "/splx_getOrderBook",
 };
