@@ -111,6 +111,8 @@ export const Main = styled("div", {
 });
 
 export const RightTop = styled("div", {
+  flexGrow: 1,
+
   width: "100%",
   height: "100%",
 

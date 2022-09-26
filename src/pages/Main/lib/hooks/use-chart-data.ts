@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { ActionsObject, useLocalStore } from "../../context";
 import { getCandlestickDataByCoin } from "../../../../api/CoinGecko/coins";
 import { ChartDataPoint } from "../../../../types/chart";
+import { getCandles } from "../../../../api/coinCap/candles";
 
 export const useChartData = () => {
   const localStore = useLocalStore();

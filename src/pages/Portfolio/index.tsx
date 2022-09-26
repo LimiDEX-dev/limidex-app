@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { useEthers } from "@usedapp/core";
 
 import { portfolio } from "../../lib/mock/portfolio";
 import { NetworkItem, Button, Modal, Input } from "../../components/atoms";
@@ -10,31 +11,66 @@ import {
 import { SortType } from "../../components/atoms/Sort";
 import { useTokensData } from "./lib/hooks";
 import { ActionsObject, useLocalStore, Store } from "./context";
+import {
+  changeFollowStatus,
+  getMasterTradersPagesCount,
+  getMasterTrades,
+} from "../../api/main/traders";
 
 import * as S from "./style";
 
 const Page: FC = () => {
   useTokensData();
+  const { account } = useEthers();
 
   const [activeNetwork, setActiveNetwork] = useState<number>(0);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [networks, setNetworks] = useState(portfolio.networks);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [trading, setTrading] = useState(portfolio.trading);
   const [sort, setSort] = useState<{
     field: PortfolioTableFields;
     by: SortType;
   }>({ field: "type", by: "no" });
-  const [isFollowModal, setIsFollowModal] = useState<boolean>(false);
+  const [masterTraderAddress, setMasterTraderAddress] = useState<string>("");
   const [tokenValue, setTokenValue] = useState<string>("100");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const localStore = useLocalStore();
   const {
     wallet: { data: wallet, page, pagesCount },
+    traders: { traders, pagesCount: tradersPagesCount, currentPage },
   } = localStore.data;
   const {
     wallet: { setPage },
+    traders: {
+      setTraders,
+      setPagesCount,
+      setCurrentPage,
+      handleChangeFollowStatus,
+    },
   } = localStore.actions as ActionsObject;
+
+  useEffect(() => {
+    (async function () {
+      const { data } = await getMasterTradersPagesCount();
+
+      setPagesCount(data.result);
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (!pagesCount) {
+      return;
+    }
+
+    (async function () {
+      const data = await getMasterTrades({
+        page: currentPage,
+        trader: account,
+      });
+
+      setTraders(data.data.result);
+    })();
+  }, [pagesCount, currentPage]);
 
   const handleChangeActiveNetwork = (index: number) => {
     setActiveNetwork(index);
@@ -48,15 +84,33 @@ const Page: FC = () => {
     setSort({ field: "network", by: "no" });
   };
 
-  const handleFollow = () => {
-    setIsFollowModal(true);
+  const handleFollow = (masterTrader: string) => {
+    setMasterTraderAddress(masterTrader);
+  };
+
+  const submitFollow = async () => {
+    setIsLoading(true);
+
+    const data = await changeFollowStatus({
+      trader: account,
+      traderSig: localStorage.getItem("signature"),
+      // TODO put masterTrader
+      masterTrader: masterTraderAddress,
+    });
+    console.log(data);
+
+    handleChangeFollowStatus({
+      address: masterTraderAddress,
+      isFollow: data.data.result.operation === "follow",
+    });
+    setMasterTraderAddress("");
   };
 
   return (
     <S.Portfolio>
       <Modal
-        isVisible={isFollowModal}
-        handleClose={() => setIsFollowModal(false)}
+        isVisible={!!masterTraderAddress}
+        handleClose={() => setMasterTraderAddress("")}
       >
         <S.ModalTitle>
           Are you sure you want to follow for this trader? After that you will
@@ -74,7 +128,7 @@ const Page: FC = () => {
             min={0}
             currency="%"
           />
-          <Button size="middle" onClick={() => setIsFollowModal(false)}>
+          <Button size="middle" disabled={isLoading} onClick={submitFollow}>
             Subscribe
           </Button>
         </S.ModalActions>
@@ -131,7 +185,7 @@ const Page: FC = () => {
       <PortfolioTable
         sort={sort}
         handleChangeSort={setSort}
-        trading={trading}
+        trading={traders}
         wallet={wallet}
         activeNetwork={activeNetwork}
         handleFollow={handleFollow}

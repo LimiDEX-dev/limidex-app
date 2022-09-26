@@ -89,7 +89,7 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
                     sort={sort.field === "deals" ? sort.by : "no"}
                     onChange={(by) => handleChangeSort({ field: "deals", by })}
                   >
-                    Deals Open/Close
+                    Deals
                   </Sort>
                 </S.TableHeaderItem>
                 <S.TableHeaderItem>
@@ -170,29 +170,29 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
             {activeNetwork === 0
               ? trading.map((item, index) => (
                   <tr
-                    key={`${item.type}-${index}`}
+                    key={`${item.followers}-${index}`}
                     className="portfolio-table__row"
                   >
                     <td>
                       <S.TableItemWrapper>
                         <S.TableIcon />
-                        <S.TableText>{item.type}</S.TableText>
+                        <S.TableText>Trader</S.TableText>
                       </S.TableItemWrapper>
                     </td>
                     <td>
                       <S.TableItemWrapper>
                         <S.TableIcon />
-                        <S.TableText>{item.name}</S.TableText>
+                        <S.TableText>{item.masterTrader}</S.TableText>
                       </S.TableItemWrapper>
                     </td>
                     <td>
                       <S.TableItemWrapper>
-                        <S.TableText>{item.balance}</S.TableText>
+                        {/* <S.TableText>{item.balance}</S.TableText> */}
                       </S.TableItemWrapper>
                     </td>
                     <td>
                       <S.TableItemWrapper>
-                        <S.TableText>{item.deals}</S.TableText>
+                        <S.TableText>{item.dealsCount}</S.TableText>
                       </S.TableItemWrapper>
                     </td>
                     <td>
@@ -202,15 +202,21 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
                     </td>
                     <td>
                       <S.TableItemWrapper>
-                        <S.TableText isUnderline>{item.pnl}</S.TableText>
+                        <S.TableText isUnderline>{item.tradeStat}</S.TableText>
                       </S.TableItemWrapper>
                     </td>
                     <td>
                       <S.TableItemWrapper>
-                        <Button size="middle" onClick={handleFollow}>
-                          Follow
-                        </Button>
-                        <Button size="middle">Unfollow</Button>
+                        {item.isFollowing ? (
+                          <Button size="middle">Unfollow</Button>
+                        ) : (
+                          <Button
+                            size="middle"
+                            onClick={() => handleFollow(item.masterTrader)}
+                          >
+                            Follow
+                          </Button>
+                        )}
                       </S.TableItemWrapper>
                     </td>
                   </tr>

@@ -13,6 +13,7 @@ export interface Rate {
 
 interface ActiveOrdersActions {
   setActiveOrders: (activeOrders: ActiveOrder[]) => void;
+  setActiveOrdersPages: (pages: number) => void;
   deleteActiveOrder: (index: number) => void;
 }
 
@@ -65,9 +66,20 @@ export interface StoreObject {
     selectedStep: DropdownItem;
   };
   orders: {
-    activeOrders: ActiveOrder[];
-    historyOrders: HistoryOrder[];
-    crossOrders: CrossOrder[];
+    activeOrders: {
+      data: ActiveOrder[];
+      pagesCount: number;
+    };
+    historyOrders: {
+      data: HistoryOrder[];
+      pagesCount: number;
+    };
+    crossOrders: {
+      data: CrossOrder[];
+      pagesCount: number;
+    };
+    currentPage: number;
+    currentType: "active" | "history" | "cross";
   };
   chart: Chart;
 }
@@ -120,7 +132,11 @@ export interface ActionsObject {
   orders: {
     activeOrders: ActiveOrdersActions;
     setHistoryOrders: (historyOrders: HistoryOrder[]) => void;
+    setHistoryOrdersPages: (pages: number) => void;
     setCrossOrders: (crossOrders: CrossOrder[]) => void;
+    setCrossOrdersPages: (pages: number) => void;
+    setCurrentPage: (page: number) => void;
+    setCurrentType: (type: "active" | "history" | "cross") => void;
   };
   chart: {
     setChart: (data: ChartDataPoint[]) => void;

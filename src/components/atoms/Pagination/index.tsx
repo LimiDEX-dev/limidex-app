@@ -52,7 +52,7 @@ export const Pagination: FC<PaginationProps> = ({
         <S.Page
           type="button"
           isActive={item === currentPage}
-          key={`${item}-${index}`}
+          key={`pagination-${item}-${index}`}
           disabled={item === "..." || item === currentPage}
           onClick={() => handleChangePage(+item)}
         >

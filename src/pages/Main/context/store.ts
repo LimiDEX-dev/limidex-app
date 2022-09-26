@@ -71,9 +71,20 @@ export const initialStore: StoreObject = {
     selectedStep: stepOptions[0],
   },
   orders: {
-    activeOrders: orders.active,
-    historyOrders: orders.history,
-    crossOrders: orders.cross,
+    activeOrders: {
+      data: [],
+      pagesCount: 0,
+    },
+    historyOrders: {
+      data: [],
+      pagesCount: 0,
+    },
+    crossOrders: {
+      data: [],
+      pagesCount: 0,
+    },
+    currentPage: 1,
+    currentType: "active",
   },
   chart,
 };

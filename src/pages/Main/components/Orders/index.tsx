@@ -1,73 +1,44 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { useEthers } from "@usedapp/core";
-import { orders } from "../../../../lib/mock/orders";
 
 import { CloseIcon } from "../../../../lib/icons";
 import { ActionsObject, useLocalStore } from "../../context";
 import { removeLimitOrder } from "../../../../api/main/orders";
 
 import * as S from "./style";
+import { Pagination } from "../../../../components/atoms";
 
 export const Orders: FC = () => {
   const { account } = useEthers();
 
-  const [activeTab, setActiveTab] = useState<0 | 1 | 2>(0);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
   const localStore = useLocalStore();
   const {
-    orders: { activeOrders, historyOrders, crossOrders },
+    orders: {
+      activeOrders,
+      historyOrders,
+      crossOrders,
+      currentPage,
+      currentType,
+    },
   } = localStore.data;
   const {
     orders: {
       activeOrders: { deleteActiveOrder },
+      setCurrentPage,
+      setCurrentType,
     },
   } = localStore.actions as ActionsObject;
 
-  useEffect(() => {
-    // THERE IS FUNCTION THAT SET ORDERS DATA
-    // setActiveOrders(someData);
-    // setHistoryOrders(someData);
-  }, []);
-
-  const pagesCount = Math.ceil(orders.history.length / 10);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const getFormattedPages = () => {
-    if (pagesCount > 5) {
-      if (currentPage === 1 || currentPage === 2) {
-        return [1, 2, 3, "...", pagesCount];
-      }
-      if (currentPage === 3) {
-        return [1, 2, 3, 4, "...", pagesCount];
-      }
-      if (currentPage === pagesCount || currentPage === pagesCount - 1) {
-        return [1, "...", pagesCount - 2, pagesCount - 1, pagesCount];
-      }
-      if (currentPage === pagesCount - 2) {
-        return [
-          1,
-          "...",
-          pagesCount - 3,
-          pagesCount - 2,
-          pagesCount - 1,
-          pagesCount,
-        ];
-      }
-
-      return [
-        1,
-        "...",
-        currentPage - 1,
-        currentPage,
-        currentPage + 1,
-        "...",
-        pagesCount,
-      ];
+  const getPagesCount = () => {
+    if (currentType === "history") {
+      return historyOrders.pagesCount;
     }
 
-    return Array.from({ length: pagesCount }, (_, i) => i + 1);
+    if (currentType === "active") {
+      return activeOrders.pagesCount;
+    }
+
+    return crossOrders.pagesCount;
   };
 
   const handleDeleteActiveOrder = async (index) => {
@@ -85,7 +56,7 @@ export const Orders: FC = () => {
   };
 
   const getTable = () => {
-    if (activeTab === 0) {
+    if (currentType === "active") {
       return (
         <S.Table>
           <thead>
@@ -101,15 +72,12 @@ export const Orders: FC = () => {
             </tr>
           </thead>
           <tbody>
-            {activeOrders.map((order, index) => (
+            {activeOrders.data.map((order, index) => (
               // eslint-disable-next-line react/no-array-index-key
-              <tr key={`${order.asset.name}-${index}`}>
+              <tr key={`${order.orderID}-${index}`}>
                 <S.TableItem>
                   <S.TableItemWrapper>
-                    <span>
-                      <S.Text bold>{order.asset.name}</S.Text> (
-                      {order.asset.descr})
-                    </span>
+                    <span>{order.fromToken}</span>
                   </S.TableItemWrapper>
                 </S.TableItem>
                 <S.TableItem textCenter>
@@ -120,21 +88,18 @@ export const Orders: FC = () => {
                 <S.TableItem>
                   <S.TableItemWrapper>
                     <span>
-                      <span>
-                        <S.Text bold>{order.destination.name}</S.Text> (
-                        {order.destination.descr})
-                      </span>
+                      <span>{order.toToken}</span>
                     </span>
                   </S.TableItemWrapper>
                 </S.TableItem>
                 <S.TableItem textCenter>
                   <S.TableItemWrapper>
-                    <span>{order.estimatedOut}</span>
+                    <span>{+order.volume * +order.price}</span>
                   </S.TableItemWrapper>
                 </S.TableItem>
                 <S.TableItem textCenter>
                   <S.TableItemWrapper>
-                    <span>{order.type}</span>
+                    <span>{order.orderType}</span>
                   </S.TableItemWrapper>
                 </S.TableItem>
                 <S.TableItem textCenter>
@@ -144,7 +109,9 @@ export const Orders: FC = () => {
                 </S.TableItem>
                 <S.TableItem textCenter>
                   <S.TableItemWrapper>
-                    <span>{order.tpSl}</span>
+                    <span>
+                      {order.takeProfit}/{order.stopLoss}
+                    </span>
                   </S.TableItemWrapper>
                 </S.TableItem>
                 <S.TableItem>
@@ -162,7 +129,7 @@ export const Orders: FC = () => {
       );
     }
 
-    if (activeTab === 1) {
+    if (currentType === "history") {
       return (
         <S.Table>
           <thead>
@@ -179,7 +146,7 @@ export const Orders: FC = () => {
             </tr>
           </thead>
           <tbody>
-            {historyOrders
+            {historyOrders.data
               .slice((currentPage - 1) * 10, currentPage * 10)
               .map((order, index) => (
                 // eslint-disable-next-line react/no-array-index-key
@@ -257,16 +224,13 @@ export const Orders: FC = () => {
           </tr>
         </thead>
         <tbody>
-          {crossOrders
+          {crossOrders.data
             .slice((currentPage - 1) * 10, currentPage * 10)
             .map((order, index) => (
               // eslint-disable-next-line react/no-array-index-key
-              <tr key={`${order.asset.name}-${index}`}>
+              <tr key={`${order.amountOut}-${index}`}>
                 <S.TableItem>
-                  <S.TableItemWrapper>
-                    <S.Text bold>{order.asset.name}</S.Text> (
-                    {order.asset.descr})
-                  </S.TableItemWrapper>
+                  <S.TableItemWrapper>{order.fromToken}</S.TableItemWrapper>
                 </S.TableItem>
                 <S.TableItem>
                   <S.TableItemWrapper>
@@ -274,24 +238,21 @@ export const Orders: FC = () => {
                   </S.TableItemWrapper>
                 </S.TableItem>
                 <S.TableItem>
+                  <S.TableItemWrapper>{order.toToken}</S.TableItemWrapper>
+                </S.TableItem>
+                <S.TableItem>
                   <S.TableItemWrapper>
-                    <S.Text bold>{order.destination.name}</S.Text> (
-                    {order.destination.descr})
+                    <span>{order.amountOut}</span>
                   </S.TableItemWrapper>
                 </S.TableItem>
                 <S.TableItem>
                   <S.TableItemWrapper>
-                    <span>{order.amount}</span>
+                    <span>{order.statusSrc}</span>
                   </S.TableItemWrapper>
                 </S.TableItem>
                 <S.TableItem>
                   <S.TableItemWrapper>
-                    <span>{order.status}</span>
-                  </S.TableItemWrapper>
-                </S.TableItem>
-                <S.TableItem>
-                  <S.TableItemWrapper>
-                    <span>{order.rewards}</span>
+                    {/* <span>{order.rewards}</span> */}
                   </S.TableItemWrapper>
                 </S.TableItem>
                 <S.TableItem>
@@ -316,28 +277,33 @@ export const Orders: FC = () => {
       <S.Container>
         <S.Tabs>
           <S.Tab
-            isActive={activeTab === 0}
+            isActive={currentType === "active"}
             type="button"
-            onClick={() => setActiveTab(0)}
+            onClick={() => setCurrentType("active")}
           >
             Active orders
           </S.Tab>
           <S.Tab
-            isActive={activeTab === 1}
+            isActive={currentType === "history"}
             type="button"
-            onClick={() => setActiveTab(1)}
+            onClick={() => setCurrentType("history")}
           >
             Order history
           </S.Tab>
           <S.Tab
-            isActive={activeTab === 2}
+            isActive={currentType === "cross"}
             type="button"
-            onClick={() => setActiveTab(2)}
+            onClick={() => setCurrentType("cross")}
           >
             Cross-chain history
           </S.Tab>
         </S.Tabs>
         <S.Content>{getTable()}</S.Content>
+        <Pagination
+          pagesCount={getPagesCount()}
+          currentPage={currentPage}
+          handleChangePage={(page) => setCurrentPage(page)}
+        />
       </S.Container>
     </S.Orders>
   );

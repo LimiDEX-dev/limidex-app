@@ -23,7 +23,7 @@ import {
 import * as S from "./style";
 
 export const PlaceOrder: FC = () => {
-  const { account } = useEthers();
+  const { account, activateBrowserWallet } = useEthers();
 
   const localStore = useLocalStore();
 
@@ -83,6 +83,12 @@ export const PlaceOrder: FC = () => {
   };
 
   const handleSubmit = async () => {
+    if (!account) {
+      activateBrowserWallet();
+
+      return;
+    }
+
     setTransactionsPending(1);
 
     const params = {

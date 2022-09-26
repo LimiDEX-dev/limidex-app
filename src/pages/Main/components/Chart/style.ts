@@ -116,7 +116,7 @@ export const HeaderValute = styled("div", {
   },
 });
 
-export const HeaderValuteIcon = styled("span", {
+export const HeaderValuteIcon = styled("img", {
   display: "block",
   flexShrink: 0,
 
@@ -124,7 +124,6 @@ export const HeaderValuteIcon = styled("span", {
   height: 24,
   marginRight: 8,
 
-  backgroundColor: "#C4C4C4",
   borderRadius: "100%",
 });
 

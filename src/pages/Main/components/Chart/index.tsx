@@ -110,9 +110,17 @@ export const Chart: FC<ChartProps> = ({ height, setHeight }) => {
         </S.HeaderWrapper>
         <S.HeaderCurrent>
           <S.HeaderValute>
-            <S.HeaderValuteIcon />
-            <S.HeaderValuteIcon />
-            <S.HeaderValuteText>WNBN / WNBN</S.HeaderValuteText>
+            <S.HeaderValuteIcon
+              src={(selectedSell?.icon as string) || ""}
+              alt=""
+            />
+            <S.HeaderValuteIcon
+              src={(selectedBuy?.icon as string) || ""}
+              alt=""
+            />
+            <S.HeaderValuteText>
+              {selectedSell?.symbol} / {selectedBuy?.symbol}
+            </S.HeaderValuteText>
           </S.HeaderValute>
           <S.HeaderCurrentWrapper>
             <S.HeaderCurrentText>556.7373732987</S.HeaderCurrentText>

@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React, { FC, useEffect } from "react";
 import { useEthers } from "@usedapp/core";
+import { useNavigate } from "react-router-dom";
 
 import { Title, Description, Button } from "../../components/atoms";
 import { CopyIcon } from "../../lib/icons";
@@ -16,7 +17,7 @@ import { useGlobalStore } from "../../store";
 import * as S from "./style";
 
 const Page: FC = () => {
-  const { account } = useEthers();
+  const { account, activateBrowserWallet } = useEthers();
 
   const {
     data: { rewards },
@@ -79,6 +80,15 @@ const Page: FC = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(referralLink);
   };
+
+  if (!account) {
+    return (
+      <S.Referral center>
+        <Title>Connect your wallet to view this page</Title>
+        <Button onClick={activateBrowserWallet}>Connect wallet</Button>
+      </S.Referral>
+    );
+  }
 
   return (
     <S.Referral>

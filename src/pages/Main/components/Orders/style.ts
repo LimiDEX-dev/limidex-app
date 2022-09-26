@@ -57,7 +57,7 @@ export const Tab = styled("button", {
 });
 
 export const Content = styled("div", {
-  height: "calc(100% - 24px)",
+  height: "calc(100% - 74px)",
   padding: "24px 20px",
   margin: "10px 0 0",
 

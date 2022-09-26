@@ -1,5 +1,6 @@
 import React, { FC, useLayoutEffect, useState } from "react";
 
+import { useEthers } from "@usedapp/core";
 import { PlaceOrder, Orders, Chart, ExchangesRates } from "./components";
 import { ChartIcon, RatesIcon } from "../../lib/icons";
 import { ActionsObject, useLocalStore, Store } from "./context";
@@ -9,6 +10,8 @@ import * as S from "./style";
 
 const Page = () => {
   useChartData();
+
+  const { account } = useEthers();
 
   const [height, setHeight] = useState<number>(0);
 
@@ -39,7 +42,7 @@ const Page = () => {
     return () => {
       window.removeEventListener("resize", update);
     };
-  }, [isExpertMode, orderTab]);
+  }, [isExpertMode, orderTab, account]);
 
   return (
     <S.Main
@@ -61,9 +64,11 @@ const Page = () => {
           </S.ChartContainer>
         </S.RightTop>
 
-        <S.RightBottom>
-          <Orders />
-        </S.RightBottom>
+        {account && (
+          <S.RightBottom>
+            <Orders />
+          </S.RightBottom>
+        )}
       </S.RightContent>
       <S.Actions>
         <S.ActionButton type="button" onClick={() => setMobileTab("chart")}>
@@ -73,7 +78,7 @@ const Page = () => {
           <RatesIcon />
         </S.ActionButton>
       </S.Actions>
-      <Orders />
+      {account && <Orders />}
     </S.Main>
   );
 };

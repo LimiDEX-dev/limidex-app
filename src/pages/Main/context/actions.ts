@@ -341,7 +341,10 @@ export const provideActions = (
           ...store,
           orders: {
             ...store.orders,
-            activeOrders: payload,
+            activeOrders: {
+              ...store.orders.activeOrders,
+              data: payload,
+            },
           },
         }));
       },
@@ -350,10 +353,25 @@ export const provideActions = (
           ...store,
           orders: {
             ...store.orders,
-            activeOrders: [
-              ...store.orders.activeOrders.slice(0, payload),
-              ...store.orders.activeOrders.slice(payload + 1),
-            ],
+            activeOrders: {
+              ...store.orders.activeOrders,
+              data: [
+                ...store.orders.activeOrders.data.slice(0, payload),
+                ...store.orders.activeOrders.data.slice(payload + 1),
+              ],
+            },
+          },
+        }));
+      },
+      setActiveOrdersPages: (payload) => {
+        setStore((store) => ({
+          ...store,
+          orders: {
+            ...store.orders,
+            activeOrders: {
+              ...store.orders.activeOrders,
+              pagesCount: payload,
+            },
           },
         }));
       },
@@ -361,18 +379,66 @@ export const provideActions = (
     setHistoryOrders: (payload) => {
       setStore((store) => ({
         ...store,
-        historyOrders: {
+        orders: {
           ...store.orders,
-          historyOrders: payload,
+          historyOrders: {
+            ...store.orders.historyOrders,
+            data: payload,
+          },
+        },
+      }));
+    },
+    setHistoryOrdersPages: (payload) => {
+      setStore((store) => ({
+        ...store,
+        orders: {
+          ...store.orders,
+          historyOrders: {
+            ...store.orders.historyOrders,
+            pagesCount: payload,
+          },
         },
       }));
     },
     setCrossOrders: (payload) => {
       setStore((store) => ({
         ...store,
-        crossOrders: {
+        orders: {
           ...store.orders,
-          crossOrders: payload,
+          crossOrders: {
+            ...store.orders.crossOrders,
+            data: payload,
+          },
+        },
+      }));
+    },
+    setCrossOrdersPages: (payload) => {
+      setStore((store) => ({
+        ...store,
+        orders: {
+          ...store.orders,
+          crossOrders: {
+            ...store.orders.crossOrders,
+            pagesCount: payload,
+          },
+        },
+      }));
+    },
+    setCurrentPage: (payload) => {
+      setStore((store) => ({
+        ...store,
+        orders: {
+          ...store.orders,
+          currentPage: payload,
+        },
+      }));
+    },
+    setCurrentType: (payload) => {
+      setStore((store) => ({
+        ...store,
+        orders: {
+          ...store.orders,
+          currentType: payload,
         },
       }));
     },

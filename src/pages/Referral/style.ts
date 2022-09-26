@@ -4,6 +4,25 @@ import { Button, Description, Title } from "../../components/atoms/styled";
 export const Referral = styled("div", {
   display: "flex",
   flexDirection: "column",
+
+  variants: {
+    center: {
+      true: {
+        alignItems: "center",
+
+        maxWidth: 900,
+        margin: "0 auto",
+
+        [`& > ${Button}`]: {
+          width: "auto",
+        },
+
+        [`& > ${Title}`]: {
+          marginBottom: 20,
+        },
+      },
+    },
+  },
 });
 
 export const List = styled("ul", {
