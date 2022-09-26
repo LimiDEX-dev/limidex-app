@@ -117,7 +117,12 @@ export const PortfolioTable: FC<PortfolioTableProps> = ({
                     <td>
                       <S.TableItemWrapper>
                         {item.isFollowing ? (
-                          <Button size="middle">Unfollow</Button>
+                          <Button
+                            size="middle"
+                            onClick={() => handleFollow(item.masterTrader)}
+                          >
+                            Unfollow
+                          </Button>
                         ) : (
                           <Button
                             size="middle"
