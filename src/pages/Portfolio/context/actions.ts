@@ -85,4 +85,10 @@ export const provideActions = (
       });
     },
   },
+  setUser: (payload) => {
+    setStore((store) => ({
+      ...store,
+      user: payload,
+    }));
+  },
 });

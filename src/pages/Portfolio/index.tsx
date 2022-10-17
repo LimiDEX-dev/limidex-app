@@ -18,6 +18,7 @@ import {
 } from "../../api/main/traders";
 
 import * as S from "./style";
+import { getRefAndFollowStats } from "../../api/main/rewards";
 
 const Page: FC = () => {
   useTokensData();
@@ -38,6 +39,7 @@ const Page: FC = () => {
   const {
     wallet: { data: wallet, page, pagesCount },
     traders: { traders, pagesCount: tradersPagesCount, currentPage },
+    user: { followers, following, refsLvl1Count },
   } = localStore.data;
   const {
     wallet: { setPage },
@@ -47,13 +49,16 @@ const Page: FC = () => {
       setCurrentPage,
       handleChangeFollowStatus,
     },
+    setUser,
   } = localStore.actions as ActionsObject;
 
   useEffect(() => {
     (async function () {
       const { data } = await getMasterTradersPagesCount();
+      const { data: user } = await getRefAndFollowStats();
 
       setPagesCount(data.result);
+      setUser(user.result);
     })();
   }, []);
 
@@ -136,27 +141,25 @@ const Page: FC = () => {
       <S.Info>
         <S.InfoWrapper>
           <S.InfoWallet>
-            <S.InfoWalletTitle>
-              0x039e1e57a1a1028819f7ecd11d67b49b86316e37
-            </S.InfoWalletTitle>
+            <S.InfoWalletTitle>{account}</S.InfoWalletTitle>
             <Button size="middle">Share</Button>
             <Button size="middle">Follow</Button>
           </S.InfoWallet>
           <S.InfoStats>
             <S.InfoStatsItem>
-              Following <span>0</span>
+              Following <span>{following}</span>
             </S.InfoStatsItem>
             <S.InfoStatsItem>
-              Followers <span>0</span>
+              Followers <span>{followers}</span>
             </S.InfoStatsItem>
           </S.InfoStats>
           <S.InfoRewards>
-            <S.InfoBalanceTitle>Rewards: $12,357,554</S.InfoBalanceTitle>
+            <S.InfoBalanceTitle>Rewards: ${refsLvl1Count}</S.InfoBalanceTitle>
           </S.InfoRewards>
         </S.InfoWrapper>
         <S.InfoWrapper>
           <S.InfoBalance>
-            <S.InfoBalanceTitle>Balance: $12,357,554</S.InfoBalanceTitle>
+            <S.InfoBalanceTitle>Balance: ${refsLvl1Count}</S.InfoBalanceTitle>
             <S.InfoBalanceTags>
               <S.InfoBalanceTag red>
                 Weekly PnL: <span>-10%</span>

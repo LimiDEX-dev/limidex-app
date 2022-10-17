@@ -1,6 +1,8 @@
 import React, { FC, useEffect } from "react";
 
 import { ethers } from "ethers";
+import { useEthers, useTokenBalance } from "@usedapp/core";
+import { formatEther } from "ethers/lib/utils";
 import { useTokens } from "../../../../../../store";
 import { Dropdown, DropdownItem } from "../../../../../../components/atoms";
 import { SwapIcon } from "../../../../../../lib/icons";
@@ -20,6 +22,7 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
 }) => {
   const { data: tokens } = useTokens();
   const localStore = useLocalStore();
+  const { account } = useEthers();
 
   const {
     ui: { orderTab },
@@ -167,12 +170,17 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
     })();
   }, [toBuy, selectedBuy]);
 
+  const sellCoinBalance = useTokenBalance(selectedSell?.value || "", account);
+  const buyCoinBalance = useTokenBalance(selectedBuy?.value || "", account);
+
   return (
     <S.ConvertDropdowns>
       <S.Converter>
         <S.ConverterHeader>
           <S.ConverterHeaderItemTitle>You Pay</S.ConverterHeaderItemTitle>
-          <S.ConverterHeaderItem>Balance: 12</S.ConverterHeaderItem>
+          <S.ConverterHeaderItem>
+            Balance: {sellCoinBalance ? formatEther(sellCoinBalance) : 0}
+          </S.ConverterHeaderItem>
         </S.ConverterHeader>
         <S.ConverterContent>
           <Dropdown
@@ -217,7 +225,9 @@ export const ConvertDropdowns: FC<ConvertDropdownsProps> = ({
       <S.Converter>
         <S.ConverterHeader>
           <S.ConverterHeaderItemTitle>You Recieve</S.ConverterHeaderItemTitle>
-          <S.ConverterHeaderItem>Balance: 12</S.ConverterHeaderItem>
+          <S.ConverterHeaderItem>
+            Balance: {buyCoinBalance ? formatEther(buyCoinBalance) : 0}
+          </S.ConverterHeaderItem>
         </S.ConverterHeader>
         <S.ConverterContent>
           <Dropdown

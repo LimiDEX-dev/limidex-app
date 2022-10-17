@@ -11,4 +11,11 @@ export const initialStore: StoreObject = {
     traders: [],
     currentPage: 1,
   },
+  user: {
+    refsLvl1Count: 0,
+    refsLvl2Count: 0,
+    followers: 0,
+    following: 0,
+    isMasterTrader: false,
+  },
 };

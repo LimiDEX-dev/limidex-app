@@ -4,4 +4,5 @@ export const urls = {
   claimReward: "/splx_claimReward",
   claimAndBridgeAllRewards: "/splx_claimAndBridgeAllRewards",
   getArbPool: "/splx_getArbPool",
+  refAndFollowStats: "/splx_getRefAndFollowStat",
 };

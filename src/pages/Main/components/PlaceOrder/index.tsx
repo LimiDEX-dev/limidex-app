@@ -12,7 +12,6 @@ import {
   PlaceOrderAdvanced,
   PlaceOrderHeader,
   PlaceOrderRoutes,
-  PlaceOrderTrade,
 } from "./components";
 import {
   handleSubmitCrossSwap,

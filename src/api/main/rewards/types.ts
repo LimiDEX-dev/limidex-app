@@ -42,3 +42,11 @@ export interface GetArbPoolResponse {
     };
   };
 }
+
+export interface GetRefAndFollowStatsResponse {
+  refsLvl1Count: number;
+  refsLvl2Count: number;
+  followers: number;
+  following: number;
+  isMasterTrader: boolean;
+}

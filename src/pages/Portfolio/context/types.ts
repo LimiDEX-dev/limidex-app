@@ -1,5 +1,6 @@
 import { WalletItem } from "../../../types/portfolio";
 import { Trader } from "../../../types/traders";
+import { GetRefAndFollowStatsResponse } from "../../../api/main/rewards/types";
 
 export interface StoreObject {
   wallet: {
@@ -12,6 +13,7 @@ export interface StoreObject {
     traders: Trader[];
     currentPage: number;
   };
+  user: GetRefAndFollowStatsResponse;
 }
 
 export interface ActionsObject {
@@ -29,4 +31,5 @@ export interface ActionsObject {
       isFollow: boolean;
     }) => void;
   };
+  setUser: (payload: GetRefAndFollowStatsResponse) => void;
 }

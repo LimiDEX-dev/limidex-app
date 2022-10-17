@@ -8,6 +8,7 @@ import {
   ClaimRewardResponse,
   GetArbPoolParams,
   GetArbPoolResponse,
+  GetRefAndFollowStatsResponse,
   GetRewardBalanceParams,
 } from "./types";
 import { urls } from "./urls";
@@ -48,4 +49,11 @@ export const getArbPool = async (
   axios.post("", {
     method: urls.getArbPool,
     params: [{ ...params }],
+  });
+
+export const getRefAndFollowStats = async (): Promise<
+  JsonRpcResponse<GetRefAndFollowStatsResponse>
+> =>
+  axios.post("", {
+    method: urls.refAndFollowStats,
   });
