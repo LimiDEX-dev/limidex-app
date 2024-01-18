@@ -205,11 +205,11 @@ export const Header: FC = () => {
           </S.Logo>
           <S.Nav>
             <S.List>
-              <S.Item>
-                <NavLink to="/staking" onClick={handleOpen}>
-                  Staking
-                </NavLink>
-              </S.Item>
+              {/* <S.Item> */}
+              {/*  <NavLink to="/staking" onClick={handleOpen}> */}
+              {/*    Staking */}
+              {/*  </NavLink> */}
+              {/* </S.Item> */}
               <S.Item>
                 <NavLink to="/trading" onClick={handleOpen}>
                   Copy trade
@@ -217,7 +217,7 @@ export const Header: FC = () => {
               </S.Item>
               <S.Item>
                 <NavLink to="/lmx" onClick={handleOpen}>
-                  veSPLX
+                  Staking veSPLX
                 </NavLink>
               </S.Item>
               <S.Item>

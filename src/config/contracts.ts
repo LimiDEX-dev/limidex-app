@@ -4,7 +4,7 @@ import { veTokenAbi } from "./abi/veToken";
 
 type Contract = {
   address: string;
-  abi: string[];
+  abi: object[] | string[];
 };
 
 export const contracts: {
@@ -21,7 +21,7 @@ export const contracts: {
     abi: poolAbi,
   },
   veToken: {
-    address: "0x000",
+    address: "0xA26710B65D505b6f85ECB418b073A4A67586DEdD",
     abi: veTokenAbi,
   },
 };

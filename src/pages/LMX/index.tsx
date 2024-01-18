@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { useEthers } from "@usedapp/core";
 import { Contract, ethers } from "ethers";
-import { Title, Description } from "../../components/atoms";
+import { Title, Description, Button } from "../../components/atoms";
 import { lmx } from "../../lib/mock/lmx";
 import { StakingCard, WithdrawModal } from "../../components/molecules";
 import { Store, useLocalStore, ActionsObject } from "./context";
@@ -15,13 +15,23 @@ import { DepositModal } from "./components";
 
 import * as S from "./style";
 
+const splxToVeSplxByMonth = {
+  1: 0.1,
+  3: 0.25,
+  6: 0.5,
+  12: 1,
+};
+
 const Page: FC = () => {
-  const { library } = useEthers();
+  const { library, account } = useEthers();
 
   const [isDeposit, setIsDeposit] = useState<boolean>(false);
   const [isWithdraw, setIsWithdraw] = useState<boolean>(false);
   const [contract, setContract] = useState<null | Contract>(null);
   const [poolContract, setPoolContract] = useState<null | Contract>(null);
+  const [lockMonth, setLockMonth] = useState(3);
+  const [splx, setSplx] = useState<number | "">(0);
+  const [splxBalance, setSplxBalance] = useState<number>(0);
 
   const localStore = useLocalStore();
   const {
@@ -42,11 +52,21 @@ const Page: FC = () => {
           signer,
         ),
       );
-      setPoolContract(
-        new ethers.Contract(contracts.pool.address, contracts.pool.abi, signer),
-      );
+      // setPoolContract(
+      //   new ethers.Contract(contracts.pool.address, contracts.pool.abi, signer),
+      // );
     }
   }, [library]);
+
+  useEffect(() => {
+    if (contract && account) {
+      (async function () {
+        const balance = Number(await contract.balanceOf(account));
+
+        setSplxBalance(balance);
+      })();
+    }
+  }, [contract, account]);
 
   useEffect(() => {
     if (poolContract && !Number.isNaN(parseInt(lpTokens, 10))) {
@@ -59,48 +79,6 @@ const Page: FC = () => {
       })();
     }
   }, [lpTokens, poolContract]);
-
-  const getFirstDescription = () => (
-    <Description>
-      Lock SPLX to Earn all native network coins simultaneously
-      <br />
-      <br />
-    </Description>
-  );
-
-  const getRewardsDescription = () => (
-    <span className="lmx__rewards-description">
-      <Description>
-        Holders can lock SPLX for a certain period of time to get veSPLX, which
-        allows them right to receive a share of the profits on each network
-        <S.Description>
-          <S.DescriptionWrapper>
-            <S.DescriptionTitle>Time Lock</S.DescriptionTitle>
-            <S.DescriptionContent>
-              1 Month: 1 SPLX = 0.1 veSPLX <br />3 Months: 1 SPLX = 0.25 veSPLX{" "}
-              <br />6 Months: 1 SPLX = 0.5 veSPLX <br />
-              1 Year: 1 SPLX = 1 veSPLX
-              <br />
-              <br />
-              The protocol allocates 2% of the total protocol profit in each
-              network and distributes it to veSPLX holders
-              <br />
-              <br />
-              Lock SPLX and get rewards in WETH, WBNB, WMATIC, WFTM, WAVAX,
-              arbitrum WETH
-            </S.DescriptionContent>
-          </S.DescriptionWrapper>
-        </S.Description>
-      </Description>
-    </span>
-  );
-
-  const getDescription = () => (
-    <Description>
-      {getFirstDescription()}
-      {getRewardsDescription()}
-    </Description>
-  );
 
   const handleSubmit = async () => {
     if (!contract) {
@@ -143,46 +121,165 @@ const Page: FC = () => {
       />
       <S.LMX>
         <S.Wrapper>
-          <Title>Lock SPLX to Earn protocol profits</Title>
-          {getDescription()}
+          <Title>Lock SPLX for Real Yield</Title>
+          <Description>
+            10% of total MEV profits in each network distribute among veSPLX
+            holders.
+            <br />
+            <br />
+            <S.Link
+              target="_blank"
+              href="https://split-docs.gitbook.io/docs/fundamentals/tokenomics"
+            >
+              Learn more
+            </S.Link>
+          </Description>
         </S.Wrapper>
         <S.Wrapper>
-          <Swiper
-            modules={[Pagination]}
-            slidesPerView={1}
-            spaceBetween={0}
-            pagination={{
-              clickable: true,
-              el: ".custom-pagination",
-              renderBullet: (index, className) => `
-              <span class="${className}">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="8" cy="8" r="2" fill="currentColor" />
-                  <circle cx="8" cy="8" r="4.5" stroke="currentColor" />
-                </svg>
-              </span>
-            `,
-            }}
-          >
-            {lmx.cards.map((card, index) => (
-              <SwiperSlide key={`${card.title}-${index}`}>
-                <StakingCard
-                  title={card.title}
-                  list={card.list}
-                  handleDeposit={() => setIsDeposit(true)}
-                  handleWithdraw={() => setIsWithdraw(true)}
-                  tokens={card.tokens}
-                  icon="/assets/split-tech.png"
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <div className="custom-pagination" />
+          <S.Cards>
+            <S.Card>
+              <S.CardTitle>Your NFT Positions</S.CardTitle>
+              <S.Table>
+                <thead>
+                  <tr>
+                    <th>Token ID</th>
+                    <th>SPLX / veSPLX</th>
+                    <th>Days to unlock</th>
+                    <th />
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <S.Cell>76</S.Cell>
+                    <S.Cell>100/100</S.Cell>
+                    <S.Cell>365</S.Cell>
+                    <S.Cell>
+                      <Button size="small">Withdraw</Button>
+                    </S.Cell>
+                  </tr>
+                </tbody>
+              </S.Table>
+
+              <S.NftCardFooter>
+                <S.Divider />
+                Total Stake: 250 SPLX / 175 veSPLX
+              </S.NftCardFooter>
+            </S.Card>
+            <S.Card>
+              <S.CardTitle>Lock SPLX</S.CardTitle>
+              <S.Lock>
+                <S.LockHeader>
+                  <S.LockAmount>Amount</S.LockAmount>
+                  <S.LockBalance>Balance: 12</S.LockBalance>
+                </S.LockHeader>
+                <S.LockInput>
+                  <S.LockInputContent>
+                    <img src="/assets/logo-mobile.png" alt="" width={26} />
+                    <S.LockInputText>SPLX</S.LockInputText>
+                  </S.LockInputContent>
+                  <S.LockInputDivider />
+                  <S.LockInputComponent
+                    value={splx}
+                    onChange={({ target }) =>
+                      Number.isNaN(parseInt(target.value, 10)) &&
+                      target.value !== ""
+                        ? null
+                        : setSplx(parseInt(target.value, 10) || "")
+                    }
+                  />
+                </S.LockInput>
+                <S.LockButtons>
+                  <S.LockButton
+                    type="button"
+                    isActive={lockMonth === 1}
+                    onClick={() => setLockMonth(1)}
+                  >
+                    1M
+                  </S.LockButton>
+                  <S.LockButton
+                    type="button"
+                    isActive={lockMonth === 3}
+                    onClick={() => setLockMonth(3)}
+                  >
+                    3M
+                  </S.LockButton>
+                  <S.LockButton
+                    type="button"
+                    isActive={lockMonth === 6}
+                    onClick={() => setLockMonth(6)}
+                  >
+                    6M
+                  </S.LockButton>
+                  <S.LockButton
+                    type="button"
+                    isActive={lockMonth === 12}
+                    onClick={() => setLockMonth(12)}
+                  >
+                    12M
+                  </S.LockButton>
+                </S.LockButtons>
+                <S.LockList>
+                  <S.LockListItem>
+                    <S.LockListItemText>veSPLX Received</S.LockListItemText>
+                    <S.LockListItemText isWhite>
+                      {splx ? splx * splxToVeSplxByMonth[lockMonth] : 0}
+                    </S.LockListItemText>
+                  </S.LockListItem>
+                  <S.LockListItem>
+                    <S.LockListItemText>Total Staked SPLX</S.LockListItemText>
+                    <S.LockListItemText isWhite>1.2M</S.LockListItemText>
+                  </S.LockListItem>
+                  <S.LockListItem>
+                    <S.LockListItemText>% of Circ. Supply</S.LockListItemText>
+                    <S.LockListItemText isWhite>5%</S.LockListItemText>
+                  </S.LockListItem>
+                  <S.LockListItem>
+                    <S.LockListItemText>Total MEV Rewards</S.LockListItemText>
+                    <S.LockListItemText isWhite>-</S.LockListItemText>
+                  </S.LockListItem>
+                  <S.LockListItem>
+                    <S.LockListItemText>APY</S.LockListItemText>
+                    <S.LockListItemText isWhite>5%</S.LockListItemText>
+                  </S.LockListItem>
+                </S.LockList>
+                <S.LockAction>Lock SPLX</S.LockAction>
+              </S.Lock>
+            </S.Card>
+            <S.Card>
+              <S.CardTitle>Reward list</S.CardTitle>
+              <S.Table>
+                <thead>
+                  <tr>
+                    <th>Network Coin</th>
+                    <th>Total</th>
+                    <th>Available to claim</th>
+                    <th />
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <S.Cell>
+                      <S.CellCoin>
+                        <S.CellCoinImageWrapper>
+                          <img src="https://place-hold.it/30x30" alt="coin" />
+                        </S.CellCoinImageWrapper>
+                        <S.CellCoinTextWrapper>
+                          <S.CellCoinText>WETH</S.CellCoinText>
+                          <S.CellCoinText small>Ethereum</S.CellCoinText>
+                        </S.CellCoinTextWrapper>
+                      </S.CellCoin>
+                    </S.Cell>
+                    <S.Cell>72.67/$36.53</S.Cell>
+                    <S.Cell>720.67/$360.53</S.Cell>
+                    <S.Cell>
+                      <Button size="small">Claim</Button>
+                    </S.Cell>
+                  </tr>
+                </tbody>
+              </S.Table>
+            </S.Card>
+          </S.Cards>
         </S.Wrapper>
-        <S.DescriptionMainWrapper>
-          {getFirstDescription()}
-          {getRewardsDescription()}
-        </S.DescriptionMainWrapper>
       </S.LMX>
     </>
   );
